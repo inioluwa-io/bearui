@@ -1,6 +1,6 @@
 {
   "name": "rap-core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Core component for react-admin-panel",
   "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
   "homepage": "",
@@ -17,6 +17,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "react-admin-panel": "^0.0.0"
+    "react-admin-panel": "^0.0.1"
   }
 }

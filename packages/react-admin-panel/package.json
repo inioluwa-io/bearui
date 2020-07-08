@@ -1,6 +1,6 @@
 {
   "name": "react-admin-panel",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A frontend Framework for building admin applications on top of REST services, using React, ES6",
   "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
   "homepage": "",
@@ -14,7 +14,7 @@
     "lib"
   ],
   "dependencies": {
-    "rap-core": "0.0.0"
+    "rap-core": "^0.0.1"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
