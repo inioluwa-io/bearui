@@ -1,6 +1,6 @@
 {
   "name": "demo",
-  "description":"Demo for the react admin panel package ",
+  "description": "Demo for the react admin panel package ",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
