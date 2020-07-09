@@ -9,7 +9,9 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "run-demo": "cd examples/demo && yarn start",
+    "watch": "lerna run --parallel watch",
+    "run-demo": "cd examples/demo && cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
+    "run-demo-watch": "concurrently \"yarn run watch\" \"yarn run run-demo\"",
     "test": "react-scripts test",
     "prettier": "prettier"
   },
@@ -29,6 +31,8 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
     "lerna": "^3.22.1",
     "prettier": "^2.0.5"
   }

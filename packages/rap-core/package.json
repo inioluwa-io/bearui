@@ -11,12 +11,25 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "*.md",
+    "esm",
+    "src",
+    "docs"
   ],
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+  "module": "esm/index.js",
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   },
-  "dependencies": {
-    "react-admin-panel": "^0.0.1"
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "scripts": {
+    "build": "yarn run build-cjs && yarn run build-esm",
+    "build-cjs": "rimraf ./lib && tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
+    "watch": "tsc --outDir esm --module es2015 --watch"
   }
 }
