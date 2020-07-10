@@ -1,11 +1,12 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
-import AdminPanel from 'react-admin-panel'
+import React from "react"
+import logo from "./logo.svg"
+import "./App.css"
+import { Button } from "rap-ui"
+import AdminPanel from "react-admin-panel"
 
-function App() {
+const App: React.FC<any> = () => {
   return (
-    <div className="App">
+    <div className="App">Netflix
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{AdminPanel}</p>
@@ -15,8 +16,17 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
-        </a>
+        </a>{
+        <Button
+          id="name"
+          size={"xs"}
+          onClick={() => {
+            alert("val")
+          }}
+          style={{ background: "red" }}
+        >
+          fellow
+        </Button>}
       </header>
     </div>
   )

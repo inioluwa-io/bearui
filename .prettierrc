@@ -9,6 +9,6 @@
   "quoteProps": "as-needed",
   "rangeStart": 0,
   "semi": false,
-  "singleQuote": true,
+  "singleQuote": false,
   "trailingComma": "es5"
 }

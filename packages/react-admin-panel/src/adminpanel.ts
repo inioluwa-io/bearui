@@ -1,9 +1,9 @@
-import { AdminComponent } from './types'
+import { AdminComponent } from "./types"
 
-const AdminPanel: AdminComponent = 'Himself'
+const AdminPanel: AdminComponent = "Himself"
 
 export default AdminPanel
 
-const Dropdown: string = 'dh'
+const Dropdown: string = "dh"
 
 export { Dropdown }
