@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   size = "xs",
   ...props
 }) => {
-  const getButtonStyleOptionsFromStyleType: any = () => {
+  const getButtonStyleOptionsFromStyleType: Function = (): any => {
     switch (corners) {
       case "rounded":
         return { borderRadius: "50px" }
