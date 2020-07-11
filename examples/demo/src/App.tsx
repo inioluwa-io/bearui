@@ -23,7 +23,6 @@ const App: React.FC<any> = () => {
           onClick={() => {
             alert("val")
           }}
-          style={{ background: "red" }}
         >
           fellow
         </Button>}

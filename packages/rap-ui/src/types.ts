@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
 export type ButtonStyle = {
-  styleType?: 1 | 2
+  corners?: "rounded" | "box"
   size: "xs" | "sm" | "md" | "lg"
 }
 
