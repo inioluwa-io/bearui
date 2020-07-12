@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
 import * as path from "@mdi/js"
+import * as Theme from "../default.json"
 
 /**
  * How it works!!
@@ -30,13 +31,12 @@ const Button1: any = styled.button`
   justify-content:center;
   flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
   transition: all 0.35s ease;
-  box-shadow ${(props: any) => (props.float ? `` : "")};
   border: ${(props: any) =>
     props.outline
       ? "1px solid " + (props.borderColor || props.background)
       : "none"};
-  box-shadow: 0 8px 25px -8px ${(props: any) =>
-    props.float ? darken(0.15, rgba(props.background, 0.7)) : "transparent"};
+  box-shadow: 0 8px 35px -6px ${(props: any) =>
+    props.glow ? darken(0.13, props.background) : "transparent"};
   overflow:hidden;
   box-sizing: border-box;
 
@@ -58,7 +58,7 @@ const Button1: any = styled.button`
     margin-top: -50px;
     margin-left: -50px;
     opacity: 0;
-    animation: ripple 1.5s;
+    animation: ripple 1s;
     border-radius:100px;
     z-index:1;
   }
@@ -94,6 +94,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const refs: any = useRef()
 
+  // create ripple effects when button clicked
   useEffect(() => {
     const button: HTMLElement = refs.current
     let onButtonClick: any
@@ -138,55 +139,35 @@ const Button: React.FC<ButtonProps> = ({
       case "md":
         return { padding: "9.5px 28px", iconPadding: "9.5px" }
       case "lg":
-        return { padding: "15px", iconPadding: "15px" }
+        return { padding: "15px 35px", iconPadding: "15px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
   }
 
   const getStyleFromBackgroundProps: Function = (): any => {
-    switch (background.trim()) {
-      case "primary":
-        return {
-          backgroundGradient:
-            gradient &&
-            "linear-gradient(118deg,rgba(115,103,240,1),rgba(115,103,240,.7))",
-          background: "rgb(115,103,240)",
-        }
-      case "success":
-        return {
-          backgroundGradient:
-            gradient &&
-            "linear-gradient(108deg,rgba(40,199,111,1),rgba(40,199,111,.7))",
-          background: "rgb(40,199,111)",
-        }
-      case "danger":
-        return {
-          backgroundGradient:
-            gradient &&
-            "linear-gradient(118deg,rgba(234,84,85,1),rgba(234,84,85,.65))",
-          background: "rgb(234,84,85)",
-        }
-      case "warning":
-        return {
-          backgroundGradient:
-            gradient &&
-            "linear-gradient(118deg,rgba(255,159,67,1),rgba(255,159,67,.7))",
-          background: "rgb(255,159,67)",
-        }
-      case "transparent":
-        return { background: "transparent", color: "#222" }
-      case "white":
-        return { background: "white", color: "#222" }
-      case "dark":
-        return {
-          backgroundGradient:
-            gradient &&
-            "linear-gradient(118deg,rgba(30,30,30,1),rgba(30,30,30,.7))",
-          background: "rgb(30,30,30)",
-        }
-      default:
-        return { background }
+    const supportedColors = [
+      "primary",
+      "success",
+      "info",
+      "danger",
+      "warning",
+      "transparent",
+      "white",
+      "dark",
+    ]
+    if (supportedColors.includes(background.trim())) {
+      return {
+        backgroundGradient:
+          gradient &&
+          `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
+            Theme.colors[background.trim()],
+            0.6
+          )})`,
+        background: Theme.colors[background.trim()],
+      }
+    } else {
+      return { background }
     }
   }
 
@@ -211,7 +192,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <Button1 {...props} ref={refs}>
-      <Icon path={path[icon]} size={0.75} style={getIconStyle()} />
+      {icon && <Icon path={path[icon]} size={0.75} style={getIconStyle()} />}
       {!iconOnly && children}
     </Button1>
   )
