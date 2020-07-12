@@ -10,6 +10,9 @@ const AvatarComponent: any = styled.div`
   position: relative;
   border-radius: ${(props: any) => props.size};
   background: ${(props: any) => props.color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   span {
     font-size: 12px;
