@@ -1,11 +1,18 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
-  size: "xs" | "sm" | "md" | "lg"
+  textColor?: string
+  background?: string
+  gradient?: boolean
+  border?: boolean
+  icon:string
+  borderColor?: string
+  float?:boolean
+  size?: "xs" | "sm" | "md" | "lg"
 }
 
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
-  id?:string
+  id?: string
   hoverColor?: string
-} 
+}
