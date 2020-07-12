@@ -6,7 +6,7 @@ import AdminPanel from "react-admin-panel"
 
 const App: React.FC<any> = () => {
   return (
-    <div className="App">Netflix
+    <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{AdminPanel}</p>
@@ -16,16 +16,25 @@ const App: React.FC<any> = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-        </a>{
-        <Button
-          id="name"
-          size={"xs"}
-          onClick={() => {
-            alert("val")
-          }}
-        >
-          fellow
-        </Button>}
+          Netflix
+        </a>
+        {
+          <Button
+            id="name"
+            float
+            icon = "mdiMagnify"
+            gradient
+            background="primary"
+            size={"sm"}
+            iconRight
+            iconOnly
+            onClick={() => {
+              alert("val")
+            }}
+          >
+            Search
+          </Button>
+        }
       </header>
     </div>
   )

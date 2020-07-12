@@ -24,6 +24,7 @@ const Button1: any = styled.button`
   cursor: pointer;
   display:flex;
   justify-content:center;
+  flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
   transition: all 0.35s ease;
   box-shadow ${(props: any) => (props.float ? `` : "")};
   border: ${(props: any) =>
@@ -47,6 +48,7 @@ const Button: React.FC<ButtonProps> = ({
   background = "primary",
   hoverColor,
   textColor = "#ffffff",
+  iconRight = false,
   gradient = false,
   size = "md",
 
@@ -133,17 +135,18 @@ const Button: React.FC<ButtonProps> = ({
     }
     throw new Error("value must be an object")
   }
+  const getIconStyle: Function = (): any =>
+    iconRight ? { marginLeft: "3px" } : { marginRight: "3px" }
 
   updateProps(getStyleFromCornersProps())
   updateProps(getStyleFromSizeProps())
   updateProps(getStyleFromBackgroundProps())
   updateProps({ textColor: "#ffffff" })
+  updateProps({ iconRight })
 
   return (
     <Button1 {...props}>
-      {icon && (
-        <Icon path={path[icon]} size={0.7} style={{ marginRight: "1px" }} />
-      )}
+      <Icon path={path[icon]} size={0.75} style={getIconStyle()} />
       {children}
     </Button1>
   )

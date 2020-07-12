@@ -23,8 +23,6 @@
   "devDependencies": {
     "@types/react": "^16.9.41",
     "@types/styled-components": "^5.1.1",
-		"react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "rimraf": "^2.6.3",
     "ts-loader": "^8.0.0",
     "typescript": "^3.9.6"
@@ -32,9 +30,9 @@
   "peerDependencies": {
     "@types/react": "^16.9.41",
     "@types/styled-components": "^5.1.1",
-		"react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",

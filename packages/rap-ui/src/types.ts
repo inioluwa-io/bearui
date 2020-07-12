@@ -6,8 +6,10 @@ export type ButtonStyle = {
   background?: string
   gradient?: boolean
   border?: boolean
-  icon:string
+  iconRight?: boolean
+  icon:string 
   borderColor?: string
+  iconOnly:boolean
   float?:boolean
   size?: "xs" | "sm" | "md" | "lg"
 }
