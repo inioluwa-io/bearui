@@ -25,9 +25,6 @@ const App: React.FC<any> = () => {
             gradient
             background="primary"
             size={"sm"}
-            onClick={() => {
-              alert("val")
-            }}
           >
             Search
           </Button>
