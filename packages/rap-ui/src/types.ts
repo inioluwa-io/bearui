@@ -7,14 +7,27 @@ export type ButtonStyle = {
   gradient?: boolean
   outline?: boolean
   iconRight?: boolean
-  icon:string 
+  icon?: string
   borderColor?: string
-  iconOnly:boolean
-  float?:boolean
+  iconOnly?: boolean
+  glow?: boolean
   size?: "xs" | "sm" | "md" | "lg"
 }
 
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
   id?: string
   hoverColor?: string
+}
+
+export type AvatarProps = {
+  size?: string
+  color?:string
+  textColor?:string
+  withBadge?:boolean
+  badgeText?:string
+  badgeColor?:string
+  icon?:string
+  src?:string
+  text?:string
+  alt?:string
 }

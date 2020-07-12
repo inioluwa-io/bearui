@@ -1,7 +1,6 @@
-'use strict';
-
-const rapUi = require('..');
 
 describe('rap-ui', () => {
-    it('needs tests');
+    it('needs tests', ()=>{
+        expect(0).toBeFalsy()
+    });
 });
