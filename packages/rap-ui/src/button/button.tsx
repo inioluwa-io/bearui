@@ -8,16 +8,18 @@ import * as path from "@mdi/js"
 /**
  * How it works!!
  * background - if border is true set background to transparent else check if backgroundGradient is set or background is set
- * border - if border is true set border to borderColor or background else set to none
+ * border - if outline is true set border to borderColor or background else set to none
  */
 
 const Button1: any = styled.button`
   font-family: Nunito sans;
+  position:relative;
   background: ${(props: any) =>
     props.outline
       ? "transparent"
       : props.backgroundGradient || props.background};
-  color: ${(props: any) => (props.outline ? props.background : props.textColor)};
+  color: ${(props: any) =>
+    props.outline ? props.background : props.textColor};
   font-size: 15px;
   padding: ${(props: any) =>
     !props.iconOnly ? props.padding : props.iconPadding};
@@ -33,13 +35,47 @@ const Button1: any = styled.button`
     props.outline
       ? "1px solid " + (props.borderColor || props.background)
       : "none"};
-  box-shadow: 0 8px 25px -8px ${(props: any) => props.float ?
-    darken(0.15, rgba(props.background, 0.7)) : "transparent"};
+  box-shadow: 0 8px 25px -8px ${(props: any) =>
+    props.float ? darken(0.15, rgba(props.background, 0.7)) : "transparent"};
+  overflow:hidden;
+  box-sizing: border-box;
 
   &:disabled {
     background: ${(props: any) =>
       !props.border ? lighten(0.1, props.background) : "transparent"};
     cursor:not-allowed;
+  }
+
+  &:focus{
+    outline:none;
+  }
+
+  span{
+    position:absolute;
+    background:${(props: any) => rgba(lighten(0.5, props.background), 0.4)};
+    width:100px;
+    height:100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    opacity: 0;
+    animation: ripple 1.5s;
+    border-radius:100px;
+    z-index:1;
+  }
+
+  &:focus:not(:active)::after {
+    display: block;
+  }
+  
+  @keyframes ripple {
+    from {
+      opacity: 1;
+      transform: scale(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(5);
+    }
   }
 `
 
@@ -54,9 +90,34 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "md",
-
   ...props
 }) => {
+  const refs: any = useRef()
+
+  useEffect(() => {
+    const button: HTMLElement = refs.current
+    let onButtonClick: any
+    onButtonClick = button.addEventListener<"click">(
+      "click",
+      (e: MouseEvent): void => {
+        let x = e.pageX - button.getBoundingClientRect().left
+        let y = e.pageY - button.getBoundingClientRect().top
+
+        const span: HTMLSpanElement = document.createElement("span")
+        span.style.top = y + "px"
+        span.style.left = x + "px"
+        button.append(span)
+
+        setTimeout(() => {
+          button.removeChild(span)
+        }, 1200)
+      }
+    )
+    return () => {
+      button.removeEventListener("click", onButtonClick, false)
+    }
+  }, [])
+
   const getStyleFromCornersProps: Function = (): any => {
     switch (corners) {
       case "rounded":
@@ -149,7 +210,7 @@ const Button: React.FC<ButtonProps> = ({
   updateProps({ textColor: "#ffffff", iconRight, iconOnly })
 
   return (
-    <Button1 {...props}>
+    <Button1 {...props} ref={refs}>
       <Icon path={path[icon]} size={0.75} style={getIconStyle()} />
       {!iconOnly && children}
     </Button1>
