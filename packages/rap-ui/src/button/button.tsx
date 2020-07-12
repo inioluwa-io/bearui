@@ -14,25 +14,27 @@ import * as path from "@mdi/js"
 const Button1: any = styled.button`
   font-family: Nunito sans;
   background: ${(props: any) =>
-    props.border
+    props.outline
       ? "transparent"
       : props.backgroundGradient || props.background};
-  color: ${(props: any) => (props.border ? props.background : props.textColor)};
+  color: ${(props: any) => (props.outline ? props.background : props.textColor)};
   font-size: 15px;
-  padding: ${(props: any) => props.padding};
+  padding: ${(props: any) =>
+    !props.iconOnly ? props.padding : props.iconPadding};
   border-radius: ${(props: any) => props.borderRadius};
   cursor: pointer;
   display:flex;
+  align-items: center;
   justify-content:center;
   flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
   transition: all 0.35s ease;
   box-shadow ${(props: any) => (props.float ? `` : "")};
   border: ${(props: any) =>
-    props.border
+    props.outline
       ? "1px solid " + (props.borderColor || props.background)
       : "none"};
-  box-shadow: 0 8px 25px -8px ${(props: any) =>
-    darken(0.15, rgba(props.background, 0.7))};
+  box-shadow: 0 8px 25px -8px ${(props: any) => props.float ?
+    darken(0.15, rgba(props.background, 0.7)) : "transparent"};
 
   &:disabled {
     background: ${(props: any) =>
@@ -44,6 +46,7 @@ const Button1: any = styled.button`
 const Button: React.FC<ButtonProps> = ({
   children,
   icon,
+  iconOnly = false,
   corners = "box",
   background = "primary",
   hoverColor,
@@ -68,13 +71,13 @@ const Button: React.FC<ButtonProps> = ({
   const getStyleFromSizeProps: Function = (): any => {
     switch (size) {
       case "xs":
-        return { padding: "5px" }
+        return { padding: "5px", iconPadding: "5px" }
       case "sm":
-        return { padding: "8px 20px" }
+        return { padding: "8px 20px", iconPadding: "8px" }
       case "md":
-        return { padding: "9.5px 28px" }
+        return { padding: "9.5px 28px", iconPadding: "9.5px" }
       case "lg":
-        return { padding: "15px" }
+        return { padding: "15px", iconPadding: "15px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -135,19 +138,20 @@ const Button: React.FC<ButtonProps> = ({
     }
     throw new Error("value must be an object")
   }
-  const getIconStyle: Function = (): any =>
-    iconRight ? { marginLeft: "3px" } : { marginRight: "3px" }
+  const getIconStyle: Function = (): any => {
+    if (iconOnly) return { margin: "0", padding: "1px" }
+    return iconRight ? { marginLeft: "3px" } : { marginRight: "3px" }
+  }
 
   updateProps(getStyleFromCornersProps())
   updateProps(getStyleFromSizeProps())
   updateProps(getStyleFromBackgroundProps())
-  updateProps({ textColor: "#ffffff" })
-  updateProps({ iconRight })
+  updateProps({ textColor: "#ffffff", iconRight, iconOnly })
 
   return (
     <Button1 {...props}>
       <Icon path={path[icon]} size={0.75} style={getIconStyle()} />
-      {children}
+      {!iconOnly && children}
     </Button1>
   )
 }

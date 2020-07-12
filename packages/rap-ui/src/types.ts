@@ -5,7 +5,7 @@ export type ButtonStyle = {
   textColor?: string
   background?: string
   gradient?: boolean
-  border?: boolean
+  outline?: boolean
   iconRight?: boolean
   icon:string 
   borderColor?: string

@@ -21,13 +21,10 @@ const App: React.FC<any> = () => {
         {
           <Button
             id="name"
-            float
             icon = "mdiMagnify"
             gradient
             background="primary"
             size={"sm"}
-            iconRight
-            iconOnly
             onClick={() => {
               alert("val")
             }}
