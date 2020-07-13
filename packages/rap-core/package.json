@@ -17,13 +17,10 @@
     "src",
     "docs"
   ],
-  "module": "esm/index.js",
   "devDependencies": {
-    "rimraf": "^2.6.3"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "rimraf": "^2.6.3",
+    "ts-loader": "^8.0.0",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",
@@ -31,5 +28,12 @@
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
     "watch": "tsc --outDir esm --module es2015 --watch"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.41"
   }
 }
