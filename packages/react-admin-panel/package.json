@@ -30,9 +30,9 @@
   "peerDependencies": {
     "@types/react": "^16.9.41",
     "@types/styled-components": "^5.1.1",
-    "typescript": "^3.9.6",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",
@@ -41,6 +41,11 @@
     "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
     "watch": "tsc --outDir esm --module es2015 --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5"
+  },
   "gitHead": "75c777bbf64f2712ee6dc3191fe61a05513c7580"
 }
