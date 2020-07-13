@@ -1,36 +1,39 @@
 import React from "react"
-import logo from "./logo.svg"
+import { Switch, Route } from "react-router-dom"
 import "./App.css"
-import { Button } from "rap-ui"
-import AdminPanel from "react-admin-panel"
+import { AuthContext } from "rap-core"
+import Login from "./login"
+import Home from "./home"
 
 const App: React.FC<any> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{AdminPanel}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Netflix
-        </a>
-        {
-          <Button
-            id="name"
-            icon = "mdiMagnify"
-            gradient
-            background="primary"
-            size={"sm"}
-          >
-            Search
-          </Button>
-        }
-      </header>
-    </div>
+    <AuthContext.Provider
+      value={{
+        login: async () => {
+          try {
+            Promise.resolve()
+          } catch(e) {
+            console.warn(e)
+          }
+        },
+      }}
+    >
+      <div className="App">
+        <header className="App-header">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={(props: any) => <Home {...props} />}
+            />
+            <Route
+              path="/login"
+              component={(props: any) => <Login {...props} />}
+            />
+          </Switch>
+        </header>
+      </div>
+    </AuthContext.Provider>
   )
 }
 

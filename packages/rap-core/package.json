@@ -5,7 +5,10 @@
   "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
   "homepage": "",
   "license": "MIT",
-  "main": "lib/index",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "module": "esm/index.js",
+  "sideEffects": false,
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -17,13 +20,13 @@
     "src",
     "docs"
   ],
-  "module": "esm/index.js",
   "devDependencies": {
-    "rimraf": "^2.6.3"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "rimraf": "^2.6.3",
+    "ts-loader": "^8.0.0",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.1.0",
+    "@types/react-router-dom": "^5.1.0",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",
@@ -31,5 +34,16 @@
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
     "watch": "tsc --outDir esm --module es2015 --watch"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.1.0",
+    "react-router-dom": "^5.1.0",
+    "redux": "^3.7.2 || ^4.0.3",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.41"
   }
 }
