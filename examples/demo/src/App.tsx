@@ -1,8 +1,7 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 import "./App.css"
-import { AuthContext } from "rap-core"
-import { NotificationProvider } from "rap-ui"
+import { AuthContext, NotificationProvider } from "rap-core"
 import Login from "./login"
 import Home from "./home"
 

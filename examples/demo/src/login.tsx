@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { useLogin, useLogout } from "rap-core"
-import { Button, Notification, useNotificationProvider } from "rap-ui"
+import { useLogin, useLogout, useNotification } from "rap-core"
+import { Button, Notification } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
-  const [notificationQueue, setNofticationQueue] = useNotificationProvider()
+  const [notification, addNotification] = useNotification<NotifyProps>()
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -21,8 +21,7 @@ const Login: React.FC<any> = () => {
       <Button id="name" background="primary" glow gradient size={"lg"}>
         Search
       </Button>
-      {console.log(notificationQueue)}
-      
+      {console.log(notification)}
 
       <br />
       <Button
@@ -32,10 +31,7 @@ const Login: React.FC<any> = () => {
         gradient
         size={"md"}
         onClick={(e: any) => {
-          setNofticationQueue([
-            ...notificationQueue,
-            { title: "djd", text: "djd" },
-          ])
+          addNotification({ title: "djd", text: "djd" })
         }}
       >
         Login
