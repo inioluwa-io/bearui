@@ -9,8 +9,9 @@ const App: React.FC<any> = () => {
   return (
     <AuthContext.Provider
       value={{
-        login: async () => {
+        login: async (data:any) => {
           try {
+            console.log(data)
             Promise.resolve()
           } catch(e) {
             console.warn(e)

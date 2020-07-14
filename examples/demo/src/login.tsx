@@ -7,7 +7,7 @@ const Login: React.FC<any> = () => {
   const logout = useLogout()
 
   const handleLogin: any = (e: EventListener) => {
-    console.log(login({ username: "dd" }, "/"))
+    login({ username: "dd" }, "/")
   }
   const handleLogout: any = (e: EventListener) => {
     console.log(logout({ username: "dd" }, "/"))
@@ -21,7 +21,6 @@ const Login: React.FC<any> = () => {
         glow
         gradient
         size={"lg"}
-        onClick={handleLogin}
       >
         Search
       </Button>
@@ -32,7 +31,7 @@ const Login: React.FC<any> = () => {
         glow
         gradient
         size={"md"}
-        onClick={handleLogout}
+        onClick={handleLogin}
       >
         Search
       </Button>
