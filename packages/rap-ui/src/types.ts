@@ -21,13 +21,29 @@ export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
 
 export type AvatarProps = {
   size?: string
-  color?:string
-  textColor?:string
-  withBadge?:boolean
-  badgeText?:string
-  badgeColor?:string
-  icon?:string
-  src?:string
-  text?:string
-  alt?:string
+  color?: string
+  textColor?: string
+  withBadge?: boolean
+  badgeText?: string
+  badgeColor?: string
+  icon?: string
+  src?: string
+  text?: string
+  alt?: string
+}
+
+export type NotifyProps = {
+  text: string
+  title: string
+  icon?: string
+}
+export type NotifyWrapper = {
+  time: number
+  idx: number
+  close: () => any
+} & NotifyProps
+
+export type NotificationProps = {
+  data: NotifyProps[]
+  time?: number
 }
