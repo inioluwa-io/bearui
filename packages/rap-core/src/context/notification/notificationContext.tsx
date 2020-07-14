@@ -13,7 +13,7 @@ const NotificationProvider: React.FC<{}> = ({ children }) => {
   }
 
   return (
-    <NotificationContext.Provider value={[notificationQueue, addNotification]}>
+    <NotificationContext.Provider value={[notificationQueue, setNotificationQueue]}>
       {children}
     </NotificationContext.Provider>
   )

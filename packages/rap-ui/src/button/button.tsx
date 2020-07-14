@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import { ButtonProps } from "../types"
 import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
@@ -94,15 +94,18 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const refs: any = useRef()
 
+  const [mouse, setMouse] = useState<{ x: number; y: number } | {}>()
+
   // create ripple effects when button clicked
   useEffect(() => {
     const button: HTMLElement = refs.current
     let onButtonClick: any
+
     onButtonClick = button.addEventListener<"click">(
       "click",
       (e: MouseEvent): void => {
-        let x = e.pageX - button.getBoundingClientRect().left
-        let y = e.pageY - button.getBoundingClientRect().top
+        let x = e.clientX - button.getBoundingClientRect().left
+        let y = e.clientY - button.getBoundingClientRect().top
 
         const span: HTMLSpanElement = document.createElement("span")
         span.style.top = y + "px"
@@ -111,7 +114,7 @@ const Button: React.FC<ButtonProps> = ({
 
         setTimeout(() => {
           button.removeChild(span)
-        }, 1200)
+        }, 1000)
       }
     )
     return () => {
