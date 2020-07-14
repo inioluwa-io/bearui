@@ -11,8 +11,8 @@ const App: React.FC<any> = () => {
       value={{
         login: async (data:any) => {
           try {
-            if (data.username === "login") Promise.resolve()
-            Promise.reject()
+            if (data.username === "login") return Promise.resolve()
+            return Promise.reject()
           } catch(e) {
             console.warn(e)
           }

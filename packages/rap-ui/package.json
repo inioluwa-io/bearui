@@ -30,7 +30,7 @@
     "build-cjs": "rimraf ./lib && tsc",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
-    "watch": "tsc --outDir esm --module es2015 --watch"
+    "watch": "tsc --watch && tsc --outDir esm --module es2015 --watch"
   },
   "peerDependencies": {
     "react": "^16.13.1",

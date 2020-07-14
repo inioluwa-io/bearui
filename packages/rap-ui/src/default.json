@@ -1,4 +1,14 @@
 {
+  "theme": {
+    "dark-mode": {
+      "background": "#282c34",
+      "card-background": ""
+    },
+    "light-mode": {
+      "background": "",
+      "card-background": ""
+    }
+  },
   "colors": {
     "primary": "rgb(115,103,240)",
     "success": "rgb(40,199,111)",

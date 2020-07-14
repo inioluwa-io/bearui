@@ -7,7 +7,7 @@ const Login: React.FC<any> = () => {
   const logout = useLogout()
 
   const handleLogin: any = (e: EventListener) => {
-    login({ username: "dd" }, "/")
+    login({ username: "log" }, "/")
   }
   const handleLogout: any = (e: EventListener) => {
     console.log(logout({ username: "dd" }, "/"))
@@ -33,7 +33,7 @@ const Login: React.FC<any> = () => {
         size={"md"}
         onClick={handleLogin}
       >
-        Search
+        Login
       </Button>
     </>
   )
