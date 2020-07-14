@@ -3,16 +3,14 @@ import { useLogin, useLogout, useNotification } from "rap-core"
 import { Button, Notification } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
-const NotificationComponent: React.FC<any> = ({ item, idx }) => {
-  const [notification, setNotification] = useNotification<NotifyProps>()
+const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
   useEffect(() => {
-    setTimeout(() => {
-      const notificationQueueCopy = notification
-      notificationQueueCopy.splice(idx, 1)
-      console.log(notificationQueueCopy)
-      setNotification(notificationQueueCopy)
-    }, 2000)
-  }, [notification, setNotification])
+    (function () {
+      setTimeout(() => {
+        onFinish(idx)
+      }, 2000)
+    })()
+  }, [onFinish])
 
   return (
     <div>
@@ -41,35 +39,39 @@ const Login: React.FC<any> = () => {
         Search
       </Button>
       {notification.map((item: NotifyProps, idx: number) => (
-        <NotificationComponent key={idx} item={item} idx={idx} />
+        <NotificationComponent
+          key={idx}
+          item={item}
+          idx={idx}
+          onFinish={(id: number) => {
+            const notificationQueueCopy = [...notification]
+            notificationQueueCopy.splice(id, 1)
+            setNotification(notificationQueueCopy)
+          }}
+        />
       ))}
 
       <br />
-      <Button
-        id="name"
-        background="info"
-        glow
-        gradient
-        size={"md"}
-      >
-        Login
-      </Button>
-      
       <br />
       <Button
         id="name"
         background="info"
         glow
         gradient
-        size={"md"}
+        size={"sm"}
         onClick={(e: any) => {
+          // setTest([...test, "q"])
           setNotification([
+            ...notification,
+            { title: "title", text: "this is a message" },
+          ])
+          console.log([
             ...notification,
             { title: "title", text: "this is a message" },
           ])
         }}
       >
-        Login
+        Add notification
       </Button>
     </>
   )
