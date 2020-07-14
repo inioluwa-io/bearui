@@ -12,11 +12,8 @@ const Home: React.FC<any> = () => {
       <Avatar
         alt="avatar"
         text="LD"
-        size="200px"
+        size="md"
         src={img}
-        withBadge
-        badgeColor="warning"
-        badgeText="10"
       />
       <Link to ="/login">login</Link>
     </>
