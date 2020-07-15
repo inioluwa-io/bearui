@@ -36,7 +36,7 @@ export type NotifyProps = {
   text: string
   title: string
   icon?: string
-  iconColor?:string
+  iconColor?: string
 }
 export type NotifyWrapper = {
   time: number
@@ -48,3 +48,30 @@ export type NotificationProps = {
   data: NotifyProps[]
   time?: number
 }
+
+export interface SwitchProps {
+  id?: string
+  active: boolean
+  disabled?: boolean
+  color?: string
+  offText?: string
+  onText?: string
+  onClick: (param: boolean) => any
+}
+
+export type InputProps = {
+  id: string
+  label?: string
+  placeholder?: string
+  disabled?: boolean
+  icon?: string
+  iconRight?: boolean
+  iconBorder?: boolean
+  color?: string
+  type?: "email" | "text" | "password"
+  validation?: "success" | "danger" | "warning"
+  size?: "sm" | "md" | "lg"
+  onChange: (value: string) => any
+}
+
+export type SupportedProps = (arr: any[], value: any) => boolean

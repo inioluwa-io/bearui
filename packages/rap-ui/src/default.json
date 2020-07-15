@@ -3,7 +3,7 @@
     "dark-mode": {
       "background": "#282c34",
       "card-background": "#3E4451",
-      "nextContrast":"596173"
+      "nextContrast":"#596173"
     },
     "light-mode": {
       "background": "#f1f1f1",
