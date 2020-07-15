@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useLogin, useLogout, useNotification } from "rap-core"
-import { Button, Notification, Switch } from "rap-ui"
+import { Button, Notification, Switch, Input } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
@@ -34,58 +34,87 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <Switch
-        color="success"
-        onText ="ON"
-        active
-        offText ="OFF"
-        onClick={(e: any) => {
-          console.log(e)
-        }}
-      />
-      <br />
       <div
         style={{
-          position: "fixed",
-          top: "0",
-          zIndex: 9999,
+          background: "#3E4451",
+          width: "350px",
+          height: "350px",
           display: "flex",
-          height: notification.length * 100 + "px",
-          flexDirection: "column-reverse",
-          transition: "all .35s",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          borderRadius: "10px",
+          boxShadow: "0 0 35px -8px #292929",
         }}
       >
-        {notification.map((item: NotifyProps, idx: number) => (
-          <Notification
-            key={idx}
-            title={item.title}
-            text={item.text}
-            icon="mdiTrophyVariant"
-          />
-        ))}
-      </div>
+        <Input
+          type="email"
+          color="primary"
+          label="Email"
+          onChange={(value: string) => {
+            console.log(value)
+          }}
+          placeholder="Enter your email"
+        />
+        <Input
+          type="password"
+          label="Password"
+          color="primary"
+          onChange={(value: string) => {
+            console.log(value)
+          }}
+          placeholder="Enter your password"
+        />
+        <br />
+        <Switch
+          color="success"
+          active
+          onClick={(e: any) => {
+            console.log(e)
+          }}
+        />
+        <br />
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            zIndex: 9999,
+            display: "flex",
+            height: notification.length * 100 + "px",
+            flexDirection: "column-reverse",
+            transition: "all .4s",
+          }}
+        >
+          {notification.map((item: NotifyProps, idx: number) => (
+            <Notification
+              key={idx}
+              title={item.title}
+              text={item.text}
+              icon="mdiTrophyVariant"
+            />
+          ))}
+        </div>
 
-      <br />
-      <br />
-      <Button
-        id="name"
-        background="info"
-        glow
-        gradient
-        size={"sm"}
-        onClick={(e: any) => {
-          setNotification([
-            ...notification,
-            {
-              title: "Award Unlocked!",
-              text:
-                "You have reached level 13 and you have been given free 300 coins and +3XP.",
-            },
-          ])
-        }}
-      >
-        Add notification
-      </Button>
+        <Button
+          id="name"
+          background="primary"
+          glow
+          gradient
+          size={"sm"}
+          onClick={(e: any) => {
+            setNotification([
+              ...notification,
+              {
+                title: "Award Unlocked!",
+                text:
+                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
+              },
+            ])
+          }}
+        >
+          Add notification
+        </Button>
+      </div>
     </>
   )
 }

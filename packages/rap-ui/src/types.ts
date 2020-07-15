@@ -58,3 +58,20 @@ export interface SwitchProps {
   onText?: string
   onClick: (param: boolean) => any
 }
+
+export type InputProps = {
+  id: string
+  label?: string
+  placeholder?: string
+  disabled?: boolean
+  icon?: string
+  iconRight?: boolean
+  iconBorder?: boolean
+  color?: string
+  type?: "email" | "text" | "password"
+  validation?: "success" | "danger" | "warning"
+  size?: "sm" | "md" | "lg"
+  onChange: (value: string) => any
+}
+
+export type SupportedProps = (arr: any[], value: any) => boolean
