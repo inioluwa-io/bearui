@@ -5,7 +5,7 @@ import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
   useEffect(() => {
-    (function () {
+    ;(function () {
       setTimeout(() => {
         onFinish(idx)
       }, 2000)
@@ -38,18 +38,22 @@ const Login: React.FC<any> = () => {
       <Button id="name" background="primary" glow gradient size={"lg"}>
         Search
       </Button>
-      {notification.map((item: NotifyProps, idx: number) => (
-        <NotificationComponent
-          key={idx}
-          item={item}
-          idx={idx}
-          onFinish={(id: number) => {
-            const notificationQueueCopy = [...notification]
-            notificationQueueCopy.splice(id, 1)
-            setNotification(notificationQueueCopy)
-          }}
-        />
-      ))}
+      <div
+        style={{
+          position: "fixed",
+          top: "0",
+          zIndex: 9999,
+          display: "flex",
+          height: notification.length * (100) + "px",
+          flexDirection: "column-reverse",
+          transition: "all .35s",
+        }}
+      >
+          {notification.map((item: NotifyProps, idx: number) => (
+            <Notification key={idx} title={item.title} text={item.text} icon = "mdiTrophyVariant" />
+          ))}
+        </div>
+      
 
       <br />
       <br />
@@ -60,14 +64,12 @@ const Login: React.FC<any> = () => {
         gradient
         size={"sm"}
         onClick={(e: any) => {
-          // setTest([...test, "q"])
           setNotification([
             ...notification,
-            { title: "title", text: "this is a message" },
-          ])
-          console.log([
-            ...notification,
-            { title: "title", text: "this is a message" },
+            {
+              title: "Award Unlocked!",
+              text: "You have reached level 13 and you have been given free 300 coins and +3XP.",
+            },
           ])
         }}
       >

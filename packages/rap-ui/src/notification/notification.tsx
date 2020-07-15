@@ -1,0 +1,112 @@
+import React from "react"
+import { NotifyProps } from "../types"
+import styled from "styled-components"
+import { theme, colors } from "../default.json"
+import Icon from "@mdi/react"
+import { mdiHeart, mdiDiamond, mdiTrophyVariant } from "@mdi/js"
+import { darken, rgba } from "polished"
+import * as path from "@mdi/js"
+
+const NotificationDiv: any = styled.div`
+  position: relative;
+  background: ${(props: any) => props.background};
+  animation: fadeDown 1s;
+  border-radius: 5px;
+  height: 90px;
+  width: 330px;
+  margin-top: 10px;
+  text-align: left;
+  overflow: hidden;
+  //   backdrop-filter: blur(46px) saturate(276%);
+  //   -webkit-opacity: 0.8;
+  box-shadow: 0 8px 15px -6px ${(props: any) => darken(0.12, props.background)};
+
+  &:hover {
+    .overflow {
+      opacity: 0;
+    }
+  }
+  &::after {
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    transition: opacity 0.35s;
+    background: linear-gradient(-90deg, red, blue);
+    background: -webkit-linear-gradient(
+      -90deg,
+      ${(props: any) => rgba(props.background, 0.1)},
+      ${(props: any) => rgba(props.background, 1)}
+    );
+    background: -moz-linear-gradient(135deg, red, blue);
+    background: -o-linear-gradient(135deg, red, blue);
+    background: -ms-linear-gradient(135deg, red, blue);
+  }
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+`
+
+const HeaderIcon: any = styled.div`
+  right: 0;
+  display: flex;
+  margin-right: 7px;
+  justify-content: center;
+  align-items: center;
+`
+const Overflow: any = styled.div`
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    overflow: auto;
+
+    .overflow {
+      opacity: 0;
+    }
+  }
+  height: 100%;
+`
+
+const Notification: React.FC<NotifyProps> = ({
+  title,
+  icon,
+  iconColor,
+  text,
+  ...props
+}) => {
+  return (
+    <NotificationDiv background={theme["dark-mode"]["card-background"]}>
+      <Overflow>
+        <div
+          style={{
+            margin: "10px 20px 10px 12px",
+            position: "relative",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <HeaderIcon>
+              <Icon path={path[icon]} color={iconColor || colors.warning} size={0.8} />
+            </HeaderIcon>
+            <h2 style={{ fontSize: "16px", margin: 0, fontWeight: "500" }}>
+              {title}
+            </h2>
+          </div>
+          <p style={{ fontSize: "15px", margin: "4px 0" }}>{text}</p>
+        </div>
+      </Overflow>
+    </NotificationDiv>
+  )
+}
+export default Notification
