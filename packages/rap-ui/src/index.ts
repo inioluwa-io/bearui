@@ -1,3 +1,5 @@
 export * from "./button"
 export * from "./avatar"
 export * from "./notification"
+export * from "./switch"
+export * from "./input"

@@ -10,7 +10,7 @@ import * as path from "@mdi/js"
 const NotificationDiv: any = styled.div`
   position: relative;
   background: ${(props: any) => props.background};
-  animation: fadeDown 1s;
+  animation: fadeDown .75s;
   border-radius: 5px;
   height: 90px;
   width: 330px;
@@ -99,7 +99,7 @@ const Notification: React.FC<NotifyProps> = ({
             <HeaderIcon>
               <Icon path={path[icon]} color={iconColor || colors.warning} size={0.8} />
             </HeaderIcon>
-            <h2 style={{ fontSize: "16px", margin: 0, fontWeight: "500" }}>
+            <h2 style={{ fontSize: "16px", margin: 0, fontWeight: "bold" }}>
               {title}
             </h2>
           </div>

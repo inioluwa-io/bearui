@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useLogin, useLogout, useNotification } from "rap-core"
-import { Button, Notification } from "rap-ui"
+import { Button, Notification, Switch } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
@@ -34,26 +34,36 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
+      <Switch
+        color="success"
+        onText ="ON"
+        active
+        offText ="OFF"
+        onClick={(e: any) => {
+          console.log(e)
+        }}
+      />
       <br />
-      <Button id="name" background="primary" glow gradient size={"lg"}>
-        Search
-      </Button>
       <div
         style={{
           position: "fixed",
           top: "0",
           zIndex: 9999,
           display: "flex",
-          height: notification.length * (100) + "px",
+          height: notification.length * 100 + "px",
           flexDirection: "column-reverse",
           transition: "all .35s",
         }}
       >
-          {notification.map((item: NotifyProps, idx: number) => (
-            <Notification key={idx} title={item.title} text={item.text} icon = "mdiTrophyVariant" />
-          ))}
-        </div>
-      
+        {notification.map((item: NotifyProps, idx: number) => (
+          <Notification
+            key={idx}
+            title={item.title}
+            text={item.text}
+            icon="mdiTrophyVariant"
+          />
+        ))}
+      </div>
 
       <br />
       <br />
@@ -68,7 +78,8 @@ const Login: React.FC<any> = () => {
             ...notification,
             {
               title: "Award Unlocked!",
-              text: "You have reached level 13 and you have been given free 300 coins and +3XP.",
+              text:
+                "You have reached level 13 and you have been given free 300 coins and +3XP.",
             },
           ])
         }}
