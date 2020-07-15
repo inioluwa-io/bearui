@@ -36,6 +36,7 @@ export type NotifyProps = {
   text: string
   title: string
   icon?: string
+  iconColor?:string
 }
 export type NotifyWrapper = {
   time: number
