@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react"
+import { ButtonHTMLAttributes, Ref } from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
@@ -36,6 +36,7 @@ export type NotifyProps = {
   text: string
   title: string
   icon?: string
+  time?:number
   iconColor?: string
 }
 export type NotifyWrapper = {

@@ -72,10 +72,12 @@ const Login: React.FC<any> = () => {
         <br />
         <div>
           <Switch
-            color="success"
             active
+            color="success"
             onClick={(e: any) => {
-              console.log(e)
+              const newno = [...notification]
+              newno.shift()
+              setNotification(newno)
             }}
           />
         </div>
@@ -97,29 +99,38 @@ const Login: React.FC<any> = () => {
               title={item.title}
               text={item.text}
               icon="mdiTrophyVariant"
+              time={3500}
             />
           ))}
         </div>
-
-        <Button
-          id="name"
-          background="primary"
-          glow
-          gradient
-          size={"sm"}
-          onClick={(e: any) => {
-            setNotification([
-              ...notification,
-              {
-                title: "Award Unlocked!",
-                text:
-                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
-              },
-            ])
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
           }}
         >
-          Add notification
-        </Button>
+          <Button
+            id="name"
+            background="primary"
+            glow
+            gradient
+            size={"sm"}
+            onClick={(e: any) => {
+              setNotification([
+                ...notification,
+                {
+                  title: "Award Unlocked!",
+                  text:
+                    Math.floor(Math.random() * 100) +
+                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                },
+              ])
+            }}
+          >
+            Add notification
+          </Button>
+        </div>
       </div>
     </>
   )

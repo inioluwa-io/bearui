@@ -1,21 +1,21 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { NotifyProps } from "../types"
 import styled from "styled-components"
 import { theme, colors } from "../default.json"
 import Icon from "@mdi/react"
-import { mdiHeart, mdiDiamond, mdiTrophyVariant } from "@mdi/js"
 import { darken, rgba } from "polished"
 import * as path from "@mdi/js"
 
 const NotificationDiv: any = styled.div`
   position: relative;
   background: ${(props: any) => props.background};
-  animation: fadeDown .75s;
+  animation: fadeDown 0.75s;
   border-radius: 5px;
   height: 90px;
   width: 330px;
   margin-top: 10px;
   text-align: left;
+  transition: visibility 0.35s;
   overflow: hidden;
   //   backdrop-filter: blur(46px) saturate(276%);
   //   -webkit-opacity: 0.8;
@@ -84,10 +84,23 @@ const Notification: React.FC<NotifyProps> = ({
   icon,
   iconColor,
   text,
+  time = 3500,
   ...props
 }) => {
+  const refs: any = useRef()
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (typeof onClose === "function") {
+        onClose(refs.current)
+      }
+    }, time)
+  }, [])
   return (
-    <NotificationDiv background={theme["dark-mode"]["card-background"]}>
+    <NotificationDiv
+      ref={refs}
+      background={theme["dark-mode"]["card-background"]}
+    >
       <Overflow>
         <div
           style={{
@@ -97,7 +110,11 @@ const Notification: React.FC<NotifyProps> = ({
         >
           <div style={{ display: "flex" }}>
             <HeaderIcon>
-              <Icon path={path[icon]} color={iconColor || colors.warning} size={0.8} />
+              <Icon
+                path={path[icon]}
+                color={iconColor || colors.warning}
+                size={0.8}
+              />
             </HeaderIcon>
             <h2 style={{ fontSize: "16px", margin: 0, fontWeight: "bold" }}>
               {title}
