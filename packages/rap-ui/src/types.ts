@@ -68,6 +68,7 @@ export type InputProps = {
   iconRight?: boolean
   iconBorder?: boolean
   color?: string
+  onError: () => any
   type?: "email" | "text" | "password"
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"

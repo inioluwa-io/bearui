@@ -51,16 +51,17 @@ const Login: React.FC<any> = () => {
           type="email"
           id="email"
           color="primary"
-          label="Email"
           onChange={(value: string) => {
             console.log(value)
+          }}
+          onError = {()=>{
+            
           }}
           placeholder="Enter your email"
         />
         <Input
           id="password"
           type="password"
-          label="Password"
           color="primary"
           icon="mdiLock"
           onChange={(value: string) => {

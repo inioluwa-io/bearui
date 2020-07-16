@@ -11,6 +11,9 @@ const InputElement: any = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-top: 0px;
+  height: fit-content;
+  padding-bottom: 19px;
 `
 const InputContainer: any = styled.div`
   position: relative;
@@ -29,7 +32,8 @@ const InputHtmlElement: any = styled.input`
   padding: ${(props: any) => props.size};
   border-radius: 5px;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid ${(props: any) =>
+    props.error ? colors.danger + " !important" : "transparent"};
   background: #282c34;
   padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
   padding-right:${(props: any) => props.padLeft && props.iconRight && "40px"};
@@ -53,7 +57,8 @@ const InputHtmlElement: any = styled.input`
 const Label: any = styled.label`
   font-size: 0.85rem;
   font-family: Nunito sans;
-  margin: 4px 0;
+  margin-top: 1px;
+  margin-bottom: 4px;
 `
 
 const InputIcon: any = styled.div`
@@ -89,15 +94,20 @@ const Input: React.FC<InputProps> = ({
   size = "sm",
   color = "#596173",
   icon,
+  onError,
   iconRight = false,
   iconBorder = true,
   onChange,
 }) => {
-
-  if(!id || typeof onChange !== "function") {
-    throw new Error("Props id and onChange are required")
+  if (!id || typeof onChange !== "function") {
+    throw new Error("Props id, onError and onChange are required")
+  }
+  if (type === "email" && typeof onError !== "function") {
+    throw new Error("Props onError is required for type email")
   }
   const [inputValue, setInputValue] = useState<string>("")
+  const [error, setError] = useState<boolean>(false)
+  const [errorMesssage, setErrorMessage] = useState<string>("")
 
   const inputHeightSize = (): string => {
     switch (size) {
@@ -149,6 +159,17 @@ const Input: React.FC<InputProps> = ({
     return color
   }
 
+  const handleBlurEvent = (e: any): void => {
+    if (type === "email" && inputValue) {
+      const typeMatch: boolean = /^[\w\-\.]+@[a-zA-Z]+\.[a-zA-Z]+$/g.test(
+        e.target.value
+      )
+      setError(!typeMatch)
+      setErrorMessage(!typeMatch ? "Invalid email format" : "")
+      !typeMatch && onError()
+    }
+  }
+
   const handleChangeEvent = (e: any) => {
     setInputValue(e.target.value)
     onChange(e.target.value)
@@ -160,6 +181,7 @@ const Input: React.FC<InputProps> = ({
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement
           padLeft={!!icon}
+          error={error}
           color={formatColor()}
           size={inputPaddingSize()}
           type={type}
@@ -167,6 +189,7 @@ const Input: React.FC<InputProps> = ({
           value={inputValue}
           placeholder={placeholder}
           disabled={disabled}
+          onBlur={handleBlurEvent}
           iconRight={iconRight}
           onChange={handleChangeEvent}
         />
@@ -176,6 +199,19 @@ const Input: React.FC<InputProps> = ({
           </InputIcon>
         )}
       </InputContainer>
+      {errorMesssage && (
+        <span
+          style={{
+            fontSize: "11px",
+            position: "absolute",
+            color: colors.danger,
+            bottom: 0,
+            margin: "3px 0",
+          }}
+        >
+          {errorMesssage}
+        </span>
+      )}
     </InputElement>
   )
 }
