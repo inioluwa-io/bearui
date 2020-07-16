@@ -36,8 +36,6 @@ export type NotifyProps = {
   text: string
   title: string
   icon?: string
-  time?:number
-  onClose: (element:HTMLElement) => any
   iconColor?: string
 }
 export type NotifyWrapper = {

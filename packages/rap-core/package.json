@@ -41,7 +41,8 @@
     "react-router": "^5.1.0",
     "react-router-dom": "^5.1.0",
     "redux": "^3.7.2 || ^4.0.3",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "redux-thunk": "^1.0.0"
   },
   "dependencies": {
     "@types/react": "^16.9.41"

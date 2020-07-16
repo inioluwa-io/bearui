@@ -2,20 +2,57 @@ import React, { useState, useEffect } from "react"
 import { useLogin, useLogout, useNotification } from "rap-core"
 import { Button, Notification, Switch, Input } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
+import { connect } from "react-redux"
 
-const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
+const Message: React.FC<any> = ({ idx, item }) => {
+  const [notification, setNotification] = useNotification<NotifyProps[]>([])
+
+  const msgs = [...notification]
+
   useEffect(() => {
-    ;(function () {
-      setTimeout(() => {
-        onFinish(idx)
-      }, 2000)
-    })()
-  }, [onFinish])
+    let timer: any
 
+    if (msgs.length) {
+      timer = setTimeout(() => {
+        msgs.shift()
+        setNotification(msgs)
+      }, 2500)
+    }
+    return () => clearTimeout(timer)
+  }, [notification])
   return (
-    <div>
-      <p>{item.title}</p>
-      <p>{item.text}</p>
+    <Notification
+      key={idx}
+      title={item.title}
+      text={item.text}
+      icon="mdiTrophyVariant"
+      time={1500}
+      onClose={(element: any) => {
+        if (element) {
+          element.style.opacity = "0"
+        }
+      }}
+    />
+  )
+}
+
+const NotificationComponent: React.FC<{}> = () => {
+  const [notification] = useNotification<NotifyProps[]>([])
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "0",
+        zIndex: 9999,
+        display: "flex",
+        height: notification.length * 100 + "px",
+        flexDirection: "column-reverse",
+        transition: "all .4s",
+      }}
+    >
+      {notification.map((item: NotifyProps, idx: number) => (
+        <Message idx={idx} item={item} />
+      ))}
     </div>
   )
 }
@@ -23,7 +60,7 @@ const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
 const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
-  const [notification, setNotification] = useState<NotifyProps[]>([])
+  const [notification, setNotification] = useNotification<NotifyProps[]>([])
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -31,22 +68,10 @@ const Login: React.FC<any> = () => {
   const handleLogout: any = (e: EventListener) => {
     console.log(logout({ username: "dd" }, "/"))
   }
-  const msgs = [...notification]
-
-  useEffect(() => {
-    let timer: any
-    if (msgs.length) {
-      timer = setTimeout(() => {
-        msgs.shift()
-        console.log("delete")
-        setNotification(msgs)
-      }, 1500)
-    }
-    return () => clearTimeout(timer)
-  }, [notification])
 
   return (
     <>
+      <NotificationComponent />
       <div
         style={{
           background: "#3E4451",
@@ -97,32 +122,6 @@ const Login: React.FC<any> = () => {
         <br />
         <div
           style={{
-            position: "fixed",
-            top: "0",
-            zIndex: 9999,
-            display: "flex",
-            height: notification.length * 100 + "px",
-            flexDirection: "column-reverse",
-            transition: "all .4s",
-          }}
-        >
-          {notification.map((item: NotifyProps, idx: number) => (
-            <Notification
-              key={idx}
-              title={item.title}
-              text={item.text}
-              icon="mdiTrophyVariant"
-              time={1500}
-              onClose={(element: any) => {
-                if (element) {
-                  element.style.opacity = "0"
-                }
-              }}
-            />
-          ))}
-        </div>
-        <div
-          style={{
             display: "flex",
             flexDirection: "column",
             width: "100%",
@@ -153,5 +152,8 @@ const Login: React.FC<any> = () => {
     </>
   )
 }
+const mapStateToProps = (state: any) => ({
+  notification: state.notification,
+})
 
-export default Login
+export default connect(mapStateToProps)(Login)
