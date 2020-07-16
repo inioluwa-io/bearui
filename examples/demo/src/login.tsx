@@ -37,26 +37,25 @@ const Login: React.FC<any> = () => {
       <div
         style={{
           background: "#3E4451",
-          width: "350px",
-          height: "350px",
+          padding: "60px 85px",
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
           borderRadius: "10px",
           boxShadow: "0 0 35px -8px #292929",
         }}
       >
+        <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
         <Input
           type="email"
           id="email"
           color="primary"
+          label="Email"
+          icon="mdiEmailOutline"
           onChange={(value: string) => {
             console.log(value)
           }}
-          onError = {()=>{
-            
-          }}
+          onError={() => {}}
           placeholder="Enter your email"
         />
         <Input
@@ -64,19 +63,22 @@ const Login: React.FC<any> = () => {
           type="password"
           color="primary"
           icon="mdiLock"
+          label="Password"
           onChange={(value: string) => {
             console.log(value)
           }}
           placeholder="Enter your password"
         />
         <br />
-        <Switch
-          color="success"
-          active
-          onClick={(e: any) => {
-            console.log(e)
-          }}
-        />
+        <div>
+          <Switch
+            color="success"
+            active
+            onClick={(e: any) => {
+              console.log(e)
+            }}
+          />
+        </div>
         <br />
         <div
           style={{

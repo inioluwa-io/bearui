@@ -13,12 +13,13 @@ const InputElement: any = styled.div`
   text-align: left;
   margin-top: 0px;
   height: fit-content;
-  padding-bottom: 19px;
+  width: 220px;
+  padding-bottom: ${(props: any) => props.padBottom && "19px"};
 `
 const InputContainer: any = styled.div`
   position: relative;
   height: ${(props: any) => props.height};
-  width: 220px;
+  width: 100%;
   display: flex;
 `
 const InputHtmlElement: any = styled.input`
@@ -49,6 +50,7 @@ const InputHtmlElement: any = styled.input`
     border: 1px solid ${(props: any) => props.color};
 
      + div svg path{
+      transition: all 0.35s;
       fill: ${(props: any) => props.color} !important;
     }
   }
@@ -70,7 +72,7 @@ const InputIcon: any = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99;
+  z-index: 0;
 
   ${(props: any) =>
     props.iconRight
@@ -115,10 +117,10 @@ const Input: React.FC<InputProps> = ({
         return "36px"
       }
       case "md": {
-        return "38px"
+        return "39px"
       }
       case "lg": {
-        return "40px"
+        return "50px"
       }
       default: {
         throw new Error("size not supported")
@@ -176,7 +178,7 @@ const Input: React.FC<InputProps> = ({
   }
 
   return (
-    <InputElement>
+    <InputElement padBottom={type === "email"}>
       <Label htmlFor={`${id}`}>{label}</Label>
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement
