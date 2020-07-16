@@ -15,7 +15,7 @@ const NotificationDiv: any = styled.div`
   width: 330px;
   margin-top: 10px;
   text-align: left;
-  transition: visibility 0.35s;
+  transition: opacity 0.5s;
   overflow: hidden;
   //   backdrop-filter: blur(46px) saturate(276%);
   //   -webkit-opacity: 0.8;
@@ -84,7 +84,8 @@ const Notification: React.FC<NotifyProps> = ({
   icon,
   iconColor,
   text,
-  time = 3500,
+  time = 1500,
+  onClose,
   ...props
 }) => {
   const refs: any = useRef()

@@ -99,7 +99,12 @@ const Login: React.FC<any> = () => {
               title={item.title}
               text={item.text}
               icon="mdiTrophyVariant"
-              time={3500}
+              time={1500}
+              onClose={(element: any) => {
+                if (element) {
+                  element.style.opacity = "0"
+                }
+              }}
             />
           ))}
         </div>
