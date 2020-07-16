@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 import "./App.css"
-import { AuthContext, NotificationProvider, store } from "rap-core"
+import { AuthContext, store } from "rap-core"
 import Login from "./login"
 import Home from "./home"
 import { Provider } from "react-redux"
@@ -21,7 +21,6 @@ const App: React.FC<any> = () => {
           },
         }}
       >
-        <NotificationProvider>
           <div className="App">
             <header className="App-header">
               <Switch>
@@ -37,7 +36,6 @@ const App: React.FC<any> = () => {
               </Switch>
             </header>
           </div>
-        </NotificationProvider>
       </AuthContext.Provider>
     </Provider>
   )

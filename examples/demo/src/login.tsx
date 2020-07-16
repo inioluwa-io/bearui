@@ -2,42 +2,21 @@ import React, { useState, useEffect } from "react"
 import { useLogin, useLogout, useNotification } from "rap-core"
 import { Button, Notification, Switch, Input } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
-import { connect } from "react-redux"
 
-const Message: React.FC<any> = ({ idx, item }) => {
-  const [notification, setNotification] = useNotification<NotifyProps[]>([])
-
-  const msgs = [...notification]
-
+const NotificationComponent: React.FC<any> = ({ notification }) => {
+  const msgs: NotifyProps[] = [...notification]
   useEffect(() => {
     let timer: any
 
     if (msgs.length) {
       timer = setTimeout(() => {
         msgs.shift()
-        setNotification(msgs)
+        // setNotification(msgs)
       }, 2500)
     }
     return () => clearTimeout(timer)
   }, [notification])
-  return (
-    <Notification
-      key={idx}
-      title={item.title}
-      text={item.text}
-      icon="mdiTrophyVariant"
-      time={1500}
-      onClose={(element: any) => {
-        if (element) {
-          element.style.opacity = "0"
-        }
-      }}
-    />
-  )
-}
 
-const NotificationComponent: React.FC<{}> = () => {
-  const [notification] = useNotification<NotifyProps[]>([])
   return (
     <div
       style={{
@@ -47,11 +26,22 @@ const NotificationComponent: React.FC<{}> = () => {
         display: "flex",
         height: notification.length * 100 + "px",
         flexDirection: "column-reverse",
-        transition: "all .4s",
+        transition: "all .45s",
       }}
     >
       {notification.map((item: NotifyProps, idx: number) => (
-        <Message idx={idx} item={item} />
+        <Notification
+          key={idx}
+          title={item.title}
+          text={item.text}
+          icon="mdiTrophyVariant"
+          time={1500}
+          onClose={(element: any) => {
+            if (element) {
+              element.style.opacity = "0"
+            }
+          }}
+        />
       ))}
     </div>
   )
@@ -60,7 +50,7 @@ const NotificationComponent: React.FC<{}> = () => {
 const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
-  const [notification, setNotification] = useNotification<NotifyProps[]>([])
+  const [notification, addNotification] = useNotification(6000)
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -71,7 +61,7 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <NotificationComponent />
+      <NotificationComponent notification={notification} />
       <div
         style={{
           background: "#3E4451",
@@ -115,7 +105,6 @@ const Login: React.FC<any> = () => {
             onClick={(e: any) => {
               const newno = [...notification]
               newno.shift()
-              setNotification(newno)
             }}
           />
         </div>
@@ -134,15 +123,12 @@ const Login: React.FC<any> = () => {
             gradient
             size={"sm"}
             onClick={(e: any) => {
-              setNotification([
-                ...notification,
-                {
-                  title: "Award Unlocked!",
-                  text:
-                    Math.floor(Math.random() * 100) +
-                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
-                },
-              ])
+              addNotification({
+                title: "Award Unlocked!",
+                text:
+                  Math.floor(Math.random() * 100) +
+                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
+              })
             }}
           >
             Add notification
@@ -152,8 +138,5 @@ const Login: React.FC<any> = () => {
     </>
   )
 }
-const mapStateToProps = (state: any) => ({
-  notification: state.notification,
-})
 
-export default connect(mapStateToProps)(Login)
+export default Login
