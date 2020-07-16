@@ -23,7 +23,7 @@ const NotificationComponent: React.FC<any> = ({ item, idx, onFinish }) => {
 const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
-  const [notification, setNotification] = useNotification<NotifyProps>()
+  const [notification, setNotification] = useState<NotifyProps[]>([])
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -31,6 +31,19 @@ const Login: React.FC<any> = () => {
   const handleLogout: any = (e: EventListener) => {
     console.log(logout({ username: "dd" }, "/"))
   }
+  const msgs = [...notification]
+
+  useEffect(() => {
+    let timer: any
+    if (msgs.length) {
+      timer = setTimeout(() => {
+        msgs.shift()
+        console.log("delete")
+        setNotification(msgs)
+      }, 1500)
+    }
+    return () => clearTimeout(timer)
+  }, [notification])
 
   return (
     <>

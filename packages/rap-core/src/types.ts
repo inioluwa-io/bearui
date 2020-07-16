@@ -10,6 +10,6 @@ export type NotifyProps = {
   icon?: string
 }
 
-export type NotificationQueue = (params:NotifyProps) => void
+export type NotificationQueue = (params:NotifyProps) => any
 
 export type NotificationContextProvider = [NotifyProps[], Function]
