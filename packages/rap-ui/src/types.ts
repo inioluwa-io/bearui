@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react"
+import { ButtonHTMLAttributes, Ref } from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
@@ -68,6 +68,7 @@ export type InputProps = {
   iconRight?: boolean
   iconBorder?: boolean
   color?: string
+  onError: () => any
   type?: "email" | "text" | "password"
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
