@@ -1,4 +1,4 @@
 import store from "./store"
-import { addNotifcation } from "./action"
+import { addNotification } from "./action"
 
-export { store, addNotifcation }
+export { store, addNotification }

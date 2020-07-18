@@ -1,3 +1,3 @@
-import { addNotifcation } from "./notificationAction"
+import { addNotification } from "./notificationAction"
 
-export { addNotifcation }
+export { addNotification }
