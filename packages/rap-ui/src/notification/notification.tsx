@@ -83,8 +83,7 @@ const Notification: React.FC<NotifyProps> = ({
   title,
   icon,
   iconColor,
-  text,
-  ...props
+  text
 }) => {
   
   return (
@@ -102,7 +101,7 @@ const Notification: React.FC<NotifyProps> = ({
             <HeaderIcon>
               <Icon
                 path={path[icon]}
-                color={iconColor || colors.warning}
+                color={colors[iconColor] || iconColor || colors.warning}
                 size={0.8}
               />
             </HeaderIcon>
