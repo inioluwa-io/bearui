@@ -33,7 +33,7 @@ type NotificationProviderProps = (props: NotifyProps) => void
  */
 
 export type UseNotificationProps = (
-  delay: number
+  delay?: number
 ) => (NotifyProps[] | NotificationProviderProps)[]
 
 const useNotification: UseNotificationProps = (delay = 2500) => {

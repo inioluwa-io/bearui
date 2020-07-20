@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from "react"
-import { useLogin, useLogout, useNotification } from "rap-core"
+import { useLogin, useLogout, useNotification, useDataProvider } from "rap-core"
 import { Button, Notification, Switch, Input } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
-  const msgs: NotifyProps[] = [...notification]
-  useEffect(() => {
-    let timer: any
-
-    if (msgs.length) {
-      timer = setTimeout(() => {
-        msgs.shift()
-        // setNotification(msgs)
-      }, 2500)
-    }
-    return () => clearTimeout(timer)
-  }, [notification])
-
   return (
     <div
       style={{
@@ -34,7 +21,8 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
           key={idx}
           title={item.title}
           text={item.text}
-          icon="mdiTrophyVariant"
+          icon={item.icon}
+          iconColor={item.iconColor}
         />
       ))}
     </div>
@@ -45,6 +33,11 @@ const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
   const [notification, addNotification] = useNotification(3000)
+  const dataProvider = useDataProvider()
+
+  useEffect(() => {
+    dataProvider.getOne()
+  }, [])
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -112,6 +105,7 @@ const Login: React.FC<any> = () => {
             onClick={(e: any) => {
               addNotification({
                 title: "Award Unlocked!",
+                icon: "mdiTrophy",
                 text:
                   Math.floor(Math.random() * 100) +
                   "You have reached level 13 and you have been given free 300 coins and +3XP.",
