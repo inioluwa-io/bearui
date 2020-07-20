@@ -84,10 +84,9 @@ const Notification: React.FC<NotifyProps> = ({
   icon,
   iconColor,
   text,
-  time = 1500,
-  onClose,
   ...props
 }) => {
+  
   return (
     <NotificationDiv
       background={theme["dark-mode"]["card-background"]}
