@@ -1,2 +1,3 @@
 import useNotification from "./useNotification"
-export { useNotification }
+import useDataProvider from "./useDataProvider"
+export { useNotification, useDataProvider }

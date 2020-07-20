@@ -1,7 +1,3 @@
-import {
-  NotificationProvider,
-  useNotification,
-  NotificationContext,
-} from "./notification"
+import DataProvider, { DataProviderContext } from "./dataProviderContext"
 
-export { useNotification, NotificationContext, NotificationProvider }
+export { DataProvider, DataProviderContext }
