@@ -2,9 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
 import { REMOVE_NOTIFICATION, ADD_NOTIFICATION } from "../redux/types"
 
-export type UseNotificationProps = (
-  delay: number
-) => (NotifyProps[] | ((props: NotifyProps) => void))[]
+type NotificationProviderProps = (props: NotifyProps) => void
 
 /**
  * Handle notification queue.
@@ -13,7 +11,7 @@ export type UseNotificationProps = (
  * @returns {array} An array with the notification queue and callback that accpets new notification type and removes it after delay timeout
  *
  * @example
- * 
+ *
  * The second element in return array accepts an object as an argument.
  *  - {
  *      title:string,
@@ -34,13 +32,18 @@ export type UseNotificationProps = (
  * }
  */
 
+export type UseNotificationProps = (
+  delay: number
+) => (NotifyProps[] | NotificationProviderProps)[]
+
 const useNotification: UseNotificationProps = (delay = 2500) => {
   const notificationProvider: NotifyProps[] = useSelector(
     (state: any) => state.notificationReducer.notification
   )
+  
   const dispatch = useDispatch()
 
-  const addToNotificationProvider = (props: NotifyProps) => {
+  const addToNotificationProvider: NotificationProviderProps = props => {
     dispatch({ type: ADD_NOTIFICATION, payload: props })
     setTimeout(() => {
       dispatch({ type: REMOVE_NOTIFICATION })
