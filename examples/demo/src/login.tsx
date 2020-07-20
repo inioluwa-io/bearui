@@ -35,12 +35,6 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
           title={item.title}
           text={item.text}
           icon="mdiTrophyVariant"
-          time={1500}
-          onClose={(element: any) => {
-            if (element) {
-              element.style.opacity = "0"
-            }
-          }}
         />
       ))}
     </div>
@@ -50,7 +44,7 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
 const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
-  const [notification, addNotification] = useNotification(6000)
+  const [notification, addNotification] = useNotification(3000)
 
   const handleLogin: any = (e: EventListener) => {
     login({ username: "log" }, "/")
@@ -102,10 +96,6 @@ const Login: React.FC<any> = () => {
           <Switch
             active
             color="success"
-            onClick={(e: any) => {
-              const newno = [...notification]
-              newno.shift()
-            }}
           />
         </div>
         <br />
