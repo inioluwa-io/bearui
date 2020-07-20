@@ -93,10 +93,7 @@ const Login: React.FC<any> = () => {
         />
         <br />
         <div>
-          <Switch
-            active
-            color="success"
-          />
+          <Switch active color="success" onClick={(value: any) => {}} />
         </div>
         <br />
         <div
