@@ -103,12 +103,14 @@ const runQuery = async ({
 
       dispatch({ type: FETCH_SUCCESS, payload: resp })
       const message = formatDataProviderSuccessMessage(type)
-      addNotification({
-        title: "Data Provider",
-        text: message,
-        icon: "mdiCheck",
-        iconColor: "success",
-      })
+      if (type !== "getOne") {
+        addNotification({
+          title: "Data Provider",
+          text: message,
+          icon: "mdiCheck",
+          iconColor: "success",
+        })
+      }
       dispatch({ type: FETCH_END })
     }
   } catch (error) {
