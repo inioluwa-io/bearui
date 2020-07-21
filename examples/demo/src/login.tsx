@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useLogin, useLogout, useNotification, useDataProvider } from "rap-core"
-import { Button, Notification, Switch, Input } from "rap-ui"
+import { Button, Notification, Switch, Input, useThemeMode } from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
@@ -34,9 +34,11 @@ const Login: React.FC<any> = () => {
   const logout = useLogout()
   const [notification, addNotification] = useNotification(3000)
   const dataProvider = useDataProvider()
+  const [themeMode, setThemeMode] = useThemeMode()
 
   useEffect(() => {
     dataProvider.getOne()
+    console.log("Dkj")
   }, [])
 
   const handleLogin: any = (e: EventListener) => {
@@ -86,7 +88,13 @@ const Login: React.FC<any> = () => {
         />
         <br />
         <div>
-          <Switch active color="success" onClick={(value: any) => {}} />
+          <Switch
+            active={themeMode === "darkmode" ? true : false}
+            color="success"
+            onClick={(value: boolean) => {
+              value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+            }}
+          />
         </div>
         <br />
         <div

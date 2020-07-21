@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { SwitchProps } from "../types"
 import styled from "styled-components"
-import { colors } from "../default.json"
 import { rgba, lighten } from "polished"
+import { useTheme } from "../theme"
 
 const SwitchButton: any = styled.button`
   position: relative;
@@ -12,6 +12,7 @@ const SwitchButton: any = styled.button`
   font-size: 11px;
   font-family: Nunito sans;
   align-items: center;
+  overflow: hidden;
   justify-content: ${(props: any) =>
     props.active ? "flex-end" : "flex-start"};
   cursor: pointer;
@@ -76,6 +77,8 @@ const Switch: React.FC<SwitchProps> = ({
   onClick,
 }) => {
   const [isActive, setIsActive] = useState<boolean>(active)
+
+  const colors = useTheme().colors
 
   const getColor: Function = (): any => {
     const supportedColors = [

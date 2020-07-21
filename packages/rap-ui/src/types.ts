@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, Ref } from "react"
+import { ButtonHTMLAttributes, Ref, Dispatch, SetStateAction } from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
@@ -76,3 +76,28 @@ export type InputProps = {
 }
 
 export type SupportedProps = (arr: any[], value: any) => boolean
+
+// Theme types
+export type RapUIThemeColorsProps = {
+  primary: string
+  success: string
+  info: string
+  warning: string
+  danger: string
+  transparent: string
+  white: string
+  dark: string
+}
+export type RapUIThemeModeProps = {
+  background: string
+  cardbackground: string
+}
+export type RapUITheme = {
+  colors: RapUIThemeColorsProps
+  darkmode: RapUIThemeModeProps
+  lightmode: RapUIThemeModeProps
+}
+export type RapUIThemeMode = "lightmode" | "darkmode"
+
+export type ThemeMode = [RapUIThemeMode, Dispatch<SetStateAction<RapUIThemeMode>>]
+// end theme types

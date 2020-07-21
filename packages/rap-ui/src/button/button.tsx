@@ -4,8 +4,7 @@ import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
 import * as path from "@mdi/js"
-import * as Theme from "../default.json"
-
+import { useTheme } from "../theme"
 /**
  * How it works!!
  * background - if border is true set background to transparent else check if backgroundGradient is set or background is set
@@ -94,7 +93,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const refs: any = useRef()
 
-  const [mouse, setMouse] = useState<{ x: number; y: number } | {}>()
+  const Theme = useTheme()
 
   // create ripple effects when button clicked
   useEffect(() => {

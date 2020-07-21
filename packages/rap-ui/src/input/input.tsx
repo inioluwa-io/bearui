@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { InputProps } from "../types"
 import styled from "styled-components"
 import { isSupported } from "../util"
-import { colors } from "../default.json"
 import * as mdi from "@mdi/js"
 import { Icon } from "@mdi/react"
+import { useTheme, useThemeMode } from "../theme"
 
 const InputElement: any = styled.div`
   position: relative;
@@ -32,10 +32,9 @@ const InputHtmlElement: any = styled.input`
   outline: none;
   padding: ${(props: any) => props.size};
   border-radius: 5px;
-  background: transparent;
   border: 1px solid ${(props: any) =>
-    props.error ? colors.danger + " !important" : "transparent"};
-  background: #282c34;
+    props.error ? props.colors.danger + " !important" : "transparent"};
+  background: ${(props: any) => props.background.background  || "transparent" };
   padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
   padding-right:${(props: any) => props.padLeft && props.iconRight && "40px"};
   color: #f1f1f1;
@@ -51,7 +50,8 @@ const InputHtmlElement: any = styled.input`
 
      + div svg path{
       transition: all 0.35s;
-      fill: ${(props: any) => props.color} !important;
+      fill: ${(props: any) =>
+        props.error ? props.colors.danger : props.color} !important;
     }
   }
 `
@@ -110,6 +110,9 @@ const Input: React.FC<InputProps> = ({
   const [inputValue, setInputValue] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
   const [errorMesssage, setErrorMessage] = useState<string>("")
+  const theme = useTheme()
+  const colors = theme.colors
+  const [themeMode] = useThemeMode()
 
   const inputHeightSize = (): string => {
     switch (size) {
@@ -184,7 +187,9 @@ const Input: React.FC<InputProps> = ({
         <InputHtmlElement
           padLeft={!!icon}
           error={error}
+          background={theme[themeMode]}
           color={formatColor()}
+          colors={colors}
           size={inputPaddingSize()}
           type={type}
           id={id}

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react"
 import { NotifyProps } from "../types"
 import styled from "styled-components"
-import { theme, colors } from "../default.json"
 import Icon from "@mdi/react"
 import { darken, rgba } from "polished"
 import * as path from "@mdi/js"
+import { useTheme, useThemeMode } from "../theme"
 
 const NotificationDiv: any = styled.div`
   position: relative;
@@ -19,7 +19,7 @@ const NotificationDiv: any = styled.div`
   overflow: hidden;
   //   backdrop-filter: blur(46px) saturate(276%);
   //   -webkit-opacity: 0.8;
-  box-shadow: 0 8px 15px -6px ${(props: any) => darken(0.12, props.background)};
+  box-shadow: 0 8px 15px -6px ${(props: any) => props.boxShadow};
 
   &:hover {
     .overflow {
@@ -83,12 +83,21 @@ const Notification: React.FC<NotifyProps> = ({
   title,
   icon,
   iconColor,
-  text
+  text,
 }) => {
-  
+  const theme = useTheme()
+  const [themeMode] = useThemeMode()
+  const colors = theme.colors
+  const background:string = theme[themeMode]["cardbackground"]
+
   return (
     <NotificationDiv
-      background={theme["dark-mode"]["card-background"]}
+      boxShadow={
+        themeMode === "darkmode"
+          ? darken(0.12, background)
+          : darken(0.25, background)
+      }
+      background={background}
     >
       <Overflow>
         <div
@@ -105,11 +114,26 @@ const Notification: React.FC<NotifyProps> = ({
                 size={0.8}
               />
             </HeaderIcon>
-            <h2 style={{ fontSize: "16px", margin: 0, fontWeight: "bold" }}>
+            <h2
+              style={{
+                fontSize: "16px",
+                margin: 0,
+                fontWeight: "bold",
+                color: themeMode === "darkmode" ? "#ffffff" : "#555",
+              }}
+            >
               {title}
             </h2>
           </div>
-          <p style={{ fontSize: "15px", margin: "4px 0" }}>{text}</p>
+          <p
+            style={{
+              fontSize: "15px",
+              color: themeMode === "darkmode" ? "#ffffff" : "#555",
+              margin: "4px 0",
+            }}
+          >
+            {text}
+          </p>
         </div>
       </Overflow>
     </NotificationDiv>
