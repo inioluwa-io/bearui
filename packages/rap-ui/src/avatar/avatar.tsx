@@ -1,8 +1,8 @@
 import React from "react"
 import { AvatarProps } from "../types"
 import styled from "styled-components"
-import theme from "../default.json"
 import { isObject } from "../util"
+import { useTheme } from "../theme"
 
 const AvatarComponent: any = styled.div`
   width: ${(props: any) => props.size};
@@ -74,6 +74,7 @@ const Avatar: React.FC<AvatarProps> = ({
   if (!text && !src) {
     throw new SyntaxError("Either text or src must be present")
   }
+  const theme = useTheme()
 
   const getBackgroundColor: Function = (color: string): any => {
     const supportedColors = [
