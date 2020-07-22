@@ -34,13 +34,13 @@ type NotificationProviderProps = (props: NotifyProps) => void
 
 export type UseNotificationProps = (
   delay?: number
-) => (NotifyProps[] | NotificationProviderProps)[]
+) => [NotifyProps[], NotificationProviderProps]
 
 const useNotification: UseNotificationProps = (delay = 2500) => {
   const notificationProvider: NotifyProps[] = useSelector(
     (state: any) => state.notificationReducer.notification
   )
-  
+
   const dispatch = useDispatch()
 
   const addToNotificationProvider: NotificationProviderProps = props => {
