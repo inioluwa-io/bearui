@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useLogin, useLogout, useNotification, useDataProvider } from "rap-core"
-import { Button, Notification, Switch, Input, useThemeMode } from "rap-ui"
+import {
+  Button,
+  Notification,
+  Switch,
+  Input,
+  useThemeMode,
+  useTheme,
+} from "rap-ui"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
@@ -33,12 +40,25 @@ const Login: React.FC<any> = () => {
   const login = useLogin()
   const logout = useLogout()
   const [notification, addNotification] = useNotification(3000)
-  const dataProvider = useDataProvider()
   const [themeMode, setThemeMode] = useThemeMode()
+  const theme = useTheme()
+  const dataProvider = useDataProvider()
 
   useEffect(() => {
-    dataProvider.getOne()
-    console.log("Dkj")
+    dataProvider
+      .getOne("/template", {
+        id: { id: "" },
+      })
+      .then(resp => {
+        console.log(resp)
+      })
+    dataProvider
+      .getOne("/publish", {
+        id: { id: "" },
+      })
+      .then(resp => {
+        console.log(resp)
+      })
   }, [])
 
   const handleLogin: any = (e: EventListener) => {
@@ -53,13 +73,13 @@ const Login: React.FC<any> = () => {
       <NotificationComponent notification={notification} />
       <div
         style={{
-          background: "#3E4451",
+          background: theme[themeMode].cardbackground,
           padding: "60px 85px",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           borderRadius: "10px",
-          boxShadow: "0 0 35px -8px #292929",
+          boxShadow: "0 0 35px -18px #292929",
         }}
       >
         <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
@@ -84,6 +104,7 @@ const Login: React.FC<any> = () => {
           onChange={(value: string) => {
             console.log(value)
           }}
+          onError={() => {}}
           placeholder="Enter your password"
         />
         <br />

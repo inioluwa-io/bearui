@@ -27,11 +27,18 @@ export interface Record {
 // DataProvider props
 
 export type DataProviderProps = {
-  getOne: (resource: string, params: getOneParams) => Promise<GetOneResult>
+  getOne: (resource: string, params?: Record, endPoint?: string) => Promise<any>
 }
 export interface getOneParams {
   id: Record
 }
 export interface GetOneResult {
   data: Record
+}
+export interface GetResult {
+  data: Record
+}
+
+export type ResourceState = {
+  [key: string]: GetResult
 }

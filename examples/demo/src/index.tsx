@@ -4,10 +4,34 @@ import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
+import { Provider } from "react-redux"
+import { store, DataProvider, AuthContext } from "rap-core"
+import { ThemeProvider, ThemeModeProvider } from "rap-ui"
 
 ReactDOM.render(
   <BrowserRouter>
-      <App />
+    <Provider store={store}>
+      <DataProvider>
+        <ThemeProvider>
+          <ThemeModeProvider>
+            <AuthContext.Provider
+              value={{
+                login: async (data: any) => {
+                  try {
+                    if (data.username === "login") return Promise.resolve()
+                    return Promise.reject()
+                  } catch (e) {
+                    console.warn(e)
+                  }
+                },
+              }}
+            >
+              <App />
+            </AuthContext.Provider>
+          </ThemeModeProvider>
+        </ThemeProvider>
+      </DataProvider>
+    </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 )
