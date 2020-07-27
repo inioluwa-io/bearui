@@ -50,14 +50,14 @@ const Login: React.FC<any> = () => {
         id: { id: "" },
       })
       .then(resp => {
-        console.log(resp)
+        console.log(resp.data)
       })
     dataProvider
       .getOne("/publish", {
         id: { id: "" },
       })
       .then(resp => {
-        console.log(resp)
+        console.log(resp.data)
       })
   }, [])
 
