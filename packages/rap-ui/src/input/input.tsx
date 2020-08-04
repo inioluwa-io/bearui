@@ -34,10 +34,10 @@ const InputHtmlElement: any = styled.input`
   border-radius: 5px;
   border: 1px solid ${(props: any) =>
     props.error ? props.colors.danger + " !important" : "transparent"};
-  background: ${(props: any) => props.background.background  || "transparent" };
+  background: ${(props: any) => props.background.background || "transparent"};
   padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
   padding-right:${(props: any) => props.padLeft && props.iconRight && "40px"};
-  color: #f1f1f1;
+  color: ${(props: any) => props.textColor};
   transition: all 0.35s;
 
   &::placeholder{
@@ -179,6 +179,7 @@ const Input: React.FC<InputProps> = ({
     setInputValue(e.target.value)
     onChange(e.target.value)
   }
+  console.log(themeMode)
 
   return (
     <InputElement padBottom={type === "email"}>
@@ -190,6 +191,7 @@ const Input: React.FC<InputProps> = ({
           background={theme[themeMode]}
           color={formatColor()}
           colors={colors}
+          textColor={themeMode === "lightmode" ? "#222" : "#f1f1f1"}
           size={inputPaddingSize()}
           type={type}
           id={id}
