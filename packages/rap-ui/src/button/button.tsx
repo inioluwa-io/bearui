@@ -185,7 +185,7 @@ const Button: React.FC<ButtonProps> = ({
   }
   const getIconStyle: Function = (): any => {
     if (iconOnly) return { margin: "0", padding: "1px" }
-    return iconRight ? { marginLeft: "3px" } : { marginRight: "3px" }
+    return iconRight ? { marginLeft: "4px" } : { marginRight: "4px" }
   }
 
   updateProps(getStyleFromCornersProps())

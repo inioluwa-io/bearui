@@ -16,7 +16,11 @@ const AppleButton: React.FC<AppleSocialButton> = ({
   style = {},
   children,
 }) => {
-  Object.assign(style, { fontFamily: "Roboto", fontSize: "16px" })
+  Object.assign(style, {
+    fontFamily: "Roboto",
+    fontSize: "15px",
+    lineHeight: "19px",
+  })
   return (
     <Button
       background={color}

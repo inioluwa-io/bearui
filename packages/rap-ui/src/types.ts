@@ -28,6 +28,16 @@ export type AppleSocialButton = {
   color: "dark" | "white"
   corners?: "rounded" | "box"
 } & SocialButtonProps
+
+export type GoogleSocialButton = {
+  color: "red" | "white" | "blue"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+
+export type FacebookSocialButton = {
+  color: "white" | "blue"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
 export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
   size?: "xs" | "sm" | "md" | "lg"
   iconOnly?: boolean

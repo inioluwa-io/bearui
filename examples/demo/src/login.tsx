@@ -3,6 +3,7 @@ import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
 import {
   Button,
   AppleButton,
+  FacebookButton,
   GoogleButton,
   Switch,
   Input,
@@ -112,12 +113,12 @@ const Login: React.FC<any> = () => {
               })
             }}
           >
-            Add notification
+            Login
           </Button>
-          <br />
-
+          <p style={{ margin: "14px 0", fontSize: "14px" }}> - or -</p>
           <AppleButton />
-          <GoogleButton style={{ marginTop: "15px" }} />
+          <FacebookButton style={{ marginTop: "10px" }} />
+          <GoogleButton style={{ marginTop: "10px" }} />
         </div>
       </div>
     </>

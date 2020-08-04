@@ -1,5 +1,5 @@
 import React from "react"
-import { GoogleSocialButton } from "../types"
+import { FacebookSocialButton } from "../types"
 import Button from "./button"
 
 /**
@@ -8,9 +8,9 @@ import Button from "./button"
  * border - if outline is true set border to borderColor or background else set to none
  */
 
-const GoogleButton: React.FC<GoogleSocialButton> = ({
-  text = "Sign in with Google",
-  color = "white",
+const FacebookButton: React.FC<FacebookSocialButton> = ({
+  text = "Sign in with Facebook",
+  color = "blue",
   corners = "box",
   onClick,
   style,
@@ -21,11 +21,6 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
 
   // set textColor and background according to color theme
   switch (color) {
-    case "red": {
-      textColor = "#fff"
-      background = "#cc2929"
-      break
-    }
     case "blue": {
       textColor = "#fff"
       background = "#3c5eff"
@@ -37,14 +32,18 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
     }
   }
 
-  Object.assign(style, { fontFamily: "Open sans", fontWeight: "500" })
+  Object.assign(style, {
+    fontFamily: "Roboto",
+    fontSize: "15px",
+    lineHeight: "19px",
+  })
   return (
     <Button
       background={background}
       size={"sm"}
       iconColor={textColor}
       corners={corners}
-      icon="mdiGoogle"
+      icon="mdiFacebook"
       textColor={textColor}
       style={style}
       onClick={onClick}
@@ -54,4 +53,4 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
   )
 }
 
-export default GoogleButton
+export default FacebookButton
