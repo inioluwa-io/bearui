@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
 import { REMOVE_NOTIFICATION, ADD_NOTIFICATION } from "../redux/types"
-import { useCallback, useMemo } from "react"
+import { useCallback } from "react"
 
 type NotificationProviderProps = (props: NotifyProps) => void
 

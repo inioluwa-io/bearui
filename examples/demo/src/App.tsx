@@ -6,13 +6,9 @@ import { useTheme, useThemeMode, Notification } from "rap-ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "rap-core"
 import { NotifyProps } from "rap-ui/lib/types"
-import { useSelector } from "react-redux"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
-  // const notification = useSelector(
-  //   (state: any) => state.notificationReducer.notification
-  // )
-  // console.log(notification)
+ 
   return (
     <div
       style={{

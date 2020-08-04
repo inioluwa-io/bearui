@@ -3,24 +3,25 @@ import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
 import { Button, Switch, Input, useThemeMode, useTheme } from "rap-ui"
 
 const Login: React.FC<any> = () => {
-  // const login = useLogin()
-  // const logout = useLogout()
   const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
   const queryStore = useQueryStore()
-  const [notification, addNotification] = useNotification()
+  const [, addNotification] = useNotification()
 
-  const template = queryStore.getOne("template", { name: "Plin Blue" })
+  const { data: template, loading } = queryStore.getOne("template", {
+    name: "PlainBlue",
+  })
+
   useEffect(() => {
     if (!template) {
       addNotification({
-        title: "Data Provider",
-        text: "message",
-        icon: "mdiCheck",
-        iconColor: "success",
+        title: "QueryStore",
+        text: "Could not fetch from template",
+        icon: "mdiAlert",
+        iconColor: "danger",
       })
     }
-  }, [])
+  }, [template, addNotification])
   // const handleLogin: any = (e: EventListener) => {
   //   login({ username: "log" }, "/")
   // }
@@ -30,7 +31,9 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <ul>{template && <li>{template.name}</li>}</ul>
+      <ul>
+        {loading ? <>loading...</> : template && <li>{template.name}</li>}
+      </ul>
       <div
         style={{
           background: theme[themeMode].cardbackground,
