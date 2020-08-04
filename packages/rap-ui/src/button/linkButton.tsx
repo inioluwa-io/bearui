@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react"
-import { ButtonProps } from "../types"
+import { Link } from "react-router-dom"
+import { LinkButtonProps } from "../types"
 import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
@@ -11,7 +12,7 @@ import { useTheme } from "../theme"
  * border - if outline is true set border to borderColor or background else set to none
  */
 
-const Button1: any = styled.button`
+const Button1: any = styled(Link)`
 font-family: Nunito sans;
   position:relative;
   background: ${(props: any) =>
@@ -28,6 +29,7 @@ font-family: Nunito sans;
   display:flex;
   align-items: center;
   justify-content:center;
+  text-decoration:none;
   flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
   transition: all 0.35s ease;
   border: ${(props: any) =>
@@ -78,9 +80,10 @@ font-family: Nunito sans;
   }
 `
 
-const Button: React.FC<ButtonProps> = ({
+const LinkButton: React.FC<LinkButtonProps> = ({
   children,
   icon,
+  to,
   iconOnly = false,
   corners = "box",
   background = "primary",
@@ -185,24 +188,24 @@ const Button: React.FC<ButtonProps> = ({
   }
   const getIconStyle: Function = (): any => {
     if (iconOnly) return { margin: "0", padding: "1px" }
-    return iconRight ? { marginLeft: "3px" } : { marginRight: "3px" }
+    return iconRight ? { marginLeft: "5px" } : { marginRight: "5px" }
   }
 
   updateProps(getStyleFromCornersProps())
   updateProps(getStyleFromSizeProps())
   updateProps(getStyleFromBackgroundProps())
-  if (background === "white" && textColor === "#ffffff") {
+  if (background === "white") {
     updateProps({ textColor: "#222222" })
   }
-  updateProps({ textColor: textColor, iconRight, iconOnly })
+  updateProps({ textColor: "#ffffff", iconRight, iconOnly })
 
   return (
-    <Button1 {...props} ref={refs}>
+    <Button1 to={to} {...props} ref={refs}>
       {icon && (
         <Icon
           path={path[icon]}
-          color={iconColor}
           size={0.75}
+          color={iconColor}
           style={getIconStyle()}
         />
       )}
@@ -211,4 +214,4 @@ const Button: React.FC<ButtonProps> = ({
   )
 }
 
-export default Button
+export default LinkButton

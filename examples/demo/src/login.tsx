@@ -1,6 +1,14 @@
 import React, { useEffect } from "react"
 import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
-import { Button, Switch, Input, useThemeMode, useTheme } from "rap-ui"
+import {
+  Button,
+  AppleButton,
+  GoogleButton,
+  Switch,
+  Input,
+  useThemeMode,
+  useTheme,
+} from "rap-ui"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
@@ -106,6 +114,10 @@ const Login: React.FC<any> = () => {
           >
             Add notification
           </Button>
+          <br />
+
+          <AppleButton />
+          <GoogleButton style={{ marginTop: "15px" }} />
         </div>
       </div>
     </>

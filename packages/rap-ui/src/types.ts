@@ -1,4 +1,10 @@
-import { ButtonHTMLAttributes, Ref, Dispatch, SetStateAction } from "react"
+import {
+  ButtonHTMLAttributes,
+  Ref,
+  Dispatch,
+  SetStateAction,
+  LinkHTMLAttributes,
+} from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
@@ -9,14 +15,29 @@ export type ButtonStyle = {
   iconRight?: boolean
   icon?: string
   borderColor?: string
+  iconColor?: string
   iconOnly?: boolean
   glow?: boolean
+  hoverColor?: string
   size?: "xs" | "sm" | "md" | "lg"
 }
 
-export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
+export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {}
+
+export type AppleSocialButton = {
+  color: "dark" | "white"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
+  size?: "xs" | "sm" | "md" | "lg"
+  iconOnly?: boolean
+  text: string
+  onClick: () => any
+}
+export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
   id?: string
   hoverColor?: string
+  to: string
 }
 
 export type AvatarProps = {
@@ -99,5 +120,8 @@ export type RapUITheme = {
 }
 export type RapUIThemeMode = "lightmode" | "darkmode"
 
-export type ThemeMode = [RapUIThemeMode, Dispatch<SetStateAction<RapUIThemeMode>>]
+export type ThemeMode = [
+  RapUIThemeMode,
+  Dispatch<SetStateAction<RapUIThemeMode>>
+]
 // end theme types
