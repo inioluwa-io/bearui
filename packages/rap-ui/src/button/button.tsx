@@ -170,9 +170,16 @@ const Button: React.FC<ButtonProps> = ({
         background: Theme.colors[background.trim()],
       }
     } else {
-      return { background }
+      return {
+        backgroundGradient:
+          gradient &&
+          `linear-gradient(138deg,${background.trim()}, ${rgba(
+            background.trim(),
+            0.6
+          )})`, background }
     }
   }
+  console.log(getStyleFromBackgroundProps())
 
   const isObject: Function = (object: any): boolean =>
     typeof object === "object"

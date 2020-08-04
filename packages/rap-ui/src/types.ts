@@ -42,6 +42,7 @@ export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
   size?: "xs" | "sm" | "md" | "lg"
   iconOnly?: boolean
   text: string
+  gradient?:boolean
   onClick: () => any
 }
 export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {

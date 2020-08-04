@@ -41,9 +41,9 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <ul>
+      {/* <ul>
         {loading ? <>loading...</> : template && <li>{template.name}</li>}
-      </ul>
+      </ul> */}
       <div
         style={{
           background: theme[themeMode].cardbackground,
@@ -116,10 +116,8 @@ const Login: React.FC<any> = () => {
           >
             Login
           </Button> */}
-          <AppleButton text="Apple" />
-          <FacebookButton style={{ marginTop: "10px" }} text="Facebook" />
-          <GoogleButton style={{ marginTop: "10px" }} text="Google" />
-          <TwitterButton style={{ marginTop: "10px" }} text="Twitter" />
+          <AppleButton />
+          <FacebookButton style={{ marginTop: "10px" }} />
         </div>
       </div>
     </>

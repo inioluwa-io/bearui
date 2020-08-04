@@ -12,6 +12,8 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
   text = "Sign in with Google",
   color = "red",
   corners = "box",
+  iconOnly = false,
+  gradient = false,
   onClick,
   style,
   children,
@@ -44,7 +46,9 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
       size={"sm"}
       iconColor={textColor}
       corners={corners}
+      gradient={gradient}
       icon="mdiGoogle"
+      iconOnly={iconOnly}
       textColor={textColor}
       style={style}
       onClick={onClick}

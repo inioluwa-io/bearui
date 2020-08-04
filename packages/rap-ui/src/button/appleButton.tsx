@@ -13,6 +13,8 @@ const AppleButton: React.FC<AppleSocialButton> = ({
   corners = "box",
   onClick,
   color = "dark",
+  gradient = false,
+  iconOnly = false,
   style = {},
   children,
 }) => {
@@ -26,7 +28,9 @@ const AppleButton: React.FC<AppleSocialButton> = ({
       background={color}
       size={"sm"}
       icon="mdiApple"
+      gradient={gradient}
       corners={corners}
+      iconOnly={iconOnly}
       textColor={color === "white" ? "#000" : "#fff"}
       iconColor={color === "white" ? "#000" : "#fff"}
       onClick={onClick}

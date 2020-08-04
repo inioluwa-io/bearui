@@ -18,7 +18,7 @@ const defaultProvider: RapUITheme = {
   },
   lightmode: {
     background: "#e9e9e9",
-    cardbackground: "#ffffff",
+    cardbackground: "#fdfdfd",
   },
 }
 

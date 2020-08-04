@@ -12,6 +12,8 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
   text = "Sign in with Twitter",
   color = "blue",
   corners = "box",
+  iconOnly = false,
+  gradient = false,
   onClick,
   style,
   children,
@@ -43,7 +45,9 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
       size={"sm"}
       iconColor={textColor}
       corners={corners}
+      gradient={gradient}
       icon="mdiTwitter"
+      iconOnly={iconOnly}
       textColor={textColor}
       style={style}
       onClick={onClick}

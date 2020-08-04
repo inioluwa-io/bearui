@@ -13,6 +13,8 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
   color = "blue",
   corners = "box",
   onClick,
+  iconOnly = false,
+  gradient = false,
   style,
   children,
 }) => {
@@ -43,6 +45,8 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
       size={"sm"}
       iconColor={textColor}
       corners={corners}
+      gradient={gradient}
+      iconOnly={iconOnly}
       icon="mdiFacebook"
       textColor={textColor}
       style={style}
