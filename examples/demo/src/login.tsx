@@ -5,6 +5,7 @@ import {
   AppleButton,
   FacebookButton,
   GoogleButton,
+  TwitterButton,
   Switch,
   Input,
   useThemeMode,
@@ -97,7 +98,7 @@ const Login: React.FC<any> = () => {
             width: "100%",
           }}
         >
-          <Button
+          {/* <Button
             id="name"
             background="primary"
             glow
@@ -114,11 +115,11 @@ const Login: React.FC<any> = () => {
             }}
           >
             Login
-          </Button>
-          <p style={{ margin: "14px 0", fontSize: "14px" }}> - or -</p>
-          <AppleButton />
-          <FacebookButton style={{ marginTop: "10px" }} />
-          <GoogleButton style={{ marginTop: "10px" }} />
+          </Button> */}
+          <AppleButton text="Apple" />
+          <FacebookButton style={{ marginTop: "10px" }} text="Facebook" />
+          <GoogleButton style={{ marginTop: "10px" }} text="Google" />
+          <TwitterButton style={{ marginTop: "10px" }} text="Twitter" />
         </div>
       </div>
     </>
