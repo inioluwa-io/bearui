@@ -112,6 +112,8 @@ const runQuery = async ({
 
       dispatch({ type: FETCH_SUCCESS, payload: { [finalResource]: resp } })
       const message = formatDataProviderSuccessMessage(type)
+
+      // add notification for update, create, and delete operations
       if (type !== "getOne") {
         addNotification({
           title: "Data Provider",

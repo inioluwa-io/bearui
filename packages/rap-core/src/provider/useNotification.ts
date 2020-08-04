@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
 import { REMOVE_NOTIFICATION, ADD_NOTIFICATION } from "../redux/types"
+import { useCallback, useMemo } from "react"
 
 type NotificationProviderProps = (props: NotifyProps) => void
 
@@ -23,7 +24,6 @@ export type UseNotificationProps = (
  *    }
  *
  * @example
- * 
  * import { useNotification } from "react-admin-panel"
  *
  * const LoginButton = () => {
@@ -37,20 +37,21 @@ export type UseNotificationProps = (
  * }
  */
 
-
-const useNotification: UseNotificationProps = (delay = 2500) => {
-  const notificationProvider: NotifyProps[] = useSelector(
-    (state: any) => state.notificationReducer.notification
-  )
-
+const useNotification: any = (delay = 2500) => {
+  const notificationProvider = useCallback<() => NotifyProps[]>(() => {
+    return useSelector((state: any) => state.notificationReducer.notification)
+  }, [])
   const dispatch = useDispatch()
 
-  const addToNotificationProvider: NotificationProviderProps = props => {
-    dispatch({ type: ADD_NOTIFICATION, payload: props })
-    setTimeout(() => {
-      dispatch({ type: REMOVE_NOTIFICATION })
-    }, delay)
-  }
+  const addToNotificationProvider: NotificationProviderProps = useCallback(
+    props => {
+      dispatch({ type: ADD_NOTIFICATION, payload: props })
+      setTimeout(() => {
+        dispatch({ type: REMOVE_NOTIFICATION })
+      }, delay)
+    },
+    [dispatch]
+  )
   return [notificationProvider, addToNotificationProvider]
 }
 

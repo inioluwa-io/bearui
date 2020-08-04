@@ -24,8 +24,14 @@ export interface Record {
   [key: string]: any
 }
 
-// DataProvider props
+// Redux store state props
+export type StoreState = {
+  notificationReducer: { notification: NotifyProps[] }
+  resourceReducer: { resource: ResourceState }
+}
+// end
 
+// DataProvider props
 export type DataProviderProps = {
   getOne: (resource: string, params?: Record, endPoint?: string) => Promise<any>
 }
@@ -42,3 +48,20 @@ export interface GetResult {
 export type ResourceState = {
   [key: string]: GetResult
 }
+//end
+
+// QueryStore props
+export type QueryStoreProps = () => {
+  getAll: (
+    resource: string
+  ) => {
+    [key: string]: any
+  }
+  getOne: (
+    resource: string,
+    params: Record
+  ) => {
+    [key: string]: any
+  }
+}
+// end

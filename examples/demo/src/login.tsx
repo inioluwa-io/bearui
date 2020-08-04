@@ -1,76 +1,36 @@
 import React, { useEffect } from "react"
-import { useLogin, useLogout, useNotification, useDataProvider } from "rap-core"
-import {
-  Button,
-  Notification,
-  Switch,
-  Input,
-  useThemeMode,
-  useTheme,
-} from "rap-ui"
-import { NotifyProps } from "rap-ui/lib/types"
-
-const NotificationComponent: React.FC<any> = ({ notification }) => {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: "0",
-        zIndex: 9999,
-        display: "flex",
-        height: notification.length * 100 + "px",
-        flexDirection: "column-reverse",
-        transition: "all .45s",
-      }}
-    >
-      {notification.map((item: NotifyProps, idx: number) => (
-        <Notification
-          key={idx}
-          title={item.title}
-          text={item.text}
-          icon={item.icon}
-          iconColor={item.iconColor}
-        />
-      ))}
-    </div>
-  )
-}
+import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
+import { Button, Switch, Input, useThemeMode, useTheme } from "rap-ui"
 
 const Login: React.FC<any> = () => {
-  const login = useLogin()
-  const logout = useLogout()
-  const [notification, addNotification] = useNotification(3000)
+  // const login = useLogin()
+  // const logout = useLogout()
   const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
-  const dataProvider = useDataProvider()
+  const queryStore = useQueryStore()
+  const [notification, addNotification] = useNotification()
 
+  const template = queryStore.getOne("template", { name: "Plin Blue" })
   useEffect(() => {
-    dataProvider
-      .getOne("/template", {
-        id: { id: "" },
+    if (!template) {
+      addNotification({
+        title: "Data Provider",
+        text: "message",
+        icon: "mdiCheck",
+        iconColor: "success",
       })
-      .then(resp => {
-        console.log(resp.data)
-      })
-    dataProvider
-      .getOne("/publish", {
-        id: { id: "" },
-      })
-      .then(resp => {
-        console.log(resp.data)
-      })
+    }
   }, [])
-
-  const handleLogin: any = (e: EventListener) => {
-    login({ username: "log" }, "/")
-  }
-  const handleLogout: any = (e: EventListener) => {
-    console.log(logout({ username: "dd" }, "/"))
-  }
+  // const handleLogin: any = (e: EventListener) => {
+  //   login({ username: "log" }, "/")
+  // }
+  // const handleLogout: any = (e: EventListener) => {
+  //   console.log(logout({ username: "dd" }, "/"))
+  // }
 
   return (
     <>
-      <NotificationComponent notification={notification} />
+      <ul>{template && <li>{template.name}</li>}</ul>
       <div
         style={{
           background: theme[themeMode].cardbackground,
