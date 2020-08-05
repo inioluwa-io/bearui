@@ -179,7 +179,6 @@ const Button: React.FC<ButtonProps> = ({
           )})`, background }
     }
   }
-  console.log(getStyleFromBackgroundProps())
 
   const isObject: Function = (object: any): boolean =>
     typeof object === "object"

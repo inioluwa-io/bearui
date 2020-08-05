@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   TwitterButton,
   Switch,
   Input,
+  Modal,
   useThemeMode,
   useTheme,
 } from "rap-ui"
@@ -17,6 +18,7 @@ const Login: React.FC<any> = () => {
   const theme = useTheme()
   const queryStore = useQueryStore()
   const [, addNotification] = useNotification()
+  const [openModal, setOpenModal] = useState<boolean>(false)
 
   const { data: template, loading } = queryStore.getOne("template", {
     name: "Plain Blue",
@@ -52,9 +54,16 @@ const Login: React.FC<any> = () => {
           alignItems: "center",
           flexDirection: "column",
           borderRadius: "10px",
-          boxShadow: "0 0 35px -18px #292929",
+          boxShadow: "0 0 25px -18px #292929",
         }}
       >
+        <Modal
+          active={openModal}
+          onClose={() => {
+            setOpenModal(false)
+          }}
+        />
+
         <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
         <Input
           type="email"
@@ -98,7 +107,7 @@ const Login: React.FC<any> = () => {
             width: "100%",
           }}
         >
-          {/* <Button
+          <Button
             id="name"
             background="primary"
             glow
@@ -115,9 +124,21 @@ const Login: React.FC<any> = () => {
             }}
           >
             Login
-          </Button> */}
-          <AppleButton />
-          <FacebookButton style={{ marginTop: "10px" }} />
+          </Button>
+          <Button
+            id="name"
+            background="info"
+            glow
+            gradient
+            size={"sm"}
+            onClick={(e: any) => {
+              setOpenModal(true)
+            }}
+            style={{ marginTop: "10px" }}
+          >
+            Open Modal
+          </Button>
+          <AppleButton style={{ marginTop: "10px" }} />
         </div>
       </div>
     </>

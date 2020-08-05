@@ -179,7 +179,6 @@ const Input: React.FC<InputProps> = ({
     setInputValue(e.target.value)
     onChange(e.target.value)
   }
-  console.log(themeMode)
 
   return (
     <InputElement padBottom={type === "email"}>

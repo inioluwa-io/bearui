@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
 }
 
 .App-logo {
@@ -17,6 +18,7 @@
 .lightmode * {
   color: #444444;
 }
+
 .darkmode * {
   color: #ffffff;
 }

@@ -25,24 +25,24 @@ export type ButtonStyle = {
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {}
 
 export type AppleSocialButton = {
-  color: "dark" | "white"
+  color?: "dark" | "white"
   corners?: "rounded" | "box"
 } & SocialButtonProps
 
 export type GoogleSocialButton = {
-  color: "red" | "white" | "blue"
+  color?: "red" | "white" | "blue"
   corners?: "rounded" | "box"
 } & SocialButtonProps
 
 export type FacebookSocialButton = {
-  color: "white" | "blue"
+  color?: "white" | "blue"
   corners?: "rounded" | "box"
 } & SocialButtonProps
 export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
   size?: "xs" | "sm" | "md" | "lg"
   iconOnly?: boolean
   text: string
-  gradient?:boolean
+  gradient?: boolean
   onClick: () => any
 }
 export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
@@ -136,3 +136,11 @@ export type ThemeMode = [
   Dispatch<SetStateAction<RapUIThemeMode>>
 ]
 // end theme types
+
+// modal props
+export type ModalProps = {
+  active: boolean
+  title?: string
+  onClose: () => any
+}
+// end
