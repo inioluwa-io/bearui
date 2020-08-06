@@ -4,8 +4,8 @@ import { DataProviderProps, Record } from "../types"
 export const defaultDataProvider = {
   getOne: async (
     resource: string,
+    endPoint: string,
     params: Record,
-    endPoint: string = "http://localhost:8888/api/v1"
   ) => {
     try {
       const res = await fetch(endPoint + resource, { method: "GET" })

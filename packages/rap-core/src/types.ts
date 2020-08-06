@@ -33,7 +33,7 @@ export type StoreState = {
 
 // DataProvider props
 export type DataProviderProps = {
-  getOne: (resource: string, params?: Record, endPoint?: string) => Promise<any>
+  getOne: (resource: string, endPoint?: string, params?: Record) => Promise<any>
 }
 export interface getOneParams {
   id: Record

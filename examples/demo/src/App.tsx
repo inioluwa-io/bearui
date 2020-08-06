@@ -8,7 +8,6 @@ import { useDataProvider, useNotification } from "rap-core"
 import { NotifyProps } from "rap-ui/lib/types"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
- 
   return (
     <div
       style={{
@@ -39,12 +38,8 @@ const App: React.FC<any> = () => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(6000)
   useEffect(() => {
-    dataProvider.getOne("/template", {
-      id: { id: "" },
-    })
-    dataProvider.getOne("/publish", {
-      id: { id: "" },
-    })
+    dataProvider.getOne("/template", "http://localhost:8888/api/v1")
+    dataProvider.getOne("/publish", "http://localhost:8888/api/v1")
   }, [dataProvider])
 
   const [themeMode] = useThemeMode()

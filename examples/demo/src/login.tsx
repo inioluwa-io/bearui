@@ -9,7 +9,7 @@ const Login: React.FC<any> = () => {
   const [, addNotification] = useNotification()
 
   const { data: template, loading } = queryStore.getOne("template", {
-    name: "PlainBlue",
+    name: "Plain Blue",
   })
 
   useEffect(() => {

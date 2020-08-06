@@ -58,7 +58,7 @@ const useDataProvider = (): DataProviderProps => {
         if (!(name in target))
           throw new Error(`${name} does not exist on dataProvider`)
 
-        return (resource: string, params: any, endPoint: string) => {
+        return (resource: string, endPoint: string, params: any) => {
           if (typeof dataProvider[type] !== "function") {
             throw new Error(`Invalid dataProvider function: ${type}`)
           }
@@ -90,7 +90,7 @@ const runQuery = async ({
 }) => {
   dispatch({ type: FETCH_START })
   try {
-    const resp = await dataProvider[type](resource, params, endPoint)
+    const resp = await dataProvider[type](resource, endPoint, params)
     if (process.env.NODE_ENV !== "production") {
       if (!resp) {
         throw new Error(
