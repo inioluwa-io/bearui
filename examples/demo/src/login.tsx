@@ -44,8 +44,14 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <Shimmer loading={loading}>
-        {template && (
+      <Shimmer loading={loading} size="lg">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <>
             <ul style={{ margin: 0, padding: 0 }}>
               <li
@@ -58,105 +64,93 @@ const Login: React.FC<any> = () => {
               </li>
             </ul>
           </>
-        )}
-      </Shimmer>
-      <div
-        style={{
-          background: theme[themeMode].cardbackground,
-          padding: "60px 85px",
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          borderRadius: "10px",
-          boxShadow: "0 0 25px -18px #292929",
-        }}
-      >
-        <Modal
-          active={openModal}
-          onClose={() => {
-            setOpenModal(false)
-          }}
-        >
-          <div style={{ textAlign: "left" }}>Hello I'm a modal</div>
-        </Modal>
+          <Modal
+            active={openModal}
+            onClose={() => {
+              setOpenModal(false)
+            }}
+          >
+            <div style={{ textAlign: "left" }}>Hello I'm a modal</div>
+          </Modal>
 
-        <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
-        <Input
-          type="email"
-          id="email"
-          color="primary"
-          label="Email"
-          icon="mdiEmailOutline"
-          onChange={(value: string) => {
-            console.log(value)
-          }}
-          onError={() => {}}
-          placeholder="Enter your email"
-        />
-        <Input
-          id="password"
-          type="password"
-          color="primary"
-          icon="mdiLock"
-          label="Password"
-          onChange={(value: string) => {
-            console.log(value)
-          }}
-          onError={() => {}}
-          placeholder="Enter your password"
-        />
-        <br />
-        <div>
-          <Switch
-            active={themeMode === "darkmode" ? true : false}
-            color="success"
-            onClick={(value: boolean) => {
-              value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+          <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
+          <Input
+            type="email"
+            id="email"
+            color="primary"
+            label="Email"
+            icon="mdiEmailOutline"
+            onChange={(value: string) => {
+              console.log(value)
             }}
+            onError={() => {}}
+            placeholder="Enter your email"
           />
-        </div>
-        <br />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
-          <Button
-            id="name"
-            background="primary"
-            glow
-            gradient
-            size={"sm"}
-            onClick={(e: any) => {
-              addNotification({
-                title: "Award Unlocked!",
-                icon: "mdiTrophy",
-                text:
-                  Math.floor(Math.random() * 100) +
-                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
-              })
+          <Input
+            id="password"
+            type="password"
+            color="primary"
+            icon="mdiLock"
+            label="Password"
+            onChange={(value: string) => {
+              console.log(value)
+            }}
+            onError={() => {}}
+            placeholder="Enter your password"
+          />
+          <br />
+          <div>
+            <Switch
+              active={themeMode === "darkmode" ? true : false}
+              color="success"
+              onClick={(value: boolean) => {
+                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+              }}
+            />
+          </div>
+          <br />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
             }}
           >
-            Login
-          </Button>
-          <Button
-            id="name"
-            background="info"
-            glow
-            gradient
-            size={"sm"}
-            onClick={(e: any) => {
-              setOpenModal(true)
-            }}
-            style={{ marginTop: "10px" }}
-          >
-            Open Modal
-          </Button>
-          <AppleButton style={{ marginTop: "10px" }} />
+            <Button
+              id="name"
+              background="primary"
+              glow
+              gradient
+              size ="md"
+              onClick={(e: any) => {
+                addNotification({
+                  title: "Award Unlocked!",
+                  icon: "mdiTrophy",
+                  text:
+                    Math.floor(Math.random() * 100) +
+                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                })
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              id="name"
+              background="info"
+              glow
+              gradient
+              size="md"
+              onClick={(e: any) => {
+                setOpenModal(true)
+              }}
+              style={{ marginTop: "10px" }}
+            >
+              Open Modal
+            </Button>
+            <AppleButton onClick={() => {}} size ="md" style={{ marginTop: "10px" }} />
+          </div>
         </div>
-      </div>
+      </Shimmer>
     </>
   )
 }

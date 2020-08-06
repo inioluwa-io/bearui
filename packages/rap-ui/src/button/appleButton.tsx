@@ -16,6 +16,7 @@ const AppleButton: React.FC<AppleSocialButton> = ({
   gradient = false,
   iconOnly = false,
   style = {},
+  size= "sm",
   children,
 }) => {
   Object.assign(style, {
@@ -26,7 +27,7 @@ const AppleButton: React.FC<AppleSocialButton> = ({
   return (
     <Button
       background={color}
-      size={"sm"}
+      size={size}
       icon="mdiApple"
       gradient={gradient}
       corners={corners}

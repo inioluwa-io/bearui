@@ -41,7 +41,7 @@ export type FacebookSocialButton = {
 export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
   size?: "xs" | "sm" | "md" | "lg"
   iconOnly?: boolean
-  text: string
+  text?: string
   gradient?: boolean
   onClick: () => any
 }
@@ -155,5 +155,6 @@ export type CardProps = {
 // modal props
 export type ShimmerProps = {
   loading: boolean
+  size?: "md" | "sm" | "lg"
 }
 // end
