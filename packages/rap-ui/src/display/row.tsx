@@ -16,8 +16,10 @@ type RowStyleProps = {
 const RowContainer: any = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
   align-items: ${(props: RowStyleProps) => props.position.alignItems};
-  align-self: ${(props: RowStyleProps) => props.position.alignSelf};
+  justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
 
   > :not(:last-child) {
     margin-right: ${(props: RowStyleProps) => props.marginRight};

@@ -39,6 +39,10 @@ const InnerContainer: any = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   max-height: calc(80vh - 180px);
+
+  > :not(:last-child) {
+    margin-bottom: 25px;
+  }
 `
 
 const Header: any = styled.div`
