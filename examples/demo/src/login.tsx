@@ -70,7 +70,9 @@ const Login: React.FC<any> = () => {
               setOpenModal(false)
             }}
           >
-            <div style={{ textAlign: "left" }}>Hello I'm a modal</div>
+            <div style={{ textAlign: "left", fontSize: "18px" }}>
+              Hello I'm a modal
+            </div>
           </Modal>
 
           <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
@@ -119,9 +121,8 @@ const Login: React.FC<any> = () => {
             <Button
               id="name"
               background="primary"
-              glow
               gradient
-              size ="md"
+              size="md"
               onClick={(e: any) => {
                 addNotification({
                   title: "Award Unlocked!",
@@ -137,7 +138,6 @@ const Login: React.FC<any> = () => {
             <Button
               id="name"
               background="info"
-              glow
               gradient
               size="md"
               onClick={(e: any) => {
@@ -147,7 +147,11 @@ const Login: React.FC<any> = () => {
             >
               Open Modal
             </Button>
-            <AppleButton onClick={() => {}} size ="md" style={{ marginTop: "10px" }} />
+            <AppleButton
+              onClick={() => {}}
+              size="md"
+              style={{ marginTop: "10px" }}
+            />
           </div>
         </div>
       </Shimmer>

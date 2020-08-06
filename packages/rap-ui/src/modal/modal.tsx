@@ -113,7 +113,12 @@ const Title: any = styled.h4`
  * }
  */
 
-const Modal: React.FC<ModalProps> = ({ active = false, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  active = false,
+  onClose,
+  title,
+  children,
+}) => {
   const theme: RapUITheme = useTheme()
   const [themeMode] = useThemeMode()
   const ref: any = useRef()
@@ -185,7 +190,7 @@ const Modal: React.FC<ModalProps> = ({ active = false, onClose, children }) => {
           background={theme[themeMode].cardbackground}
         >
           <Header border={theme[themeMode].background}>
-            <Title>Open Modal</Title>
+            {title && <Title>{title}</Title>}
             <CloseButton
               background={theme[themeMode].background}
               onClick={handleClose}
