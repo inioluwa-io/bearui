@@ -11,9 +11,11 @@ import {
   Modal,
   Shimmer,
   Row,
+  Card,
   Column,
   useThemeMode,
   useTheme,
+  FormControl,
   Avatar,
 } from "rap-ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
@@ -48,78 +50,91 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <Shimmer loading={loading} size="md">
-        <Modal
-          active={openModal}
-          onClose={() => {
-            setOpenModal(false)
-          }}
-          title="Modal Title"
-        >
-          <div style={{ textAlign: "left", fontSize: "18px" }}>
-            Hello I'm a modal
+      <Row yPosition="top">
+        <Card size="lg">
+          <Row>
+            <h4>Login Page</h4>
+          </Row>
+        </Card>
+        <Shimmer loading={loading} size="sm">
+          <Modal
+            active={openModal}
+            onClose={() => {
+              setOpenModal(false)
+            }}
+            title="Modal Title"
+          >
+            <div style={{ textAlign: "left", fontSize: "18px" }}>
+              Hello I'm a modal
+            </div>
+          </Modal>
+          <h4>Login Page</h4>
+          <Row center>
+            <Avatar alt="avatar" text="LD" size="md" />
+          </Row>
+
+          <FormControl>
+            <Input
+              type="email"
+              id="email"
+              color="primary"
+              label="Email"
+              icon="mdiEmailOutline"
+              onChange={(value: string) => {
+                console.log(value)
+              }}
+              onError={() => {}}
+              placeholder="Enter your email"
+            />
+          </FormControl>
+          <FormControl>
+            <Input
+              id="password"
+              type="password"
+              color="primary"
+              icon="mdiLock"
+              label="Password"
+              onChange={(value: string) => {
+                console.log(value)
+              }}
+              onError={() => {}}
+              placeholder="Enter your password"
+            />
+          </FormControl>
+          <div>
+            <Switch
+              active={themeMode === "darkmode" ? true : false}
+              color="success"
+              onClick={(value: boolean) => {
+                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+              }}
+            />
           </div>
-        </Modal>
-        <h4>Login Page</h4>
-        <Avatar alt="avatar" text="LD" size="100px" src={img} />
-        {/* <Input
-          type="email"
-          id="email"
-          color="primary"
-          label="Email"
-          icon="mdiEmailOutline"
-          onChange={(value: string) => {
-            console.log(value)
-          }}
-          onError={() => {}}
-          placeholder="Enter your email"
-        /> */}
-        <Input
-          id="password"
-          type="password"
-          color="primary"
-          icon="mdiLock"
-          label="Password"
-          onChange={(value: string) => {
-            console.log(value)
-          }}
-          onError={() => {}}
-          placeholder="Enter your password"
-        />
-        <div>
-          <Switch
-            active={themeMode === "darkmode" ? true : false}
-            color="success"
-            onClick={(value: boolean) => {
-              value ? setThemeMode("darkmode") : setThemeMode("lightmode")
-            }}
-          />
-        </div>
-        <Column gap="10px">
-          <FacebookButton
-            iconOnly
-            color = "white"
-            onClick={() => {
-              addNotification({
-                title: "Award Unlocked!",
-                icon: "mdiTrophy",
-                text:
-                  Math.floor(Math.random() * 100) +
-                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
-              })
-            }}
-            size="md"
-          />
-          <AppleButton
-            iconOnly
-            onClick={() => {
-              setOpenModal(true)
-            }}
-            size="md"
-            text="apple"
-          />
-        </Column>
-      </Shimmer>
+          <Column gap="10px">
+            <FacebookButton
+              iconOnly
+              onClick={() => {
+                addNotification({
+                  title: "Award Unlocked!",
+                  icon: "mdiTrophy",
+                  text:
+                    Math.floor(Math.random() * 100) +
+                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                })
+              }}
+              size="md"
+            />
+            <AppleButton
+              iconOnly
+              onClick={() => {
+                setOpenModal(true)
+              }}
+              size="md"
+              text="apple"
+            />
+          </Column>
+        </Shimmer>
+      </Row>
     </>
   )
 }

@@ -158,3 +158,16 @@ export type ShimmerProps = {
   size?: "md" | "sm" | "lg"
 }
 // end
+
+// display props
+
+export type yPositionProps = "top" | "center" | "bottom"
+export type xPositionProps = "left" | "center" | "right"
+
+export type RowProps = {
+  center?: boolean
+  gap?: string
+  xPosition?: xPositionProps
+  yPosition?: yPositionProps
+}
+// end
