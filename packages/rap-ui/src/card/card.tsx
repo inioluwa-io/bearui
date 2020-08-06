@@ -16,6 +16,11 @@ const CardContainer: any = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   position: relative;
+  
+
+  > :not(:last-child) {
+    margin-bottom: 25px;
+  }
 `
 
 const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
@@ -35,7 +40,7 @@ const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
         return "60px 80px"
       }
       default: {
-        return "20px 30px"
+        return "30px"
       }
     }
   }

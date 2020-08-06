@@ -10,6 +10,7 @@ import {
   Input,
   Modal,
   Shimmer,
+  Row,
   useThemeMode,
   useTheme,
 } from "rap-ui"
@@ -45,14 +46,6 @@ const Login: React.FC<any> = () => {
   return (
     <>
       <Shimmer loading={loading} size="md">
-        <p
-          style={{
-            margin: "0",
-            fontSize: "16px",
-          }}
-        >
-          {template.name}
-        </p>
         <Modal
           active={openModal}
           onClose={() => {
@@ -64,8 +57,10 @@ const Login: React.FC<any> = () => {
             Hello I'm a modal
           </div>
         </Modal>
-
-        <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
+        <Row>
+          <h4>Login Page</h4>
+          <p>{template.name}</p>
+        </Row>
         <Input
           type="email"
           id="email"
@@ -90,7 +85,6 @@ const Login: React.FC<any> = () => {
           onError={() => {}}
           placeholder="Enter your password"
         />
-        <br />
         <div>
           <Switch
             active={themeMode === "darkmode" ? true : false}
@@ -100,7 +94,6 @@ const Login: React.FC<any> = () => {
             }}
           />
         </div>
-        <br />
         <div
           style={{
             display: "flex",

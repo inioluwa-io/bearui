@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { ShimmerProps } from "../types"
 import styled from "styled-components"
-import { darken, lighten, rgba } from "polished"
+import { darken, lighten } from "polished"
 import { useTheme, useThemeMode } from "../theme"
 import Card from "../card/card"
 
