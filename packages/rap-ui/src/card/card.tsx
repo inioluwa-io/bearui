@@ -9,6 +9,8 @@ type CardContainerProps = { background: string; padding: string }
 const CardContainer: any = styled.div`
   padding: ${(props: CardContainerProps) => props.padding};
   display: flex;
+  align-items: center;
+  flex-direction: column;
   background: ${(props: CardContainerProps) => props.background};
   box-shadow: 0 0 25px -18px #292929;
   border-radius: 10px;
@@ -30,7 +32,7 @@ const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
         return "40px 60px"
       }
       case "lg": {
-        return "60px 85px"
+        return "60px 80px"
       }
       default: {
         return "20px 30px"

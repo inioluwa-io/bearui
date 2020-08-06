@@ -45,114 +45,103 @@ const Login: React.FC<any> = () => {
   return (
     <>
       <Shimmer loading={loading} size="lg">
+        <p
+          style={{
+            margin: "0",
+            fontSize: "16px",
+          }}
+        >
+          {template.name}
+        </p>
+        <Modal
+          active={openModal}
+          onClose={() => {
+            setOpenModal(false)
+          }}
+          title="Modal Title"
+        >
+          <div style={{ textAlign: "left", fontSize: "18px" }}>
+            Hello I'm a modal
+          </div>
+        </Modal>
+
+        <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
+        <Input
+          type="email"
+          id="email"
+          color="primary"
+          label="Email"
+          icon="mdiEmailOutline"
+          onChange={(value: string) => {
+            console.log(value)
+          }}
+          onError={() => {}}
+          placeholder="Enter your email"
+        />
+        <Input
+          id="password"
+          type="password"
+          color="primary"
+          icon="mdiLock"
+          label="Password"
+          onChange={(value: string) => {
+            console.log(value)
+          }}
+          onError={() => {}}
+          placeholder="Enter your password"
+        />
+        <br />
+        <div>
+          <Switch
+            active={themeMode === "darkmode" ? true : false}
+            color="success"
+            onClick={(value: boolean) => {
+              value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+            }}
+          />
+        </div>
+        <br />
         <div
           style={{
             display: "flex",
-            alignItems: "center",
             flexDirection: "column",
+            width: "100%",
           }}
         >
-          <>
-            <ul style={{ margin: 0, padding: 0 }}>
-              <li
-                style={{
-                  display: "block",
-                  fontSize: "16px",
-                }}
-              >
-                {template.name}
-              </li>
-            </ul>
-          </>
-          <Modal
-            active={openModal}
-            onClose={() => {
-              setOpenModal(false)
+          <Button
+            id="name"
+            background="primary"
+            gradient
+            size="md"
+            onClick={(e: any) => {
+              addNotification({
+                title: "Award Unlocked!",
+                icon: "mdiTrophy",
+                text:
+                  Math.floor(Math.random() * 100) +
+                  "You have reached level 13 and you have been given free 300 coins and +3XP.",
+              })
             }}
           >
-            <div style={{ textAlign: "left", fontSize: "18px" }}>
-              Hello I'm a modal
-            </div>
-          </Modal>
-
-          <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
-          <Input
-            type="email"
-            id="email"
-            color="primary"
-            label="Email"
-            icon="mdiEmailOutline"
-            onChange={(value: string) => {
-              console.log(value)
+            Send Notification
+          </Button>
+          <Button
+            id="name"
+            background="info"
+            gradient
+            size="md"
+            onClick={(e: any) => {
+              setOpenModal(true)
             }}
-            onError={() => {}}
-            placeholder="Enter your email"
-          />
-          <Input
-            id="password"
-            type="password"
-            color="primary"
-            icon="mdiLock"
-            label="Password"
-            onChange={(value: string) => {
-              console.log(value)
-            }}
-            onError={() => {}}
-            placeholder="Enter your password"
-          />
-          <br />
-          <div>
-            <Switch
-              active={themeMode === "darkmode" ? true : false}
-              color="success"
-              onClick={(value: boolean) => {
-                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
-              }}
-            />
-          </div>
-          <br />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-            }}
+            style={{ marginTop: "10px" }}
           >
-            <Button
-              id="name"
-              background="primary"
-              gradient
-              size="md"
-              onClick={(e: any) => {
-                addNotification({
-                  title: "Award Unlocked!",
-                  icon: "mdiTrophy",
-                  text:
-                    Math.floor(Math.random() * 100) +
-                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
-                })
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              id="name"
-              background="info"
-              gradient
-              size="md"
-              onClick={(e: any) => {
-                setOpenModal(true)
-              }}
-              style={{ marginTop: "10px" }}
-            >
-              Open Modal
-            </Button>
-            <AppleButton
-              onClick={() => {}}
-              size="md"
-              style={{ marginTop: "10px" }}
-            />
-          </div>
+            Open Modal
+          </Button>
+          <AppleButton
+            onClick={() => {}}
+            size="md"
+            style={{ marginTop: "10px" }}
+          />
         </div>
       </Shimmer>
     </>
