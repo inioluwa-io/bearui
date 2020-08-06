@@ -7,19 +7,22 @@ import { isSupported } from "../util"
  * A hook to set and get theme mode
  *
  * @returns An array of two values. First is the current theme mode.
- * The second is a function that accepts a string mode action to set the
+ * The second is a function that accepts a string mode action to set theme
  * @example
  *
  * import {useThemeMode} from "rap-ui"
  *
  * const Dashboard = () => {
  *      const [mode, setMode] = useThemeMode()
- *      const handleClick = (e) => {
- *      }
  *
- *      return <Button onClick= {handleClick}>
+ *      return <>
+ *      <Button onClick= {()=>{setMode("darkmode")}}>
  *          darkmode
  *      <Button/>
+ *      <Button onClick= {()=>{setMode("lightmode")}}>
+ *          lightmode
+ *      <Button/>
+ *      </>
  * }
  */
 const useThemeMode = (): ThemeMode => {

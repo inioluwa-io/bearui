@@ -44,7 +44,7 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <Shimmer loading={loading} size="lg">
+      <Shimmer loading={loading} size="md">
         <p
           style={{
             margin: "0",

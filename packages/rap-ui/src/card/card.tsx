@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
   const getPaddingSize = (size: string): string => {
     switch (size) {
       case "sm": {
-        return "20px 30px"
+        return "30px"
       }
       case "md": {
         return "40px 60px"
