@@ -15,6 +15,7 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
   iconOnly = false,
   gradient = false,
   onClick,
+  size = "sm",
   style,
   children,
 }) => {
@@ -43,7 +44,7 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
   return (
     <Button
       background={background}
-      size={"sm"}
+      size={size}
       iconColor={textColor}
       corners={corners}
       gradient={gradient}

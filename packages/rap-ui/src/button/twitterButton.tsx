@@ -15,6 +15,7 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
   iconOnly = false,
   gradient = false,
   onClick,
+  size = "sm",
   style,
   children,
 }) => {
@@ -42,7 +43,7 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
   return (
     <Button
       background={background}
-      size={"sm"}
+      size={size}
       iconColor={textColor}
       corners={corners}
       gradient={gradient}
