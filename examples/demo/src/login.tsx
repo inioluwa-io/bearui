@@ -63,7 +63,7 @@ const Login: React.FC<any> = () => {
             <p>fjfk</p>
           </Row>
           <Row xPosition="center">
-            <Avatar alt="avatar" text="LD" size="100px" color="white" />
+            <Avatar alt="avatar" text="LD" size="100px"  />
             <p>fjfk</p>
           </Row>
         </Modal>

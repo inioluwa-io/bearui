@@ -74,6 +74,9 @@ const Avatar: React.FC<AvatarProps> = ({
   if (!text && !src) {
     throw new SyntaxError("Either text or src must be present")
   }
+  if (color === "white" && !textColor) {
+    textColor = "#222222"
+  }
   const theme = useTheme()
 
   const getBackgroundColor: Function = (color: string): any => {
@@ -144,7 +147,9 @@ const Avatar: React.FC<AvatarProps> = ({
         </BadgeComponent>
       )}
       {!src ? (
-        <span>{formatText(text)}</span>
+        <span style={{ color: textColor || "#ffffff" }}>
+          {formatText(text)}
+        </span>
       ) : (
         <AvatarImgContainer size={getAvatarSize()}>
           <AvatarImgComponent src={src} alt={alt || ""} />
