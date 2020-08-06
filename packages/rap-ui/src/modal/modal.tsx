@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect, useCallback } from "react"
+import React, { useRef, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
-import { lighten, rgba, darken } from "polished"
-import { RapUITheme, ThemeMode, ModalProps } from "../types"
-import { mdiCancel, mdiClose } from "@mdi/js"
+import { rgba, darken } from "polished"
+import { RapUITheme, ModalProps } from "../types"
+import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
 
 const ModalBackground: any = styled.div`
@@ -113,7 +113,7 @@ const Title: any = styled.h4`
  * }
  */
 
-const Modal: React.FC<ModalProps> = ({ active = false, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ active = false, onClose, children }) => {
   const theme: RapUITheme = useTheme()
   const [themeMode] = useThemeMode()
   const ref: any = useRef()
@@ -201,17 +201,7 @@ const Modal: React.FC<ModalProps> = ({ active = false, onClose }) => {
               />
             </CloseButton>
           </Header>
-          <InnerContainer>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-            <p>fkffkffkflfk</p>
-          </InnerContainer>
+          <InnerContainer>{children}</InnerContainer>
           <Footer border={theme[themeMode].background}></Footer>
         </ModalContainer>
       </ModalBackground>

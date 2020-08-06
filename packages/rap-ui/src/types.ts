@@ -1,9 +1,9 @@
 import {
   ButtonHTMLAttributes,
-  Ref,
   Dispatch,
   SetStateAction,
   LinkHTMLAttributes,
+  CSSProperties,
 } from "react"
 
 export type ButtonStyle = {
@@ -142,5 +142,18 @@ export type ModalProps = {
   active: boolean
   title?: string
   onClose: () => any
+}
+// end
+
+// card props
+export type CardProps = {
+  size?: "md" | "sm" | "lg"
+  style?: CSSProperties
+}
+// end
+
+// modal props
+export type ShimmerProps = {
+  loading: boolean
 }
 // end

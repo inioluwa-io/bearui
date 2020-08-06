@@ -9,6 +9,7 @@ import {
   Switch,
   Input,
   Modal,
+  Shimmer,
   useThemeMode,
   useTheme,
 } from "rap-ui"
@@ -43,9 +44,22 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      {/* <ul>
-        {loading ? <>loading...</> : template && <li>{template.name}</li>}
-      </ul> */}
+      <Shimmer loading={loading}>
+        {template && (
+          <>
+            <ul style={{ margin: 0, padding: 0 }}>
+              <li
+                style={{
+                  display: "block",
+                  fontSize: "16px",
+                }}
+              >
+                {template.name}
+              </li>
+            </ul>
+          </>
+        )}
+      </Shimmer>
       <div
         style={{
           background: theme[themeMode].cardbackground,
@@ -62,7 +76,9 @@ const Login: React.FC<any> = () => {
           onClose={() => {
             setOpenModal(false)
           }}
-        />
+        >
+          <div style={{ textAlign: "left" }}>Hello I'm a modal</div>
+        </Modal>
 
         <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
         <Input
