@@ -15,7 +15,7 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
   onClick,
   iconOnly = false,
   gradient = false,
-  style,
+  style = {},
   size = "sm",
   children,
 }) => {
@@ -30,7 +30,7 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
       break
     }
     default: {
-      textColor = "#f92a2a"
+      textColor = "#3c5eff"
       background = "#fff"
     }
   }

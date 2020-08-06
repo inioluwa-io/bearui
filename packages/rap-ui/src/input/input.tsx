@@ -15,6 +15,8 @@ const InputElement: any = styled.div`
   height: fit-content;
   width: 220px;
   padding-bottom: ${(props: any) => props.padBottom && "19px"};
+  ${(props: any) =>
+    props.inputType === "email" && "margin-bottom: 6px !important"};
 `
 const InputContainer: any = styled.div`
   position: relative;
@@ -181,7 +183,7 @@ const Input: React.FC<InputProps> = ({
   }
 
   return (
-    <InputElement padBottom={type === "email"}>
+    <InputElement padBottom={type === "email"} inputType={type}>
       <Label htmlFor={`${id}`}>{label}</Label>
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement

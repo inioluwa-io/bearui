@@ -16,7 +16,7 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
   gradient = false,
   onClick,
   size = "sm",
-  style,
+  style = {},
   children,
 }) => {
   let textColor: string = ""

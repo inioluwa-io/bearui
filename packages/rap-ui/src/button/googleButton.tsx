@@ -16,7 +16,7 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
   gradient = false,
   onClick,
   size = "sm",
-  style,
+  style = {},
   children,
 }) => {
   let textColor: string = ""
@@ -40,7 +40,7 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
     }
   }
 
-  Object.assign(style, { fontFamily: "Open sans", fontWeight: "500" })
+  Object.assign(style, { fontFamily: "Open sans", fontWeight: "400" })
   return (
     <Button
       background={background}

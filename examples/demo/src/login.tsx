@@ -11,9 +11,12 @@ import {
   Modal,
   Shimmer,
   Row,
+  Column,
   useThemeMode,
   useTheme,
+  Avatar,
 } from "rap-ui"
+import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
@@ -57,11 +60,9 @@ const Login: React.FC<any> = () => {
             Hello I'm a modal
           </div>
         </Modal>
-        <Row>
-          <h4>Login Page</h4>
-          <p>{template.name}</p>
-        </Row>
-        <Input
+        <h4>Login Page</h4>
+        <Avatar alt="avatar" text="LD" size="100px" src={img} />
+        {/* <Input
           type="email"
           id="email"
           color="primary"
@@ -72,7 +73,7 @@ const Login: React.FC<any> = () => {
           }}
           onError={() => {}}
           placeholder="Enter your email"
-        />
+        /> */}
         <Input
           id="password"
           type="password"
@@ -94,19 +95,11 @@ const Login: React.FC<any> = () => {
             }}
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
-          <Button
-            id="name"
-            background="primary"
-            gradient
-            size="md"
-            onClick={(e: any) => {
+        <Column gap="10px">
+          <FacebookButton
+            iconOnly
+            color = "white"
+            onClick={() => {
               addNotification({
                 title: "Award Unlocked!",
                 icon: "mdiTrophy",
@@ -115,27 +108,17 @@ const Login: React.FC<any> = () => {
                   "You have reached level 13 and you have been given free 300 coins and +3XP.",
               })
             }}
-          >
-            Send Notification
-          </Button>
-          <Button
-            id="name"
-            background="info"
-            gradient
             size="md"
-            onClick={(e: any) => {
+          />
+          <AppleButton
+            iconOnly
+            onClick={() => {
               setOpenModal(true)
             }}
-            style={{ marginTop: "10px" }}
-          >
-            Open Modal
-          </Button>
-          <AppleButton
-            onClick={() => {}}
             size="md"
-            style={{ marginTop: "10px" }}
+            text="apple"
           />
-        </div>
+        </Column>
       </Shimmer>
     </>
   )
