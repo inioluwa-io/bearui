@@ -7,17 +7,19 @@ import { Link } from "react-router-dom"
 
 const Home: React.FC<any> = () => {
   return (
-    <Card size="md">
-      <Column>
-        <p>{AdminPanel}</p>
-        <Row>
-          <Avatar alt="avatar" text="LD" size="md" src={img} />
-        </Row>
-        <LinkButton gradient background="info" to="/login">
-          login
-        </LinkButton>
-      </Column>
-    </Card>
+    <Row center style={{ width: "100%", height: "100%" }}>
+      <Card size="md">
+        <Column>
+          <p>{AdminPanel}</p>
+          <Row>
+            <Avatar alt="avatar" text="LD" size="md" src={img} />
+          </Row>
+          <LinkButton gradient background="info" to="/login">
+            login
+          </LinkButton>
+        </Column>
+      </Card>
+    </Row>
   )
 }
 

@@ -16,9 +16,6 @@ const CardContainer: any = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   position: relative;
-  width: calc(
-    100% - ${(props: CardContainerProps) => props.padding.split(" ").length - 1}
-  );
 
   > :not(:last-child) {
     margin-bottom: 25px;
@@ -46,7 +43,7 @@ const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
       }
     }
   }
-
+  
   return (
     <CardContainer
       style={style}
