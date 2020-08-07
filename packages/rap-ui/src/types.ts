@@ -62,7 +62,7 @@ export type AvatarProps = {
   src?: string
   text?: string
   alt?: string
-}
+} & HTMLDivElement
 
 export type NotifyProps = {
   text: string
@@ -169,5 +169,5 @@ export type RowProps = {
   gap?: string
   xPosition?: xPositionProps
   yPosition?: yPositionProps
-}
+} & HTMLDivElement
 // end

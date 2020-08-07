@@ -36,6 +36,7 @@ const Row: React.FC<RowProps> = ({
   xPosition = "center",
   center,
   gap = "20px",
+  ...props
 }) => {
   const calculateYPosition = (position: yPositionProps) => {
     switch (position) {
@@ -75,7 +76,12 @@ const Row: React.FC<RowProps> = ({
     return { alignItems, alignSelf }
   }
   return (
-    <RowContainer center={center} position={getPosition()} marginRight={gap}>
+    <RowContainer
+      {...props}
+      center={center}
+      position={getPosition()}
+      marginRight={gap}
+    >
       {children}
     </RowContainer>
   )

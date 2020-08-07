@@ -64,7 +64,7 @@ const Login: React.FC<any> = () => {
         </Row>
       </Modal>
 
-      <Row id = "D" center>
+      <Row center>
         <Card size="sm">
           <h4>User Interface Controls</h4>
           <Row>
