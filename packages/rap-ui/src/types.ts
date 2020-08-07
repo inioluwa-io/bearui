@@ -3,6 +3,10 @@ import {
   Dispatch,
   SetStateAction,
   LinkHTMLAttributes,
+  ReactComponentElement,
+  ReactElement,
+  ReactHTMLElement,
+  CSSProperties,
 } from "react"
 
 export type ButtonStyle = {
@@ -149,7 +153,8 @@ export type CardProps = {
   size?: "md" | "sm" | "lg"
   gap?: string
   align?: "left" | "right" | "center"
-} & HTMLDivElement
+  style?: CSSProperties
+}
 // end
 
 // modal props
@@ -171,4 +176,9 @@ export type RowProps = {
   xPosition?: xPositionProps
   yPosition?: yPositionProps
 } & HTMLDivElement
+
+export type FlexColumnProps = {
+  align?: yPositionProps | "stretch"
+  gap?: string
+}
 // end

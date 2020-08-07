@@ -11,9 +11,9 @@ import {
   Modal,
   Shimmer,
   LinkButton,
-  Row,
+  FlexRow,
   Card,
-  Column,
+  FlexColumn,
   useThemeMode,
   useTheme,
   FormControl,
@@ -58,101 +58,109 @@ const Login: React.FC<any> = () => {
         }}
         title="Modal Title"
       >
-        <div>
+        <FlexColumn align="left">
           <Avatar alt="avatar" text="LD" size="100px" />
           <p>fjfk</p>
-        </div>
+        </FlexColumn>
       </Modal>
 
-      <Row style={{ width: "100%", height: "100%" }}>
-        <Row>
-          <Card size="sm">
-            <h4>User Interface Controls</h4>
-            <Row yPosition="center" xPosition="left">
-              <p>Switch theme</p>
-              <Switch
-                active={themeMode === "darkmode" ? true : false}
-                color="success"
-                onClick={(value: boolean) => {
-                  value ? setThemeMode("darkmode") : setThemeMode("lightmode")
-                }}
-              />
-            </Row>
-            <Column gap="10px">
-              <Button
-                background="info"
-                onClick={() => {
-                  addNotification({
-                    title: "Award Unlocked!",
-                    icon: "mdiTrophy",
-                    text:
-                      Math.floor(Math.random() * 100) +
-                      "You have reached level 13 and you have been given free 300 coins and +3XP.",
-                  })
-                }}
-              >
-                Push Notification
-              </Button>
-              <Button
-                background="dark"
-                onClick={() => {
-                  setOpenModal(true)
-                }}
-                size="md"
-              >
-                Modal
-              </Button>
-            </Column>
-          </Card>
+      <FlexRow style={{ width: "100%", height: "100%" }}>
+        <FlexRow>
+          {!template ? (
+            <Shimmer loading={template.theme} size="sm"></Shimmer>
+          ) : (
+            <Card size="sm">
+              <h4>User Interface Controls</h4>
+              <FlexRow yPosition="center" xPosition="left">
+                <p>Switch theme</p>
+                <Switch
+                  active={themeMode === "darkmode" ? true : false}
+                  color="success"
+                  onClick={(value: boolean) => {
+                    value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+                  }}
+                />
+              </FlexRow>
+              <FlexColumn gap="10px">
+                <Button
+                  background="info"
+                  onClick={() => {
+                    addNotification({
+                      title: "Award Unlocked!",
+                      icon: "mdiTrophy",
+                      text:
+                        Math.floor(Math.random() * 100) +
+                        "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                    })
+                  }}
+                >
+                  Push Notification
+                </Button>
+                <Button
+                  background="dark"
+                  onClick={() => {
+                    setOpenModal(true)
+                  }}
+                  size="md"
+                >
+                  Modal
+                </Button>
+              </FlexColumn>
+            </Card>
+          )}
 
           {/* Login card */}
-          <Shimmer loading={loading} size="md">
-            <h4>Login Page</h4>
-            <Avatar src={img} size="lg" />
+          {!template ? (
+            <Shimmer loading={template.theme} size="sm"></Shimmer>
+          ) : (
+            <Card loading={loading} size="sm">
+              <h4>Login Page</h4>
+              <Avatar src={img} size="lg" />
 
-            <FormControl>
-              <Input
-                type="email"
-                id="email"
-                color="primary"
-                label="Email"
-                icon="mdiEmailOutline"
-                onChange={(value: string) => {
-                  console.log(value)
-                }}
-                onError={() => {}}
-                placeholder="Enter your email"
-              />
-            </FormControl>
-            <FormControl>
-              <Input
-                id="password"
-                type="password"
-                color="primary"
-                icon="mdiLock"
-                label="Password"
-                onChange={(value: string) => {
-                  console.log(value)
-                }}
-                onError={() => {}}
-                placeholder="Enter your password"
-              />
-            </FormControl>
-            <Column>
-              <Button background="primary" outline onClick={() => {}} size="md">
-                Login
-              </Button>
-            </Column>
-            <p>or</p>
-            <Column gap="10px">
-              <FacebookButton onClick={() => {}} size="md" />
-              <LinkButton to="/" glow size="md">
-                Back to Home
-              </LinkButton>
-            </Column>
-          </Shimmer>
-        </Row>
-      </Row>
+              <FormControl>
+                <Input
+                  type="email"
+                  id="email"
+                  color="primary"
+                  label="Email"
+                  icon="mdiEmailOutline"
+                  onChange={(value: string) => {
+                    console.log(value)
+                  }}
+                  onError={() => {}}
+                  placeholder="Enter your email"
+                />
+              </FormControl>
+              <FormControl>
+                <Input
+                  id="password"
+                  type="password"
+                  color="primary"
+                  icon="mdiLock"
+                  label="Password"
+                  onChange={(value: string) => {
+                    console.log(value)
+                  }}
+                  onError={() => {}}
+                  placeholder="Enter your password"
+                />
+              </FormControl>
+              <FlexColumn>
+                <Button background="primary" onClick={() => {}} size="md">
+                  Login
+                </Button>
+              </FlexColumn>
+              <p>or</p>
+              <FlexColumn gap="10px">
+                <FacebookButton onClick={() => {}} size="md" />
+                <LinkButton to="/" size="md">
+                  Back to Home
+                </LinkButton>
+              </FlexColumn>
+            </Card>
+          )}
+        </FlexRow>
+      </FlexRow>
     </>
   )
 }

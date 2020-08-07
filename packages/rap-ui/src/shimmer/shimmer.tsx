@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { ShimmerProps } from "../types"
 import styled from "styled-components"
 import { darken, lighten } from "polished"
@@ -16,7 +16,7 @@ const ShimmerContainer: any = styled.div`
 
   @keyframes blink {
     from {
-        transform:translateX(-100%);
+        transform:translateX(-75%);
     }
     80% {
         transform:translateX(0%);
@@ -27,7 +27,9 @@ const Shimmer: React.FC<ShimmerProps> = ({
   loading = false,
   children,
   gap,
+  width,
   size,
+  ...props
 }) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
@@ -44,10 +46,17 @@ const Shimmer: React.FC<ShimmerProps> = ({
       cardBackground
     )} 40%, ${cardBackground} 75%)`
   }
+
+  const refs: any = useRef()
+
   return (
-    <Card gap={gap} size={size} style={loading ? { overflow: "hidden" } : {}}>
-      {loading ? <ShimmerContainer background={background} /> : children}
-    </Card>
+    <div ref={refs}>
+      <Card align="left" style={{ overflow: "hidden" }} gap={gap} size={size}>
+        <ShimmerContainer background={background} />
+        {/* {loading ? <ShimmerContainer background={background} /> : children} */}
+        
+      </Card>
+    </div>
   )
 }
 export default Shimmer

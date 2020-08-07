@@ -1,6 +1,6 @@
-import Row from "./row"
-import Column from "./column"
+import FlexRow from "./flexRow"
+import FlexColumn from "./flexColumn"
 import GridColumn from "./gridColumn"
 import FormControl from "./formControl"
 
-export { Row, Column, GridColumn, FormControl }
+export { FlexRow, FlexColumn, GridColumn, FormControl }

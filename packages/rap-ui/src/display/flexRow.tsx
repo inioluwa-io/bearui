@@ -28,7 +28,7 @@ const RowContainer: any = styled.div`
   }
 `
 
-const Row: React.FC<RowProps> = ({
+const FlexRow: React.FC<RowProps> = ({
   children,
   yPosition = "center",
   xPosition = "center",
@@ -84,4 +84,4 @@ const Row: React.FC<RowProps> = ({
     </RowContainer>
   )
 }
-export default Row
+export default FlexRow
