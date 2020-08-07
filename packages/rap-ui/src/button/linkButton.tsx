@@ -18,23 +18,24 @@ font-family: Nunito sans;
   background: ${(props: any) =>
     props.outline
       ? "transparent"
-      : props.backgroundGradient || props.background};
+      : props.backgroundgradient || props.background};
   color: ${(props: any) =>
-    props.outline ? props.background : props.textColor};
+    props.outline ? props.background : props.textcolor};
   font-size: 14px;
   padding: ${(props: any) =>
-    !props.iconOnly ? props.padding : props.iconPadding};
-  border-radius: ${(props: any) => props.borderRadius};
+    props.icononly === "false" ? props.padding : props.iconpadding};
+  border-radius: ${(props: any) => props.borderradius};
   cursor: pointer;
   display:flex;
   align-items: center;
   justify-content:center;
   text-decoration:none;
-  flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
+  flex-direction ${(props: any) =>
+    props.iconright === "true" ? "row-reverse" : "row"};
   transition: all 0.35s ease;
   border: ${(props: any) =>
     props.outline
-      ? "1px solid " + (props.borderColor || props.background)
+      ? "1px solid " + (props.bordercolor || props.background)
       : "none"};
   box-shadow: 0 8px 35px -6px ${(props: any) =>
     props.glow ? darken(0.13, props.background) : "transparent"};
@@ -199,8 +200,25 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   }
   updateProps({ textColor: "#ffffff", iconRight, iconOnly })
 
+  const formatObjKeysToLowercase = (obj): any => {
+    let formatedObj = {}
+    for (let i in obj) {
+      formatedObj[i.toLocaleLowerCase()] = obj[i] + ""
+    }
+    return formatedObj
+  }
+
+  //   background: "rgb(115,103,240)"
+  // backgroundgradient: "linear-gradient(138deg,rgb(115,103,240), rgba(115,103,240,0.6))"
+  // borderradius: "5px"
+  // icononly: false
+  // iconpadding: "9.5px"
+  // iconright: false
+  // padding: "9.5px 28px"
+  // textcolor: "#ffffff"
+
   return (
-    <Button1 to={to} {...props} ref={refs}>
+    <Button1 to={to} background {...formatObjKeysToLowercase(props)} ref={refs}>
       {icon && (
         <Icon
           path={path[icon]}

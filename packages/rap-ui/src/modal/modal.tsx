@@ -158,29 +158,30 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [ref])
 
+  const handleEsc = useCallback((e: any) => {
+    if (e.which === 27 || e.keyCode === 27 || e.code === "Escape") {
+      handleClose()
+    }
+  }, [])
+
   useEffect(() => {
-    let windowListener
     if (active) {
       openAnimation()
+      window.addEventListener("keyup", handleEsc)
+    } else {
+      window.removeEventListener("keyup", handleEsc)
+    }
 
-      windowListener = window.addEventListener("keyup", closeModalOnEsc, true)
-    }
     return () => {
-      window.removeEventListener("keyup", windowListener)
+      window.removeEventListener("keyup", handleEsc)
     }
-  })
+  }, [active])
 
   const handleClose = () => {
     closeAnimation()
     setTimeout(() => {
       onClose()
-    }, 350)
-  }
-
-  const closeModalOnEsc = (e: any) => {
-    if (e.which === 27 || e.keyCode === 27 || e.code === "Escape") {
-      handleClose()
-    }
+    }, 300)
   }
 
   return (
