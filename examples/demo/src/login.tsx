@@ -58,17 +58,17 @@ const Login: React.FC<any> = () => {
         }}
         title="Modal Title"
       >
-        <Row xPosition="center">
+        <div>
           <Avatar alt="avatar" text="LD" size="100px" />
           <p>fjfk</p>
-        </Row>
+        </div>
       </Modal>
 
-      <Row center style={{ width: "100%", height: "100%" }}>
-        <Row center>
+      <Row style={{ width: "100%", height: "100%" }}>
+        <Row>
           <Card size="sm">
             <h4>User Interface Controls</h4>
-            <Row>
+            <Row yPosition="center" xPosition="left">
               <p>Switch theme</p>
               <Switch
                 active={themeMode === "darkmode" ? true : false}
@@ -104,7 +104,7 @@ const Login: React.FC<any> = () => {
               </Button>
             </Column>
           </Card>
-          <Shimmer loading={loading} size="sm" >
+          <Shimmer loading={loading} size="sm">
             <h4>Login Page</h4>
             <Avatar src={img} size="lg" />
 

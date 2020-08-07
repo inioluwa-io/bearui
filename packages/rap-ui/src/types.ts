@@ -3,7 +3,6 @@ import {
   Dispatch,
   SetStateAction,
   LinkHTMLAttributes,
-  CSSProperties,
 } from "react"
 
 export type ButtonStyle = {
@@ -148,9 +147,9 @@ export type ModalProps = {
 // card props
 export type CardProps = {
   size?: "md" | "sm" | "lg"
-  style?: CSSProperties
   gap?: string
-}
+  align?: "left" | "right" | "center"
+} & HTMLDivElement
 // end
 
 // modal props

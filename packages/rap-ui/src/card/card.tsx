@@ -1,15 +1,21 @@
 import React from "react"
-import { darken } from "polished"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import { CardProps } from "../types"
 
-type CardContainerProps = { background: string; padding: string; gap: string }
+type CardContainerProps = {
+  background: string
+  padding: string
+  gap: string
+  align: {
+    alignItems: string
+  }
+}
 
 const CardContainer: any = styled.div`
   padding: ${(props: CardContainerProps) => props.padding};
   display: flex;
-  align-items: center;
+  align-items: ${(props: CardContainerProps) => props.align.alignItems};
   flex-direction: column;
   background: ${(props: CardContainerProps) => props.background};
   box-shadow: 0 0 25px -18px #292929;
@@ -25,8 +31,9 @@ const CardContainer: any = styled.div`
 const Card: React.FC<CardProps> = ({
   size = "md",
   gap = "20px",
-  style = {},
   children,
+  align = "center",
+  ...props
 }) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
@@ -49,9 +56,25 @@ const Card: React.FC<CardProps> = ({
     }
   }
 
+  const formAlignment = (align): any => {
+    switch (align) {
+      case "left":
+        return { alignItems: "flex-start" }
+      case "center":
+        return { alignItems: "center" }
+      case "right":
+        return { alignItems: "flex-end" }
+      default:
+        throw new Error(
+          `${align} not supported. Use either left, center or right`
+        )
+    }
+  }
+
   return (
     <CardContainer
-      style={style}
+      {...props}
+      align={formAlignment(align)}
       padding={getPaddingSize(size)}
       background={background}
       gap={gap}

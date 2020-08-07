@@ -6,7 +6,6 @@ type ColumnStyleProps = { marginBottom }
 const ColumnContainer: any = styled.div`
   display: flex;
   flex-direction: column;
-  // align-items: center;
   width: 100%;
 
   > :not(:last-child) {
