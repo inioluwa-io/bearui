@@ -9,8 +9,10 @@ import {
   Switch,
   Input,
   Modal,
+  Container,
   Shimmer,
   LinkButton,
+  Grid,
   FlexRow,
   Card,
   FlexColumn,
@@ -58,14 +60,14 @@ const Login: React.FC<any> = () => {
         }}
         title="Modal Title"
       >
-        <FlexColumn align="left">
+        <FlexColumn align="center">
           <Avatar alt="avatar" text="LD" size="100px" />
           <p>fjfk</p>
         </FlexColumn>
       </Modal>
 
-      <FlexRow style={{ width: "100%", height: "100%" }}>
-        <FlexRow>
+      <FlexColumn style={{ width: "100%", height: "100%", minHeight: "100vh" }}>
+        <FlexRow style={{ height: "100vh" }}>
           {!template ? (
             <Shimmer loading={template.theme} size="sm"></Shimmer>
           ) : (
@@ -160,7 +162,35 @@ const Login: React.FC<any> = () => {
             </Card>
           )}
         </FlexRow>
-      </FlexRow>
+
+        <Container>
+          <Grid lgCol="4" mdCol="4">
+            <Card size="sm" gap = "10px">
+              <h4>User Interface Controls ControlsControls</h4>
+            </Card>
+          </Grid>
+          <Grid lgCol="4" mdCol="4" xsCol = "6">
+            <Card size="sm" gap = "10px">
+              <h4>User Interface Controls ControlsControls</h4>
+            </Card>
+          </Grid>
+          <Grid lgCol="4">
+            <Card size="sm">
+              <h4>User Interface Controls</h4>
+            </Card>
+          </Grid>
+          <Grid lgCol="2">
+            <Card size="sm">
+              <h4>User Interface Controls</h4>
+            </Card>
+          </Grid>
+          <Grid lgCol="2">
+            <Card size="sm">
+              <h4>User Interface Controls</h4>
+            </Card>
+          </Grid>
+        </Container>
+      </FlexColumn>
     </>
   )
 }

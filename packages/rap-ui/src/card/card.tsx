@@ -7,9 +7,29 @@ type CardContainerProps = {
   background: string
   padding: string
   gap: string
+  lgCol: string
+  mdCol: string
+  smCol: string
+  xsCol: string
+  xPadding: string
   align: {
     alignItems: string
   }
+}
+
+const gridSystem: any = {
+  1: "calc(8.33333333% - 20px)",
+  2: "calc(16.66666667% - 20px)",
+  3: "calc(25% - 20px)",
+  4: "calc(33.33333333% - 20px)",
+  5: "calc(41.66666667% - 20px)",
+  6: "calc(50% - 20px)",
+  7: "calc(58.33333333% - 20px)",
+  8: "calc(66.66666667% - 20px)",
+  9: "calc(75% - 20px)",
+  10: "calc(83.33333333% - 20px)",
+  11: "calc(91.66666667% - 20px)",
+  12: "calc(100% - 20px)",
 }
 
 const CardContainer: any = styled.div`
@@ -20,8 +40,78 @@ const CardContainer: any = styled.div`
   background: ${(props: CardContainerProps) => props.background};
   box-shadow: 0 0 25px -18px #292929;
   border-radius: 10px;
-  margin: 20px 0;
+  margin: ${(props: CardContainerProps) => props.padding};
   position: relative;
+  height: fit-content;
+  ${(props: CardContainerProps) =>
+    (props.lgCol &&
+      "width:calc(" +
+        gridSystem[props.lgCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "))") ||
+    (props.mdCol &&
+      "width:calc(" +
+        gridSystem[props.mdCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "))") ||
+    (props.smCol &&
+      "width:calc(" +
+        gridSystem[props.smCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "))") ||
+    (props.xsCol &&
+      "width:calc(" +
+        gridSystem[props.xsCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "))")};
+
+  @media (max-width: 1200px) {
+    ${(props: CardContainerProps) =>
+      props.mdCol &&
+      "width: calc(" +
+        gridSystem[props.mdCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "));"}
+  }
+
+  @media (max-width: 992px) {
+    ${(props: CardContainerProps) =>
+      props.smCol &&
+      "width: calc(" +
+        gridSystem[props.smCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "));"}
+  }
+
+  @media (max-width: 768px) {
+    ${(props: CardContainerProps) =>
+      props.xsCol &&
+      "width: calc(" +
+        gridSystem[props.xsCol] +
+        " - (" +
+        props.xPadding +
+        " + " +
+        props.xPadding +
+        "));"}
+  }
 
   > :not(:last-child) {
     margin-bottom: ${(props: CardContainerProps) => props.gap};
@@ -33,6 +123,10 @@ const Card: React.FC<CardProps> = ({
   gap = "20px",
   children,
   align = "center",
+  lgCol = "",
+  smCol = "",
+  mdCol = "",
+  xsCol = "",
   ...props
 }) => {
   const theme = useTheme()
@@ -56,6 +150,11 @@ const Card: React.FC<CardProps> = ({
     }
   }
 
+  let xPadding = (): string => {
+    const paddingArr: string[] = getPaddingSize(size).split(" ")
+    return paddingArr[paddingArr.length - 1]
+  }
+
   const formAlignment = (align): any => {
     switch (align) {
       case "left":
@@ -73,7 +172,13 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <CardContainer
+      className={`rap-card rap-${size}`}
       {...props}
+      lgCol={lgCol}
+      mdCol={mdCol}
+      smCol={smCol}
+      xsCol={xsCol}
+      xPadding={xPadding()}
       align={formAlignment(align)}
       padding={getPaddingSize(size)}
       background={background}

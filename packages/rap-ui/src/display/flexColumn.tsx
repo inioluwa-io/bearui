@@ -42,7 +42,7 @@ const FlexColumn: React.FC<FlexColumnProps> = ({
         return { alignItems: "flex-end" }
       default:
         throw new Error(
-          `${align} not supported. Use either left, center or right`
+          `${align} not supported. Use either left, center, stretch or right`
         )
     }
   }

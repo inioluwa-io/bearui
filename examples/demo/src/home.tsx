@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 
 const Home: React.FC<any> = () => {
   return (
-    <FlexRow center style={{ width: "100%", height: "100%" }}>
+    <FlexRow center style={{ width: "100%", height: "100vh" }}>
       <Card size="md">
         <FlexColumn>
           <p>{AdminPanel}</p>

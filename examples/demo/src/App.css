@@ -40,7 +40,8 @@ p {
 
 .App-header {
   background-color: #282c34;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
   position: relative;
   font-size: calc(10px + 2vmin);

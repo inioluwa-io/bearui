@@ -16,6 +16,7 @@ type RowStyleProps = {
 const RowContainer: any = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
   align-items: ${(props: RowStyleProps) => props.position.alignItems};
   justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
 
@@ -27,6 +28,11 @@ const RowContainer: any = styled.div`
     width: 100%;
   }
 `
+
+/**
+ * 
+ * Controls the alignment of row flex-direction of an element
+ */
 
 const FlexRow: React.FC<RowProps> = ({
   children,

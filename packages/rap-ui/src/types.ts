@@ -153,6 +153,10 @@ export type CardProps = {
   size?: "md" | "sm" | "lg"
   gap?: string
   align?: "left" | "right" | "center"
+  lgCol: string
+  mdCol: string
+  smCol: string
+  xsCol: string
   style?: CSSProperties
 }
 // end

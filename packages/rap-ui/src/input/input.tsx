@@ -87,6 +87,11 @@ const InputIcon: any = styled.div`
   }
 `
 
+/**
+ * 
+ * Creates an input element
+ */
+
 const Input: React.FC<InputProps> = ({
   id,
   label,
