@@ -104,7 +104,9 @@ const Login: React.FC<any> = () => {
               </Button>
             </Column>
           </Card>
-          <Shimmer loading={loading} size="sm">
+
+          {/* Login card */}
+          <Shimmer loading={loading} size="md">
             <h4>Login Page</h4>
             <Avatar src={img} size="lg" />
 
@@ -136,6 +138,12 @@ const Login: React.FC<any> = () => {
                 placeholder="Enter your password"
               />
             </FormControl>
+            <Column>
+              <Button background="primary" outline onClick={() => {}} size="md">
+                Login
+              </Button>
+            </Column>
+            <p>or</p>
             <Column gap="10px">
               <FacebookButton onClick={() => {}} size="md" />
               <LinkButton to="/" glow size="md">

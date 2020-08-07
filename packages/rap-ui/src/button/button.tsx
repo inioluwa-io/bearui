@@ -45,6 +45,13 @@ font-family: Nunito sans;
     cursor:not-allowed;
   }
 
+  &:hover, &:focus{
+    ${(props: any) =>
+      props.outline &&
+      `background: ${props.background};
+      color: ${props.textColor};`}
+  }
+
   &:focus{
     outline:none;
   }
@@ -176,7 +183,9 @@ const Button: React.FC<ButtonProps> = ({
           `linear-gradient(138deg,${background.trim()}, ${rgba(
             background.trim(),
             0.6
-          )})`, background }
+          )})`,
+        background,
+      }
     }
   }
 
