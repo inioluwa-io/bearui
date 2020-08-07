@@ -51,28 +51,62 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      <Row center>
+      <Modal
+        active={openModal}
+        onClose={() => {
+          setOpenModal(false)
+        }}
+        title="Modal Title"
+      >
+        <Row xPosition="center">
+          <Avatar alt="avatar" text="LD" size="100px" />
+          <p>fjfk</p>
+        </Row>
+      </Modal>
+
+      <Row id = "D" center>
         <Card size="sm">
-          <Avatar src={img} size="200px" />
+          <h4>User Interface Controls</h4>
+          <Row>
+            <p>Switch theme</p>
+            <Switch
+              active={themeMode === "darkmode" ? true : false}
+              color="success"
+              onClick={(value: boolean) => {
+                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+              }}
+            />
+          </Row>
+          <Column gap="10px">
+            <Button
+              background="info"
+              onClick={() => {
+                addNotification({
+                  title: "Award Unlocked!",
+                  icon: "mdiTrophy",
+                  text:
+                    Math.floor(Math.random() * 100) +
+                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                })
+              }}
+            >
+              Push Notification
+            </Button>
+            <Button
+              background="dark"
+              onClick={() => {
+                setOpenModal(true)
+              }}
+              size="md"
+            >
+              Modal
+            </Button>
+          </Column>
         </Card>
+
         <Shimmer loading={loading} size="sm">
-          <Modal
-            active={openModal}
-            onClose={() => {
-              setOpenModal(false)
-            }}
-            title="Modal Title"
-          >
-            <Row xPosition="center" yPosition="bottom">
-              <Avatar alt="avatar" text="LD" size="100px" src={img} />
-              <p>fjfk</p>
-            </Row>
-            <Row xPosition="center">
-              <Avatar alt="avatar" text="LD" size="100px" />
-              <p>fjfk</p>
-            </Row>
-          </Modal>
           <h4>Login Page</h4>
+          <Avatar src={img} size="lg" />
 
           <FormControl>
             <Input
@@ -102,38 +136,9 @@ const Login: React.FC<any> = () => {
               placeholder="Enter your password"
             />
           </FormControl>
-          <div>
-            <Switch
-              active={themeMode === "darkmode" ? true : false}
-              color="success"
-              onClick={(value: boolean) => {
-                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
-              }}
-            />
-          </div>
           <Column gap="10px">
-            <FacebookButton
-              iconOnly
-              onClick={() => {
-                addNotification({
-                  title: "Award Unlocked!",
-                  icon: "mdiTrophy",
-                  text:
-                    Math.floor(Math.random() * 100) +
-                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
-                })
-              }}
-              size="md"
-            />
-            <AppleButton
-              iconOnly
-              onClick={() => {
-                setOpenModal(true)
-              }}
-              size="md"
-              text="apple"
-            />
-            <LinkButton to="/" gradient>
+            <FacebookButton onClick={() => {}} size="md" />
+            <LinkButton to="/" glow size="md">
               Back to Home
             </LinkButton>
           </Column>

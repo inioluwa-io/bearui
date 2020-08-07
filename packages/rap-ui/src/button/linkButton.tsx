@@ -18,7 +18,7 @@ font-family: Nunito sans;
   background: ${(props: any) =>
     props.outline
       ? "transparent"
-      : props.backgroundgradient || props.background};
+      : props.backgroundgradient !== "false" && props.backgroundgradient || props.background};
   color: ${(props: any) =>
     props.outline ? props.background : props.textcolor};
   font-size: 14px;
@@ -177,6 +177,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       return { background }
     }
   }
+  console.log(getStyleFromBackgroundProps())
 
   const isObject: Function = (object: any): boolean =>
     typeof object === "object"
