@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { InputProps } from "../types"
 import styled from "styled-components"
 import { isSupported } from "../util"
@@ -15,8 +15,6 @@ const InputElement: any = styled.div`
   height: fit-content;
   width: 220px;
   padding-bottom: ${(props: any) => props.padBottom && "19px"};
-  ${(props: any) =>
-    props.inputType === "email" && "margin-bottom: 6px !important"};
 `
 const InputContainer: any = styled.div`
   position: relative;
@@ -115,6 +113,18 @@ const Input: React.FC<InputProps> = ({
   const theme = useTheme()
   const colors = theme.colors
   const [themeMode] = useThemeMode()
+  const refs: any = useRef()
+
+  // Reduce margin if parent is a form control element
+  useEffect(() => {
+    if (type === "email") {
+      const DOMNode = refs.current
+      const parentNode = DOMNode.parentElement
+      if (parentNode.classList.contains("rap-ui-form-control")) {
+        DOMNode.style.marginBottom = "-19px"
+      }
+    }
+  }, [])
 
   const inputHeightSize = (): string => {
     switch (size) {
@@ -183,7 +193,7 @@ const Input: React.FC<InputProps> = ({
   }
 
   return (
-    <InputElement padBottom={type === "email"} inputType={type}>
+    <InputElement ref={refs} padBottom={type === "email"} inputType={type}>
       <Label htmlFor={`${id}`}>{label}</Label>
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement

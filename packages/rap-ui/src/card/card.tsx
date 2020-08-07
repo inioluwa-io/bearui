@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import { CardProps } from "../types"
 
-type CardContainerProps = { background: string; padding: string }
+type CardContainerProps = { background: string; padding: string; gap: string }
 
 const CardContainer: any = styled.div`
   padding: ${(props: CardContainerProps) => props.padding};
@@ -18,11 +18,16 @@ const CardContainer: any = styled.div`
   position: relative;
 
   > :not(:last-child) {
-    margin-bottom: 25px;
+    margin-bottom: ${(props: CardContainerProps) => props.gap};
   }
 `
 
-const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
+const Card: React.FC<CardProps> = ({
+  size = "md",
+  gap = "20px",
+  style = {},
+  children,
+}) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
   const background: string = theme[themeMode].cardbackground
@@ -43,12 +48,13 @@ const Card: React.FC<CardProps> = ({ size = "md", style = {}, children }) => {
       }
     }
   }
-  
+
   return (
     <CardContainer
       style={style}
       padding={getPaddingSize(size)}
       background={background}
+      gap={gap}
     >
       {children}
     </CardContainer>

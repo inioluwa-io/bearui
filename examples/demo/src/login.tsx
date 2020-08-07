@@ -104,7 +104,7 @@ const Login: React.FC<any> = () => {
               </Button>
             </Column>
           </Card>
-          <Shimmer loading={loading} size="sm">
+          <Shimmer loading={loading} size="sm" >
             <h4>Login Page</h4>
             <Avatar src={img} size="lg" />
 

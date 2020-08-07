@@ -26,6 +26,7 @@ const ShimmerContainer: any = styled.div`
 const Shimmer: React.FC<ShimmerProps> = ({
   loading = false,
   children,
+  gap,
   size,
 }) => {
   const theme = useTheme()
@@ -44,7 +45,7 @@ const Shimmer: React.FC<ShimmerProps> = ({
     )} 40%, ${cardBackground} 75%)`
   }
   return (
-    <Card size={size} style={loading ? { overflow: "hidden" } : {}}>
+    <Card gap={gap} size={size} style={loading ? { overflow: "hidden" } : {}}>
       {loading ? <ShimmerContainer background={background} /> : children}
     </Card>
   )

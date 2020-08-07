@@ -177,7 +177,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       return { background }
     }
   }
-  console.log(getStyleFromBackgroundProps())
 
   const isObject: Function = (object: any): boolean =>
     typeof object === "object"

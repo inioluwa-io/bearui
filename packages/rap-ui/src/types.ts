@@ -149,6 +149,7 @@ export type ModalProps = {
 export type CardProps = {
   size?: "md" | "sm" | "lg"
   style?: CSSProperties
+  gap?: string
 }
 // end
 
@@ -156,6 +157,7 @@ export type CardProps = {
 export type ShimmerProps = {
   loading: boolean
   size?: "md" | "sm" | "lg"
+  gap?: string
 }
 // end
 
