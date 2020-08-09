@@ -1,5 +1,7 @@
 import React from "react"
-import { FlexRow, Card, Datatable } from "rap-ui"
+import { FlexRow, Card, Datatable, Avatar } from "rap-ui"
+import img from "./dp1.jpg"
+import img1 from "./brooks-leibee-562087-unsplash.jpg"
 
 const Table: React.FC<any> = ({ ...props }) => {
   return (
@@ -7,58 +9,62 @@ const Table: React.FC<any> = ({ ...props }) => {
       <FlexRow center>
         <Card size="md">
           <Datatable
-            striped
             check
+            defaultSortIndex = {1}
+            rule={[
+              {
+                selector: "img",
+                onRender: (data: string) => <Avatar size="30px" src={data} />,
+              },
+            ]}
             heading={[" ", "Name", "age", "addr"]}
             columns={[
+              { name: " ", selector: "img" },
               { name: "Firstname", selector: "user" },
               { name: "Age", selector: "age" },
               { name: "Phone", selector: "phone" },
-              { name: "Addre", selector: "addr" },
-              { name: "Addre", selector: "addr" },
-              { name: "Addre", selector: "addr" },
             ]}
             document={[
               {
                 id: 1,
                 user: "iniolwa sogelola",
                 age: "fema",
-                addr: "djd",
+                img: img,
                 phone: "0983fkfkfk8",
               },
               {
                 id: 2,
                 user: "wema",
                 age: "femaa",
-                addr: "djd",
+                img: img1,
                 phone: "098ks938",
               },
               {
                 id: 3,
                 user: "alingo",
                 age: "femad",
-                addr: "djd",
+                img: img,
                 phone: "098d38",
               },
               {
                 id: 4,
                 user: "keve",
                 age: "femas",
-                addr: "djd",
+                img: img1,
                 phone: "0983238",
               },
               {
                 id: 5,
                 user: "james",
-                age: "femav",
-                addr: "djd",
+                age: "12",
+                img: img,
                 phone: "0983248",
               },
               {
                 id: 6,
                 user: "lucas",
                 age: "femfva",
-                addr: "djd",
+                img: img1,
                 phone: "0984i38",
               },
             ]}

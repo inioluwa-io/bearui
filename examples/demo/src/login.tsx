@@ -76,7 +76,7 @@ const Login: React.FC<any> = () => {
               <Card size="sm">
                 <h4>User Interface controls</h4>
                 <FlexRow center>
-                  <p>Switch theme</p>
+                  <p>Switch {themeMode}</p>
                   <Switch
                     active={themeMode === "darkmode" ? true : false}
                     color="success"

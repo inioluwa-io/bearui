@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled, { StyledComponent } from "styled-components"
-import { DatatableComponent, DatatableColumns } from "../types"
+import { DatatableComponent, DatatableColumns, DatatableRule } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 import { darken } from "polished"
 import { mdiArrowUp } from "@mdi/js"
@@ -8,7 +8,7 @@ import Icon from "@mdi/react"
 
 type TableBodyStyle = { background: string; striped: boolean }
 
-const Table: StyledComponent<"table", any> = styled.table`
+const Table: StyledComponent<"table", any, any> = styled.table`
   font-size: 16px;
   border-collapse: collapse;
   width: 100%;
@@ -44,6 +44,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
   }
   th {
     padding: 15px 20px;
+    padding-right: 15px;
     text-align: left;
     font-size: 13px;
     position: relative;
@@ -128,7 +129,8 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 15px 20px;
+      padding: 13px 20px;
+      padding-right: 15px;
       position: relative;
       vertical-align: middle;
     }
@@ -142,8 +144,10 @@ const Datatable: React.FC<DatatableComponent> = ({
   title,
   document,
   columns,
+  rule = [],
   striped = false,
   check = false,
+  defaultSortIndex = 1,
   ...props
 }) => {
   const theme = useTheme()
@@ -154,7 +158,9 @@ const Datatable: React.FC<DatatableComponent> = ({
   )
   const [selectAll, setSelectAll] = useState<boolean>(false)
   const [data, setData] = useState<any[]>(document)
-  const [toggleSortIndex, setToggleSortIndex] = useState<number>(0)
+  const [toggleSortIndex, setToggleSortIndex] = useState<number>(
+    defaultSortIndex
+  )
 
   const throwInvalidPropErr = (expected: string, recieved: string) => {
     throw new Error(`Expected '${expected}' but got ${recieved}`)
@@ -249,13 +255,29 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
   }
 
+  const getSelectorRule = (selector: string): DatatableRule => {
+    return rule.find(item => item.selector === selector)
+  }
+
+  const renderColumnData = (selector: string, data: any) => {
+    // if()
+    const selectorRule: DatatableRule = getSelectorRule(selector)
+
+    if (selectorRule) {
+      return selectorRule.onRender(data)
+    } else {
+      return data
+    }
+  }
+
   useEffect(() => {
-    setData(sortDocumentASC(columns[0].selector, data))
+    setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
   }, [])
 
   return (
     <div style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}>
       {title && <p>{title}</p>}
+      <table></table>
       <Table>
         <TableHead id="rap-t-hd">
           <tr
@@ -275,6 +297,7 @@ const Datatable: React.FC<DatatableComponent> = ({
               )}
               #
             </th>
+
             {columns.map((item: DatatableColumns, idx: number) => (
               <th
                 key={idx}
@@ -329,7 +352,9 @@ const Datatable: React.FC<DatatableComponent> = ({
                 {idx + 1}
               </td>
               {columns.map((column: any, idx: number) => (
-                <td key={idx}>{dataItem[column.selector]}</td>
+                <td key={idx}>
+                  {renderColumnData(column.selector, dataItem[column.selector])}
+                </td>
               ))}
             </tr>
           ))}

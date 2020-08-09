@@ -3,11 +3,8 @@ import {
   Dispatch,
   SetStateAction,
   LinkHTMLAttributes,
-  ReactComponentElement,
-  ReactElement,
-  ReactHTMLElement,
-  CSSProperties,
-  leHTMLAttributes,
+  HTMLAttributes,
+  ComponentType,
 } from "react"
 
 export type ButtonStyle = {
@@ -112,7 +109,7 @@ export type InputProps = {
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
   onChange: (value: string) => any
-} & leHTMLAttributes<HTMLInputElement>
+} & HTMLAttributes<HTMLInputElement>
 
 export type SupportedProps = (arr: any[], value: any) => boolean
 
@@ -149,7 +146,7 @@ export type ModalProps = {
   active: boolean
   title?: string
   onClose: () => any
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 // end
 
 // card props
@@ -161,7 +158,7 @@ export type CardProps = {
   mdCol?: string
   smCol?: string
   xsCol?: string
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 // end
 
 // modal props
@@ -169,7 +166,7 @@ export type ShimmerProps = {
   loading: boolean
   size?: "md" | "sm" | "lg"
   gap?: string
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 // end
 
 // display props
@@ -180,19 +177,19 @@ export type xPositionProps = "left" | "center" | "right"
 export type HTMLElement = {
   id?: string
   className?: string
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 
 export type RowProps = {
   center?: boolean
   gap?: string
   xPosition?: xPositionProps
   yPosition?: yPositionProps
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 
 export type FlexColumnProps = {
   align?: yPositionProps | "stretch"
   gap?: string
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 // end
 
 // datatable props
@@ -202,13 +199,20 @@ export type DatatableColumns = {
   selector: string
 }
 
+export type DatatableRule = {
+  selector: string
+  onRender: (data:any) => string  | ComponentType<any>
+}
+
 export type DatatableComponent = {
   title?: string | HTMLAllCollection
   document: any[]
-  striped: boolean
+  striped?: boolean
   columns: DatatableColumns[]
-  check: boolean
-} & leHTMLAttributes<HTMLDivElement>
+  check?: boolean
+  rule?: DatatableRule[]
+  defaultSortIndex?:number
+} & HTMLAttributes<HTMLDivElement>
 
 // end
 
@@ -220,5 +224,5 @@ export type LoaderComponent = {
   height: string
   iconSize?: number
   size?: string
-} & leHTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 // end
