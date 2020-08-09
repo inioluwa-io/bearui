@@ -129,7 +129,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 13px 20px;
+      padding: 15px 20px;
       padding-right: 15px;
       position: relative;
       vertical-align: middle;
@@ -275,7 +275,10 @@ const Datatable: React.FC<DatatableComponent> = ({
   }, [])
 
   return (
-    <div style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}>
+    <div
+      style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}
+      {...props}
+    >
       {title && <p>{title}</p>}
       <table></table>
       <Table>
@@ -352,9 +355,7 @@ const Datatable: React.FC<DatatableComponent> = ({
                 {idx + 1}
               </td>
               {columns.map((column: any, idx: number) => (
-                <td key={idx}>
-                  {renderColumnData(column.selector, dataItem)}
-                </td>
+                <td key={idx}>{renderColumnData(column.selector, dataItem)}</td>
               ))}
             </tr>
           ))}

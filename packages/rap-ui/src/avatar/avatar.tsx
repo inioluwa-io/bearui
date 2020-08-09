@@ -99,6 +99,8 @@ const Avatar: React.FC<AvatarProps> = ({
 
   const getAvatarSize: Function = (): string => {
     switch (size) {
+      case "xs":
+        return "30px"
       case "sm":
         return "38px"
       case "md":

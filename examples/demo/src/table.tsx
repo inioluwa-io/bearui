@@ -18,8 +18,8 @@ const Table: React.FC<any> = ({ ...props }) => {
                   <Avatar
                     badgeColor="warning"
                     withBadge
-                    badgeText="0"
-                    size="sm"
+                    badgeText={data.id}
+                    size="xs"
                     src={data.img}
                   />
                 ),
