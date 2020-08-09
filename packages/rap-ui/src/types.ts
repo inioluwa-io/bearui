@@ -210,7 +210,7 @@ export type DatatableComponent = {
   striped?: boolean
   columns: DatatableColumns[]
   check?: boolean
-  rule?: DatatableRule[]
+  renderRule?: DatatableRule[]
   defaultSortIndex?:number
 } & HTMLAttributes<HTMLDivElement>
 

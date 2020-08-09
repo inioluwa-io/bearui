@@ -10,11 +10,19 @@ const Table: React.FC<any> = ({ ...props }) => {
         <Card size="md">
           <Datatable
             check
-            defaultSortIndex = {1}
-            rule={[
+            defaultSortIndex={1}
+            renderRule={[
               {
                 selector: "img",
-                onRender: (data: string) => <Avatar size="30px" src={data} />,
+                onRender: (data: string) => (
+                  <Avatar
+                    badgeColor="warning"
+                    withBadge
+                    badgeText="0"
+                    size="sm"
+                    src={data}
+                  />
+                ),
               },
             ]}
             heading={[" ", "Name", "age", "addr"]}

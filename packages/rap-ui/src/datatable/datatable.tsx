@@ -144,7 +144,7 @@ const Datatable: React.FC<DatatableComponent> = ({
   title,
   document,
   columns,
-  rule = [],
+  renderRule = [],
   striped = false,
   check = false,
   defaultSortIndex = 1,
@@ -255,13 +255,13 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
   }
 
-  const getSelectorRule = (selector: string): DatatableRule => {
-    return rule.find(item => item.selector === selector)
+  const getSelectorRenderRule = (selector: string): DatatableRule => {
+    return renderRule.find(item => item.selector === selector)
   }
 
   const renderColumnData = (selector: string, data: any) => {
-    // if()
-    const selectorRule: DatatableRule = getSelectorRule(selector)
+    if (!renderRule) return data
+    const selectorRule: DatatableRule = getSelectorRenderRule(selector)
 
     if (selectorRule) {
       return selectorRule.onRender(data)

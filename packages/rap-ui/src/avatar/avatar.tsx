@@ -52,7 +52,7 @@ const BadgeComponent: any = styled.div`
     width: fit-content;
     height: fit-content;
     text-align: center;
-    padding: 2px;
+    padding:1px 2px;
     border-radius: 3px;
     background: ${(props: any) => props.background};
   }
@@ -143,7 +143,7 @@ const Avatar: React.FC<AvatarProps> = ({
     <AvatarComponent {...props}>
       {withBadge && (
         <BadgeComponent background={getBackgroundColor(badgeColor)}>
-          {<span>{badgeText}</span>}
+          {<span style={{ color: textColor || "#ffffff" }}>{badgeText}</span>}
         </BadgeComponent>
       )}
       {!src ? (
