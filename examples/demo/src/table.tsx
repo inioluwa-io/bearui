@@ -14,13 +14,13 @@ const Table: React.FC<any> = ({ ...props }) => {
             renderRule={[
               {
                 selector: "img",
-                onRender: (data: string) => (
+                onRender: (data: any) => (
                   <Avatar
                     badgeColor="warning"
                     withBadge
                     badgeText="0"
                     size="sm"
-                    src={data}
+                    src={data.img}
                   />
                 ),
               },

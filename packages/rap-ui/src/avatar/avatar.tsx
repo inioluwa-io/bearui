@@ -143,7 +143,7 @@ const Avatar: React.FC<AvatarProps> = ({
     <AvatarComponent {...props}>
       {withBadge && (
         <BadgeComponent background={getBackgroundColor(badgeColor)}>
-          {<span style={{ color: textColor || "#ffffff" }}>{badgeText}</span>}
+          {<span style={{ color: "#ffffff" }}>{badgeText}</span>}
         </BadgeComponent>
       )}
       {!src ? (

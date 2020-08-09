@@ -260,13 +260,13 @@ const Datatable: React.FC<DatatableComponent> = ({
   }
 
   const renderColumnData = (selector: string, data: any) => {
-    if (!renderRule) return data
+    if (!renderRule) return data[selector]
     const selectorRule: DatatableRule = getSelectorRenderRule(selector)
 
     if (selectorRule) {
       return selectorRule.onRender(data)
     } else {
-      return data
+      return data[selector]
     }
   }
 
@@ -353,7 +353,7 @@ const Datatable: React.FC<DatatableComponent> = ({
               </td>
               {columns.map((column: any, idx: number) => (
                 <td key={idx}>
-                  {renderColumnData(column.selector, dataItem[column.selector])}
+                  {renderColumnData(column.selector, dataItem)}
                 </td>
               ))}
             </tr>
