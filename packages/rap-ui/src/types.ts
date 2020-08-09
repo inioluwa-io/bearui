@@ -7,6 +7,7 @@ import {
   ReactElement,
   ReactHTMLElement,
   CSSProperties,
+  leHTMLAttributes,
 } from "react"
 
 export type ButtonStyle = {
@@ -111,7 +112,7 @@ export type InputProps = {
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
   onChange: (value: string) => any
-}
+} & leHTMLAttributes<HTMLInputElement>
 
 export type SupportedProps = (arr: any[], value: any) => boolean
 
@@ -148,7 +149,7 @@ export type ModalProps = {
   active: boolean
   title?: string
   onClose: () => any
-}
+} & leHTMLAttributes<HTMLDivElement>
 // end
 
 // card props
@@ -160,8 +161,7 @@ export type CardProps = {
   mdCol?: string
   smCol?: string
   xsCol?: string
-  style?: CSSProperties
-}
+} & leHTMLAttributes<HTMLDivElement>
 // end
 
 // modal props
@@ -169,7 +169,7 @@ export type ShimmerProps = {
   loading: boolean
   size?: "md" | "sm" | "lg"
   gap?: string
-}
+} & leHTMLAttributes<HTMLDivElement>
 // end
 
 // display props
@@ -177,17 +177,22 @@ export type ShimmerProps = {
 export type yPositionProps = "top" | "center" | "bottom"
 export type xPositionProps = "left" | "center" | "right"
 
+export type HTMLElement = {
+  id?: string
+  className?: string
+} & leHTMLAttributes<HTMLDivElement>
+
 export type RowProps = {
   center?: boolean
   gap?: string
   xPosition?: xPositionProps
   yPosition?: yPositionProps
-}
+} & leHTMLAttributes<HTMLDivElement>
 
 export type FlexColumnProps = {
   align?: yPositionProps | "stretch"
   gap?: string
-}
+} & leHTMLAttributes<HTMLDivElement>
 // end
 
 // datatable props
@@ -203,6 +208,17 @@ export type DatatableComponent = {
   striped: boolean
   columns: DatatableColumns[]
   check: boolean
-}
+} & leHTMLAttributes<HTMLDivElement>
 
+// end
+
+// loeader props
+export type LoaderComponent = {
+  type?: "spinner"
+  customIcon?: any
+  width: string
+  height: string
+  iconSize?: number
+  size?: string
+} & leHTMLAttributes<HTMLDivElement>
 // end

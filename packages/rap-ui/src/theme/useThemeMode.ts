@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useCallback } from "react"
 import { ThemeMode, RapUIThemeMode } from "../types"
 import { ThemeModeContext } from "./modeContext"
 import { isSupported } from "../util"
@@ -25,16 +25,19 @@ import { isSupported } from "../util"
  *      </>
  * }
  */
+
 const useThemeMode = (): ThemeMode => {
   const { mode, setMode } = useContext(ThemeModeContext)
 
-  const finalSetMode = (mode: RapUIThemeMode) => {
+  const finalSetMode = useCallback((mode: RapUIThemeMode) => {
     if (isSupported(["lightmode", "darkmode"], mode)) {
       const body = document.body
       body.classList.remove("lightmode")
       body.classList.remove("darkmode")
+
       body.classList.add(mode)
       setMode(mode)
+      return mode
     } else {
       if (process.env.NODE_ENV !== "production") {
         throw new Error(
@@ -42,7 +45,7 @@ const useThemeMode = (): ThemeMode => {
         )
       }
     }
-  }
+  }, [mode])
   return [mode, finalSetMode]
 }
 

@@ -43,8 +43,13 @@ const App: React.FC<any> = () => {
     dataProvider.getOne("/publish", "http://localhost:8888/api/v1")
   }, [dataProvider])
 
-  const [themeMode] = useThemeMode()
+  const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
+
+  useEffect(() => {
+    setThemeMode("lightmode")
+  }, [])
+  
   return (
     <div className="App">
       <NotificationComponent notification={notification} />

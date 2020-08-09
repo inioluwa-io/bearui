@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useQueryStore, useNotification } from "rap-core"
 import {
   Button,
-  AppleButton,
   FacebookButton,
-  GoogleButton,
-  TwitterButton,
   Switch,
   Input,
   Modal,
@@ -19,6 +16,7 @@ import {
   useThemeMode,
   useTheme,
   FormControl,
+  Loader,
   Avatar,
 } from "rap-ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
@@ -56,6 +54,7 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
+    {!Object.entries(template).length && <Loader/>}
       <Modal
         active={openModal}
         onClose={() => {
@@ -72,9 +71,7 @@ const Login: React.FC<any> = () => {
       <FlexColumn style={{ width: "100%", height: "100%", minHeight: "100vh" }}>
         <Container>
           <Grid lgCol="3" mdCol="1" xsCol="12" />
-          {!template ? (
-            <Shimmer loading={template.theme} size="sm"></Shimmer>
-          ) : (
+          
             <Grid lgCol="3" mdCol="4" smCol="5" xsCol="12">
               <Card size="sm">
                 <h4>User Interface controls</h4>
@@ -117,10 +114,6 @@ const Login: React.FC<any> = () => {
                 </FlexColumn>
               </Card>
             </Grid>
-          )}
-          {!template ? (
-            <Shimmer loading={template.theme} size="sm"></Shimmer>
-          ) : (
             <Grid lgCol="3" mdCol="4" smCol="5" xsCol="12">
               <Card loading={loading} size="sm">
                 <h4>Login Page</h4>
@@ -175,7 +168,6 @@ const Login: React.FC<any> = () => {
                 </FlexColumn>
               </Card>
             </Grid>
-          )}
           <Grid lgCol="1" />
         </Container>
       </FlexColumn>

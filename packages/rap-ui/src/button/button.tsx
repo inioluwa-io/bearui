@@ -95,6 +95,10 @@ font-family: Nunito sans;
       transform: rotate(360deg);
     }
   }
+  .text{
+    color: ${(props: any) =>
+      props.outline ? props.background : props.textColor};
+    }
 
   &.loading{
     background: ${(props: any) => lighten(0.1, props.background)};
@@ -115,7 +119,7 @@ font-family: Nunito sans;
       }
     }
     .rap-loa {
-      animation: spin .5s linear infinite;
+      animation: spin .45s linear infinite;
       visibility:visible;
       position:absolute;
 
