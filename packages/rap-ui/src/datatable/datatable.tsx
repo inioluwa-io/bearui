@@ -48,6 +48,33 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
     font-size: 13px;
     position: relative;
 
+    svg {
+      opacity: 0;
+      transition: all 0.35s;
+      position: absolute;
+      top: 50%;
+      transform-origin: top;
+      transform: translateY(-50%);
+    }
+
+    &.rap-asc,
+    &.rap-desc {
+      svg {
+        opacity: 1;
+      }
+    }
+
+    &.rap-asc {
+      svg {
+        transform: rotate(0deg) translateY(-50%);
+      }
+    }
+    &.rap-desc {
+      svg {
+        transform: rotate(180deg) translateY(-50%);
+      }
+    }
+
     button {
       background: transparent;
       text-transform: uppercase;
@@ -59,33 +86,6 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
       font-weight: inherit;
       font-family: inherit;
       position: relative;
-
-      svg {
-        opacity: 0;
-        transition: all 0.35s;
-        position: absolute;
-        top: 50%;
-        transform-origin: top;
-        transform: translateY(-50%);
-      }
-
-      &.rap-asc,
-      &.rap-desc {
-        svg {
-          opacity: 1;
-        }
-      }
-
-      &.rap-asc {
-        svg {
-          transform: rotate(0deg) translateY(-50%);
-        }
-      }
-      &.rap-desc {
-        svg {
-          transform: rotate(180deg) translateY(-50%);
-        }
-      }
     }
   }
 `
@@ -237,14 +237,15 @@ const Datatable: React.FC<DatatableComponent> = ({
 
   const toggleSort = (e: any, selector: any, idx: number) => {
     setToggleSortIndex(idx)
-    if (e.target.classList.contains("rap-asc")) {
+
+    if (e.target.parentElement.classList.contains("rap-asc")) {
       setData(sortDocumentDESC(selector, data))
-      e.target.classList.remove("rap-asc")
-      e.target.classList.add("rap-desc")
+      e.target.parentElement.classList.remove("rap-asc")
+      e.target.parentElement.classList.add("rap-desc")
     } else {
       setData(sortDocumentASC(selector, data))
-      e.target.classList.remove("rap-desc")
-      e.target.classList.add("rap-asc")
+      e.target.parentElement.classList.remove("rap-desc")
+      e.target.parentElement.classList.add("rap-asc")
     }
   }
 
@@ -275,21 +276,25 @@ const Datatable: React.FC<DatatableComponent> = ({
               #
             </th>
             {columns.map((item: DatatableColumns, idx: number) => (
-              <th key={idx}>
+              <th
+                key={idx}
+                className={idx === +toggleSortIndex ? "rap-asc" : ""}
+              >
                 {item.name && item.selector ? (
-                  <button
-                    className={idx === +toggleSortIndex ? "rap-asc" : ""}
-                    onClick={e => {
-                      toggleSort(e, item.selector, idx)
-                    }}
-                  >
-                    {item.name}
+                  <>
+                    <button
+                      onClick={e => {
+                        toggleSort(e, item.selector, idx)
+                      }}
+                    >
+                      {item.name}
+                    </button>
                     <Icon
                       path={mdiArrowUp}
                       color={themeMode === "lightmode" ? "#222" : "#ffffff"}
                       size={0.55}
                     />
-                  </button>
+                  </>
                 ) : (
                   throwErr(
                     `Columns must have properties 'name' and 'selector' in array of objects`
