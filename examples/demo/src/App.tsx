@@ -6,6 +6,7 @@ import { useTheme, useThemeMode, Notification } from "rap-ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "rap-core"
 import { NotifyProps } from "rap-ui/lib/types"
+import Table from "./table"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -60,6 +61,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/login"
             component={(props: any) => <Login {...props} />}
+          />
+          <Route
+            path="/datatable"
+            component={(props: any) => <Table {...props} />}
           />
         </Switch>
       </header>

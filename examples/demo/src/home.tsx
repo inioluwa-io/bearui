@@ -9,13 +9,16 @@ const Home: React.FC<any> = () => {
   return (
     <FlexRow center style={{ width: "100%", height: "100vh" }}>
       <Card size="md">
-        <FlexColumn>
-          <p>{AdminPanel}</p>
-          <FlexRow>
-            <Avatar alt="avatar" text="LD" size="md" src={img} />
-          </FlexRow>
+        <p>{AdminPanel}</p>
+        <FlexRow>
+          <Avatar alt="avatar" text="LD" size="md" src={img} />
+        </FlexRow>
+        <FlexColumn gap="10px">
           <LinkButton gradient background="info" to="/login">
             login
+          </LinkButton>
+          <LinkButton gradient to="/datatable">
+            Datatables
           </LinkButton>
         </FlexColumn>
       </Card>

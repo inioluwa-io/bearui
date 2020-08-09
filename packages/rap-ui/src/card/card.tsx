@@ -40,7 +40,7 @@ const CardContainer: any = styled.div`
   background: ${(props: CardContainerProps) => props.background};
   box-shadow: 0 0 25px -18px #292929;
   border-radius: 10px;
-  margin: ${(props: CardContainerProps) => props.padding};
+  margin: ${(props: CardContainerProps) => props.xPadding};
   position: relative;
   height: fit-content;
   ${(props: CardContainerProps) =>

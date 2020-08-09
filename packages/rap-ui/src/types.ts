@@ -153,10 +153,10 @@ export type CardProps = {
   size?: "md" | "sm" | "lg"
   gap?: string
   align?: "left" | "right" | "center"
-  lgCol: string
-  mdCol: string
-  smCol: string
-  xsCol: string
+  lgCol?: string
+  mdCol?: string
+  smCol?: string
+  xsCol?: string
   style?: CSSProperties
 }
 // end
@@ -185,4 +185,21 @@ export type FlexColumnProps = {
   align?: yPositionProps | "stretch"
   gap?: string
 }
+// end
+
+// datatable props
+
+export type DatatableColumns = {
+  name: string
+  selector: string
+}
+
+export type DatatableComponent = {
+  title?: string | HTMLAllCollection
+  document: any[]
+  striped: boolean
+  columns: DatatableColumns[]
+  check: boolean
+}
+
 // end

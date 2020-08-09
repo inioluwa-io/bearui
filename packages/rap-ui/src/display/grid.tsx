@@ -19,7 +19,7 @@ const gridSystem: any = {
   7: "calc(58.33333333%)",
   8: "calc(66.66666667%)",
   9: "calc(75%)",
-  10: "calc(83.33333333% ",
+  10: "calc(83.33333333% )",
   11: "calc(91.66666667%) )",
   12: "calc(100%)",
 }
@@ -30,7 +30,11 @@ const CardContainer: any = styled.div`
   display: inline-block;
 
   width: ${(props: CardContainerProps) =>
-    props.lgCol ? "calc(" + gridSystem[props.lgCol] + ")" : "fit-content"};
+    (props.lgCol && "calc(" + gridSystem[props.lgCol] + ")") ||
+    (props.mdCol && "calc(" + gridSystem[props.mdCol] + ")") ||
+    (props.smCol && "calc(" + gridSystem[props.smCol] + ")") ||
+    (props.xsCol && "calc(" + gridSystem[props.xsCol] + ")") ||
+    "fit-content"};
 
   @media (max-width: 1200px) {
     ${(props: CardContainerProps) =>
@@ -45,6 +49,10 @@ const CardContainer: any = styled.div`
   @media (max-width: 768px) {
     ${(props: CardContainerProps) =>
       props.xsCol && "width: calc(" + gridSystem[props.xsCol] + ");"}
+  }
+
+  > .rap-card {
+    margin: 10px;
   }
 `
 

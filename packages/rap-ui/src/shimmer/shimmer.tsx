@@ -27,7 +27,6 @@ const Shimmer: React.FC<ShimmerProps> = ({
   loading = false,
   children,
   gap,
-  width,
   size,
   ...props
 }) => {
