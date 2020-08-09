@@ -29,6 +29,7 @@ const Login: React.FC<any> = () => {
   const queryStore = useQueryStore()
   const [, addNotification] = useNotification()
   const [openModal, setOpenModal] = useState<boolean>(false)
+  const [login, setLogin] = useState<boolean>(false)
 
   const { data: template, loading } = queryStore.getOne("template", {
     name: "Plain Blue",
@@ -152,7 +153,14 @@ const Login: React.FC<any> = () => {
                   />
                 </FormControl>
                 <FlexColumn>
-                  <Button background="primary" onClick={() => {}} size="md">
+                  <Button
+                    background="primary"
+                    loading={login}
+                    onClick={() => {
+                      setLogin(prevState => !prevState)
+                    }}
+                    size="md"
+                  >
                     Login
                   </Button>
                 </FlexColumn>

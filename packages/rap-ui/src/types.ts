@@ -25,7 +25,9 @@ export type ButtonStyle = {
   size?: "xs" | "sm" | "md" | "lg"
 }
 
-export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {}
+export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
+  loading?: boolean
+}
 
 export type AppleSocialButton = {
   color?: "dark" | "white"
@@ -65,7 +67,7 @@ export type AvatarProps = {
   src?: string
   text?: string
   alt?: string
-} & HTMLDivElement
+}
 
 export type NotifyProps = {
   text: string
@@ -179,7 +181,7 @@ export type RowProps = {
   gap?: string
   xPosition?: xPositionProps
   yPosition?: yPositionProps
-} & HTMLDivElement
+} 
 
 export type FlexColumnProps = {
   align?: yPositionProps | "stretch"

@@ -6,7 +6,7 @@ import { darken } from "polished"
 import { mdiArrowUp } from "@mdi/js"
 import Icon from "@mdi/react"
 
-type TableBodyStyle = { background: string; stripped: boolean }
+type TableBodyStyle = { background: string; striped: boolean }
 
 const Table: StyledComponent<"table", any> = styled.table`
   font-size: 16px;

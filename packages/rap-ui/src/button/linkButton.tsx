@@ -49,6 +49,16 @@ font-family: Nunito sans;
     cursor:not-allowed;
   }
 
+  &:hover, &:focus{
+    ${(props: any) =>
+      props.outline
+        ? `background: ${props.background};
+      color: ${props.textColor};`
+        : "background:" +
+            (props.backgroundgradient !== "false" ?
+              props.backgroundgradient : darken(0.05, props.background)) + ";"}
+  }
+
   &:focus{
     outline:none;
   }

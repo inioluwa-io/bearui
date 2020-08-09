@@ -47,16 +47,19 @@ font-family: Nunito sans;
 
   &:hover, &:focus{
     ${(props: any) =>
-      props.outline &&
-      `background: ${props.background};
-      color: ${props.textColor};`}
+      props.outline
+        ? `background: ${props.background};
+      color: ${props.textColor};`
+        : "background:" +
+          (!props.backgroundgradient && darken(0.05, props.background)) +
+          ";"}
   }
 
   &:focus{
     outline:none;
   }
 
-  span{
+  span:not(.text){
     position:absolute;
     background:${(props: any) => rgba(lighten(0.5, props.background), 0.4)};
     width:100px;
@@ -83,6 +86,30 @@ font-family: Nunito sans;
       transform: scale(5);
     }
   }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  &.loading{
+    background: ${(props: any) => lighten(0.1, props.background)};
+    .rap-core, .text, svg{
+      visibility:hidden;
+    }
+    .rap-loa{
+      animation: spin .5s linear infinite;
+      visibility:visible;
+      position:absolute;
+      *{
+        visibility:visible;
+      }
+    }
+  }
 `
 
 const Button: React.FC<ButtonProps> = ({
@@ -97,6 +124,7 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "md",
+  loading = false,
   ...props
 }) => {
   const refs: any = useRef()
@@ -212,16 +240,26 @@ const Button: React.FC<ButtonProps> = ({
   updateProps({ textColor: textColor, iconRight, iconOnly })
 
   return (
-    <Button1 {...props} ref={refs}>
+    <Button1 {...props} ref={refs} className={loading ? "loading" : ""}>
+      {loading && (
+        <Icon
+          className="rap-loa"
+          path={path.mdiLoading}
+          color={iconColor}
+          size={0.75}
+          style={getIconStyle()}
+        />
+      )}
       {icon && (
         <Icon
+          className="rap-ico"
           path={path[icon]}
           color={iconColor}
           size={0.75}
           style={getIconStyle()}
         />
       )}
-      {!iconOnly && children}
+      {!iconOnly && <span className="text">{children}</span>}
     </Button1>
   )
 }

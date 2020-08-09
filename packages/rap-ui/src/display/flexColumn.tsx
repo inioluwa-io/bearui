@@ -48,7 +48,7 @@ const FlexColumn: React.FC<FlexColumnProps> = ({
   }
 
   return (
-    <ColumnContainer align={formAlignment(align)} marginBottom={gap}>
+    <ColumnContainer {...props} align={formAlignment(align)} marginBottom={gap}>
       {children}
     </ColumnContainer>
   )
