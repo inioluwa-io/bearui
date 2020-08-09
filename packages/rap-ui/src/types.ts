@@ -27,6 +27,7 @@ export type ButtonStyle = {
 
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
   loading?: boolean
+  loadingIcon: any
 }
 
 export type AppleSocialButton = {
@@ -181,7 +182,7 @@ export type RowProps = {
   gap?: string
   xPosition?: xPositionProps
   yPosition?: yPositionProps
-} 
+}
 
 export type FlexColumnProps = {
   align?: yPositionProps | "stretch"

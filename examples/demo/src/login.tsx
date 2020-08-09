@@ -22,6 +22,8 @@ import {
   Avatar,
 } from "rap-ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
+import Icon from "@mdi/react"
+import * as path from "@mdi/js"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()

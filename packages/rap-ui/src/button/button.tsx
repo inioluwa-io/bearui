@@ -101,10 +101,24 @@ font-family: Nunito sans;
     .rap-core, .text, svg{
       visibility:hidden;
     }
-    .rap-loa{
+    
+    .rap-cus-loa{
+      visibility:visible;
+      position:absolute;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      svg{
+        position: absolute;
+        visibility:visible;
+      }
+    }
+    .rap-loa {
       animation: spin .5s linear infinite;
       visibility:visible;
       position:absolute;
+
       *{
         visibility:visible;
       }
@@ -124,6 +138,7 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "md",
+  loadingIcon,
   loading = false,
   ...props
 }) => {
@@ -241,15 +256,18 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <Button1 {...props} ref={refs} className={loading ? "loading" : ""}>
-      {loading && (
-        <Icon
-          className="rap-loa"
-          path={path.mdiLoading}
-          color={iconColor}
-          size={0.75}
-          style={getIconStyle()}
-        />
-      )}
+      {loading &&
+        (loadingIcon ? (
+          <div className="rap-cus-loa">{loadingIcon}</div>
+        ) : (
+          <Icon
+            className="rap-loa"
+            path={path.mdiLoading}
+            color={iconColor}
+            size={0.75}
+            style={getIconStyle()}
+          />
+        ))}
       {icon && (
         <Icon
           className="rap-ico"
