@@ -88,7 +88,7 @@ const InputIcon: any = styled.div`
 `
 
 /**
- * 
+ *
  * Creates an input element
  */
 
@@ -104,9 +104,10 @@ const Input: React.FC<InputProps> = ({
   onError,
   iconRight = false,
   iconBorder = true,
-  onChange,
+  onInputChange,
+  ...props
 }) => {
-  if (!id || typeof onChange !== "function") {
+  if (!id || typeof onInputChange !== "function") {
     throw new Error("Props id, onError and onChange are required")
   }
   if (type === "email" && typeof onError !== "function") {
@@ -194,11 +195,16 @@ const Input: React.FC<InputProps> = ({
 
   const handleChangeEvent = (e: any) => {
     setInputValue(e.target.value)
-    onChange(e.target.value)
+    onInputChange(e.target.value)
   }
 
   return (
-    <InputElement ref={refs} padBottom={type === "email"} inputType={type}>
+    <InputElement
+      ref={refs}
+      padBottom={type === "email"}
+      inputType={type}
+      {...props}
+    >
       <Label htmlFor={`${id}`}>{label}</Label>
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement

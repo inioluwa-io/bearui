@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { StyledComponent } from "styled-components"
 
-export type ContainerProps = { gap: string }
+export type ContainerProps = { gap?: string }
 
 const ContainerDiv: StyledComponent<"div", any> = styled.div`
   width: calc(100% - 40px);

@@ -8,7 +8,62 @@ import { useThemeMode, useTheme } from "../theme"
 import { darken, rgba } from "polished"
 import styled, { StyledComponent } from "styled-components"
 
-const LoaderContainer: StyledComponent<"div", any> = styled.div`
+const BeatDiv: StyledComponent<"div", any, { size: number }> = styled.div`
+  display: flex;
+  justify-content: center;
+  transform:scale3d(${(props: any) =>
+    props.size + "," + props.size + "," + props.size});
+  width: ${(props: any) => props.size * 24}px;
+  height: ${(props: any) => props.size * 24}px;
+  align-items:center;
+  position:relative;
+
+  .bar {
+    width: 2px;
+    background:${(props: any) => props.color}
+    height: 20px;
+    animation: pulse 0.35s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite
+
+    &:not(:last-child){
+      margin-right: 4px;
+    }
+    &:nth-child(2n - 1){
+      animation: pulseInverse 0.35s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite;
+    }
+  }
+  @keyframes pulse {
+    from {
+      height:9px;
+    }
+    to {
+      height:20px;
+    }
+  }
+  @keyframes pulseInverse {
+    from {
+      height:20px;
+    }
+    to {
+      height:9px;
+    }
+  }
+`
+
+const BeatAnimation: React.FC<any> = ({ themeMode, size }) => {
+  return (
+    <BeatDiv size={size} color={themeMode === "lightmode" ? "#444" : "#fff"}>
+      <span className="bar"></span>
+      <span className="bar"></span>
+      <span className="bar"></span>
+    </BeatDiv>
+  )
+}
+
+const LoaderContainer: StyledComponent<
+  "div",
+  any,
+  { padding: string }
+> = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +84,7 @@ const LoaderContainer: StyledComponent<"div", any> = styled.div`
 `
 
 const Loader: React.FC<LoaderComponent> = ({
-  type = "spinner",
+  type = "pulse",
   customIcon,
   iconSize = 1,
   width = "100%",
@@ -39,10 +94,19 @@ const Loader: React.FC<LoaderComponent> = ({
   const [themeMode] = useThemeMode()
   const theme: RapUITheme = useTheme()
 
-  const getIconPath = (): string => {
+  const getAnimation = (): any => {
     switch (type) {
       case "spinner": {
-        return mdiLoading
+        return (
+          <Icon
+            path={mdiLoading}
+            color={themeMode === "lightmode" ? "#444" : "#fff"}
+            size={iconSize}
+          ></Icon>
+        )
+      }
+      case "pulse": {
+        return <BeatAnimation themeMode={themeMode} size={iconSize} />
       }
       default:
         throw new Error(
@@ -65,13 +129,7 @@ const Loader: React.FC<LoaderComponent> = ({
     >
       <Card size="sm">
         <LoaderContainer padding={size}>
-          {customIcon || (
-            <Icon
-              path={getIconPath()}
-              color={themeMode === "lightmode" ? "#444" : "#fff"}
-              size={iconSize}
-            ></Icon>
-          )}
+          {customIcon || getAnimation()}
         </LoaderContainer>
       </Card>
     </FlexRow>

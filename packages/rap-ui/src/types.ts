@@ -25,7 +25,7 @@ export type ButtonStyle = {
 
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
   loading?: boolean
-  loadingIcon: any
+  loadingIcon?: any
 }
 
 export type AppleSocialButton = {
@@ -108,7 +108,7 @@ export type InputProps = {
   type?: "email" | "text" | "password"
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
-  onChange: (value: string) => any
+  onInputChange?: (value: string) => any
 } & HTMLAttributes<HTMLInputElement>
 
 export type SupportedProps = (arr: any[], value: any) => boolean
@@ -201,7 +201,7 @@ export type DatatableColumns = {
 
 export type DatatableRule = {
   selector: string
-  onRender: (data:any) => string  | ComponentType<any>
+  onRender: (data: any) => string | ComponentType<any> | Element
 }
 
 export type DatatableComponent = {
@@ -211,17 +211,17 @@ export type DatatableComponent = {
   columns: DatatableColumns[]
   check?: boolean
   renderRule?: DatatableRule[]
-  defaultSortIndex?:number
+  defaultSortIndex?: number
 } & HTMLAttributes<HTMLDivElement>
 
 // end
 
 // loeader props
 export type LoaderComponent = {
-  type?: "spinner"
+  type?: "spinner" | "pulse"
   customIcon?: any
-  width: string
-  height: string
+  width?: string
+  height?: string
   iconSize?: number
   size?: string
 } & HTMLAttributes<HTMLDivElement>
