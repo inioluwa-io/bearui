@@ -1,50 +1,69 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Switch, Route } from "react-router-dom"
 import "./App.css"
-import { AuthContext, store, DataProvider } from "rap-core"
 import Login from "./login"
-import { ThemeProvider, ThemeModeProvider } from "rap-ui"
+import { useTheme, useThemeMode, Notification } from "rap-ui"
 import Home from "./home"
-import { Provider } from "react-redux"
+import { useDataProvider, useNotification } from "rap-core"
+import { NotifyProps } from "rap-ui/lib/types"
 
-const App: React.FC<any> = () => {
+const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
-    <Provider store={store}>
-      <DataProvider>
-        <ThemeProvider>
-          <ThemeModeProvider>
-            <AuthContext.Provider
-              value={{
-                login: async (data: any) => {
-                  try {
-                    if (data.username === "login") return Promise.resolve()
-                    return Promise.reject()
-                  } catch (e) {
-                    console.warn(e)
-                  }
-                },
-              }}
-            >
-              <div className="App">
-                <header className="App-header">
-                  <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      component={(props: any) => <Home {...props} />}
-                    />
-                    <Route
-                      path="/login"
-                      component={(props: any) => <Login {...props} />}
-                    />
-                  </Switch>
-                </header>
-              </div>
-            </AuthContext.Provider>
-          </ThemeModeProvider>
-        </ThemeProvider>
-      </DataProvider>
-    </Provider>
+    <div
+      style={{
+        position: "fixed",
+        top: "0",
+        zIndex: 9999,
+        left: "50%",
+        transform: "translateX(-50%)",
+        display: "flex",
+        height: notification().length * 100 + "px",
+        flexDirection: "column-reverse",
+        transition: "all .45s",
+      }}
+    >
+      {notification().map((item: NotifyProps, idx: number) => (
+        <Notification
+          key={idx}
+          title={item.title}
+          text={item.text}
+          icon={item.icon}
+          iconColor={item.iconColor}
+        />
+      ))}
+    </div>
+  )
+}
+const App: React.FC<any> = () => {
+  const dataProvider = useDataProvider()
+  const [notification] = useNotification(6000)
+  useEffect(() => {
+    dataProvider.getOne("/template", "http://localhost:8888/api/v1")
+    dataProvider.getOne("/publish", "http://localhost:8888/api/v1")
+  }, [dataProvider])
+
+  const [themeMode] = useThemeMode()
+  const theme = useTheme()
+  return (
+    <div className="App">
+      <NotificationComponent notification={notification} />
+      <header
+        className="App-header"
+        style={{ background: theme[themeMode].background }}
+      >
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={(props: any) => <Home {...props} />}
+          />
+          <Route
+            path="/login"
+            component={(props: any) => <Login {...props} />}
+          />
+        </Switch>
+      </header>
+    </div>
   )
 }
 

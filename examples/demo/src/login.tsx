@@ -1,65 +1,48 @@
-import React, { useState, useEffect } from "react"
-import { useLogin, useLogout, useNotification, useDataProvider } from "rap-core"
-import { Button, Notification, Switch, Input, useThemeMode } from "rap-ui"
-import { NotifyProps } from "rap-ui/lib/types"
-
-const NotificationComponent: React.FC<any> = ({ notification }) => {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: "0",
-        zIndex: 9999,
-        display: "flex",
-        height: notification.length * 100 + "px",
-        flexDirection: "column-reverse",
-        transition: "all .45s",
-      }}
-    >
-      {notification.map((item: NotifyProps, idx: number) => (
-        <Notification
-          key={idx}
-          title={item.title}
-          text={item.text}
-          icon={item.icon}
-          iconColor={item.iconColor}
-        />
-      ))}
-    </div>
-  )
-}
+import React, { useEffect } from "react"
+import { useLogin, useQueryStore, useLogout, useNotification } from "rap-core"
+import { Button, Switch, Input, useThemeMode, useTheme } from "rap-ui"
 
 const Login: React.FC<any> = () => {
-  const login = useLogin()
-  const logout = useLogout()
-  const [notification, addNotification] = useNotification(3000)
-  const dataProvider = useDataProvider()
   const [themeMode, setThemeMode] = useThemeMode()
+  const theme = useTheme()
+  const queryStore = useQueryStore()
+  const [, addNotification] = useNotification()
+
+  const { data: template, loading } = queryStore.getOne("template", {
+    name: "Plain Blue",
+  })
 
   useEffect(() => {
-    dataProvider.getOne()
-    console.log("Dkj")
-  }, [])
-
-  const handleLogin: any = (e: EventListener) => {
-    login({ username: "log" }, "/")
-  }
-  const handleLogout: any = (e: EventListener) => {
-    console.log(logout({ username: "dd" }, "/"))
-  }
+    if (!template) {
+      addNotification({
+        title: "QueryStore",
+        text: "Could not fetch from template",
+        icon: "mdiAlert",
+        iconColor: "danger",
+      })
+    }
+  }, [template, addNotification])
+  // const handleLogin: any = (e: EventListener) => {
+  //   login({ username: "log" }, "/")
+  // }
+  // const handleLogout: any = (e: EventListener) => {
+  //   console.log(logout({ username: "dd" }, "/"))
+  // }
 
   return (
     <>
-      <NotificationComponent notification={notification} />
+      <ul>
+        {loading ? <>loading...</> : template && <li>{template.name}</li>}
+      </ul>
       <div
         style={{
-          background: "#3E4451",
+          background: theme[themeMode].cardbackground,
           padding: "60px 85px",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           borderRadius: "10px",
-          boxShadow: "0 0 35px -8px #292929",
+          boxShadow: "0 0 35px -18px #292929",
         }}
       >
         <h4 style={{ margin: "0 0 25px" }}>Login Page</h4>
@@ -84,6 +67,7 @@ const Login: React.FC<any> = () => {
           onChange={(value: string) => {
             console.log(value)
           }}
+          onError={() => {}}
           placeholder="Enter your password"
         />
         <br />

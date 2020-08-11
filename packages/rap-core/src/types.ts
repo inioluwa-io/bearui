@@ -24,10 +24,16 @@ export interface Record {
   [key: string]: any
 }
 
-// DataProvider props
+// Redux store state props
+export type StoreState = {
+  notificationReducer: { notification: NotifyProps[] }
+  resourceReducer: { resource: ResourceState }
+}
+// end
 
+// DataProvider props
 export type DataProviderProps = {
-  getOne: (resource: string, params: getOneParams) => Promise<GetOneResult>
+  getOne: (resource: string, endPoint?: string, params?: Record) => Promise<any>
 }
 export interface getOneParams {
   id: Record
@@ -35,3 +41,27 @@ export interface getOneParams {
 export interface GetOneResult {
   data: Record
 }
+export interface GetResult {
+  data: Record
+}
+
+export type ResourceState = {
+  [key: string]: GetResult
+}
+//end
+
+// QueryStore props
+export type QueryStoreProps = () => {
+  getAll: (
+    resource: string
+  ) => {
+    [key: string]: any
+  }
+  getOne: (
+    resource: string,
+    params: Record
+  ) => {
+    [key: string]: any
+  }
+}
+// end

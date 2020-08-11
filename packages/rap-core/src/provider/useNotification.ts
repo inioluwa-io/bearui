@@ -1,8 +1,13 @@
 import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
 import { REMOVE_NOTIFICATION, ADD_NOTIFICATION } from "../redux/types"
+import { useCallback } from "react"
 
 type NotificationProviderProps = (props: NotifyProps) => void
+
+export type UseNotificationProps = (
+  delay?: number
+) => [NotifyProps[], NotificationProviderProps]
 
 /**
  * Handle notification queue.
@@ -10,7 +15,6 @@ type NotificationProviderProps = (props: NotifyProps) => void
  * @param {number} delay timeout delay to remove notification
  * @returns {array} An array with the notification queue and callback that accpets new notification type and removes it after delay timeout
  *
- * @example
  *
  * The second element in return array accepts an object as an argument.
  *  - {
@@ -19,6 +23,7 @@ type NotificationProviderProps = (props: NotifyProps) => void
  *      icon?:string,
  *    }
  *
+ * @example
  * import { useNotification } from "react-admin-panel"
  *
  * const LoginButton = () => {
@@ -32,23 +37,21 @@ type NotificationProviderProps = (props: NotifyProps) => void
  * }
  */
 
-export type UseNotificationProps = (
-  delay?: number
-) => [NotifyProps[], NotificationProviderProps]
-
-const useNotification: UseNotificationProps = (delay = 2500) => {
-  const notificationProvider: NotifyProps[] = useSelector(
-    (state: any) => state.notificationReducer.notification
-  )
-
+const useNotification: any = (delay = 2500) => {
+  const notificationProvider = useCallback<() => NotifyProps[]>(() => {
+    return useSelector((state: any) => state.notificationReducer.notification)
+  }, [])
   const dispatch = useDispatch()
 
-  const addToNotificationProvider: NotificationProviderProps = props => {
-    dispatch({ type: ADD_NOTIFICATION, payload: props })
-    setTimeout(() => {
-      dispatch({ type: REMOVE_NOTIFICATION })
-    }, delay)
-  }
+  const addToNotificationProvider: NotificationProviderProps = useCallback(
+    props => {
+      dispatch({ type: ADD_NOTIFICATION, payload: props })
+      setTimeout(() => {
+        dispatch({ type: REMOVE_NOTIFICATION })
+      }, delay)
+    },
+    [dispatch]
+  )
   return [notificationProvider, addToNotificationProvider]
 }
 

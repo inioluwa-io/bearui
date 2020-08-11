@@ -58,7 +58,7 @@ const useDataProvider = (): DataProviderProps => {
         if (!(name in target))
           throw new Error(`${name} does not exist on dataProvider`)
 
-        return (resource: string, params: any) => {
+        return (resource: string, endPoint: string, params: any) => {
           if (typeof dataProvider[type] !== "function") {
             throw new Error(`Invalid dataProvider function: ${type}`)
           }
@@ -68,6 +68,7 @@ const useDataProvider = (): DataProviderProps => {
             dataProvider,
             params,
             resource,
+            endPoint,
             type,
           })
         }
@@ -83,12 +84,13 @@ const runQuery = async ({
   addNotification,
   dataProvider,
   resource,
+  endPoint,
   params,
   type,
 }) => {
   dispatch({ type: FETCH_START })
   try {
-    const resp = await dataProvider[type](resource, params)
+    const resp = await dataProvider[type](resource, endPoint, params)
     if (process.env.NODE_ENV !== "production") {
       if (!resp) {
         throw new Error(
@@ -100,9 +102,18 @@ const runQuery = async ({
           `The response to '${type}' must have a 'data' key, but the received response does not have a 'data' key.`
         )
       }
+      let finalResource = resource.toString()
+      if (finalResource.startsWith("/")) {
+        finalResource = finalResource.slice(1)
+      }
+      if (finalResource.endsWith("/")) {
+        finalResource = finalResource.slice(0, finalResource.length - 1)
+      }
 
-      dispatch({ type: FETCH_SUCCESS, payload: resp })
+      dispatch({ type: FETCH_SUCCESS, payload: { [finalResource]: resp } })
       const message = formatDataProviderSuccessMessage(type)
+
+      // add notification for update, create, and delete operations
       if (type !== "getOne") {
         addNotification({
           title: "Data Provider",
@@ -112,6 +123,7 @@ const runQuery = async ({
         })
       }
       dispatch({ type: FETCH_END })
+      return resp
     }
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
