@@ -6,6 +6,8 @@ import { useTheme, useThemeMode, Notification } from "rap-ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "rap-core"
 import { NotifyProps } from "rap-ui/lib/types"
+import Table from "./table"
+import BreadcrumbPage from "./breadcrumb"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -42,8 +44,13 @@ const App: React.FC<any> = () => {
     dataProvider.getOne("/publish", "http://localhost:8888/api/v1")
   }, [dataProvider])
 
-  const [themeMode] = useThemeMode()
+  const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
+
+  useEffect(() => {
+    // setThemeMode("lightmode")
+  }, [])
+  
   return (
     <div className="App">
       <NotificationComponent notification={notification} />
@@ -60,6 +67,14 @@ const App: React.FC<any> = () => {
           <Route
             path="/login"
             component={(props: any) => <Login {...props} />}
+          />
+          <Route
+            path="/datatable"
+            component={(props: any) => <Table {...props} />}
+          />
+          <Route
+            path="/breadcrumb"
+            component={(props: any) => <BreadcrumbPage {...props} />}
           />
         </Switch>
       </header>

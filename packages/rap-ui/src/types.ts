@@ -1,4 +1,11 @@
-import { ButtonHTMLAttributes, Ref, Dispatch, SetStateAction } from "react"
+import {
+  ButtonHTMLAttributes,
+  Dispatch,
+  SetStateAction,
+  LinkHTMLAttributes,
+  HTMLAttributes,
+  ComponentType,
+} from "react"
 
 export type ButtonStyle = {
   corners?: "rounded" | "box"
@@ -9,14 +16,43 @@ export type ButtonStyle = {
   iconRight?: boolean
   icon?: string
   borderColor?: string
+  iconColor?: string
   iconOnly?: boolean
   glow?: boolean
+  hoverColor?: string
   size?: "xs" | "sm" | "md" | "lg"
 }
 
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
+  loading?: boolean
+  loadingIcon?: any
+}
+
+export type AppleSocialButton = {
+  color?: "dark" | "white"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+
+export type GoogleSocialButton = {
+  color?: "red" | "white" | "blue"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+
+export type FacebookSocialButton = {
+  color?: "white" | "blue"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
+  size?: "xs" | "sm" | "md" | "lg"
+  iconOnly?: boolean
+  text?: string
+  gradient?: boolean
+  onClick: () => any
+}
+export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
   id?: string
   hoverColor?: string
+  to: string
 }
 
 export type AvatarProps = {
@@ -72,8 +108,8 @@ export type InputProps = {
   type?: "email" | "text" | "password"
   validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
-  onChange: (value: string) => any
-}
+  onInputChange?: (value: string) => any
+} & HTMLAttributes<HTMLInputElement>
 
 export type SupportedProps = (arr: any[], value: any) => boolean
 
@@ -99,5 +135,106 @@ export type RapUITheme = {
 }
 export type RapUIThemeMode = "lightmode" | "darkmode"
 
-export type ThemeMode = [RapUIThemeMode, Dispatch<SetStateAction<RapUIThemeMode>>]
+export type ThemeMode = [
+  RapUIThemeMode,
+  Dispatch<SetStateAction<RapUIThemeMode>>
+]
 // end theme types
+
+// modal props
+export type ModalProps = {
+  active: boolean
+  title?: string
+  onClose: () => any
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// card props
+export type CardProps = {
+  size?: "md" | "sm" | "lg" | "xs"
+  gap?: string
+  align?: "left" | "right" | "center"
+  lgCol?: string
+  mdCol?: string
+  smCol?: string
+  xsCol?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// modal props
+export type ShimmerProps = {
+  loading: boolean
+  size?: "md" | "sm" | "lg"
+  gap?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// display props
+
+export type yPositionProps = "top" | "center" | "bottom"
+export type xPositionProps = "left" | "center" | "right"
+
+export type HTMLElement = {
+  id?: string
+  className?: string
+} & HTMLAttributes<HTMLDivElement>
+
+export type RowProps = {
+  center?: boolean
+  gap?: string
+  xPosition?: xPositionProps
+  yPosition?: yPositionProps
+} & HTMLAttributes<HTMLDivElement>
+
+export type FlexColumnProps = {
+  align?: yPositionProps | "stretch"
+  gap?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// datatable props
+
+export type DatatableColumns = {
+  name: string
+  selector: string
+}
+
+export type DatatableRule = {
+  selector: string
+  onRender: (data: any) => string | ComponentType<any> | Element
+}
+
+export type DatatableComponent = {
+  title?: string | HTMLAllCollection
+  document: any[]
+  striped?: boolean
+  columns: DatatableColumns[]
+  check?: boolean
+  renderRule?: DatatableRule[]
+  defaultSortIndex?: number
+  onRowSelect?: (data: any) => void
+  onRowClick?: (data: any) => void
+} & HTMLAttributes<HTMLDivElement>
+
+// end
+
+// loeader props
+export type LoaderComponent = {
+  type?: "spinner" | "pulse"
+  customIcon?: any
+  width?: string
+  height?: string
+  iconSize?: number
+  size?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// loeader props
+
+export type BreadcrumbItem = { name: string; to: string }
+export type BreadcrumbComponent = {
+  item: BreadcrumbItem[]
+  color?: string
+  seperator?: string
+} & HTMLAttributes<HTMLDivElement>
+// end

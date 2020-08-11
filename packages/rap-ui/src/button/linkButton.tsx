@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react"
-import { ButtonProps } from "../types"
+import { Link } from "react-router-dom"
+import { LinkButtonProps } from "../types"
 import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
@@ -11,28 +12,31 @@ import { useTheme } from "../theme"
  * border - if outline is true set border to borderColor or background else set to none
  */
 
-const Button1: any = styled.button`
+const Button1: any = styled(Link)`
 font-family: Nunito sans;
   position:relative;
   background: ${(props: any) =>
     props.outline
       ? "transparent"
-      : props.backgroundGradient || props.background};
+      : (props.backgroundgradient !== "false" && props.backgroundgradient) ||
+        props.background};
   color: ${(props: any) =>
-    props.outline ? props.background : props.textColor};
+    props.outline ? props.background : props.textcolor};
   font-size: 14px;
   padding: ${(props: any) =>
-    !props.iconOnly ? props.padding : props.iconPadding};
-  border-radius: ${(props: any) => props.borderRadius};
+    props.icononly === "false" ? props.padding : props.iconpadding};
+  border-radius: ${(props: any) => props.borderradius};
   cursor: pointer;
   display:flex;
   align-items: center;
   justify-content:center;
-  flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
+  text-decoration:none;
+  flex-direction ${(props: any) =>
+    props.iconright === "true" ? "row-reverse" : "row"};
   transition: all 0.35s ease;
   border: ${(props: any) =>
     props.outline
-      ? "1px solid " + (props.borderColor || props.background)
+      ? "1px solid " + (props.bordercolor || props.background)
       : "none"};
   box-shadow: 0 8px 35px -6px ${(props: any) =>
     props.glow ? darken(0.13, props.background) : "transparent"};
@@ -51,15 +55,15 @@ font-family: Nunito sans;
         ? `background: ${props.background};
       color: ${props.textColor};`
         : "background:" +
-          (!props.backgroundgradient && darken(0.05, props.background)) +
-          ";"}
+            (props.backgroundgradient !== "false" ?
+              props.backgroundgradient : darken(0.05, props.background)) + ";"}
   }
 
   &:focus{
     outline:none;
   }
 
-  span:not(.text){
+  span{
     position:absolute;
     background:${(props: any) => rgba(lighten(0.5, props.background), 0.4)};
     width:100px;
@@ -86,53 +90,12 @@ font-family: Nunito sans;
       transform: scale(5);
     }
   }
-  
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .text{
-    color: ${(props: any) =>
-      props.outline ? props.background : props.textColor};
-    }
-
-  &.loading{
-    background: ${(props: any) => lighten(0.1, props.background)};
-    .rap-core, .text, svg{
-      visibility:hidden;
-    }
-    
-    .rap-cus-loa{
-      visibility:visible;
-      position:absolute;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      svg{
-        position: absolute;
-        visibility:visible;
-      }
-    }
-    .rap-loa {
-      animation: spin .45s linear infinite;
-      visibility:visible;
-      position:absolute;
-
-      *{
-        visibility:visible;
-      }
-    }
-  }
 `
 
-const Button: React.FC<ButtonProps> = ({
+const LinkButton: React.FC<LinkButtonProps> = ({
   children,
   icon,
+  to,
   iconOnly = false,
   corners = "box",
   background = "primary",
@@ -142,8 +105,6 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "md",
-  loadingIcon,
-  loading = false,
   ...props
 }) => {
   const refs: any = useRef()
@@ -224,15 +185,7 @@ const Button: React.FC<ButtonProps> = ({
         background: Theme.colors[background.trim()],
       }
     } else {
-      return {
-        backgroundGradient:
-          gradient &&
-          `linear-gradient(138deg,${background.trim()}, ${rgba(
-            background.trim(),
-            0.6
-          )})`,
-        background,
-      }
+      return { background }
     }
   }
 
@@ -247,43 +200,47 @@ const Button: React.FC<ButtonProps> = ({
   }
   const getIconStyle: Function = (): any => {
     if (iconOnly) return { margin: "0", padding: "1px" }
-    return iconRight ? { marginLeft: "4px" } : { marginRight: "4px" }
+    return iconRight ? { marginLeft: "5px" } : { marginRight: "5px" }
   }
 
   updateProps(getStyleFromCornersProps())
   updateProps(getStyleFromSizeProps())
   updateProps(getStyleFromBackgroundProps())
-  if (background === "white" && textColor === "#ffffff") {
+  if (background === "white") {
     updateProps({ textColor: "#222222" })
   }
-  updateProps({ textColor: textColor, iconRight, iconOnly })
+  updateProps({ textColor: "#ffffff", iconRight, iconOnly })
+
+  const formatObjKeysToLowercase = (obj): any => {
+    let formatedObj = {}
+    for (let i in obj) {
+      formatedObj[i.toLocaleLowerCase()] = obj[i] + ""
+    }
+    return formatedObj
+  }
+
+  //   background: "rgb(115,103,240)"
+  // backgroundgradient: "linear-gradient(138deg,rgb(115,103,240), rgba(115,103,240,0.6))"
+  // borderradius: "5px"
+  // icononly: false
+  // iconpadding: "9.5px"
+  // iconright: false
+  // padding: "9.5px 28px"
+  // textcolor: "#ffffff"
 
   return (
-    <Button1 {...props} ref={refs} className={loading ? "loading" : ""}>
-      {loading &&
-        (loadingIcon ? (
-          <div className="rap-cus-loa">{loadingIcon}</div>
-        ) : (
-          <Icon
-            className="rap-loa"
-            path={path.mdiLoading}
-            color={iconColor}
-            size={0.75}
-            style={getIconStyle()}
-          />
-        ))}
+    <Button1 to={to} background {...formatObjKeysToLowercase(props)} ref={refs}>
       {icon && (
         <Icon
-          className="rap-ico"
           path={path[icon]}
-          color={iconColor}
           size={0.75}
+          color={iconColor}
           style={getIconStyle()}
         />
       )}
-      {!iconOnly && <span className="text">{children}</span>}
+      {!iconOnly && children}
     </Button1>
   )
 }
 
-export default Button
+export default LinkButton

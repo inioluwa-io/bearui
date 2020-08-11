@@ -15,9 +15,8 @@ export const ThemeModeContext = createContext<ThemeModeContext>(null)
 
 const ThemeModeProvider: React.FC = ({ children }) => {
   const [mode, setMode] = useState<RapUIThemeMode>("darkmode")
-  useEffect(() => {
-    document.body.classList.add("darkmode")
-  }, [])
+  document.body.classList.add(mode)
+  
   return (
     <ThemeModeContext.Provider value={{ mode, setMode }}>
       {children}

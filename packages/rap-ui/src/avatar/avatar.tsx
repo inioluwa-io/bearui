@@ -52,7 +52,7 @@ const BadgeComponent: any = styled.div`
     width: fit-content;
     height: fit-content;
     text-align: center;
-    padding: 2px;
+    padding:1px 2px;
     border-radius: 3px;
     background: ${(props: any) => props.background};
   }
@@ -73,6 +73,9 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
   if (!text && !src) {
     throw new SyntaxError("Either text or src must be present")
+  }
+  if (color === "white" && !textColor) {
+    textColor = "#222222"
   }
   const theme = useTheme()
 
@@ -96,6 +99,8 @@ const Avatar: React.FC<AvatarProps> = ({
 
   const getAvatarSize: Function = (): string => {
     switch (size) {
+      case "xs":
+        return "30px"
       case "sm":
         return "38px"
       case "md":
@@ -140,11 +145,13 @@ const Avatar: React.FC<AvatarProps> = ({
     <AvatarComponent {...props}>
       {withBadge && (
         <BadgeComponent background={getBackgroundColor(badgeColor)}>
-          {<span>{badgeText}</span>}
+          {<span style={{ color: "#ffffff" }}>{badgeText}</span>}
         </BadgeComponent>
       )}
       {!src ? (
-        <span>{formatText(text)}</span>
+        <span style={{ color: textColor || "#ffffff" }}>
+          {formatText(text)}
+        </span>
       ) : (
         <AvatarImgContainer size={getAvatarSize()}>
           <AvatarImgComponent src={src} alt={alt || ""} />
