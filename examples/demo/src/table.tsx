@@ -9,6 +9,12 @@ const Table: React.FC<any> = ({ ...props }) => {
       <FlexRow center>
         <Card size="md">
           <Datatable
+            onRowClick={data => {
+              console.log(data)
+            }}
+            onRowSelect={(data: any) => {
+              console.log(data)
+            }}
             check
             defaultSortIndex={1}
             renderRule={[

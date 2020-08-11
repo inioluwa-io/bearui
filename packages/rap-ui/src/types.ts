@@ -151,7 +151,7 @@ export type ModalProps = {
 
 // card props
 export type CardProps = {
-  size?: "md" | "sm" | "lg"
+  size?: "md" | "sm" | "lg" | "xs"
   gap?: string
   align?: "left" | "right" | "center"
   lgCol?: string
@@ -212,6 +212,8 @@ export type DatatableComponent = {
   check?: boolean
   renderRule?: DatatableRule[]
   defaultSortIndex?: number
+  onRowSelect?: (data: any) => void
+  onRowClick?: (data: any) => void
 } & HTMLAttributes<HTMLDivElement>
 
 // end
@@ -224,5 +226,15 @@ export type LoaderComponent = {
   height?: string
   iconSize?: number
   size?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// loeader props
+
+export type BreadcrumbItem = { name: string; to: string }
+export type BreadcrumbComponent = {
+  item: BreadcrumbItem[]
+  color?: string
+  seperator?: string
 } & HTMLAttributes<HTMLDivElement>
 // end

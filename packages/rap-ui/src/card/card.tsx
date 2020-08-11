@@ -135,6 +135,9 @@ const Card: React.FC<CardProps> = ({
 
   const getPaddingSize = (size: string): string => {
     switch (size) {
+      case "xs": {
+        return "12px"
+      }
       case "sm": {
         return "30px"
       }

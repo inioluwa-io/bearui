@@ -7,6 +7,7 @@ import Home from "./home"
 import { useDataProvider, useNotification } from "rap-core"
 import { NotifyProps } from "rap-ui/lib/types"
 import Table from "./table"
+import BreadcrumbPage from "./breadcrumb"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -47,7 +48,7 @@ const App: React.FC<any> = () => {
   const theme = useTheme()
 
   useEffect(() => {
-    setThemeMode("lightmode")
+    // setThemeMode("lightmode")
   }, [])
   
   return (
@@ -70,6 +71,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/datatable"
             component={(props: any) => <Table {...props} />}
+          />
+          <Route
+            path="/breadcrumb"
+            component={(props: any) => <BreadcrumbPage {...props} />}
           />
         </Switch>
       </header>

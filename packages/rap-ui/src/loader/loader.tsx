@@ -1,6 +1,6 @@
 import React from "react"
 import Card from "../card/card"
-import FlexRow from "../display/flexRow"
+import FlexRow from "../layout/flexRow"
 import { LoaderComponent, RapUITheme } from "../types"
 import Icon from "@mdi/react"
 import { mdiLoading } from "@mdi/js"

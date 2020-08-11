@@ -7,7 +7,6 @@ import {
   Input,
   Modal,
   Container,
-  Shimmer,
   LinkButton,
   Grid,
   FlexRow,
@@ -20,8 +19,6 @@ import {
   Avatar,
 } from "rap-ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
-import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
@@ -55,7 +52,7 @@ const Login: React.FC<any> = () => {
   return (
     <>
       {!Object.entries(template).length && (
-        <Loader type="pulse" iconSize={1} />
+        <Loader type="spinner" iconSize={1} />
       )}
       <Modal
         active={openModal}

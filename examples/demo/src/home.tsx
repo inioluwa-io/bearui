@@ -3,7 +3,6 @@ import "./App.css"
 import { Avatar, FlexColumn, FlexRow, Card, LinkButton } from "rap-ui"
 import AdminPanel from "react-admin-panel"
 import img from "./brooks-leibee-562087-unsplash.jpg"
-import { Link } from "react-router-dom"
 
 const Home: React.FC<any> = () => {
   return (
@@ -16,6 +15,9 @@ const Home: React.FC<any> = () => {
         <FlexColumn gap="10px">
           <LinkButton gradient background="info" to="/login">
             login
+          </LinkButton>
+          <LinkButton gradient background="success" to="/breadcrumb">
+            Breadcrumb
           </LinkButton>
           <LinkButton gradient to="/datatable">
             Datatables

@@ -148,6 +148,8 @@ const Datatable: React.FC<DatatableComponent> = ({
   striped = false,
   check = false,
   defaultSortIndex = 1,
+  onRowSelect,
+  onRowClick,
   ...props
 }) => {
   const theme = useTheme()
@@ -207,7 +209,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     return sortDocumentASC(selector, unsortedData).reverse()
   }
 
-  const toggleCheck = (idx: number | string) => {
+  const toggleCheck = (idx: number | string): Map<number | string, boolean> => {
     let prevState: Map<number | string, boolean> = new Map(selected)
     prevState.set(idx, !prevState.get(idx))
     // deselect all is check is false
@@ -221,6 +223,7 @@ const Datatable: React.FC<DatatableComponent> = ({
       }
     }
     setSelected(prevState)
+    return prevState
   }
 
   const toggleSelectAll = () => {
@@ -270,6 +273,23 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
   }
 
+  const getSelectorRowData = (mapData: Map<number | string, boolean>): any => {
+    const mapToArr: [string | number, boolean][] = Array.from(mapData)
+    let selectedRows = []
+    for (let i = 0; i < mapToArr.length; i++) {
+      // get the id from map converted to array
+      const rowMapIdx: string | number = mapToArr[i][0]
+      const rowMapData: boolean = mapToArr[i][1]
+      if (rowMapData) {
+        // find match of id in sorted data and push to array
+        selectedRows.push(
+          data.find((rowData: any) => +rowData.id === +rowMapIdx)
+        )
+      }
+    }
+    return selectedRows
+  }
+
   useEffect(() => {
     setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
   }, [])
@@ -295,6 +315,7 @@ const Datatable: React.FC<DatatableComponent> = ({
                   checked={selectAll}
                   onChange={() => {
                     toggleSelectAll()
+                    onRowSelect(!selectAll ? data : [])
                   }}
                 />
               )}
@@ -341,14 +362,21 @@ const Datatable: React.FC<DatatableComponent> = ({
                     : "select"
                   : ""
               }
+              onClick={(e: any) => {
+                if (e.target.id !== "rap-cb-" + idx) {
+                  onRowClick(dataItem)
+                }
+              }}
             >
               <td style={{ fontSize: "13px" }}>
                 {check && (
                   <CheckBox
+                    id={"rap-cb-" + idx}
                     checked={!!selected.get(dataItem.id)}
                     type="checkbox"
                     onChange={() => {
                       toggleCheck(dataItem.id)
+                      onRowSelect(getSelectorRowData(toggleCheck(dataItem.id)))
                     }}
                   />
                 )}
