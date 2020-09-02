@@ -31,17 +31,7 @@ const Login: React.FC<any> = () => {
   const { data: template, loading } = queryStore.getOne("template", {
     name: "Plain Blue",
   })
-
-  useEffect(() => {
-    if (!Object.entries(template).length) {
-      addNotification({
-        title: "QueryStore",
-        text: "Could not fetch from template",
-        icon: "mdiAlert",
-        iconColor: "warning",
-      })
-    }
-  }, [template, addNotification])
+  
   // const handleLogin: any = (e: EventListener) => {
   //   login({ username: "log" }, "/")
   // }
