@@ -91,8 +91,6 @@ const runQuery = async ({
   dispatch({ type: FETCH_START })
   try {
     const resp = await dataProvider[type](resource, endPoint, params)
-    console.log(dataProvider[type])
-    console.log(resp)
     if (process.env.NODE_ENV !== "production") {
       if (!resp) {
         throw new Error(
@@ -104,29 +102,29 @@ const runQuery = async ({
           `The response to '${type}' must have a 'data' key, but the received response does not have a 'data' key.`
         )
       }
-      let finalResource = resource.toString()
-      if (finalResource.startsWith("/")) {
-        finalResource = finalResource.slice(1)
-      }
-      if (finalResource.endsWith("/")) {
-        finalResource = finalResource.slice(0, finalResource.length - 1)
-      }
-
-      dispatch({ type: FETCH_SUCCESS, payload: { [finalResource]: resp } })
-      const message = formatDataProviderSuccessMessage(type)
-
-      // add notification for update, create, and delete operations
-      if (type !== "getOne") {
-        addNotification({
-          title: "Data Provider",
-          text: message,
-          icon: "mdiCheck",
-          iconColor: "success",
-        })
-      }
-      dispatch({ type: FETCH_END })
-      return resp
     }
+    let finalResource = resource.toString()
+    if (finalResource.startsWith("/")) {
+      finalResource = finalResource.slice(1)
+    }
+    if (finalResource.endsWith("/")) {
+      finalResource = finalResource.slice(0, finalResource.length - 1)
+    }
+
+    dispatch({ type: FETCH_SUCCESS, payload: { [finalResource]: resp } })
+    const message = formatDataProviderSuccessMessage(type)
+
+    // add notification for update, create, and delete operations
+    if (type !== "getOne") {
+      addNotification({
+        title: "Data Provider",
+        text: message,
+        icon: "mdiCheck",
+        iconColor: "success",
+      })
+    }
+    dispatch({ type: FETCH_END })
+    return resp
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
       console.warn(error)
