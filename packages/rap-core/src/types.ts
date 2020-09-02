@@ -20,7 +20,7 @@ export type CrudRequest = "create" | "delete" | "update" | "read"
 
 export type Identifier = string | number
 export interface Record {
-  id: Identifier
+  id?: Identifier
   [key: string]: any
 }
 
