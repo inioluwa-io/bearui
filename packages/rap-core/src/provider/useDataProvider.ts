@@ -91,6 +91,8 @@ const runQuery = async ({
   dispatch({ type: FETCH_START })
   try {
     const resp = await dataProvider[type](resource, endPoint, params)
+    console.log(dataProvider[type])
+    console.log(resp)
     if (process.env.NODE_ENV !== "production") {
       if (!resp) {
         throw new Error(
