@@ -20,6 +20,10 @@ const defaultDataProvider = {
   },
 }
 
+defaultDataProvider.getOne("/template", "https://faceform.herokuapp.com/api/v1").then((resp)=>{
+  console.log(resp)
+})
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

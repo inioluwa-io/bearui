@@ -41,9 +41,7 @@ const App: React.FC<any> = () => {
   const [notification] = useNotification(6000)
   
   useEffect(() => {
-    dataProvider.getOne("/template", "https://faceform.herokuapp.com/api/v1").then((res)=>{
-      console.log(res)
-    })
+    dataProvider.getOne("/template", "https://faceform.herokuapp.com/api/v1")
     dataProvider.getOne("/publish", "https://faceform.herokuapp.com/api/v1")
   }, [dataProvider])
 
