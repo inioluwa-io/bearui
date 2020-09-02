@@ -29,7 +29,6 @@ const Login: React.FC<any> = () => {
   const [login, setLogin] = useState<boolean>(false)
 
   const { data: template, loading } = queryStore.getOne("template", {
-    id:"2298394i",
     name: "Plain Blue",
   })
 
