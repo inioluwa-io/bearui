@@ -31,6 +31,8 @@ const Login: React.FC<any> = () => {
   const { data: template, loading } = queryStore.getOne("template", {
     name: "Plain Blue",
   })
+
+  console.log(template)
   
   // const handleLogin: any = (e: EventListener) => {
   //   login({ username: "log" }, "/")
