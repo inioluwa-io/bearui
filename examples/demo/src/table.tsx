@@ -31,7 +31,6 @@ const Table: React.FC<any> = ({ ...props }) => {
                 ),
               },
             ]}
-            heading={[" ", "Name", "age", "addr"]}
             columns={[
               { name: " ", selector: "img" },
               { name: "Firstname", selector: "user" },
