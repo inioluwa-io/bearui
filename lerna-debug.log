@@ -1,12 +1,12 @@
-0 silly argv {
-0 silly argv   _: [ 'run' ],
-0 silly argv   parallel: true,
-0 silly argv   lernaVersion: '3.22.1',
-0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
-0 silly argv   script: 'watch'
-0 silly argv }
-1 notice cli v3.22.1
-2 verbose rootPath C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel
-3 error JSONError: Unexpected token } in JSON at position 945 while parsing near '...ct": "^16.9.41",  }}' in packages\rap-core\package.json
-3 error     at module.exports (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\parse-json\index.js:26:19)
-3 error     at parse (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\load-json-file\index.js:15:9)
+15 error Error: Command failed: git remote update
+15 error fatal: unable to access 'https://github.com/nerdi-caveman/react-admin-panel.git/': Could not resolve host: github.com
+15 error error: Could not fetch origin
+15 error
+15 error Fetching origin
+15 error
+15 error     at makeError (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\execa\index.js:174:9)
+15 error     at Function.module.exports.sync (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\execa\index.js:338:15)
+15 error     at Object.execSync (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\child-process\index.js:26:16)
+15 error     at updateRemote (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\lib\is-behind-upstream.js:26:16)
+15 error     at isBehindUpstream (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\lib\is-behind-upstream.js:11:3)
+15 error     at VersionCommand.initialize (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\index.js:154:9)
