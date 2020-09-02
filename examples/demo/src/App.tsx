@@ -40,8 +40,8 @@ const App: React.FC<any> = () => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(6000)
   useEffect(() => {
-    dataProvider.getOne("/template", "http://localhost:8888/api/v1")
-    dataProvider.getOne("/publish", "http://localhost:8888/api/v1")
+    dataProvider.getOne("/template", "https://faceform-server.herokuapp.com/api/v1")
+    dataProvider.getOne("/publish", "https://faceform-server.herokuapp.com/api/v1")
   }, [dataProvider])
 
   const [themeMode, setThemeMode] = useThemeMode()
