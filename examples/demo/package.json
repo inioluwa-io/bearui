@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "description": "Demo for the react admin panel package ",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^7.20.1",
@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^5.1.5",
     "immutable": "^4.0.0-rc.12",
     "rap-core": "^1.2.0",
-    "rap-ui": "^1.2.0",
+    "rap-ui": "^1.2.1",
     "react": "^16.13.1",
     "react-admin-panel": "^1.2.0",
     "react-dom": "^16.13.1",
