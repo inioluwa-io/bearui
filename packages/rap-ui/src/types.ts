@@ -201,7 +201,7 @@ export type DatatableColumns = {
 
 export type DatatableRule = {
   selector: string
-  onRender: (data: any) => string | ComponentType<any> | Element
+  onRender: (data: any) => string | ComponentType<any> | Element | JSX.Element
 }
 
 export type DatatableComponent = {
