@@ -49,7 +49,7 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
   if (!(item instanceof Array)) {
     throw new Error(`Required item to be an array but got ${typeof item}`)
   }
-  if (item.length) {
+  if (!item.length) {
     if (process.env.NODE_ENV === "production") {
       throw new Error("Item is required")
     }
