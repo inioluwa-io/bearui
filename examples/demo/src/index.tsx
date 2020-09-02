@@ -8,10 +8,22 @@ import { Provider } from "react-redux"
 import { store, DataProvider, AuthContext } from "rap-core"
 import { ThemeProvider, ThemeModeProvider } from "rap-ui"
 
+const defaultDataProvider = {
+  getOne: async (resource: string, endPoint?: string, params?: any) => {
+    try {
+      const res = await fetch(endPoint + resource, { method: "GET" })
+      const json = await res.json()
+      return { data: json }
+    } catch (e) {
+      console.warn(e)
+    }
+  },
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <DataProvider>
+      <DataProvider value={defaultDataProvider}>
         <ThemeProvider>
           <ThemeModeProvider>
             <AuthContext.Provider
