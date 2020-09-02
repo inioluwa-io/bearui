@@ -1,7 +1,11 @@
 [build]
-  publish = "build"
+  publish = "./build"
   command = "yarn run build"
 [build.environment]
   NODE_VERSION = "12"
   YARN_VERSION = "1.22.4"
   YARN_FLAGS = "--no-ignore-optional"
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
