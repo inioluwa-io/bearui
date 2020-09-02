@@ -19,7 +19,7 @@ export const defaultDataProvider = {
 
 export const DataProviderContext = createContext<DataProviderProps>(null)
 
-const DataProvider: React.FC<{ value: DataProviderProps }> = ({
+const DataProvider: React.FC<{ value?: DataProviderProps }> = ({
   value,
   children,
 }) => {
