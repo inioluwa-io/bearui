@@ -10,8 +10,9 @@
   },
   "scripts": {
     "watch": "lerna run --parallel watch",
-    "run-demo": "cd examples/demo && cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
-    "run-demo-watch": "concurrently \"yarn run watch\" \"yarn run run-demo\"",
+    "run:demo": "cd examples/demo && cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
+    "build:demo": "cd examples/demo && yarn build",
+    "run:demo-watch": "concurrently \"yarn run watch\" \"yarn run run-demo\"",
     "test": "react-scripts test",
     "prettier": "prettier"
   },
