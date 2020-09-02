@@ -6,9 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
-    "typescript": "~3.7.2",
-    "react-scripts": "3.4.1",
-    "react": "^16.13.1"
+    "typescript": "~3.7.2"
   },
   "scripts": {
     "watch": "lerna run --parallel watch",
