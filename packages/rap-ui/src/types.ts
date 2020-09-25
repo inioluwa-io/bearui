@@ -4,7 +4,7 @@ import {
   SetStateAction,
   LinkHTMLAttributes,
   HTMLAttributes,
-  ComponentType,
+  ComponentType,, ReactElement
 } from "react"
 
 export type ButtonStyle = {
@@ -242,8 +242,18 @@ export type BreadcrumbComponent = {
 // end
 
 //tabs props
+
+export type TabList = {
+  title: ReactElement
+  content: ReactElement
+  color?: string
+}
+
 export type TabsComponent = {
-  align: "center" | "right" | "fixed" | "left"
-  position: "top" | "left" | "right"
+  align?: "center" | "right" | "fixed"
+  position?: "top" | "left" | "right"
+  list: TabList[]
+  color?: string
+  onTabClick?: ()=> void
 }
 //
