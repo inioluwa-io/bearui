@@ -4,7 +4,8 @@ import {
   SetStateAction,
   LinkHTMLAttributes,
   HTMLAttributes,
-  ComponentType,, ReactElement
+  ComponentType,
+  ReactElement,
 } from "react"
 
 export type ButtonStyle = {
@@ -254,6 +255,6 @@ export type TabsComponent = {
   position?: "top" | "left" | "right"
   list: TabList[]
   color?: string
-  onTabClick?: ()=> void
+  onTabClick?: () => void
 }
 //
