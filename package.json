@@ -2,18 +2,35 @@
   "name": "react-admin-panel-lerna",
   "version": "0.1.0",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "react",
+      "**/react",
+      "react/**",
+      "**/react-*",
+      "react-*/**",
+      "**/*-react",
+      "*-react/**"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
-    "typescript": "~3.7.2"
+    "lerna": "^3.22.1"
   },
   "scripts": {
     "watch": "lerna run --parallel watch",
-    "run:demo": "cd examples/demo && cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
-    "build:demo": "cd examples/demo && yarn build",
-    "run:demo-watch": "concurrently \"yarn run watch\" \"yarn run run-demo\"",
-    "test": "react-scripts test",
+    "build:rap-ui": "yarn workspace @rap/ui build",
+    "start:rap-ui": "yarn workspace @rap/ui watch",
+    "pre:build": "yarn build:rap-ui && yarn lerna link",
+    "start:demo": "yarn workspace @rap/demo cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
+    "build:demo": "yarn pre:build && yarn workspace @rap/demo build",
+    "run:demo-watch": "concurrently \"yarn watch\" \"yarn start:demo\"",
+    "test:rap-demo": "yarn workspace @rap-demo test",
     "prettier": "prettier"
   },
   "eslintConfig": {

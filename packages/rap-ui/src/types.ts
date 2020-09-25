@@ -105,9 +105,11 @@ export type InputProps = {
   iconBorder?: boolean
   color?: string
   onError: () => any
+  validate: "alpha" | "email" | "number"
   type?: "email" | "text" | "password"
-  validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
+  successMessage: string
+  errorMessage: string
   onInputChange?: (value: string) => any
 } & HTMLAttributes<HTMLInputElement>
 
@@ -238,3 +240,10 @@ export type BreadcrumbComponent = {
   seperator?: string
 } & HTMLAttributes<HTMLDivElement>
 // end
+
+//tabs props
+export type TabsComponent = {
+  align: "center" | "right" | "fixed" | "left"
+  position: "top" | "left" | "right"
+}
+//

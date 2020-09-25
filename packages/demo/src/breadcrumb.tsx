@@ -1,5 +1,5 @@
 import React from "react"
-import { FlexRow, Card, Breadcrumb } from "rap-ui"
+import { FlexRow, Card, Breadcrumb } from "@rap/ui"
 
 const BreadcrumbPage: React.FC<any> = ({ ...props }) => {
   return (
@@ -9,11 +9,11 @@ const BreadcrumbPage: React.FC<any> = ({ ...props }) => {
           <FlexRow gap="7px" yPosition="center">
             <p>Breadcrumb:</p>
             <Breadcrumb
-              seperator=">"
+              seperator="mdiChevronDoubleRight"
               item={[
-                { name: "HOME", to: "/" },
-                { name: "MENS", to: "/datatable" },
-                { name: "BREADCRUMB", to: "/datatable" },
+                { name: "Home", to: "/" },
+                { name: "Mens", to: "/datatable" },
+                { name: "Breadcrumb", to: "/datatable" },
               ]}
             />
           </FlexRow>

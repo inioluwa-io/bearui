@@ -32,8 +32,19 @@ const InputHtmlElement: any = styled.input`
   outline: none;
   padding: ${(props: any) => props.size};
   border-radius: 5px;
-  border: 1px solid ${(props: any) =>
-    props.error ? props.colors.danger + " !important" : "transparent"};
+  border: 1px solid ${(props: any) => {
+    let color: string = "transparent"
+
+    if (props.error || props.success) {
+      if (props.error) {
+        color = props.colors.danger + " !important"
+      }
+      if (props.success) {
+        color = props.colors.success + " !important"
+      }
+    }
+    return color
+  }};
   background: ${(props: any) => props.background.background || "transparent"};
   padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
   padding-right:${(props: any) => props.padLeft && props.iconRight && "40px"};
@@ -50,8 +61,19 @@ const InputHtmlElement: any = styled.input`
 
      + div svg path{
       transition: all 0.35s;
-      fill: ${(props: any) =>
-        props.error ? props.colors.danger : props.color} !important;
+      fill: ${(props: any) => {
+        let color: string = props.color
+
+        if (props.error || props.success) {
+          if (props.error) {
+            color = props.colors.danger
+          }
+          if (props.success) {
+            color = props.colors.success
+          }
+        }
+        return color + " !important"
+      }};
     }
   }
 `
@@ -105,6 +127,9 @@ const Input: React.FC<InputProps> = ({
   iconRight = false,
   iconBorder = true,
   onInputChange,
+  validate = "",
+  successMessage = "Valid",
+  errorMessage = "Invalid",
   ...props
 }) => {
   if (!id || typeof onInputChange !== "function") {
@@ -115,7 +140,8 @@ const Input: React.FC<InputProps> = ({
   }
   const [inputValue, setInputValue] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
-  const [errorMesssage, setErrorMessage] = useState<string>("")
+  const [success, setSuccess] = useState<boolean>(false)
+  const [validateMesssage, setValidateMessage] = useState<string>("")
   const theme = useTheme()
   const colors = theme.colors
   const [themeMode] = useThemeMode()
@@ -123,7 +149,7 @@ const Input: React.FC<InputProps> = ({
 
   // Reduce margin if parent is a form control element
   useEffect(() => {
-    if (type === "email") {
+    if (!!validate.length) {
       const DOMNode = refs.current
       const parentNode = DOMNode.parentElement
       if (parentNode.classList.contains("rap-ui-form-control")) {
@@ -183,13 +209,39 @@ const Input: React.FC<InputProps> = ({
   }
 
   const handleBlurEvent = (e: any): void => {
-    if (type === "email" && inputValue) {
-      const typeMatch: boolean = /^[\w\-\.]+@[a-zA-Z]+\.[a-zA-Z]+$/g.test(
-        e.target.value
-      )
-      setError(!typeMatch)
-      setErrorMessage(!typeMatch ? "Invalid email format" : "")
-      !typeMatch && onError()
+    let typeMatch: boolean
+    if (!!inputValue.length && !!validate.length) {
+      switch (validate) {
+        case "email": {
+          typeMatch = /^[\w\-\.]+@[a-zA-Z]+\.[a-zA-Z]+$/g.test(e.target.value)
+          break
+        }
+        case "alpha": {
+          typeMatch = /^[a-zA-Z]+$/g.test(e.target.value)
+          break
+        }
+        case "number": {
+          typeMatch = /^[0-9]+$/g.test(e.target.value)
+          break
+        }
+        default:
+          typeMatch = true
+      }
+      // if validation is success
+      if (typeMatch) {
+        setValidateMessage(successMessage)
+        setError(false)
+        setSuccess(true)
+      } else {
+        setValidateMessage(errorMessage)
+        setError(true)
+        setSuccess(false)
+        onError()
+      }
+    } else {
+      setSuccess(false)
+      setError(false)
+      setValidateMessage("")
     }
   }
 
@@ -198,10 +250,20 @@ const Input: React.FC<InputProps> = ({
     onInputChange(e.target.value)
   }
 
+  const inputIconColor = (): string => {
+    let color: string = "#777777"
+
+    if (error || success) {
+      if (error) color = colors.danger
+      if (success) color = colors.success
+    }
+    return color
+  }
+
   return (
     <InputElement
       ref={refs}
-      padBottom={type === "email"}
+      padBottom={!!validate.length}
       inputType={type}
       {...props}
     >
@@ -210,10 +272,11 @@ const Input: React.FC<InputProps> = ({
         <InputHtmlElement
           padLeft={!!icon}
           error={error}
+          success={success}
           background={theme[themeMode]}
           color={formatColor()}
           colors={colors}
-          textColor={themeMode === "lightmode" ? "#222" : "#f1f1f1"}
+          textColor={themeMode === "lightmode" ? "#111" : "#f4f4f4"}
           size={inputPaddingSize()}
           type={type}
           id={id}
@@ -226,21 +289,21 @@ const Input: React.FC<InputProps> = ({
         />
         {icon && (
           <InputIcon iconRight={iconRight} iconBorder={iconBorder}>
-            <Icon path={mdi[icon]} size={0.72} color="#777777" />
+            <Icon path={mdi[icon]} size={0.72} color={inputIconColor()} />
           </InputIcon>
         )}
       </InputContainer>
-      {errorMesssage && (
+      {!!validateMesssage.length && (
         <span
           style={{
             fontSize: "11px",
             position: "absolute",
-            color: colors.danger,
+            color: (success && colors.success) || (error && colors.danger),
             bottom: 0,
-            margin: "3px 0",
+            margin: "3px 5px",
           }}
         >
-          {errorMesssage}
+          {validateMesssage}
         </span>
       )}
     </InputElement>

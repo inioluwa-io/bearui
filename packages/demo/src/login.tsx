@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useQueryStore, useNotification } from "rap-core"
+import { useQueryStore, useNotification } from "@rap/core"
 import {
   Button,
   FacebookButton,
@@ -17,12 +17,11 @@ import {
   FormControl,
   Loader,
   Avatar,
-} from "rap-ui"
+} from "@rap/ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
-  const theme = useTheme()
   const queryStore = useQueryStore()
   const [, addNotification] = useNotification()
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -31,15 +30,6 @@ const Login: React.FC<any> = () => {
   const { data: template, loading } = queryStore.getOne("template", {
     name: "Plain Blue",
   })
-
-  console.log(template)
-  
-  // const handleLogin: any = (e: EventListener) => {
-  //   login({ username: "log" }, "/")
-  // }
-  // const handleLogout: any = (e: EventListener) => {
-  //   console.log(logout({ username: "dd" }, "/"))
-  // }
 
   return (
     <>
@@ -114,6 +104,7 @@ const Login: React.FC<any> = () => {
                   id="email"
                   color="primary"
                   label="Email"
+                  validate="email"
                   icon="mdiEmailOutline"
                   onInputChange={(value: string) => {
                     console.log(value)
@@ -129,6 +120,7 @@ const Login: React.FC<any> = () => {
                   color="primary"
                   icon="mdiLock"
                   label="Password"
+                  validate="number"
                   onInputChange={(value: string) => {
                     console.log(value)
                   }}

@@ -1,5 +1,5 @@
 import React from "react"
-import { FlexRow, Card, Datatable, Avatar } from "rap-ui"
+import { FlexRow, Card, Datatable, Avatar } from "@rap/ui"
 import img from "./dp1.jpg"
 import img1 from "./brooks-leibee-562087-unsplash.jpg"
 
