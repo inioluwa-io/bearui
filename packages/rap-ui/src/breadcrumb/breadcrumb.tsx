@@ -12,6 +12,8 @@ const BreadcrumbDiv: StyledComponent<
   { color: string; textColor: string; seperatorColor: string }
 > = styled.ul`
   display: flex;
+  jusitfy-content: center;
+
   li {
     display: flex;
     font-size: 16px;
@@ -44,7 +46,7 @@ const BreadcrumbDiv: StyledComponent<
 const Breadcrumb: React.FC<BreadcrumbComponent> = ({
   item,
   color = "primary",
-  seperator = "-",
+  seperator = "/",
 }) => {
   if (!(item instanceof Array)) {
     throw new Error(`Required item to be an array but got ${typeof item}`)
@@ -57,13 +59,13 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
   const { colors } = useTheme()
   const [mode] = useThemeMode()
   if (color === "dark") {
-    color = mode === "lightmode" ? "#444" : "#fff"
+    color = mode === "lightmode" ? "#222" : "#f4f4f4"
   }
-  const seperatorColor: any = mode === "lightmode" ? "#444" : "#fff"
+  const seperatorColor: any = mode === "lightmode" ? "#222" : "#f4f4f4"
   return (
     <BreadcrumbDiv
       color={colors[color] || color}
-      textColor={mode === "lightmode" ? "#888" : "#ccc"}
+      textColor={seperatorColor}
       seperatorColor={seperatorColor}
     >
       {item.map((list: BreadcrumbItem, idx: number) => (

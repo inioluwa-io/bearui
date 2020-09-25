@@ -2,10 +2,9 @@ import React, { useEffect } from "react"
 import { Switch, Route } from "react-router-dom"
 import "./App.css"
 import Login from "./login"
-import { useTheme, useThemeMode, Notification } from "rap-ui"
+import { useTheme, useThemeMode, Notification, NotifyProps } from "@rap/ui"
 import Home from "./home"
-import { useDataProvider, useNotification } from "rap-core"
-import { NotifyProps } from "rap-ui/lib/types"
+import { useDataProvider, useNotification } from "@rap/core"
 import Table from "./table"
 import BreadcrumbPage from "./breadcrumb"
 
@@ -39,10 +38,15 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
 const App: React.FC<any> = () => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(6000)
-  
+
+  const URL =
+    process.env.NODE_ENV === "production"
+      ? "https://faceform.herokuapp.com/api/v1"
+      : "http://localhost:8888/api/v1"
+
   useEffect(() => {
-    dataProvider.getOne("/template", "https://faceform.herokuapp.com/api/v1")
-    dataProvider.getOne("/publish", "https://faceform.herokuapp.com/api/v1")
+    dataProvider.getOne("/template", URL)
+    dataProvider.getOne("/publish", URL)
   }, [dataProvider])
 
   const [themeMode, setThemeMode] = useThemeMode()
@@ -51,7 +55,7 @@ const App: React.FC<any> = () => {
   useEffect(() => {
     // setThemeMode("lightmode")
   }, [])
-  
+
   return (
     <div className="App">
       <NotificationComponent notification={notification} />

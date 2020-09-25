@@ -1,5 +1,5 @@
 {
-  "name": "rap-ui",
+  "name": "@rap/ui",
   "version": "1.2.3",
   "description": "React styled component for easier, and faster user interface development",
   "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
@@ -23,7 +23,11 @@
   "devDependencies": {
     "rimraf": "^2.6.3",
     "ts-loader": "^8.0.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint": "^7.8.1",
+    "eslint-plugin-react": "^7.20.6"
   },
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",

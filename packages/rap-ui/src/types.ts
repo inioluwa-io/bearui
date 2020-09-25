@@ -4,7 +4,7 @@ import {
   SetStateAction,
   LinkHTMLAttributes,
   HTMLAttributes,
-  ComponentType,
+  ComponentType,, ReactElement
 } from "react"
 
 export type ButtonStyle = {
@@ -105,9 +105,11 @@ export type InputProps = {
   iconBorder?: boolean
   color?: string
   onError: () => any
+  validate: "alpha" | "email" | "number"
   type?: "email" | "text" | "password"
-  validation?: "success" | "danger" | "warning"
   size?: "sm" | "md" | "lg"
+  successMessage: string
+  errorMessage: string
   onInputChange?: (value: string) => any
 } & HTMLAttributes<HTMLInputElement>
 
@@ -238,3 +240,20 @@ export type BreadcrumbComponent = {
   seperator?: string
 } & HTMLAttributes<HTMLDivElement>
 // end
+
+//tabs props
+
+export type TabList = {
+  title: ReactElement
+  content: ReactElement
+  color?: string
+}
+
+export type TabsComponent = {
+  align?: "center" | "right" | "fixed"
+  position?: "top" | "left" | "right"
+  list: TabList[]
+  color?: string
+  onTabClick?: ()=> void
+}
+//
