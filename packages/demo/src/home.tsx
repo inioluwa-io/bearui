@@ -6,7 +6,7 @@ import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Home: React.FC<any> = () => {
   return (
-    <FlexRow center style={{ width: "100%", height: "100vh" }}>
+    <FlexRow center style={{ height: "100vh" }}>
       <Card size="md">
         <p>{AdminPanel}</p>
         <FlexRow>

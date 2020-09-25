@@ -11,7 +11,7 @@ import {
 
 const BreadcrumbPage: React.FC<any> = () => {
   return (
-    <FlexRow style={{ minHeight: "100vh" }} yPosition="top">
+    <FlexColumn style={{ minHeight: "100vh" }} yPosition="top">
       <Container>
         <Grid xsCol="12">
           <FlexRow gap="7px" yPosition="top" xPosition="left">
@@ -26,10 +26,10 @@ const BreadcrumbPage: React.FC<any> = () => {
             />
           </FlexRow>
         </Grid>
-        <Card size="xs" smCol="7">
+        <Card size="xs" xsCol="12" smCol="7">
           <Tabs
             color="warning"
-            align="fixed"
+            align="left"
             list={[
               {
                 title: "Success",
@@ -37,7 +37,7 @@ const BreadcrumbPage: React.FC<any> = () => {
                   <Container>
                     <Tabs
                       color="warning"
-                      align="right"
+                      align="center"
                       position="left"
                       list={[
                         {
@@ -99,10 +99,10 @@ const BreadcrumbPage: React.FC<any> = () => {
             ]}
           />
         </Card>
-        <Card size="xs" mdCol = "5" smCol="12">
+        <Card size="xs" xsCol="12" mdCol="5" smCol="12">
           <Tabs
             color="warning"
-            align="fixed"
+            align="center"
             list={[
               {
                 title: "Success",
@@ -173,7 +173,7 @@ const BreadcrumbPage: React.FC<any> = () => {
           />
         </Card>
       </Container>
-    </FlexRow>
+    </FlexColumn>
   )
 }
 export default BreadcrumbPage

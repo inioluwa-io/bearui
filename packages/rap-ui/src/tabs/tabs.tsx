@@ -19,13 +19,22 @@ const TabsElement: any = styled.div`
     if (props.position === "left" || props.position === "right") {
       return "width: fit-content;"
     } else {
-      return "width: 100%;"
+      return `
+      width: 100%;
+      overflow:hidden;
+      `
     }
   }}
 
   .container {
     position: relative;
     display: flex;
+    padding-bottom: 5px;
+    ${(props: any) => {
+      if (!(props.position === "left" || props.position === "right")) {
+        return "overflow-x: auto;"
+      }
+    }}
     width: ${(props: any) => `${props.fixed ? "100%" : "fit-content"}`};
   }
   ul {
@@ -42,7 +51,7 @@ const TabsElement: any = styled.div`
 
     li {
       display: flex;
-      flex: ${(props: any) => `${props.fixed ? "1" : "auto"}`};
+      flex: ${(props: any) => `${props.fixed ? "1" : "none"}`};
       button {
         width: ${(props: any) => `${props.fixed ? "100%" : "fit-content"}`};
 
@@ -112,7 +121,7 @@ const TabsIndicator: any = styled.span`
       return `
       width: 100%;
       height: 2px;
-      bottom: -3px;
+      bottom: 0px;
       `
     }
   }}
@@ -158,9 +167,12 @@ const TabsContent: any = styled.div`
   ${(props: any) => {
     if (props.position === "left" || props.position === "right") {
       return `margin: 13px 20px;
-      width:calc(100% - 40px);`
+      width:calc(100% - 40px);
+      overflow:hidden;`
     } else {
-      return `margin: 13px;width:calc(100% - 26px);`
+      return `margin: 13px;
+      width:calc(100% - 26px);
+      `
     }
   }}
 `
@@ -168,6 +180,7 @@ const TabsContent: any = styled.div`
 const TabsContainer: any = styled.div`
   width: 100%;
   display: flex;
+
   ${(props: any) => {
     if (props.position === "left") {
       return "flex-direction:row;"
@@ -177,6 +190,35 @@ const TabsContainer: any = styled.div`
       return "flex-direction:column;"
     }
   }}
+
+  &.isnotmobile .tab-ele {
+    * {
+      ::-webkit-scrollbar {
+        height: 6px;
+        background: rgba(0, 0, 0, 0);
+        transition: all 0.25s ease;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        height: 6px;
+        background: rba(0, 0, 0, 0);
+        border-radius: 4px;
+        transition: all 0.25s ease;
+      }
+    }
+
+    &:hover {
+      * {
+        ::-webkit-scrollbar {
+          opacity: 1;
+          background: rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #aaa;
+        }
+      }
+    }
+  }
 `
 
 const Tabs: React.FC<TabsComponent> = ({
@@ -235,14 +277,19 @@ const Tabs: React.FC<TabsComponent> = ({
         }
         return top
       }
-      const currentTab = Array.from(DOMNode.querySelectorAll("ul li.tab"))[idx]
-      const pos = currentTab.getBoundingClientRect()
 
-      return {
-        width: pos.width,
-        left: getLeft(idx),
-        top: getTop(idx),
-        height: pos.height,
+      if (DOMNode) {
+        const currentTab = Array.from(DOMNode.querySelectorAll("ul li.tab"))[
+          idx
+        ]
+        const pos = currentTab.getBoundingClientRect()
+
+        return {
+          width: pos.width,
+          left: getLeft(idx),
+          top: getTop(idx),
+          height: pos.height,
+        }
       }
     },
     [refs]
@@ -251,13 +298,26 @@ const Tabs: React.FC<TabsComponent> = ({
   useEffect(() => {
     const currentTab = getTabPostition(0)
 
+    const DOMNode = refs.current
+    if (DOMNode) {
+      if (
+        /iPhone|iPad|Android|Blackberry|iPod/.test(window.navigator.userAgent)
+      ) {
+        DOMNode.classList.add("ismobile")
+        DOMNode.classList.remove("isnotmobile")
+      } else {
+        DOMNode.classList.remove("ismobile")
+        DOMNode.classList.add("isnotmobile")
+      }
+    }
+
     setIndicatorProp({
       left: currentTab.left,
       width: currentTab.width,
       height: currentTab.height,
       top: currentTab.top,
     })
-  }, [getTabPostition])
+  }, [refs])
 
   const handleTabClick = (idx: number): void => {
     setCurrentIdx(idx)
@@ -300,6 +360,7 @@ const Tabs: React.FC<TabsComponent> = ({
         fixed={align === "fixed"}
         align={getAlign()}
         position={position}
+        className = "tab-ele"
       >
         <div className="container">
           <ul>

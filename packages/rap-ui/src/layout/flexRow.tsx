@@ -28,6 +28,11 @@ const RowContainer: any = styled.div`
     flex-basis: 100%;
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    width: calc(100% - 10px);
+    padding: 5px;
+  }
 `
 
 /**

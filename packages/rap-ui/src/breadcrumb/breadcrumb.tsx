@@ -13,6 +13,7 @@ const BreadcrumbDiv: StyledComponent<
 > = styled.ul`
   display: flex;
   jusitfy-content: center;
+  flex-wrap: wrap;
 
   li {
     display: flex;

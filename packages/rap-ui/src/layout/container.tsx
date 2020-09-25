@@ -15,8 +15,8 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: calc(100% - 20px);
-    margin: 10px;
+    width: calc(100% - 10px);
+    margin: 5px;
   }
 `
 
