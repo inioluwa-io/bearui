@@ -18,7 +18,7 @@
     "@rap/core": "^1.2.4",
     "@rap/ui": "^1.2.3",
     "react": "^16.13.1",
-    "react-admin-panel": "^1.2.0",
+    "@rap/main": "^1.2.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.0",

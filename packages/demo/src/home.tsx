@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 import { Avatar, FlexColumn, FlexRow, Card, LinkButton } from "@rap/ui"
-import AdminPanel from "react-admin-panel"
+import AdminPanel from "@rap/main"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Home: React.FC<any> = () => {

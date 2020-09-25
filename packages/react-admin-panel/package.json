@@ -1,5 +1,5 @@
 {
-  "name": "react-admin-panel",
+  "name": "@rap/main",
   "version": "1.2.0",
   "description": "A frontend Framework for building admin applications on top of REST services, using React, ES6",
   "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
