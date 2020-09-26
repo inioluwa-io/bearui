@@ -113,16 +113,25 @@ const CardContainer: any = styled.div`
         "));"}
   }
 
+  @media (max-width: 441px) {
+    width: calc(
+      100% - (${(props: any) => props.xPadding + " + " + props.xPadding})
+    );
+    margin: 0.5px 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
   > :not(:last-child) {
     margin-bottom: ${(props: CardContainerProps) => props.gap};
   }
 `
 
 const Card: React.FC<CardProps> = ({
-  size = "md",
+  size = "xs",
   gap = "20px",
   children,
-  align = "center",
+  align = "left",
   lgCol = "",
   smCol = "",
   mdCol = "",
@@ -181,7 +190,7 @@ const Card: React.FC<CardProps> = ({
       mdCol={mdCol}
       smCol={smCol}
       xsCol={xsCol}
-      xPadding={"20px"}
+      xPadding={xPadding()}
       align={formAlignment(align)}
       padding={getPaddingSize(size)}
       background={background}

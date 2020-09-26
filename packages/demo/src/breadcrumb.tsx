@@ -8,25 +8,29 @@ import {
   Tabs,
   FlexColumn,
 } from "@rap/ui"
+import Icon from "@mdi/react"
+import { mdiHome, mdiHomeOutline } from "@mdi/js"
 
 const BreadcrumbPage: React.FC<any> = () => {
   return (
     <FlexColumn style={{ minHeight: "100vh" }} yPosition="top">
       <Container>
         <Grid xsCol="12">
-          <FlexRow gap="7px" yPosition="top" xPosition="left">
-            <p>Breadcrumb:</p>
-            <Breadcrumb
-              seperator="mdiChevronDoubleRight"
-              item={[
-                { name: "Home", to: "/" },
-                { name: "Datatable", to: "#datatable" },
-                { name: "Breadcrumb", to: "" },
-              ]}
-            />
-          </FlexRow>
+          <Card>
+            <FlexRow gap="7px" yPosition="top" xPosition="left">
+              <p>Breadcrumb:</p>
+              <Breadcrumb
+                seperator="mdiChevronDoubleRight"
+                item={[
+                  { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
+                  { name: "Datatable", to: "/datatable" },
+                  { name: "Breadcrumb", to: "" },
+                ]}
+              />
+            </FlexRow>
+          </Card>
         </Grid>
-        <Card size="xs" xsCol="12" smCol="7">
+        <Card xsCol="12" smCol="7">
           <Tabs
             color="warning"
             align="left"

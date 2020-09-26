@@ -23,6 +23,10 @@ const BreadcrumbDiv: StyledComponent<
       text-decoration: none;
       color: ${(props: any) => props.color};
 
+      svg path {
+        fill: ${(props: any) => props.color} !important;
+      }
+
       &:not(:first-child) {
       }
     }

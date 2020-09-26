@@ -83,6 +83,17 @@ const LoaderContainer: StyledComponent<
   }
 `
 
+const LoaderElement: StyledComponent<"div", any, any> = styled.div`
+  @media (max-width: 441px) {
+    .rap-card {
+      margin: 0;
+      width: fit-content;
+      border-radius: 10px;
+      box-shadow: 0 0 25px -18px #292929;
+    }
+  }
+`
+
 const Loader: React.FC<LoaderComponent> = ({
   type = "pulse",
   customIcon,
@@ -115,24 +126,26 @@ const Loader: React.FC<LoaderComponent> = ({
     }
   }
   return (
-    <FlexRow
-      center
-      style={{
-        width,
-        height,
-        position: "fixed",
-        background: rgba(darken(0.5, theme[themeMode].background), 0.6),
-        top: 0,
-        left: 0,
-        zIndex: 991,
-      }}
-    >
-      <Card size="sm">
-        <LoaderContainer padding={size}>
-          {customIcon || getAnimation()}
-        </LoaderContainer>
-      </Card>
-    </FlexRow>
+    <LoaderElement>
+      <FlexRow
+        center
+        style={{
+          width,
+          height,
+          position: "fixed",
+          background: rgba(darken(0.5, theme[themeMode].background), 0.6),
+          top: 0,
+          left: 0,
+          zIndex: 991,
+        }}
+      >
+        <Card size="sm">
+          <LoaderContainer padding={size}>
+            {customIcon || getAnimation()}
+          </LoaderContainer>
+        </Card>
+      </FlexRow>
+    </LoaderElement>
   )
 }
 export default Loader

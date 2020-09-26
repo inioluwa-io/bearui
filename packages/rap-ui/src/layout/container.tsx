@@ -5,8 +5,9 @@ export type ContainerProps = { gap?: string }
 
 const ContainerDiv: StyledComponent<"div", any> = styled.div`
   width: calc(100% - 20px);
-  display: block;
-  margin:10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
   text-align: left;
 
   > .rap-card {
@@ -17,6 +18,15 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
   @media (max-width: 768px) {
     width: calc(100% - 10px);
     margin: 5px;
+  }
+
+  @media (max-width: 441px) {
+    margin: 0;
+    width: 100%;
+
+    > .rap-card {
+      margin: 0.5px 0;
+    }
   }
 `
 

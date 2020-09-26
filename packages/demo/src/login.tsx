@@ -33,9 +33,9 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      {!Object.entries(template).length && (
+      {/* {!Object.entries(template).length && (
         <Loader type="spinner" iconSize={1} />
-      )}
+      )} */}
       <Modal
         active={openModal}
         onClose={() => {
@@ -46,18 +46,22 @@ const Login: React.FC<any> = () => {
         <FlexColumn align="center">
           <Avatar alt="avatar" text="LD" size="100px" />
           <p>fjfk</p>
+          <p>fjfk</p>
+          <p>fjfk</p>
+          <p>fjfk</p>
         </FlexColumn>
       </Modal>
 
       <FlexColumn style={{ width: "100%", height: "100%", minHeight: "100vh" }}>
         <Container>
-          <Grid lgCol="3" mdCol="1" xsCol="12" />
+          <Grid lgCol="3" mdCol="3" xsCol="12">
+          </Grid>
 
           <Grid lgCol="3" mdCol="4" smCol="5" xsCol="12">
-            <Card size="sm">
+            <Card align = "center">
               <h4>User Interface controls</h4>
               <FlexRow center>
-                <p>Switch {themeMode}</p>
+                <p>Switch from {themeMode}</p>
                 <Switch
                   active={themeMode === "darkmode" ? true : false}
                   color="success"
@@ -66,7 +70,7 @@ const Login: React.FC<any> = () => {
                   }}
                 />
               </FlexRow>
-              <FlexColumn gap="10px">
+              <FlexColumn gap="10px" align = "stretch">
                 <Button
                   background="info"
                   onClick={() => {
@@ -93,8 +97,8 @@ const Login: React.FC<any> = () => {
               </FlexColumn>
             </Card>
           </Grid>
-          <Grid lgCol="3" mdCol="4" smCol="5" xsCol="12">
-            <Card size="sm">
+          <Grid lgCol="4" mdCol="4" smCol="5" xsCol="12">
+            <Card size="md" align = "center">
               <h4>Login Page</h4>
               <Avatar src={img} size="lg" />
 

@@ -234,7 +234,7 @@ export type LoaderComponent = {
 
 // loeader props
 
-export type BreadcrumbItem = { name: string; to: string }
+export type BreadcrumbItem = { name: ReactElement; to: string }
 export type BreadcrumbComponent = {
   item: BreadcrumbItem[]
   color?: string

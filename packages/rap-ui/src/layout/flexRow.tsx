@@ -16,8 +16,8 @@ type RowStyleProps = {
 const RowContainer: any = styled.div`
   display: flex;
   flex-direction: row;
-  width: calc(100% - 20px);
-  padding: 10px;
+  width: calc(100% - 0px);
+  // padding: 10px;
   align-items: ${(props: RowStyleProps) => props.position.alignItems};
   justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
 
@@ -30,8 +30,13 @@ const RowContainer: any = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: calc(100% - 10px);
-    padding: 5px;
+    // width: calc(100% - 10px);
+    // padding: 5px;
+  }
+
+  @media (max-width: 441px) {
+    // width: 100%;
+    // padding: 0;
   }
 `
 

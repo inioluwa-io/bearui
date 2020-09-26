@@ -54,6 +54,12 @@ const CardContainer: any = styled.div`
   > .rap-card {
     margin: 10px;
   }
+
+  @media (max-width: 441px) {
+    > .rap-card {
+      margin: 0.5px 0;
+    }
+  }
 `
 
 const Grid: React.FC<CardProps> = ({

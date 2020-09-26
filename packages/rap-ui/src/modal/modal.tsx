@@ -23,7 +23,7 @@ const ModalBackground: any = styled.div`
 
 const ModalContainer: any = styled.div`
   position: relative;
-  width: 44vw;
+  min-width: 38rem;
   border-radius: 10px;
   overflow: hidden;
   max-height: 80vh;
@@ -31,6 +31,17 @@ const ModalContainer: any = styled.div`
   box-shadow: 0 0 20px -10px ${(props: any) => darken(0.65, props.background)};
   transform: scale3d(0.8, 0.8, 0.8);
   opacity: 0;
+
+  @media (max-width: 768px) {
+    min-width: 85vw;
+  }
+
+  @media (max-width: 441px) {
+    max-height: 100vh;
+    height: 100vh;
+    min-width: 100vw;
+    border-radius: unset;
+  }
 `
 
 const InnerContainer: any = styled.div`
@@ -42,6 +53,11 @@ const InnerContainer: any = styled.div`
 
   > :not(:last-child) {
     margin-bottom: 25px;
+  }
+
+  @media (max-width: 441px) {
+    height: calc(100vh - 180px);
+    max-height: calc(100vh - 180px);
   }
 `
 
