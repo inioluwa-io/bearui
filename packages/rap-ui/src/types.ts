@@ -161,6 +161,7 @@ export type CardProps = {
   mdCol?: string
   smCol?: string
   xsCol?: string
+  withBackground?: boolean
 } & HTMLAttributes<HTMLDivElement>
 // end
 

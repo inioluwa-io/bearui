@@ -12,6 +12,8 @@ type CardContainerProps = {
   smCol: string
   xsCol: string
   xPadding: string
+  yPadding: string
+  withBackground: boolean
   align: {
     alignItems: string
   }
@@ -37,7 +39,8 @@ const CardContainer: any = styled.div`
   display: flex;
   align-items: ${(props: CardContainerProps) => props.align.alignItems};
   flex-direction: column;
-  background: ${(props: CardContainerProps) => props.background};
+  background: ${(props: CardContainerProps) =>
+    !props.withBackground ? "none" : props.background};
   box-shadow: 0 0 25px -18px #292929;
   border-radius: 10px;
   margin: ${(props: CardContainerProps) => props.xPadding};
@@ -120,6 +123,15 @@ const CardContainer: any = styled.div`
     margin: 0.5px 0;
     box-shadow: none;
     border-radius: 0;
+
+    ${(props: CardContainerProps) => {
+      if (!props.withBackground) {
+        return `width: calc(100%);
+        padding-left: ${props.yPadding};
+        padding-right: ${props.yPadding } 
+        `
+      }
+    }}};
   }
 
   > :not(:last-child) {
@@ -136,6 +148,7 @@ const Card: React.FC<CardProps> = ({
   smCol = "",
   mdCol = "",
   xsCol = "",
+  withBackground = true,
   ...props
 }) => {
   const theme = useTheme()
@@ -143,21 +156,41 @@ const Card: React.FC<CardProps> = ({
   const background: string = theme[themeMode].cardbackground
 
   const getPaddingSize = (size: string): string => {
-    switch (size) {
-      case "xs": {
-        return "20px"
+    if (withBackground) {
+      switch (size) {
+        case "xs": {
+          return "20px"
+        }
+        case "sm": {
+          return "30px"
+        }
+        case "md": {
+          return "40px 60px"
+        }
+        case "lg": {
+          return "60px 80px"
+        }
+        default: {
+          return "20px"
+        }
       }
-      case "sm": {
-        return "30px"
-      }
-      case "md": {
-        return "40px 60px"
-      }
-      case "lg": {
-        return "60px 80px"
-      }
-      default: {
-        return "30px"
+    } else {
+      switch (size) {
+        case "xs": {
+          return "20px 0px"
+        }
+        case "sm": {
+          return "30px 0px"
+        }
+        case "md": {
+          return "40px 0px"
+        }
+        case "lg": {
+          return "60px 0px"
+        }
+        default: {
+          return "20px 0px"
+        }
       }
     }
   }
@@ -165,6 +198,11 @@ const Card: React.FC<CardProps> = ({
   let xPadding = (): string => {
     const paddingArr: string[] = getPaddingSize(size).split(" ")
     return paddingArr[paddingArr.length - 1]
+  }
+
+  let yPadding = (): string => {
+    const paddingArr: string[] = getPaddingSize(size).split(" ")
+    return paddingArr[0]
   }
 
   const formAlignment = (align): any => {
@@ -195,6 +233,8 @@ const Card: React.FC<CardProps> = ({
       padding={getPaddingSize(size)}
       background={background}
       gap={gap}
+      withBackground={withBackground}
+      yPadding = {yPadding()}
     >
       {children}
     </CardContainer>

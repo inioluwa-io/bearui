@@ -16,15 +16,15 @@ const BreadcrumbPage: React.FC<any> = () => {
     <FlexColumn style={{ minHeight: "100vh" }} yPosition="top">
       <Container>
         <Grid xsCol="12">
-          <Card>
-            <FlexRow gap="7px" yPosition="top" xPosition="left">
-              <p>Breadcrumb:</p>
+          <Card withBackground={false}>
+            <FlexRow gap="7px" yPosition="center" xPosition="left">
+              <h3>Breadcrumb</h3>
               <Breadcrumb
-                seperator="mdiChevronDoubleRight"
+                seperator="/"
                 item={[
                   { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
-                  { name: "Datatable", to: "/datatable" },
-                  { name: "Breadcrumb", to: "" },
+                  { name: "Data", to: "/datatable" },
+                  { name: "Crumb", to: "" },
                 ]}
               />
             </FlexRow>

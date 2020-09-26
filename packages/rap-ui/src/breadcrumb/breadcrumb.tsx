@@ -18,10 +18,15 @@ const BreadcrumbDiv: StyledComponent<
   li {
     display: flex;
     font-size: 16px;
+    align-items: flex-end;
+
 
     a {
       text-decoration: none;
       color: ${(props: any) => props.color};
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       svg path {
         fill: ${(props: any) => props.color} !important;
@@ -82,7 +87,7 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
                 {seperator.length > 1 ? (
                   <Icon
                     path={path[seperator]}
-                    size={0.75}
+                    size={0.7}
                     color={seperatorColor}
                   />
                 ) : (
