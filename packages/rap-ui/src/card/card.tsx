@@ -163,7 +163,7 @@ const Card: React.FC<CardProps> = ({
   lgCol = "",
   smCol = "",
   mdCol = "",
-  xsCol = "12",
+  xsCol = "",
   withBackground = true,
   ...props
 }) => {

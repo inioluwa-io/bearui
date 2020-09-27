@@ -12,7 +12,8 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
 
   > .rap-card {
     margin: 10px;
-    display: inline-block;
+    display: inline-flex;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 768px) {

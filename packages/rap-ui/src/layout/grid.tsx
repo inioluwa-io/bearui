@@ -68,7 +68,7 @@ const Grid: React.FC<CardProps> = ({
   lgCol = "",
   smCol = "",
   mdCol = "",
-  xsCol = "12",
+  xsCol = "",
   ...props
 }) => {
   return (
