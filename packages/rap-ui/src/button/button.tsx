@@ -46,13 +46,28 @@ font-family: Nunito sans;
   }
 
   &:hover, &:focus{
-    ${(props: any) =>
-      props.outline
-        ? `background: ${props.background};
-      color: ${props.textColor};`
-        : "background:" +
-          (!props.backgroundgradient && darken(0.05, props.background)) +
-          ";"}
+    ${(props: any) => {
+      if (props.outline) {
+        return `background: ${props.background};
+        color: ${props.textColor};`
+      } else {
+        console.log(props.backgroundGradient)
+        if (!props.backgroundGradient) {
+          return (
+            "background:" +
+            darken(0.05, props.background) +
+            ";" +
+            `color:${props.textColor};`
+          )
+        }
+      }
+    }}
+
+          .text{
+            color: ${(props: any) =>
+              props.outline ? `${props.textColor};` : `${props.textColor};`}
+            
+          }
   }
 
   &:focus{

@@ -88,14 +88,14 @@ const TooltipPage: React.FC<any> = () => {
             </FlexRow>
           </Card>
           <Card xsCol="12">
-            <h5>Delay</h5>
+            <h5>Color</h5>
             <p>
               To change the color of the tooltip, use the property background.
               You can use the preset theme colors
             </p>
             <FlexRow>
               <Tooltip text="Tooltip Background Primary" background="primary">
-                <Button background="primary">Primary</Button>
+                <Button background="primary" gradient>Primary</Button>
               </Tooltip>
               <Tooltip text="Tooltip Background Secondary" background="success">
                 <Button background="success">Success</Button>
@@ -104,9 +104,27 @@ const TooltipPage: React.FC<any> = () => {
                 <Button background="info">Info</Button>
               </Tooltip>
               <Tooltip text="Tooltip Background Info" background="info">
-                <Button background="info" outline>
+                <Button background="info" outline gradient>
                   Info
                 </Button>
+              </Tooltip>
+            </FlexRow>
+          </Card>
+          <Card xsCol="12">
+            <h5>Delay</h5>
+            <p>
+              To change the delay in appearing the tooltip with the property{" "}
+              <code>delay</code>
+            </p>
+            <FlexRow>
+              <Tooltip text="Tooltip default delay 0s">
+                <Button background="dark">Delay default</Button>
+              </Tooltip>
+              <Tooltip text="Tooltip default delay 0.25s" delay="0.25s">
+                <Button background="dark">Delay 0.25s</Button>
+              </Tooltip>
+              <Tooltip text="Tooltip default delay 1s" delay="1s">
+                <Button background="dark">Delay 1s</Button>
               </Tooltip>
             </FlexRow>
           </Card>
