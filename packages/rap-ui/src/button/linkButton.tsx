@@ -53,15 +53,14 @@ font-family: Nunito sans;
     ${(props: any) => {
       if (props.outline) {
         return `background: ${props.background};
-        color: ${props.textColor};`
+        color: ${props.textcolor};`
       } else {
-        console.log(props.backgroundGradient)
-        if (!props.backgroundGradient) {
+        if (!props.backgroundgradient) {
           return (
             "background:" +
             darken(0.05, props.background) +
             ";" +
-            `color:${props.textColor};`
+            `color:${props.textcolor};`
           )
         }
       }
@@ -69,7 +68,7 @@ font-family: Nunito sans;
 
           .text{
             color: ${(props: any) =>
-              props.outline ? `${props.textColor};` : `${props.textColor};`}
+              props.outline ? `${props.textcolor};` : `${props.textcolor};`}
             
           }
   }
@@ -200,7 +199,15 @@ const LinkButton: React.FC<LinkButtonProps> = ({
         background: Theme.colors[background.trim()],
       }
     } else {
-      return { background }
+      return {
+        backgroundGradient:
+          gradient &&
+          `linear-gradient(138deg,${background.trim()}, ${rgba(
+            background.trim(),
+            0.6
+          )})`,
+        background,
+      }
     }
   }
 
@@ -224,7 +231,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   if (background === "white") {
     updateProps({ textColor: "#222222" })
   }
-  updateProps({ textColor: "#ffffff", iconRight, iconOnly })
+  updateProps({ textColor: textColor, iconRight, iconOnly })
 
   const formatObjKeysToLowercase = (obj): any => {
     let formatedObj = {}
