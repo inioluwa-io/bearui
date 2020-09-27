@@ -102,7 +102,7 @@ const InputIcon: any = styled.div`
        padding: 0 8px 0 7px`
       : `border-right: 1px solid #666;
       padding: 0 7px 0 8px;`}
-      border:${(props: any) => !props.iconBorder && "none"}
+  border:${(props: any) => !props.iconBorder && "none"}
 
   svg path {
     transition: all 0.35s;
@@ -116,7 +116,7 @@ const InputIcon: any = styled.div`
 
 const Input: React.FC<InputProps> = ({
   id,
-  label,
+  label = "",
   type = "text",
   disabled = false,
   placeholder,
@@ -267,7 +267,7 @@ const Input: React.FC<InputProps> = ({
       inputType={type}
       {...props}
     >
-      <Label htmlFor={`${id}`}>{label}</Label>
+      {!!label.length && <Label htmlFor={`${id}`}>{label}</Label>}
       <InputContainer height={inputHeightSize()}>
         <InputHtmlElement
           padLeft={!!icon}

@@ -334,7 +334,7 @@ const Tabs: React.FC<TabsComponent> = ({
     }
   }
 
-  const renderElementByIndex = (idx): ReactElement => {
+  const renderElementByIndex = (idx): ReactElement | string => {
     return list[idx].content
   }
   const getAlign = (): string => {

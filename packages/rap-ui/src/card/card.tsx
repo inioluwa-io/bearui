@@ -41,8 +41,13 @@ const CardContainer: any = styled.div`
   flex-direction: column;
   background: ${(props: CardContainerProps) =>
     !props.withBackground ? "none" : props.background};
-  box-shadow: 0 0 25px -18px #292929;
   border-radius: 10px;
+  ${(props: CardContainerProps) => {
+    if (props.withBackground) {
+      return `
+      box-shadow: 0 0 25px -18px #292929;`
+    }
+  }}
   margin: ${(props: CardContainerProps) => props.xPadding};
   position: relative;
   height: fit-content;
@@ -116,6 +121,17 @@ const CardContainer: any = styled.div`
         "));"}
   }
 
+  @media (min-width: 441px) {
+    ${(props: CardContainerProps) => {
+      if (!props.withBackground) {
+        return `width: calc(100%);
+        padding-top: 7px !important;
+        padding-bottom: 7px  !important;
+        `
+      }
+    }}};
+  }
+
   @media (max-width: 441px) {
     width: calc(
       100% - (${(props: any) => props.xPadding + " + " + props.xPadding})
@@ -128,7 +144,7 @@ const CardContainer: any = styled.div`
       if (!props.withBackground) {
         return `width: calc(100%);
         padding-left: ${props.yPadding};
-        padding-right: ${props.yPadding } 
+        padding-right: ${props.yPadding} ;
         `
       }
     }}};
@@ -147,7 +163,7 @@ const Card: React.FC<CardProps> = ({
   lgCol = "",
   smCol = "",
   mdCol = "",
-  xsCol = "",
+  xsCol = "12",
   withBackground = true,
   ...props
 }) => {
@@ -234,7 +250,7 @@ const Card: React.FC<CardProps> = ({
       background={background}
       gap={gap}
       withBackground={withBackground}
-      yPadding = {yPadding()}
+      yPadding={yPadding()}
     >
       {children}
     </CardContainer>

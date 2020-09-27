@@ -7,7 +7,7 @@ import img from "./brooks-leibee-562087-unsplash.jpg"
 const Home: React.FC<any> = () => {
   return (
     <FlexRow center style={{ height: "calc(100vh - 20px)" }}>
-      <Card size="md" align="center">
+      <Card size="md" align="center" xsCol = "3">
         <p>{AdminPanel}</p>
         <FlexRow xPosition = "center">
           <Avatar alt="avatar" text="LD" size="md" src={img} />

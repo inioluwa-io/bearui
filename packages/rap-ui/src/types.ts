@@ -266,7 +266,8 @@ export type TabsComponent = {
 // Tooltips
 
 export type TooltipComponent = {
-  color?: string
+  textColor?: string
+  background?: string
   position?: "left" | "right" | "bottom" | "top"
   delay?: number
   text: string

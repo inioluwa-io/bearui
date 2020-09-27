@@ -27,7 +27,8 @@ const gridSystem: any = {
 const CardContainer: any = styled.div`
   position: relative;
   height: max-content;
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: wrap;
 
   width: ${(props: CardContainerProps) =>
     (props.lgCol && "calc(" + gridSystem[props.lgCol] + ")") ||
@@ -67,7 +68,7 @@ const Grid: React.FC<CardProps> = ({
   lgCol = "",
   smCol = "",
   mdCol = "",
-  xsCol = "",
+  xsCol = "12",
   ...props
 }) => {
   return (

@@ -15,6 +15,9 @@ type RowStyleProps = {
 
 const RowContainer: any = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  grid-gap: ${(props: RowStyleProps) => props.marginRight};
+  grid-row-gap: calc(${(props: RowStyleProps) => props.marginRight} / 1.5);
   flex-direction: row;
   width: calc(100% - 0px);
   // padding: 10px;
@@ -22,7 +25,7 @@ const RowContainer: any = styled.div`
   justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
 
   > :not(:last-child) {
-    margin-right: ${(props: RowStyleProps) => props.marginRight};
+    // margin-right: ${(props: RowStyleProps) => props.marginRight};
   }
   > input {
     flex-basis: 100%;
