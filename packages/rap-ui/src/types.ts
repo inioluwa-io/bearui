@@ -88,7 +88,7 @@ export type NotificationProps = {
 
 export interface SwitchProps {
   id?: string
-  active: boolean
+  active?: boolean
   disabled?: boolean
   color?: string
   offText?: string
@@ -105,12 +105,12 @@ export type InputProps = {
   iconRight?: boolean
   iconBorder?: boolean
   color?: string
-  onError: () => any
-  validate: "alpha" | "email" | "number"
+  onError?: () => any
+  validate?: "alpha" | "email" | "number"
   type?: "email" | "text" | "password"
   size?: "sm" | "md" | "lg"
-  successMessage: string
-  errorMessage: string
+  successMessage?: string
+  errorMessage?: string
   onInputChange?: (value: string) => any
 } & HTMLAttributes<HTMLInputElement>
 
@@ -235,7 +235,10 @@ export type LoaderComponent = {
 
 // loeader props
 
-export type BreadcrumbItem = { name: ReactElement; to: string }
+export type BreadcrumbItem = {
+  name: ReactElement | string
+  to: string
+}
 export type BreadcrumbComponent = {
   item: BreadcrumbItem[]
   color?: string
@@ -246,8 +249,8 @@ export type BreadcrumbComponent = {
 //tabs props
 
 export type TabList = {
-  title: ReactElement
-  content: ReactElement
+  title: ReactElement | string
+  content: ReactElement | string
   color?: string
 }
 
@@ -259,3 +262,13 @@ export type TabsComponent = {
   onTabClick?: () => void
 }
 //
+
+// Tooltips
+
+export type TooltipComponent = {
+  color?: string
+  position?: "left" | "right" | "bottom" | "top"
+  delay?: number
+  text: string
+}
+// end

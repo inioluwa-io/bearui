@@ -9,7 +9,7 @@ const Home: React.FC<any> = () => {
     <FlexRow center style={{ height: "calc(100vh - 20px)" }}>
       <Card size="md" align="center">
         <p>{AdminPanel}</p>
-        <FlexRow>
+        <FlexRow xPosition = "center">
           <Avatar alt="avatar" text="LD" size="md" src={img} />
         </FlexRow>
         <FlexColumn gap="10px">
@@ -21,6 +21,9 @@ const Home: React.FC<any> = () => {
           </LinkButton>
           <LinkButton gradient to="/datatable">
             Datatables
+          </LinkButton>
+          <LinkButton background = "warning" gradient to="/tooltip">
+            Tooltip
           </LinkButton>
         </FlexColumn>
       </Card>

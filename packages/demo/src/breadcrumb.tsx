@@ -13,7 +13,7 @@ import { mdiHome, mdiHomeOutline } from "@mdi/js"
 
 const BreadcrumbPage: React.FC<any> = () => {
   return (
-    <FlexColumn style={{ minHeight: "100vh" }} yPosition="top">
+    <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
         <Grid xsCol="12">
           <Card withBackground={false}>
@@ -33,7 +33,6 @@ const BreadcrumbPage: React.FC<any> = () => {
         <Card xsCol="12" smCol="7">
           <Tabs
             color="warning"
-            align="left"
             list={[
               {
                 title: "Success",

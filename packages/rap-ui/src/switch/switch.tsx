@@ -40,8 +40,9 @@ const SwitchInput = styled.input`
 
   &:checked {
     + .circle {
-      right: calc(100% - 4px);
-      transform: translate(100%, -50%);
+      right: 4px;
+      transform: translateY(-50%);
+      box-shadow: -2px 2px 7px ${rgba("#000", 0.5)};
     }
   }
 `
@@ -52,11 +53,12 @@ const Circle = styled.span`
   width: 17px;
   background: #ffffff;
   top: 50%;
-  transform: translateY(-50%);
   border-radius: 30px;
-  right: 4px;
-  box-shadow: 0 2px 7px ${rgba("#000", 0.6)};
+  box-shadow: 2px 2px 7px ${rgba("#000", 0.5)};
   transition: all 0.35s;
+
+  right: calc(100% - 4px);
+  transform: translate(100%, -50%);
 `
 
 const Text: any = styled.span`

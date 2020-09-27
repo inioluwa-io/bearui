@@ -48,7 +48,7 @@ const RowContainer: any = styled.div`
 const FlexRow: React.FC<RowProps> = ({
   children,
   yPosition = "center",
-  xPosition = "center",
+  xPosition = "left",
   center,
   gap = "20px",
   ...props

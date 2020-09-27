@@ -7,6 +7,7 @@ import Home from "./home"
 import { useDataProvider, useNotification } from "@rap/core"
 import Table from "./table"
 import BreadcrumbPage from "./breadcrumb"
+import TooltipPage from "./tooltip"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -80,6 +81,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/breadcrumb"
             component={(props: any) => <BreadcrumbPage {...props} />}
+          />
+          <Route
+            path="/tooltip"
+            component={(props: any) => <TooltipPage {...props} />}
           />
         </Switch>
       </header>
