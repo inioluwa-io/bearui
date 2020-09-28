@@ -97,6 +97,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
     transition: background 0.35s;
     border-radius: 30px;
     position: relative;
+    border-top: 1px solid ${(props: any) => props.background};
 
     &:hover,
     &.selected {
@@ -129,14 +130,10 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 15px 20px;
+      padding: 10px 20px;
       padding-right: 15px;
       position: relative;
       vertical-align: middle;
-    }
-
-    &:not(:last-child) {
-      border-bottom: 1px solid ${(props: any) => props.background};
     }
   }
 `

@@ -124,7 +124,7 @@ const CardContainer: any = styled.div`
   @media (min-width: 441px) {
     ${(props: CardContainerProps) => {
       if (!props.withBackground) {
-        return `width: calc(100%);
+        return `
         padding-top: 7px !important;
         padding-bottom: 7px  !important;
         `
