@@ -6,7 +6,11 @@ import { darken } from "polished"
 import { mdiArrowUp } from "@mdi/js"
 import Icon from "@mdi/react"
 
-type TableBodyStyle = { background: string; striped: boolean }
+type TableBodyStyle = {
+  background: string
+  striped: boolean
+  stripedColor: string
+}
 
 const Table: StyledComponent<"table", any, any> = styled.table`
   font-size: 16px;
@@ -101,7 +105,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     &:hover,
     &.selected {
-      background: ${(props: any) => props.background};
+      background: ${(props: any) => darken(0.05, props.background)};
     }
 
     &:hover input[type="checkbox"],
@@ -112,7 +116,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
     ${(props: any) =>
       props.striped &&
       `&:nth-child(2n + 1) {
-        background: ${darken(0.01, props.background)};
+        background: ${darken(0, props.stripedColor)};
       }
   `}
 
@@ -348,7 +352,11 @@ const Datatable: React.FC<DatatableComponent> = ({
             ))}
           </tr>
         </TableHead>
-        <TableBody background={darken(0.075, background)} striped={striped}>
+        <TableBody
+          background={darken(0.075, background)}
+          striped={striped}
+          stripedColor={theme.colors.primary}
+        >
           {data.map((dataItem: any, idx: number) => (
             <tr
               key={idx}

@@ -7,7 +7,7 @@ const Table: React.FC<any> = ({ ...props }) => {
   return (
     <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
-        <Card size="md" xsCol="7" withBackground = {false}>
+        <Card size="md" xsCol="12">
           <Datatable
             onRowClick={data => {
               console.log(data)
@@ -16,6 +16,7 @@ const Table: React.FC<any> = ({ ...props }) => {
               console.log(data)
             }}
             check
+            striped
             defaultSortIndex={1}
             renderRule={[
               {
