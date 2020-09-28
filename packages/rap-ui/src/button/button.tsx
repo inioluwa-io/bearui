@@ -51,7 +51,6 @@ font-family: Nunito sans;
         return `background: ${props.background};
         color: ${props.textColor};`
       } else {
-        console.log(props.backgroundGradient)
         if (!props.backgroundGradient) {
           return (
             "background:" +
