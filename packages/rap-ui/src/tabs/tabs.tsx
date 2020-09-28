@@ -227,6 +227,7 @@ const Tabs: React.FC<TabsComponent> = ({
   position = "top",
   color = "primary",
   onTabClick,
+  ...props
 }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0)
   type IndicatorProps = {
@@ -354,13 +355,13 @@ const Tabs: React.FC<TabsComponent> = ({
     }
   }
   return (
-    <TabsContainer ref={refs} position={position}>
+    <TabsContainer ref={refs} position={position} {...props}>
       <TabsElement
         color={indicatorColor}
         fixed={align === "fixed"}
         align={getAlign()}
         position={position}
-        className = "tab-ele"
+        className="tab-ele"
       >
         <div className="container">
           <ul>

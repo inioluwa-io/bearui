@@ -54,6 +54,7 @@ const Tooltip: React.FC<TooltipComponent> = ({
   position = "top",
   delay = "0s",
   children,
+  ...props
 }) => {
   const theme = useTheme()
   const refs = useRef<HTMLDivElement>()
@@ -164,7 +165,7 @@ const Tooltip: React.FC<TooltipComponent> = ({
   }
 
   return (
-    <TooltipContainer ref={refs}>
+    <TooltipContainer ref={refs} {...props}>
       <TooltipElement
         position={getPosition()}
         background={indicatorBackground}

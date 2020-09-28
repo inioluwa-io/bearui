@@ -260,7 +260,7 @@ export type TabsComponent = {
   list: TabList[]
   color?: string
   onTabClick?: () => void
-}
+} & HTMLAttributes<HTMLDivElement>
 //
 
 // Tooltips
@@ -269,7 +269,7 @@ export type TooltipComponent = {
   textColor?: string
   background?: string
   position?: "left" | "right" | "bottom" | "top"
-  delay?: number
+  delay?: string
   text: string
-}
+} & HTMLAttributes<HTMLDivElement>
 // end
