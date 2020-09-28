@@ -4,6 +4,7 @@ import GoogleButton from "./googleButton"
 import AppleButton from "./appleButton"
 import FacebookButton from "./facebookButton"
 import TwitterButton from "./twitterButton"
+import GithubButton from "./githubButton"
 
 export {
   Button,
@@ -12,4 +13,5 @@ export {
   GoogleButton,
   AppleButton,
   FacebookButton,
+  GithubButton,
 }

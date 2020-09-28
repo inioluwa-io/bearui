@@ -19,8 +19,8 @@ const TooltipPage: React.FC<any> = () => {
   return (
     <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
-        <Grid mdCol="3" xsCol="12"></Grid>
-        <Grid mdCol="9" xsCol="12">
+        <Grid mdCol="3" smCol="1" xsCol="12"></Grid>
+        <Grid mdCol="9" smCol="11" xsCol="12">
           <Card withBackground={false}>
             <FlexRow gap="10px" yPosition="center" xPosition="left">
               <h3
@@ -43,7 +43,7 @@ const TooltipPage: React.FC<any> = () => {
               To add a Tooltip use the component <code>Tooltip</code>
             </p>
             <FlexRow>
-              <Tooltip text="Tooltip Default">
+              <Tooltip id ="firsttip" text="Tooltip Default">
                 <Switch color="success" onClick={clicked => {}} />
               </Tooltip>
               <Tooltip text="Tooltip Default">
@@ -95,7 +95,9 @@ const TooltipPage: React.FC<any> = () => {
             </p>
             <FlexRow>
               <Tooltip text="Tooltip Background Primary" background="primary">
-                <Button background="primary" gradient>Primary</Button>
+                <Button background="primary" gradient>
+                  Primary
+                </Button>
               </Tooltip>
               <Tooltip text="Tooltip Background Secondary" background="success">
                 <Button background="success">Success</Button>

@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from "react"
-import { useQueryStore, useNotification } from "@rap/core"
+import React, { useState } from "react"
+import { useQueryStore } from "@rap/core"
 import {
   Button,
-  FacebookButton,
   Input,
-  Modal,
-  LinkButton,
   FlexRow,
   Card,
   FlexColumn,
   useThemeMode,
   FormControl,
-  Avatar,
-  GoogleButton,
-  AppleButton,
 } from "@rap/ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
+import { Link } from "react-router-dom"
 
 const Login: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
   const queryStore = useQueryStore()
-  const [, addNotification] = useNotification()
-  const [openModal, setOpenModal] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
 
   const { data: template, loading } = queryStore.getOne("template", {
@@ -30,31 +23,12 @@ const Login: React.FC<any> = () => {
 
   return (
     <>
-      {/* {!Object.entries(template).length && (
-        <Loader type="spinner" iconSize={1} />
-      )} */}
-      <Modal
-        active={openModal}
-        onClose={() => {
-          setOpenModal(false)
-        }}
-        title="Modal Title"
-      >
-        <FlexColumn align="center">
-          <Avatar alt="avatar" text="LD" size="100px" />
-          <p>fjfk</p>
-          <p>fjfk</p>
-          <p>fjfk</p>
-          <p>fjfk</p>
-        </FlexColumn>
-      </Modal>
-
       <FlexRow
         style={{ width: "100%", height: "100%", minHeight: "100vh" }}
         center
       >
         <Card size="md" align="center">
-          <h4>Login Page</h4>
+          <h3>Login Page</h3>
           <FlexRow>
             <p style={{ fontWeight: "500", fontSize: "16px" }}>
               Welcome Back!!
@@ -102,9 +76,11 @@ const Login: React.FC<any> = () => {
             >
               Login
             </Button>
-            <FlexRow center><p>or</p></FlexRow>
+            <FlexRow center>
+              <p>or</p>
+            </FlexRow>
             <p>
-              Not registered? <a href="http://">Create an account</a>
+              Not registered? <Link to="/">Create an account</Link>
             </p>
           </FlexColumn>
         </Card>

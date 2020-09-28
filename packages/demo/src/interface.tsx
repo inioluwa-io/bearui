@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useQueryStore, useNotification } from "@rap/core"
 import {
   Button,
-  FacebookButton,
   Switch,
-  Input,
   Modal,
   Container,
-  LinkButton,
   Grid,
   FlexRow,
   Card,
   FlexColumn,
   useThemeMode,
-  useTheme,
-  FormControl,
-  Loader,
   Avatar,
 } from "@rap/ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
@@ -33,9 +27,6 @@ const Interface: React.FC<any> = () => {
 
   return (
     <>
-      {/* {!Object.entries(template).length && (
-        <Loader type="spinner" iconSize={1} />
-      )} */}
       <Modal
         active={openModal}
         onClose={() => {

@@ -14,8 +14,10 @@ import {
   Avatar,
   GoogleButton,
   AppleButton,
+  GithubButton,
 } from "@rap/ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
+import { Link } from "react-router-dom"
 
 const Login2: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
@@ -54,7 +56,7 @@ const Login2: React.FC<any> = () => {
         center
       >
         <Card size="md" align="center">
-          <h4>Login Page</h4>
+          <h3>Login Page</h3>
           <FlexRow>
             <p style={{ fontWeight: "500", fontSize: "16px" }}>
               Welcome Back!!
@@ -103,14 +105,15 @@ const Login2: React.FC<any> = () => {
               Login
             </Button>
             <p>
-              Not registered? <a href="http://">Create an account</a>
+              Not registered? <Link to="/">Create an account</Link>
             </p>
             <p>or</p>
-            <FlexRow center gap = "15px"> 
+            <FlexRow gap="15px">
               <AppleButton onClick={() => {}} iconOnly size="md" />
               <GoogleButton onClick={() => {}} iconOnly size="md" />
               <FacebookButton onClick={() => {}} iconOnly size="md" />
               <TwitterButton onClick={() => {}} iconOnly size="md" />
+              <GithubButton onClick={() => {}} iconOnly size="md" />
             </FlexRow>
           </FlexColumn>
         </Card>
