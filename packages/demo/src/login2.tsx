@@ -3,9 +3,9 @@ import { useQueryStore, useNotification } from "@rap/core"
 import {
   Button,
   FacebookButton,
+  TwitterButton,
   Input,
   Modal,
-  LinkButton,
   FlexRow,
   Card,
   FlexColumn,
@@ -17,7 +17,7 @@ import {
 } from "@rap/ui"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 
-const Login: React.FC<any> = () => {
+const Login2: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
   const queryStore = useQueryStore()
   const [, addNotification] = useNotification()
@@ -102,10 +102,16 @@ const Login: React.FC<any> = () => {
             >
               Login
             </Button>
-            <FlexRow center><p>or</p></FlexRow>
             <p>
               Not registered? <a href="http://">Create an account</a>
             </p>
+            <p>or</p>
+            <FlexRow center gap = "15px"> 
+              <AppleButton onClick={() => {}} iconOnly size="md" />
+              <GoogleButton onClick={() => {}} iconOnly size="md" />
+              <FacebookButton onClick={() => {}} iconOnly size="md" />
+              <TwitterButton onClick={() => {}} iconOnly size="md" />
+            </FlexRow>
           </FlexColumn>
         </Card>
       </FlexRow>
@@ -113,4 +119,4 @@ const Login: React.FC<any> = () => {
   )
 }
 
-export default Login
+export default Login2

@@ -7,14 +7,20 @@ import img from "./brooks-leibee-562087-unsplash.jpg"
 const Home: React.FC<any> = () => {
   return (
     <FlexRow center style={{ height: "calc(100vh - 20px)" }}>
-      <Card size="md" align="center" lgCol = "3" mdCol="4" xsCol="8">
+      <Card size="md" align="center" lgCol="3" mdCol="4" xsCol="8">
         <p>{AdminPanel}</p>
         <FlexRow xPosition="center">
           <Avatar alt="avatar" text="LD" size="md" src={img} />
         </FlexRow>
         <FlexColumn gap="10px">
+          <LinkButton background="dark" to="/login2">
+            login2
+          </LinkButton>
           <LinkButton gradient background="info" to="/login">
             login
+          </LinkButton>
+          <LinkButton gradient background="info" to="/interface">
+            Interface
           </LinkButton>
           <LinkButton gradient background="success" to="/breadcrumb">
             Breadcrumb

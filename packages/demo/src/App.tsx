@@ -8,6 +8,8 @@ import { useDataProvider, useNotification } from "@rap/core"
 import Table from "./table"
 import BreadcrumbPage from "./breadcrumb"
 import TooltipPage from "./tooltip"
+import Interface from "./interface"
+import Login2 from "./login2"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -75,6 +77,10 @@ const App: React.FC<any> = () => {
             component={(props: any) => <Login {...props} />}
           />
           <Route
+            path="/login2"
+            component={(props: any) => <Login2 {...props} />}
+          />
+          <Route
             path="/datatable"
             component={(props: any) => <Table {...props} />}
           />
@@ -85,6 +91,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/tooltip"
             component={(props: any) => <TooltipPage {...props} />}
+          />
+          <Route
+            path="/interface"
+            component={(props: any) => <Interface {...props} />}
           />
         </Switch>
       </header>

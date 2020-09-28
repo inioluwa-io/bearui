@@ -48,7 +48,7 @@ const CardContainer: any = styled.div`
       box-shadow: 0 0 25px -18px #292929;`
     }
   }}
-  margin: ${(props: CardContainerProps) => props.xPadding};
+  margin:20px;
   position: relative;
   height: fit-content;
   ${(props: CardContainerProps) =>
