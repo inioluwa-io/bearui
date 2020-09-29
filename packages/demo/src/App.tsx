@@ -10,6 +10,7 @@ import BreadcrumbPage from "./breadcrumb"
 import TooltipPage from "./tooltip"
 import Interface from "./interface"
 import Login2 from "./login2"
+import Dropdown from "./dropdown"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -95,6 +96,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/interface"
             component={(props: any) => <Interface {...props} />}
+          />
+          <Route
+            path="/dropdown"
+            component={(props: any) => <Dropdown {...props} />}
           />
         </Switch>
       </header>

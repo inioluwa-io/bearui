@@ -40,7 +40,6 @@ const TooltipElement: any = styled.span`
 
 const TooltipContainer: any = styled.div`
   position: relative;
-  }
 `
 
 const TargetElement: any = styled.div`

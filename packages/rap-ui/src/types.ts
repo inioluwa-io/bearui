@@ -273,3 +273,25 @@ export type TooltipComponent = {
   text: string
 } & HTMLAttributes<HTMLDivElement>
 // end
+
+// Dropdown
+
+type DropdownItem = {
+  disabled?: boolean
+  value: ReactElement | string
+}
+type DropdownList =
+  | {
+      type?: "group"
+      name?: string
+      disabled?: boolean
+      items: DropdownItem[]
+    }
+  | ReactElement | string
+
+export type DropdownComponent = {
+  list?: DropdownList[]
+  listener?: "hover" | "click"
+  text: string
+} & HTMLAttributes<HTMLDivElement>
+// end

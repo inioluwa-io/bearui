@@ -31,6 +31,9 @@ const Home: React.FC<any> = () => {
           <LinkButton background="warning" gradient to="/tooltip">
             Tooltip
           </LinkButton>
+          <LinkButton background="dark" gradient to="/dropdown">
+            Dropdown
+          </LinkButton>
         </FlexColumn>
       </Card>
     </FlexRow>
