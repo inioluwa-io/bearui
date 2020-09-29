@@ -7,7 +7,6 @@ import React, {
 } from "react"
 import { DropdownComponent } from "../types"
 import styled from "styled-components"
-import { getColorFromTheme } from "../util"
 import { useTheme, useThemeMode } from "../theme"
 import { rgba, darken, lighten } from "polished"
 import { FlexRow } from "../layout"

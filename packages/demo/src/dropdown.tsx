@@ -45,41 +45,29 @@ const DropdownPage: React.FC<any> = () => {
               To add a Dropdown use the component <code>Dropdown</code>
             </p>
             <FlexRow>
-              <Dropdown id="firsttip" text="Tooltip Default">
-                <Switch color="success" onClick={clicked => {}} />
+              <Dropdown list={["list 1", "list 2", "list 3"]} listener="click">
+                Default Dropdown
               </Dropdown>
-              <Tooltip text="Tooltip Default">
-                <Button background="dark">Button</Button>
-              </Tooltip>
-              <Tooltip text="Tooltip Default">
-                <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    color="primary"
-                    icon="mdiLock"
-                    validate="number"
-                    onInputChange={(value: string) => {
-                      console.log(value)
-                    }}
-                    onError={() => {}}
-                    placeholder="Enter your password"
-                  />
-                </FormControl>
-              </Tooltip>
+              <Dropdown list={["list 1", "list 2", "list 3"]} listener="click">
+                Dropdown 2
+              </Dropdown>
             </FlexRow>
           </Card>
           <Card xsCol="12">
-            <h5>Position</h5>
+            <h5>Listener</h5>
             <p>
-              To add a Tooltip use the component <code>Tooltip</code>
+              Dropdown supports 2 types of listeners. They are{" "}
+              <code>hover</code> and <code>click</code>
             </p>
             <FlexRow>
-              {/* <Dropdown list={["list 1", "list 2", "list 3"]} listener="click">
-                Dropdown 1
-              </Dropdown> */}
-              <Dropdown list={[<Link to ="">List 1</Link>, "list 2", "list 3"]} listener="click">
+              <Dropdown
+                list={[<Link to="">List 1</Link>, "list 2", "list 3"]}
+                listener="click"
+              >
                 <Button background="dark">Click Me</Button>
+              </Dropdown>
+              <Dropdown list={[<Link to="">List 1</Link>, "list 2", "list 3"]}>
+                <Button background="dark">Hover Me</Button>
               </Dropdown>
             </FlexRow>
           </Card>
