@@ -16,7 +16,7 @@ const Home: React.FC<any> = () => {
           <LinkButton background="dark" to="/login2">
             login2
           </LinkButton>
-          <LinkButton gradient background="info" to="/login">
+          <LinkButton gradient background="danger" to="/login">
             login
           </LinkButton>
           <LinkButton gradient background="info" to="/interface">
@@ -33,6 +33,9 @@ const Home: React.FC<any> = () => {
           </LinkButton>
           <LinkButton background="dark" gradient to="/dropdown">
             Dropdown
+          </LinkButton>
+          <LinkButton background="primary" gradient to="/collapse">
+            Collapse
           </LinkButton>
         </FlexColumn>
       </Card>

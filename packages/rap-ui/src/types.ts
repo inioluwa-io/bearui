@@ -274,6 +274,22 @@ export type TooltipComponent = {
 } & HTMLAttributes<HTMLDivElement>
 // end
 
+// Tooltips
+
+type CollapseItem = {
+  label: ReactElement | string
+  content: ReactElement | string
+  disabled?: boolean
+}
+
+export type CollapseComponent = {
+  accordion?: boolean
+  listener?: "hover" | "click"
+  icon?: any
+  items: CollapseItem[]
+}
+// end
+
 // Dropdown
 
 type DropdownItem = {
@@ -287,7 +303,8 @@ type DropdownList =
       disabled?: boolean
       items: DropdownItem[]
     }
-  | ReactElement | string
+  | ReactElement
+  | string
 
 export type DropdownComponent = {
   list?: DropdownList[]

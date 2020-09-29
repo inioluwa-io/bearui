@@ -45,10 +45,10 @@ const DropdownPage: React.FC<any> = () => {
               To add a Dropdown use the component <code>Dropdown</code>
             </p>
             <FlexRow>
-              <Dropdown list={["list 1", "list 2", "list 3"]} listener="click">
+              <Dropdown list={["list 1", "list 2", "list 3"]}>
                 Default Dropdown
               </Dropdown>
-              <Dropdown list={["list 1", "list 2", "list 3"]} listener="click">
+              <Dropdown list={["list 1", "list 2", "list 3"]}>
                 Dropdown 2
               </Dropdown>
             </FlexRow>
@@ -69,49 +69,6 @@ const DropdownPage: React.FC<any> = () => {
               <Dropdown list={[<Link to="">List 1</Link>, "list 2", "list 3"]}>
                 <Button background="dark">Hover Me</Button>
               </Dropdown>
-            </FlexRow>
-          </Card>
-          <Card xsCol="12">
-            <h5>Color</h5>
-            <p>
-              To change the color of the tooltip, use the property background.
-              You can use the preset theme colors
-            </p>
-            <FlexRow>
-              <Tooltip text="Tooltip Background Primary" background="primary">
-                <Button background="primary" gradient>
-                  Primary
-                </Button>
-              </Tooltip>
-              <Tooltip text="Tooltip Background Secondary" background="success">
-                <Button background="success">Success</Button>
-              </Tooltip>
-              <Tooltip text="Tooltip Background Info" background="info">
-                <Button background="info">Info</Button>
-              </Tooltip>
-              <Tooltip text="Tooltip Background Info" background="info">
-                <Button background="info" outline gradient>
-                  Info
-                </Button>
-              </Tooltip>
-            </FlexRow>
-          </Card>
-          <Card xsCol="12">
-            <h5>Delay</h5>
-            <p>
-              To change the delay in appearing the tooltip with the property{" "}
-              <code>delay</code>
-            </p>
-            <FlexRow>
-              <Tooltip text="Tooltip default delay 0s">
-                <Button background="dark">Delay default</Button>
-              </Tooltip>
-              <Tooltip text="Tooltip default delay 0.25s" delay="0.25s">
-                <Button background="dark">Delay 0.25s</Button>
-              </Tooltip>
-              <Tooltip text="Tooltip default delay 1s" delay="1s">
-                <Button background="dark">Delay 1s</Button>
-              </Tooltip>
             </FlexRow>
           </Card>
         </Grid>
