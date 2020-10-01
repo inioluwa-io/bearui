@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useQueryStore, useNotification } from "@rap/core"
+import { useNotification } from "@rap/core"
 import {
   Button,
   Switch,
@@ -12,18 +12,12 @@ import {
   useThemeMode,
   Avatar,
 } from "@rap/ui"
-import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Interface: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
-  const queryStore = useQueryStore()
   const [, addNotification] = useNotification()
   const [openModal, setOpenModal] = useState<boolean>(false)
-  const [login, setLogin] = useState<boolean>(false)
-
-  const { data: template, loading } = queryStore.getOne("template", {
-    name: "Plain Blue",
-  })
+ 
 
   return (
     <>

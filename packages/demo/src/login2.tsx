@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useQueryStore, useNotification } from "@rap/core"
 import {
   Button,

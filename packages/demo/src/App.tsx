@@ -12,6 +12,7 @@ import Interface from "./interface"
 import Login2 from "./login2"
 import Dropdown from "./dropdown"
 import CollapsePage from "./collapse"
+import ChipPage from "./chips"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -52,14 +53,10 @@ const App: React.FC<any> = () => {
   useEffect(() => {
     dataProvider.getOne("/template", URL)
     dataProvider.getOne("/publish", URL)
-  }, [dataProvider])
+  }, [dataProvider, URL])
 
-  const [themeMode, setThemeMode] = useThemeMode()
+  const [themeMode] = useThemeMode()
   const theme = useTheme()
-
-  useEffect(() => {
-    // setThemeMode("lightmode")
-  }, [])
 
   return (
     <div className="App">
@@ -105,6 +102,10 @@ const App: React.FC<any> = () => {
           <Route
             path="/collapse"
             component={(props: any) => <CollapsePage {...props} />}
+          />
+          <Route
+            path="/chip"
+            component={(props: any) => <ChipPage {...props} />}
           />
         </Switch>
       </header>

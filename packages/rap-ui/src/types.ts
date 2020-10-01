@@ -312,3 +312,23 @@ export type DropdownComponent = {
   text: string
 } & HTMLAttributes<HTMLDivElement>
 // end
+
+// Chip
+export type ChipComponent = {
+  closable?: boolean
+  closeIcon?: string
+  color?: string
+  transparent?: boolean
+  items?: string[]
+  itemsPlaceholder?: string
+  onItemUpdate?: (value: string[]) => void
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// Chip
+export type ProgressComponent = {
+  height?: string
+  color?: string
+  percent: number | string
+} & HTMLAttributes<HTMLDivElement>
+// end

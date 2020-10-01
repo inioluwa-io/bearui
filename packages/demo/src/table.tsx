@@ -1,5 +1,12 @@
 import React from "react"
-import { Container, FlexColumn, Card, Datatable, Avatar } from "@rap/ui"
+import {
+  Container,
+  FlexColumn,
+  Card,
+  Progress,
+  Datatable,
+  Avatar,
+} from "@rap/ui"
 import img from "./dp1.jpg"
 import img1 from "./brooks-leibee-562087-unsplash.jpg"
 
@@ -16,7 +23,6 @@ const Table: React.FC<any> = ({ ...props }) => {
               console.log(data)
             }}
             check
-            striped
             defaultSortIndex={1}
             renderRule={[
               {
@@ -36,49 +42,57 @@ const Table: React.FC<any> = ({ ...props }) => {
               { name: " ", selector: "img" },
               { name: "Firstname", selector: "user" },
               { name: "Age", selector: "age" },
+              { name: "Popularity", selector: "popularity" },
+              { name: "Price", selector: "price" },
               { name: "Phone", selector: "phone" },
             ]}
             document={[
               {
                 id: 1,
-                user: "iniolwa sogelola",
+                user: "Iniolwa Sogelola",
                 age: "fema",
                 img: img,
+                popularity: <Progress percent={63} />,
                 phone: "0983fkfkfk8",
               },
               {
                 id: 2,
-                user: "wema",
+                user: "Wema Bank",
                 age: "femaa",
                 img: img1,
+                popularity: <Progress percent={95} />,
                 phone: "098ks938",
               },
               {
                 id: 3,
-                user: "alingo",
+                user: "Alingo Dangote",
                 age: "femad",
                 img: img,
+                popularity: <Progress color="danger" percent={29} />,
                 phone: "098d38",
               },
               {
                 id: 4,
-                user: "keve",
+                user: "Keve Oghenekeve",
                 age: "femas",
                 img: img1,
+                popularity: <Progress color="info" percent={63} />,
                 phone: "0983238",
               },
               {
                 id: 5,
-                user: "james",
+                user: "James Bond",
                 age: "12",
                 img: img,
+                popularity: <Progress color="success" percent={13} />,
                 phone: "0983248",
               },
               {
                 id: 6,
-                user: "lucas",
+                user: "Lucas Scott",
                 age: "femfva",
                 img: img1,
+                popularity: <Progress color="warning" percent={39} />,
                 phone: "0984i38",
               },
             ]}

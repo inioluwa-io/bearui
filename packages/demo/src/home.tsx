@@ -37,6 +37,9 @@ const Home: React.FC<any> = () => {
           <LinkButton background="primary" gradient to="/collapse">
             Collapse
           </LinkButton>
+          <LinkButton background="info" gradient to="/chip">
+            Chip
+          </LinkButton>
         </FlexColumn>
       </Card>
     </FlexRow>

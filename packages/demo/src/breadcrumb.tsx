@@ -9,7 +9,7 @@ import {
   FlexColumn,
 } from "@rap/ui"
 import Icon from "@mdi/react"
-import { mdiHome, mdiHomeOutline } from "@mdi/js"
+import { mdiHomeOutline } from "@mdi/js"
 
 const BreadcrumbPage: React.FC<any> = () => {
   return (

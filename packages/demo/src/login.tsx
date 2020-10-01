@@ -9,7 +9,6 @@ import {
   useThemeMode,
   FormControl,
 } from "@rap/ui"
-import img from "./brooks-leibee-562087-unsplash.jpg"
 import { Link } from "react-router-dom"
 
 const Login: React.FC<any> = () => {
