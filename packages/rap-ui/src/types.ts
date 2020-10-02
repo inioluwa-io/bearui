@@ -102,6 +102,7 @@ export type InputProps = {
   placeholder?: string
   disabled?: boolean
   icon?: string
+  clearButton?: boolean
   iconRight?: boolean
   iconBorder?: boolean
   color?: string
@@ -186,8 +187,8 @@ export type HTMLElement = {
 export type RowProps = {
   center?: boolean
   gap?: string
-  xPosition?: xPositionProps
-  yPosition?: yPositionProps
+  align?: xPositionProps
+  position?: yPositionProps
 } & HTMLAttributes<HTMLDivElement>
 
 export type FlexColumnProps = {
@@ -216,6 +217,25 @@ export type DatatableComponent = {
   check?: boolean
   renderRule?: DatatableRule[]
   defaultSortIndex?: number
+  onRowSelect?: (data: any) => void
+  onRowClick?: (data: any) => void
+} & HTMLAttributes<HTMLDivElement>
+
+// end
+
+// Data List
+type ActionItem = {
+  color?: string
+  text: string
+  onClick: (value: any) => void
+}
+
+export type DataListComponent = {
+  document: any[]
+  columns: DatatableColumns[]
+  renderRule?: DatatableRule[]
+  defaultSortIndex?: number
+  actionList?: ActionItem[]
   onRowSelect?: (data: any) => void
   onRowClick?: (data: any) => void
 } & HTMLAttributes<HTMLDivElement>
@@ -309,7 +329,7 @@ type DropdownList =
 export type DropdownComponent = {
   list?: DropdownList[]
   listener?: "hover" | "click"
-  text: string
+  showIcon?: boolean
 } & HTMLAttributes<HTMLDivElement>
 // end
 
@@ -330,5 +350,20 @@ export type ProgressComponent = {
   height?: string
   color?: string
   percent: number | string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// Chip
+export type PaginationIndexes = {
+  startIndex: number
+  endIndex: number
+}
+export type PagnitionComponent = {
+  perPage?: number
+  documentLength: number
+  onPageGoto: (startIndex: number, endIndex: number) => void
+  color?: string
+  prevIcon?: string
+  nextIcon?: string
 } & HTMLAttributes<HTMLDivElement>
 // end

@@ -4,49 +4,49 @@ import {
   FlexColumn,
   Card,
   Progress,
-  Grid,
   Datatable,
-  FlexRow,
-  Avatar,
+  DataList,
   Chip,
+  Avatar,
   Breadcrumb,
+  FlexRow,
+  Grid,
 } from "@rap/ui"
 import img from "./dp1.jpg"
 import img1 from "./brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 
-const Table: React.FC<any> = ({ ...props }) => {
+const DataListPage: React.FC<any> = ({ ...props }) => {
   return (
     <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
         <Grid mdCol="3" smCol="1" xsCol="12"></Grid>
         <Grid mdCol="9" smCol="11" xsCol="12">
           <Card withBackground={false}>
-            <FlexRow gap="10px" yPosition="center" xPosition="left">
+            <FlexRow gap="10px" position="center" align="left">
               <h3
                 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}
               >
-                Datatable
+                Data List
               </h3>
               <Breadcrumb
                 seperator="mdiChevronDoubleRight"
                 item={[
                   { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
-                  { name: "Datatable", to: "" },
+                  { name: "Data List", to: "" },
                 ]}
               />
             </FlexRow>
           </Card>
-          <Card xsCol="12">
-            <Datatable
-              onRowClick={data => {
-                console.log(data)
+          <Card xsCol="12" withBackground={false}>
+            <DataList
+              onRowClick={(data: any) => {
+                // console.log(data)
               }}
               onRowSelect={(data: any) => {
-                console.log(data)
+                // console.log(data)
               }}
-              check
               defaultSortIndex={1}
               renderRule={[
                 {
@@ -67,7 +67,7 @@ const Table: React.FC<any> = ({ ...props }) => {
                 { name: "Firstname", selector: "user" },
                 { name: "Age", selector: "age" },
                 { name: "Popularity", selector: "popularity" },
-                { name: "status", selector: "price" },
+                { name: "Status", selector: "price" },
                 { name: "Phone", selector: "phone" },
               ]}
               document={[
@@ -126,11 +126,11 @@ const Table: React.FC<any> = ({ ...props }) => {
                   phone: "0984i38",
                 },
               ]}
-            ></Datatable>
+            ></DataList>
           </Card>
         </Grid>
       </Container>
     </FlexColumn>
   )
 }
-export default Table
+export default DataListPage

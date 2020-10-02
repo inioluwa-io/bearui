@@ -3,7 +3,6 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
-  useEffect,
 } from "react"
 import { RapUIThemeMode } from "../types"
 

@@ -18,7 +18,7 @@ const CollapsePage: React.FC<any> = () => {
         <Grid mdCol="3" smCol="1" xsCol="12"></Grid>
         <Grid mdCol="9" smCol="11" xsCol="12">
           <Card withBackground={false}>
-            <FlexRow gap="10px" yPosition="center" xPosition="left">
+            <FlexRow gap="10px" position="center" align="left">
               <h3
                 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}
               >

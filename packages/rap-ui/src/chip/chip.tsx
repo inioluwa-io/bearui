@@ -72,6 +72,7 @@ const ChipSingleContainer: any = styled.div`
   justify-content: center;
   min-height: 1.5rem;
   vertical-align: middle;
+  width: fit-content;
   background: ${(props: any) => props.color};
 
   &.sc-closeable {
@@ -89,7 +90,9 @@ const ChipSingleContainer: any = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 0;
-    font-size: 13px;
+    font-weight: 500;
+    font-size: 11px;
+    font-family: inherit;
     color: ${(props: any) => props.textColor};
 
     span {
@@ -97,7 +100,7 @@ const ChipSingleContainer: any = styled.div`
     }
 
     > p {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
 `
@@ -188,8 +191,8 @@ const ChipItems: React.FC<any> = ({
 
   return (
     <ChipItemsContainer {...props} boxShadow={boxShadow}>
-      <FlexRow className="sc-cont" yPosition="center">
-        <FlexRow className="sc-cnt-chip" yPosition="center">
+      <FlexRow className="sc-cont" position="center">
+        <FlexRow className="sc-cnt-chip" position="center">
           {items.map((item, idx: number) => (
             <ChipSingle
               key={idx}

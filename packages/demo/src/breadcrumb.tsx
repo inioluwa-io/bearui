@@ -17,7 +17,7 @@ const BreadcrumbPage: React.FC<any> = () => {
       <Container>
         <Grid xsCol="12">
           <Card withBackground={false}>
-            <FlexRow gap="7px" yPosition="center" xPosition="left">
+            <FlexRow gap="7px" position="center" align="left">
               <h3>Breadcrumb</h3>
               <Breadcrumb
                 seperator="/"

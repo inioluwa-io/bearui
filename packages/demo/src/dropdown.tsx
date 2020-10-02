@@ -20,7 +20,7 @@ const DropdownPage: React.FC<any> = () => {
         <Grid mdCol="3" smCol="1" xsCol="12"></Grid>
         <Grid mdCol="9" smCol="11" xsCol="12">
           <Card withBackground={false}>
-            <FlexRow gap="10px" yPosition="center" xPosition="left">
+            <FlexRow gap="10px" position="center" align="left">
               <h3
                 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}
               >
@@ -57,12 +57,16 @@ const DropdownPage: React.FC<any> = () => {
             </p>
             <FlexRow>
               <Dropdown
+                showIcon={false}
                 list={[<Link to="">List 1</Link>, "list 2", "list 3"]}
                 listener="click"
               >
                 <Button background="dark">Click Me</Button>
               </Dropdown>
-              <Dropdown list={[<Link to="">List 1</Link>, "list 2", "list 3"]}>
+              <Dropdown
+                showIcon={false}
+                list={[<Link to="">List 1</Link>, "list 2", "list 3"]}
+              >
                 <Button background="dark">Hover Me</Button>
               </Dropdown>
             </FlexRow>

@@ -13,7 +13,7 @@ type TableBodyStyle = {
 }
 
 const Table: StyledComponent<"table", any, any> = styled.table`
-  font-size: 16px;
+  font-size: 14px;
   border-collapse: collapse;
   width: 100%;
 `
@@ -50,7 +50,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
     padding: 15px 20px;
     padding-right: 15px;
     text-align: left;
-    font-size: 13px;
+    font-size: 12px;
     position: relative;
 
     svg {
@@ -373,7 +373,7 @@ const Datatable: React.FC<DatatableComponent> = ({
                 }
               }}
             >
-              <td style={{ fontSize: "13px" }}>
+              <td style={{ fontSize: "12px" }}>
                 {check && (
                   <CheckBox
                     id={"rap-cb-" + idx}

@@ -142,7 +142,7 @@ const CardContainer: any = styled.div`
 
     ${(props: CardContainerProps) => {
       if (!props.withBackground) {
-        return `width: calc(100%);
+        return `width: calc(100% - ( ${props.yPadding} +  ${props.yPadding}));
         padding-left: ${props.yPadding};
         padding-right: ${props.yPadding} ;
         `

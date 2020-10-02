@@ -16,7 +16,8 @@ const TooltipElement: any = styled.span`
   border-radius: 3px;
   opacity: 0;
   transition: 0.25s all ${(props: any) => props.delay};
-  font-size: 13px;
+  font-size: 12px;
+  font-family: inherit;
   visibility: hidden;
   ${(props: any) => props.position}
   box-shadow: 0px 2px 5px ${rgba("#000", 0.25)};

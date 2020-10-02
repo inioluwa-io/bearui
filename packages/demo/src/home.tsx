@@ -6,10 +6,10 @@ import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const Home: React.FC<any> = () => {
   return (
-    <FlexRow center style={{ height: "calc(100vh - 20px)" }}>
+    <FlexRow center style={{ minHeight: "calc(100vh - 20px)" }}>
       <Card size="md" align="center" lgCol="3" mdCol="4" xsCol="8">
         <p>{AdminPanel}</p>
-        <FlexRow xPosition="center">
+        <FlexRow align="center">
           <Avatar alt="avatar" text="LD" size="md" src={img} />
         </FlexRow>
         <FlexColumn gap="10px">
@@ -39,6 +39,12 @@ const Home: React.FC<any> = () => {
           </LinkButton>
           <LinkButton background="info" gradient to="/chip">
             Chip
+          </LinkButton>
+          <LinkButton background="danger" gradient to="/progress">
+            Progress
+          </LinkButton>
+          <LinkButton background="warning" gradient to="/datalist">
+            Data List
           </LinkButton>
         </FlexColumn>
       </Card>

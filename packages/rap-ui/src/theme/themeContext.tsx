@@ -1,4 +1,4 @@
-import React, { createContext, Children } from "react"
+import React, { createContext } from "react"
 import { RapUITheme } from "../types"
 
 const defaultProvider: RapUITheme = {

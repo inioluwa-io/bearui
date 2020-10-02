@@ -19,14 +19,14 @@ const DropdownElement: any = styled.span`
   width: max-content;
   max-width: 11rem;
   min-width: 3rem;
-  z-index: 99;
+  z-index: 9999;
   background: ${(props: any) => props.background};
   color: ${(props: any) => props.color};
   padding: 5px 6px;
   border-radius: 3px;
   opacity: 0;
   transition: 0.25s all ${(props: any) => props.delay};
-  font-size: 16px;
+  font-size: 14px;
   visibility: hidden;
   ${(props: any) => props.position}
   box-shadow: 0px 2px 5px ${rgba("#000", 0.25)};
@@ -50,18 +50,9 @@ const DropdownElement: any = styled.span`
 
 const DropdownContainer: any = styled.div`
   position: relative;
-`
-
-const DropdownGroupContainer: any = styled.div`
-  position: relative;
-`
-
-const DropdownGroup: any = styled.div`
-  position: relative;
-`
-
-const DropdownItem: any = styled.div`
-  position: relative;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: all 0.35s ease;
 `
 
 const DropdownList: any = styled.ul`
@@ -69,7 +60,9 @@ const DropdownList: any = styled.ul`
 
   li {
     display: block;
-    padding: 3px;
+    padding: 5px;
+    width: calc(100% - 10px);
+
     a {
       text-decoration: none;
     }
@@ -80,11 +73,12 @@ const TargetElement: any = styled.div`
   position: relative;
   cursor: default;
   display: flex;
+  cursor: pointer;
 `
 
 const Dropdown: React.FC<DropdownComponent> = ({
-  text,
   listener = "hover",
+  showIcon = true,
   children,
   list = [<Link to="">List 1</Link>, "list 2", "list 3"],
   ...props
@@ -98,14 +92,13 @@ const Dropdown: React.FC<DropdownComponent> = ({
 
   let indicatorBackground = lighten(0.2, theme[themeMode].background)
   if (themeMode === "darkmode") {
-    indicatorBackground = darken(0.065, theme[themeMode].background)
+    indicatorBackground = darken(0.035, theme[themeMode].background)
     indicatorColor = "#f4f4f4"
   }
 
-  useEffect(() => {
+  const setELementPosition = useCallback((): void => {
     const DOMNode = refs.current
-
-    const setELementPosition = (): void => {
+    if (DOMNode) {
       const elementTop: number = DOMNode.querySelector(
         ".dp-trgt"
       ).getBoundingClientRect().top
@@ -117,18 +110,28 @@ const Dropdown: React.FC<DropdownComponent> = ({
         setPosition("bottom")
       }
     }
-    setELementPosition()
-    const blur = e => {
-      if (listener === "click") {
-        const target = DOMNode.querySelector(".dp")
-        const dpTarget = DOMNode.querySelector(".dp-trgt")
+  }, [refs])
 
-        if (!dpTarget.contains(e.target) && !target.contains(e.target)) {
-          handleBlur()
+  const blur = useCallback(
+    e => {
+      const DOMNode = refs.current
+      if (DOMNode) {
+        if (listener === "click") {
+          const target = DOMNode.querySelector(".dp")
+          const dpTarget = DOMNode.querySelector(".dp-trgt")
+
+          if (!dpTarget.contains(e.target) && !target.contains(e.target)) {
+            handleBlur()
+          }
         }
       }
-    }
+    },
+    [refs]
+  )
 
+  useEffect(() => {
+    const DOMNode = refs.current
+    setELementPosition()
     window.addEventListener("scroll", () => {
       setELementPosition()
     })
@@ -213,25 +216,26 @@ const Dropdown: React.FC<DropdownComponent> = ({
   }, [refs])
 
   const renderChildren: React.FC<any> = children => {
-    if (typeof children === "string") {
-      return (
-        <button
-          style={{
-            background: "transparent",
-            fontSize: "initial",
-            border: "none",
-            outline: "none",
-            fontFamily: "inherit",
-          }}
-        >
-          <FlexRow gap="7px" yPosition="bottom">
-            {children}
+    return (
+      <button
+        style={{
+          background: "transparent",
+          fontSize: "14px",
+          fontWeight: "bold",
+          border: "none",
+          outline: "none",
+          fontFamily: "inherit",
+          cursor: "pointer",
+        }}
+      >
+        <FlexRow gap="7px" position="bottom">
+          {children}
+          {showIcon && (
             <Icon path={mdiChevronDown} size={0.7} color={indicatorColor} />
-          </FlexRow>
-        </button>
-      )
-    }
-    return <>{children}</>
+          )}
+        </FlexRow>
+      </button>
+    )
   }
 
   const renderList: React.FC<any> = list => {
@@ -245,7 +249,14 @@ const Dropdown: React.FC<DropdownComponent> = ({
     return (
       <DropdownList>
         {list.map((item, idx: number) => (
-          <li key={idx}>{item}</li>
+          <li
+            key={idx}
+            onClick={() => {
+              handleBlur()
+            }}
+          >
+            {item}
+          </li>
         ))}
       </DropdownList>
     )

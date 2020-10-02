@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: montserrat;
 }
 
 body,
@@ -16,7 +17,8 @@ html {
 }
 
 p {
-  font-size: 16px;
+  font-size: 14px;
+  font-family: montserrat;
 }
 
 .App-logo {
@@ -34,8 +36,8 @@ p {
 .lightmode * {
   color: #444444;
 }
-p:nth-of-type(1) {
-}
+
+p:nth-of-type(1) {}
 
 .darkmode * {
   color: #f4f4f4;

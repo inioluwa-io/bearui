@@ -12,7 +12,7 @@ import { useTheme } from "../theme"
  */
 
 const Button1: any = styled.button`
-font-family: Nunito sans;
+font-family: inherit;
   position:relative;
   background: ${(props: any) =>
     props.outline
@@ -20,7 +20,7 @@ font-family: Nunito sans;
       : props.backgroundGradient || props.background};
   color: ${(props: any) =>
     props.outline ? props.background : props.textColor};
-  font-size: 14px;
+  font-size: 13px;
   padding: ${(props: any) =>
     !props.iconOnly ? props.padding : props.iconPadding};
   border-radius: ${(props: any) => props.borderRadius};
@@ -206,11 +206,11 @@ const Button: React.FC<ButtonProps> = ({
       case "xs":
         return { padding: "5px", iconPadding: "5px" }
       case "sm":
-        return { padding: "8px 20px", iconPadding: "8px" }
+        return { padding: "9px 20px", iconPadding: "8px" }
       case "md":
-        return { padding: "9.5px 28px", iconPadding: "9.5px" }
+        return { padding: "10px 26px", iconPadding: "9.5px" }
       case "lg":
-        return { padding: "15px 35px", iconPadding: "15px" }
+        return { padding: "16px 35px", iconPadding: "15px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }

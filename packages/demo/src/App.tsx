@@ -13,6 +13,8 @@ import Login2 from "./login2"
 import Dropdown from "./dropdown"
 import CollapsePage from "./collapse"
 import ChipPage from "./chips"
+import DataListPage from "./datalist"
+import ProgressPage from "./progress"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -106,6 +108,14 @@ const App: React.FC<any> = () => {
           <Route
             path="/chip"
             component={(props: any) => <ChipPage {...props} />}
+          />
+          <Route
+            path="/progress"
+            component={(props: any) => <ProgressPage {...props} />}
+          />
+          <Route
+            path="/datalist"
+            component={(props: any) => <DataListPage {...props} />}
           />
         </Switch>
       </header>

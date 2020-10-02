@@ -27,9 +27,9 @@ const Login: React.FC<any> = () => {
         center
       >
         <Card size="md" align="center">
-          <h3>Login Page</h3>
+          <h4>Login Page</h4>
           <FlexRow>
-            <p style={{ fontWeight: "500", fontSize: "16px" }}>
+            <p style={{ fontWeight: "500" }}>
               Welcome Back!!
             </p>
           </FlexRow>

@@ -50,8 +50,8 @@ const RowContainer: any = styled.div`
 
 const FlexRow: React.FC<RowProps> = ({
   children,
-  yPosition = "center",
-  xPosition = "left",
+  position = "center",
+  align = "left",
   center,
   gap = "20px",
   ...props
@@ -88,8 +88,8 @@ const FlexRow: React.FC<RowProps> = ({
       alignItems = "center"
       alignSelf = "center"
     } else {
-      alignItems = calculateYPosition(yPosition)
-      alignSelf = calculateXPosition(xPosition)
+      alignItems = calculateYPosition(position)
+      alignSelf = calculateXPosition(align)
     }
     return { alignItems, alignSelf }
   }

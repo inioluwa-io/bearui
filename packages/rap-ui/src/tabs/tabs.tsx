@@ -68,7 +68,7 @@ const TabsElement: any = styled.div`
         border: none;
         outline: none;
         font-family: inherit;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.25s ease;

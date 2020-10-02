@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { ProgressComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 import { getColorFromTheme } from "../util"
-import { rgba, darken } from "polished"
+import { rgba, darken, adjustHue, lighten } from "polished"
 
 const ProgressContainer: any = styled.div`
   margin: 10px;
@@ -26,6 +26,13 @@ const ProgressBar: any = styled.div`
     width: ${(props: any) => props.barWidth}%;
     height: ${(props: any) => props.barHeight};
     background: ${(props: any) => props.barColor};
+    background: linear-gradient(
+      90deg,
+      ${(props: any) =>
+        lighten(0.07, adjustHue(355, props.barColor)) +
+        " 20%, " +
+        props.barColor}
+    );
     animation: ${(props: any) => "progress" + props.barWidth} 0.5s ease;
   }
 

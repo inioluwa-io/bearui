@@ -27,7 +27,8 @@ const InputHtmlElement: any = styled.input`
   height: calc(100% - (${(props: any) =>
     `${props.size} + ${props.size} + 1px)`});
   flex: 1;
-  font-family: Nunito sans;
+  font-size: 12px; 
+  font-family: inherit;
   width: 100%;
   outline: none;
   padding: ${(props: any) => props.size};
@@ -47,12 +48,19 @@ const InputHtmlElement: any = styled.input`
   }};
   background: ${(props: any) => props.background.background || "transparent"};
   padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
-  padding-right:${(props: any) => props.padLeft && props.iconRight && "40px"};
+  padding-right:${(props: any) => {
+    if (props.padLeft && props.iconRight) {
+      return "40px"
+    } else if (props.padLeft && props.clearButton) {
+      return "33px"
+    }
+  }};
   color: ${(props: any) => props.textColor};
   transition: all 0.35s;
 
   &::placeholder{
     color: #777;
+    font-weight: montserrat;
   }
 
   &:focus,
@@ -79,8 +87,8 @@ const InputHtmlElement: any = styled.input`
 `
 
 const Label: any = styled.label`
-  font-size: 0.85rem;
-  font-family: Nunito sans;
+  font-size: 0.8rem;
+  font-family: inherit;
   margin-top: 1px;
   margin-bottom: 4px;
 `
@@ -109,6 +117,28 @@ const InputIcon: any = styled.div`
   }
 `
 
+const ClearButton: any = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  display: flex;
+  border: none;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  padding: 3px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.4);
+
+  svg path {
+    transition: all 0.35s;
+  }
+`
+
 /**
  *
  * Creates an input element
@@ -128,15 +158,13 @@ const Input: React.FC<InputProps> = ({
   iconBorder = true,
   onInputChange,
   validate = "",
+  clearButton = false,
   successMessage = "Valid",
   errorMessage = "Invalid",
   ...props
 }) => {
   if (!id || typeof onInputChange !== "function") {
-    throw new Error("Props id, onError and onChange are required")
-  }
-  if (type === "email" && typeof onError !== "function") {
-    throw new Error("Props onError is required for type email")
+    throw new Error("Props id and onInputChange are required")
   }
   const [inputValue, setInputValue] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
@@ -161,10 +189,10 @@ const Input: React.FC<InputProps> = ({
   const inputHeightSize = (): string => {
     switch (size) {
       case "sm": {
-        return "36px"
+        return "37px"
       }
       case "md": {
-        return "39px"
+        return "42px"
       }
       case "lg": {
         return "50px"
@@ -284,19 +312,37 @@ const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           disabled={disabled}
           onBlur={handleBlurEvent}
-          iconRight={iconRight}
+          clearButton={clearButton}
+          iconRight={iconRight && !clearButton}
           onChange={handleChangeEvent}
         />
         {icon && (
-          <InputIcon iconRight={iconRight} iconBorder={iconBorder}>
+          <InputIcon
+            iconRight={iconRight && !clearButton}
+            iconBorder={iconBorder}
+          >
             <Icon path={mdi[icon]} size={0.72} color={inputIconColor()} />
           </InputIcon>
+        )}
+        {clearButton && !!inputValue.length && (
+          <ClearButton
+            background={theme[themeMode]}
+            iconRight={iconRight && !clearButton}
+            iconBorder={iconBorder}
+            onClick={e => {
+              setInputValue("")
+              onInputChange("")
+              refs.current.querySelector("input").focus()
+            }}
+          >
+            <Icon path={mdi.mdiClose} size={0.55} color={"#f4f4f4"} />
+          </ClearButton>
         )}
       </InputContainer>
       {!!validateMesssage.length && (
         <span
           style={{
-            fontSize: "11px",
+            fontSize: "10px",
             position: "absolute",
             color: (success && colors.success) || (error && colors.danger),
             bottom: 0,

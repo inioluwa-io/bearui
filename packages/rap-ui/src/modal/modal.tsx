@@ -111,8 +111,9 @@ const Title: any = styled.h4`
   text-align: center;
   grid-area: title;
   margin: auto;
-  font-size: 18px;
-  font-weight: normal;
+  font-size: 16px;
+  font-weight: 600;
+  font-weight: inherit;
 `
 
 /**

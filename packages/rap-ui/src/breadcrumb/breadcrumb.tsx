@@ -17,7 +17,7 @@ const BreadcrumbDiv: StyledComponent<
 
   li {
     display: flex;
-    font-size: 16px;
+    font-size: 14px;
     align-items: flex-end;
 
 

@@ -25,7 +25,9 @@ const CollapseElement: any = styled.li`
     cursor: pointer;
 
     p {
-      font-size: 17px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
     }
     .sc-ic {
       display: flex;
