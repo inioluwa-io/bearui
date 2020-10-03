@@ -427,7 +427,7 @@ const DataList: React.FC<DataListComponent> = ({
   }
 
   return (
-    <div style={{ width: "100%" }} {...props}>
+    <FlexColumn style={{ width: "100%" }} {...props}>
       <FlexColumn>
         <DataListFilter
           background={theme[themeMode].cardbackground}
@@ -644,14 +644,16 @@ const DataList: React.FC<DataListComponent> = ({
           </TableBody>
         </Table>
       </div>
-      <Pagination
-        perPage={viewLength}
-        documentLength={data.length}
-        onPageGoto={(startIndex, endIndex) => {
-          setPaginationIndexes({ startIndex, endIndex })
-        }}
-      />
-    </div>
+      <FlexRow align ="right">
+        <Pagination
+          perPage={viewLength}
+          documentLength={data.length}
+          onPageGoto={(startIndex, endIndex) => {
+            setPaginationIndexes({ startIndex, endIndex })
+          }}
+        />
+      </FlexRow>
+    </FlexColumn>
   )
 }
 export default DataList

@@ -2,7 +2,6 @@ import React, {
   useRef,
   useEffect,
   useState,
-  ReactElement,
   useCallback,
 } from "react"
 import { DropdownComponent } from "../types"
@@ -130,7 +129,6 @@ const Dropdown: React.FC<DropdownComponent> = ({
   )
 
   useEffect(() => {
-    const DOMNode = refs.current
     setELementPosition()
     window.addEventListener("scroll", () => {
       setELementPosition()
@@ -148,7 +146,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
         blur(e)
       })
     }
-  }, [refs])
+  }, [refs, setELementPosition, blur])
 
   const getPosition = () => {
     switch (position) {
