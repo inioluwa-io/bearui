@@ -72,6 +72,8 @@ const FlexRow: React.FC<RowProps> = ({
     switch (position) {
       case "center":
         return "center"
+      case "stretch":
+        return "space-between"
       case "left":
         return "flex-start"
       case "right":

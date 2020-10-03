@@ -118,7 +118,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
 
   useEffect(() => {
     gotoPage(1)
-  }, [gotoPage])
+  }, [gotoPage, documentLength])
 
   const handleNext = () => {
     if (currentPage < totalPages) {

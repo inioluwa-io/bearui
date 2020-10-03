@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import styled, { StyledComponent } from "styled-components"
 import { DatatableColumns, DatatableRule, DataListComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
@@ -399,32 +399,35 @@ const DataList: React.FC<DataListComponent> = ({
     return selectedRows
   }
 
+  const checkSearch = useCallback(
+    (dataItem): boolean => {
+      let found = false
+      if (searchValue.length) {
+        for (let i = 0; i < columns.length; i++) {
+          // if text is found return true
+          if (found) {
+            tempData.push(dataItem)
+            return true
+          }
+          const dataItemContent = dataItem[columns[i].selector]
+          if (typeof dataItemContent !== "string") {
+            return false
+          }
+          found = dataItemContent
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        }
+        return false
+      }
+      tempData.push(dataItem)
+      return true
+    },
+    [searchValue]
+  )
+
   useEffect(() => {
     setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
   }, [])
-
-  const checkSearch = (dataItem): boolean => {
-    let found = false
-    if (searchValue.length) {
-      for (let i = 0; i < columns.length; i++) {
-        // if text is found return true
-        if (found) {
-          tempData.push(dataItem)
-          return true
-        }
-        const dataItemContent = dataItem[columns[i].selector]
-        if (typeof dataItemContent !== "string") {
-          return false
-        }
-        found = dataItemContent
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      }
-      return false
-    }
-    tempData.push(dataItem)
-    return true
-  }
 
   return (
     <FlexColumn style={{ width: "100%" }} {...props}>
@@ -486,21 +489,24 @@ const DataList: React.FC<DataListComponent> = ({
         </DataListFilter>
 
         {/* When row selected show actions for all */}
-        {!!selectedRowsData.length && (
-          <FlexRow align="right">
-            {actionList.map((actionItem, idx: number) => (
-              <Button
-                key={idx}
-                background={actionItem.color}
-                onClick={() => {
-                  actionItem.onClick(selectedRowsData)
-                }}
-              >
-                {actionItem.text}
-              </Button>
-            ))}
-          </FlexRow>
-        )}
+        <FlexRow align="stretch">
+          <p>fj</p>
+          {!!selectedRowsData.length && (
+            <FlexRow style={{ width: "fit-content" }}>
+              {actionList.map((actionItem, idx: number) => (
+                <Button
+                  key={idx}
+                  background={actionItem.color}
+                  onClick={() => {
+                    actionItem.onClick(selectedRowsData)
+                  }}
+                >
+                  {actionItem.text}
+                </Button>
+              ))}
+            </FlexRow>
+          )}
+        </FlexRow>
       </FlexColumn>
       <div
         style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}
@@ -562,92 +568,96 @@ const DataList: React.FC<DataListComponent> = ({
             primaryColor={primaryColor}
           >
             {data
+              .filter((dataItem: any) => checkSearch(dataItem))
               .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
               .map((dataItem: any, idx: number) => {
-                if (checkSearch(dataItem))
-                  return (
-                    <tr
-                      key={data.length - idx}
-                      className={
-                        check
-                          ? selected.get(dataItem.id)
-                            ? "select selected"
-                            : "select"
-                          : ""
-                      }
+                return (
+                  <tr
+                    key={data.length - idx}
+                    className={
+                      check
+                        ? selected.get(dataItem.id)
+                          ? "select selected"
+                          : "select"
+                        : ""
+                    }
+                  >
+                    <td
+                      style={{ fontSize: "12px" }}
+                      onClick={(e: any) => {
+                        if (e.target.parentElement.id !== "rap-cb-" + idx) {
+                          onRowClick(dataItem)
+                          toggleCheck(dataItem.id)
+                          onRowSelect(selectedRowsData)
+                        }
+                      }}
                     >
+                      {check && (
+                        <CheckBox
+                          id={"rap-cb-" + idx}
+                          checked={!!selected.get(dataItem.id)}
+                          type="checkbox"
+                          onChange={() => {
+                            toggleCheck(dataItem.id)
+                            onRowSelect(selectedRowsData)
+                          }}
+                        />
+                      )}
+                    </td>
+                    {columns.map((column: any, idx: number) => (
                       <td
-                        style={{ fontSize: "12px" }}
+                        key={idx}
                         onClick={(e: any) => {
                           if (e.target.parentElement.id !== "rap-cb-" + idx) {
-                            onRowClick(dataItem)
                             toggleCheck(dataItem.id)
                             onRowSelect(selectedRowsData)
                           }
                         }}
                       >
-                        {check && (
-                          <CheckBox
-                            id={"rap-cb-" + idx}
-                            checked={!!selected.get(dataItem.id)}
-                            type="checkbox"
-                            onChange={() => {
-                              toggleCheck(dataItem.id)
-                              onRowSelect(selectedRowsData)
-                            }}
-                          />
-                        )}
+                        {renderColumnData(column.selector, dataItem)}
                       </td>
-                      {columns.map((column: any, idx: number) => (
-                        <td
-                          key={idx}
-                          onClick={(e: any) => {
-                            if (e.target.parentElement.id !== "rap-cb-" + idx) {
-                              toggleCheck(dataItem.id)
-                              onRowSelect(selectedRowsData)
-                            }
-                          }}
+                    ))}
+                    {!!actionList.length && (
+                      <td>
+                        <Dropdown
+                          className="dl-opt"
+                          listener="click"
+                          showIcon={false}
+                          list={actionList.map((actionItem, idx: number) => (
+                            <Button
+                              size="sm"
+                              key={idx}
+                              background={actionItem.color}
+                              onClick={() => {
+                                actionItem.onClick(dataItem)
+                              }}
+                            >
+                              {actionItem.text}
+                            </Button>
+                          ))}
                         >
-                          {renderColumnData(column.selector, dataItem)}
-                        </td>
-                      ))}
-                      {!!actionList.length && (
-                        <td>
-                          <Dropdown
-                            className="dl-opt"
-                            listener="click"
-                            showIcon={false}
-                            list={actionList.map((actionItem, idx: number) => (
-                              <Button
-                                size="sm"
-                                key={idx}
-                                background={actionItem.color}
-                                onClick={() => {
-                                  actionItem.onClick(dataItem)
-                                }}
-                              >
-                                {actionItem.text}
-                              </Button>
-                            ))}
-                          >
-                            <Icon
-                              path={mdiDotsHorizontal}
-                              size={0.85}
-                              color={textColor}
-                            />
-                          </Dropdown>
-                        </td>
-                      )}
-                    </tr>
-                  )
+                          <Icon
+                            path={mdiDotsHorizontal}
+                            size={0.85}
+                            color={textColor}
+                          />
+                        </Dropdown>
+                      </td>
+                    )}
+                  </tr>
+                )
               })}
           </TableBody>
         </Table>
       </div>
-      <FlexRow align ="right">
+      <FlexRow align="right">
         <Pagination
           perPage={viewLength}
-          documentLength={data.length}
+          documentLength={
+            data.filter((dataItem: any, idx: number) => {
+              if (checkSearch(dataItem)) return dataItem
+            }).length
+          }
           onPageGoto={(startIndex, endIndex) => {
             setPaginationIndexes({ startIndex, endIndex })
           }}
