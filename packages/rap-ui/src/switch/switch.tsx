@@ -71,12 +71,13 @@ const Text: any = styled.span`
 
 const Switch: React.FC<SwitchProps> = ({
   id,
-  color = "info",
+  color = "success",
   active = false,
   disabled = false,
   onText,
   offText,
   onClick,
+  ...props
 }) => {
   const [isActive, setIsActive] = useState<boolean>(active)
 
@@ -109,6 +110,7 @@ const Switch: React.FC<SwitchProps> = ({
   return (
     <SwitchButton color={getColor()} active={isActive} id={id}>
       <SwitchInput
+        {...props}
         type="checkbox"
         disabled={disabled}
         checked={isActive}

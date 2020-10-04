@@ -86,15 +86,23 @@ export type NotificationProps = {
   time?: number
 }
 
-export interface SwitchProps {
+export type SwitchProps = {
   id?: string
   active?: boolean
   disabled?: boolean
   color?: string
   offText?: string
   onText?: string
-  onClick: (param: boolean) => any
-}
+  onClick?: (param: boolean) => any
+} & HTMLAttributes<HTMLButtonElement>
+
+export type CheckBoxComponent = {
+  id?: string
+  active?: boolean
+  disabled?: boolean
+  color?: string
+  onClick?: (param: boolean) => any
+} & HTMLAttributes<HTMLButtonElement>
 
 export type InputProps = {
   id: string
