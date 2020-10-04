@@ -251,25 +251,7 @@ const DataList: React.FC<DataListComponent> = ({
   const [selectAll, setSelectAll] = useState<boolean>(false)
   const [selectedRowsData, setSelectedRowsData] = useState<any[]>([])
   const [searchValue, setSearchValue] = useState<string>("")
-  const [data, setData] = useState<any[]>(document)
-  const [filteredData, setfilteredData] = useState<any[]>(document)
-  const [viewLength, setViewLength] = useState<number>(5)
-  const [toggleSortIndex, setToggleSortIndex] = useState<number>(
-    defaultSortIndex
-  )
-  const textColor: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
-  const [paginationIndexes, setPaginationIndexes] = useState<PaginationIndexes>(
-    { startIndex: 0, endIndex: data.length }
-  )
-  const primaryColor: any = theme.colors.primary
-
-  const throwInvalidPropErr = (expected: string, recieved: string) => {
-    throw new Error(`Expected '${expected}' but got ${recieved}`)
-  }
-  const throwErr = (message: string) => {
-    throw new Error(`${message}`)
-  }
-
+  
   const sortDocumentASC = (selector: string, unsortedData: any[]): any[] => {
     const merge = (left, right) => {
       let resultArray = [],
@@ -304,6 +286,25 @@ const DataList: React.FC<DataListComponent> = ({
     }
     return mergeSort(unsortedData)
   }
+  const [data, setData] = useState<any[]>(
+    sortDocumentASC(columns[defaultSortIndex].selector, document)
+  )
+  const [filteredData, setfilteredData] = useState<any[]>(document)
+  const [viewLength, setViewLength] = useState<number>(5)
+  const [toggleSortIndex, setToggleSortIndex] = useState<number>(
+    defaultSortIndex
+  )
+  const textColor: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+  const [paginationIndexes, setPaginationIndexes] = useState<PaginationIndexes>(
+    { startIndex: 0, endIndex: data.length }
+  )
+  const primaryColor: any = theme.colors.primary
+
+  const throwErr = (message: string) => {
+    throw new Error(`${message}`)
+  }
+
+
   const sortDocumentDESC = (selector: string, unsortedData: any[]): any[] => {
     return sortDocumentASC(selector, unsortedData).reverse()
   }
@@ -358,11 +359,11 @@ const DataList: React.FC<DataListComponent> = ({
     setToggleSortIndex(idx)
 
     if (e.target.parentElement.classList.contains("rap-asc")) {
-      setData(sortDocumentDESC(selector, data))
+      setfilteredData(sortDocumentDESC(selector, filteredData))
       e.target.parentElement.classList.remove("rap-asc")
       e.target.parentElement.classList.add("rap-desc")
     } else {
-      setData(sortDocumentASC(selector, data))
+      setfilteredData(sortDocumentASC(selector, filteredData))
       e.target.parentElement.classList.remove("rap-desc")
       e.target.parentElement.classList.add("rap-asc")
     }
@@ -431,7 +432,7 @@ const DataList: React.FC<DataListComponent> = ({
   const arrayLikeMap = useCallback(
     (arr, map: Map<number | string, boolean>): boolean => {
       const mapToArr: any[] = Array.from(map)
-      
+
       let similar = true
       if (arr.length === arr.length && arr.length > 0) {
         for (let i = 0; i < arr.length; i++) {
@@ -450,7 +451,7 @@ const DataList: React.FC<DataListComponent> = ({
 
   const handleFilterData = useCallback(() => {
     const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
-
+    console.log(tmp)
     setfilteredData(tmp)
     if (selectAll && !arrayLikeMap(tmp, selected)) {
       setSelectAll(false)

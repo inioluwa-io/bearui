@@ -69,6 +69,7 @@ const PageButton: any = styled.button`
     background: ${(props: any) => props.color};
     font-weight: 500;
     font-size: 15px;
+    color: #ffffff;
   }
 `
 
