@@ -1,7 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { CheckBoxComponent } from "../types"
 import styled from "styled-components"
-import { rgba, lighten } from "polished"
 import { useTheme } from "../theme"
 import { getColorFromTheme } from "../util"
 import Icon from "@mdi/react"
@@ -9,8 +8,8 @@ import { mdiCheck } from "@mdi/js"
 
 const CheckboxButton: any = styled.button`
   position: relative;
-  width: 21px;
-  height: 21px;
+  width: 17px;
+  height: 17px;
   display: flex;
   flex-direction: center;
   justify-content: center;
@@ -62,10 +61,10 @@ const Check: any = styled.div`
   left: 50%;
   border-radius: 3px;
   transform: translate(-50%, -50%) scale3d(0, 0, 0) rotate(90deg);
-  padding: 2px;
+  padding: 3px;
   display: flex;
   transition: transform 0.35s cubic-bezier(0.38, 0.39, 0.3, 1.36);
-  flex-direction: center;
+  align-items: center;
   justify-content: center;
   ${(props: any) => `background:${props.color}`};
 
@@ -90,9 +89,17 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   const theme = useTheme()
 
   const themeColor: string = getColorFromTheme(color, theme)
+  useEffect(() => {
+    setIsActive(active)
+  }, [active])
 
   return (
-    <CheckboxButton color={themeColor} active={isActive} id={id}>
+    <CheckboxButton
+      color={themeColor}
+      active={isActive}
+      className="sc-checkbox"
+      id={id}
+    >
       <CheckboxInput
         {...props}
         type="checkbox"

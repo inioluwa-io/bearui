@@ -11,6 +11,7 @@ import { Button } from "../button"
 import { Dropdown } from "../dropdown"
 import { Pagination } from "../pagination"
 import { PaginationIndexes } from "../types"
+import { Checkbox } from "../checkbox"
 
 type TableBodyStyle = {
   background: string
@@ -46,9 +47,9 @@ const Table: StyledComponent<"table", any, any> = styled.table`
   }
 `
 
-const CheckBox: StyledComponent<"input", any> = styled.input`
-  cursor: pointer;
-`
+// const CheckBox: StyledComponent<"input", any> = styled.input`
+//   cursor: pointer;
+// `
 
 const DataListOption: StyledComponent<"label", any> = styled.label`
   cursor: pointer;
@@ -87,10 +88,10 @@ const DataListFilter: StyledComponent<"div", any, any> = styled.div`
 const TableHead: StyledComponent<"thead", any> = styled.thead`
   position: relative;
   tr.select {
-    input[type="checkbox"] {
+    .sc-checkbox {
       opacity: 1;
     }
-    &.selected input[type="checkbox"] {
+    &.selected .sc-checkbox {
       display: block;
     }
     th {
@@ -108,7 +109,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
     font-size: 12px;
     position: relative;
 
-    svg {
+    :not(.select-box) svg {
       opacity: 0;
       transition: all 0.35s;
       position: absolute;
@@ -135,7 +136,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
       }
     }
 
-    button {
+    button:not(.sc-checkbox) {
       background: transparent;
       text-transform: uppercase;
       outline: none;
@@ -176,8 +177,8 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
       }
     }
 
-    &:hover input[type="checkbox"],
-    &.selected input[type="checkbox"] {
+    &:hover .rap-checkbox,
+    &.selected .rap-checkbox {
       opacity: 1;
     }
 
@@ -187,7 +188,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
           padding-left: 35px;
         }
 
-        input[type="checkbox"] {
+        .rap-checkbox {
           display: block;
         }
       }
@@ -250,8 +251,8 @@ const DataList: React.FC<DataListComponent> = ({
   const [selectAll, setSelectAll] = useState<boolean>(false)
   const [selectedRowsData, setSelectedRowsData] = useState<any[]>([])
   const [searchValue, setSearchValue] = useState<string>("")
-  let tempData = []
   const [data, setData] = useState<any[]>(document)
+  const [filteredData, setfilteredData] = useState<any[]>(document)
   const [viewLength, setViewLength] = useState<number>(5)
   const [toggleSortIndex, setToggleSortIndex] = useState<number>(
     defaultSortIndex
@@ -332,11 +333,12 @@ const DataList: React.FC<DataListComponent> = ({
     return prevState
   }
 
-  const toggleSelectAll = () => {
+  const toggleSelectAll = useCallback(() => {
     let prevState: Map<number | string, boolean> = new Map(selected)
     // selecte all
+
     if (!selectAll) {
-      tempData.forEach((itemData, idx: number) => {
+      filteredData.forEach(itemData => {
         prevState.set(itemData.id, true)
       })
       setSelected(prevState)
@@ -350,7 +352,7 @@ const DataList: React.FC<DataListComponent> = ({
       getSelectorRowData(prevState)
       setSelectAll(false)
     }
-  }
+  }, [selected, paginationIndexes])
 
   const toggleSort = (e: any, selector: any, idx: number) => {
     setToggleSortIndex(idx)
@@ -401,6 +403,7 @@ const DataList: React.FC<DataListComponent> = ({
 
   const checkSearch = useCallback(
     (dataItem): boolean => {
+      let tempData = []
       let found = false
       if (searchValue.length) {
         for (let i = 0; i < columns.length; i++) {
@@ -425,9 +428,42 @@ const DataList: React.FC<DataListComponent> = ({
     [searchValue]
   )
 
+  const arrayLikeMap = useCallback(
+    (arr, map: Map<number | string, boolean>): boolean => {
+      const mapToArr: any[] = Array.from(map)
+      
+      let similar = true
+      if (arr.length === arr.length && arr.length > 0) {
+        for (let i = 0; i < arr.length; i++) {
+          const valueExists = mapToArr.find(item => item[0] === arr[i].id)
+          if (valueExists === undefined || !valueExists) {
+            return false
+          }
+        }
+      } else {
+        similar = false
+      }
+      return similar
+    },
+    [filteredData]
+  )
+
+  const handleFilterData = useCallback(() => {
+    const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
+
+    setfilteredData(tmp)
+    if (selectAll && !arrayLikeMap(tmp, selected)) {
+      setSelectAll(false)
+    } else if (!selectAll && arrayLikeMap(tmp, selected)) {
+      setSelectAll(true)
+    }
+    getSelectorRowData(selected)
+  }, [checkSearch])
+
   useEffect(() => {
     setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
-  }, [])
+    handleFilterData()
+  }, [handleFilterData])
 
   return (
     <FlexColumn style={{ width: "100%" }} {...props}>
@@ -479,7 +515,6 @@ const DataList: React.FC<DataListComponent> = ({
               clearButton
               id="datalist-search"
               onInputChange={value => {
-                tempData = []
                 setSearchValue(value)
               }}
               placeholder="Search"
@@ -519,12 +554,11 @@ const DataList: React.FC<DataListComponent> = ({
                 check ? (selected.size ? "select selected" : "select") : ""
               }
             >
-              <th>
+              <th className="select-box">
                 {check && (
-                  <CheckBox
-                    type="checkbox"
-                    checked={selectAll}
-                    onChange={() => {
+                  <Checkbox
+                    active={selectAll}
+                    onClick={() => {
                       toggleSelectAll()
                       onRowSelect(!selectAll ? data : [])
                     }}
@@ -567,8 +601,7 @@ const DataList: React.FC<DataListComponent> = ({
             cardBackground={background}
             primaryColor={primaryColor}
           >
-            {data
-              .filter((dataItem: any) => checkSearch(dataItem))
+            {filteredData
               .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
               .map((dataItem: any, idx: number) => {
                 return (
@@ -593,11 +626,10 @@ const DataList: React.FC<DataListComponent> = ({
                       }}
                     >
                       {check && (
-                        <CheckBox
+                        <Checkbox
                           id={"rap-cb-" + idx}
-                          checked={!!selected.get(dataItem.id)}
-                          type="checkbox"
-                          onChange={() => {
+                          active={!!selected.get(dataItem.id)}
+                          onClick={() => {
                             toggleCheck(dataItem.id)
                             onRowSelect(selectedRowsData)
                           }}
@@ -653,11 +685,7 @@ const DataList: React.FC<DataListComponent> = ({
       <FlexRow align="right">
         <Pagination
           perPage={viewLength}
-          documentLength={
-            data.filter((dataItem: any, idx: number) => {
-              if (checkSearch(dataItem)) return dataItem
-            }).length
-          }
+          documentLength={filteredData.length}
           onPageGoto={(startIndex, endIndex) => {
             setPaginationIndexes({ startIndex, endIndex })
           }}
