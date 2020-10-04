@@ -246,6 +246,7 @@ export type DataListComponent = {
   actionList?: ActionItem[]
   onRowSelect?: (data: any) => void
   onRowClick?: (data: any) => void
+  uniqueIdentifier?: string
 } & HTMLAttributes<HTMLDivElement>
 
 // end

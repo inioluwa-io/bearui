@@ -48,6 +48,23 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                 // console.log(data)
               }}
               defaultSortIndex={1}
+              uniqueIdentifier = "id"
+              actionList={[
+                {
+                  color: "primary",
+                  text: "Edit",
+                  onClick: value => {
+                    console.log(value)
+                  },
+                },
+                {
+                  color: "danger",
+                  text: "Delete",
+                  onClick: value => {
+                    console.log(value)
+                  },
+                },
+              ]}
               renderRule={[
                 {
                   selector: "img",
@@ -65,10 +82,9 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
               columns={[
                 { name: " ", selector: "img" },
                 { name: "Firstname", selector: "user" },
-                { name: "Age", selector: "age" },
                 { name: "Popularity", selector: "popularity" },
                 { name: "Status", selector: "price" },
-                { name: "Phone", selector: "phone" },
+                { name: "Age", selector: "age" },
               ]}
               document={[
                 {

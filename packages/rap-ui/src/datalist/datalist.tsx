@@ -235,6 +235,7 @@ const DataList: React.FC<DataListComponent> = ({
       },
     },
   ],
+  uniqueIdentifier = "id",
   renderRule = [],
   defaultSortIndex = 1,
   onRowSelect,
@@ -251,7 +252,7 @@ const DataList: React.FC<DataListComponent> = ({
   const [selectAll, setSelectAll] = useState<boolean>(false)
   const [selectedRowsData, setSelectedRowsData] = useState<any[]>([])
   const [searchValue, setSearchValue] = useState<string>("")
-  
+
   const sortDocumentASC = (selector: string, unsortedData: any[]): any[] => {
     const merge = (left, right) => {
       let resultArray = [],
@@ -304,7 +305,6 @@ const DataList: React.FC<DataListComponent> = ({
     throw new Error(`${message}`)
   }
 
-
   const sortDocumentDESC = (selector: string, unsortedData: any[]): any[] => {
     return sortDocumentASC(selector, unsortedData).reverse()
   }
@@ -340,7 +340,7 @@ const DataList: React.FC<DataListComponent> = ({
 
     if (!selectAll) {
       filteredData.forEach(itemData => {
-        prevState.set(itemData.id, true)
+        prevState.set(itemData[uniqueIdentifier], true)
       })
       setSelected(prevState)
       getSelectorRowData(prevState)
@@ -394,7 +394,7 @@ const DataList: React.FC<DataListComponent> = ({
       if (rowMapData) {
         // find match of id in sorted data and push to array
         selectedRows.push(
-          data.find((rowData: any) => +rowData.id === +rowMapIdx)
+          data.find((rowData: any) => +rowData[uniqueIdentifier] === +rowMapIdx)
         )
       }
     }
@@ -436,7 +436,7 @@ const DataList: React.FC<DataListComponent> = ({
       let similar = true
       if (arr.length === arr.length && arr.length > 0) {
         for (let i = 0; i < arr.length; i++) {
-          const valueExists = mapToArr.find(item => item[0] === arr[i].id)
+          const valueExists = mapToArr.find(item => item[0] === arr[i][uniqueIdentifier])
           if (valueExists === undefined || !valueExists) {
             return false
           }
@@ -610,7 +610,7 @@ const DataList: React.FC<DataListComponent> = ({
                     key={data.length - idx}
                     className={
                       check
-                        ? selected.get(dataItem.id)
+                        ? selected.get(dataItem[uniqueIdentifier])
                           ? "select selected"
                           : "select"
                         : ""
@@ -619,9 +619,9 @@ const DataList: React.FC<DataListComponent> = ({
                     <td
                       style={{ fontSize: "12px" }}
                       onClick={(e: any) => {
-                        if (e.target.parentElement.id !== "rap-cb-" + idx) {
+                        if (e.target.parentElement[uniqueIdentifier] !== "rap-cb-" + idx) {
                           onRowClick(dataItem)
-                          toggleCheck(dataItem.id)
+                          toggleCheck(dataItem[uniqueIdentifier])
                           onRowSelect(selectedRowsData)
                         }
                       }}
@@ -629,9 +629,9 @@ const DataList: React.FC<DataListComponent> = ({
                       {check && (
                         <Checkbox
                           id={"rap-cb-" + idx}
-                          active={!!selected.get(dataItem.id)}
+                          active={!!selected.get(dataItem[uniqueIdentifier])}
                           onClick={() => {
-                            toggleCheck(dataItem.id)
+                            toggleCheck(dataItem[uniqueIdentifier])
                             onRowSelect(selectedRowsData)
                           }}
                         />
@@ -641,8 +641,8 @@ const DataList: React.FC<DataListComponent> = ({
                       <td
                         key={idx}
                         onClick={(e: any) => {
-                          if (e.target.parentElement.id !== "rap-cb-" + idx) {
-                            toggleCheck(dataItem.id)
+                          if (e.target.parentElement[uniqueIdentifier] !== "rap-cb-" + idx) {
+                            toggleCheck(dataItem[uniqueIdentifier])
                             onRowSelect(selectedRowsData)
                           }
                         }}
