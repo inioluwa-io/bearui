@@ -20,6 +20,31 @@ const ChipPage: React.FC<any> = () => {
     "GitHub",
     "Netlify",
   ])
+  const [suggestion, setSuggestion] = useState<string[]>([])
+  const generateRandomString = (prefix: string, length: number): string => {
+    const randomLength = Math.floor(Math.random() * length + 1) + 2
+    const character: string = "abcdefghijklmnopqrstuvwxyz"
+    let str: string = prefix
+
+    for (let i = 0; i < randomLength; i++) {
+      const randomCharacter =
+        character[Math.floor(Math.random() * character.length)]
+      str += randomCharacter
+    }
+    return str
+  }
+
+  const generateArrayOfString = (
+    prefix: string,
+    maxLength: number
+  ): string[] => {
+    let result = []
+    for (let i = 0; i < 4; i++) {
+      const randomStr = generateRandomString(prefix, maxLength)
+      result.push(randomStr)
+    }
+    return result
+  }
   return (
     <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
@@ -151,6 +176,10 @@ const ChipPage: React.FC<any> = () => {
                   setItem(value)
                 }}
                 items={items}
+                autoSuggestion={suggestion}
+                onInputChange={(value: string) => {
+                  setSuggestion(generateArrayOfString(value, 5))
+                }}
               >
                 React
               </Chip>

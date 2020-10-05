@@ -41,14 +41,11 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
           </Card>
           <Card xsCol="12" withBackground={false}>
             <DataList
-              onRowClick={(data: any) => {
-                // console.log(data)
-              }}
-              onRowSelect={(data: any) => {
-                // console.log(data)
+              onRowSelect={(data: any[]) => {
+                console.log(data)
               }}
               defaultSortIndex={1}
-              uniqueIdentifier = "id"
+              uniqueIdentifier="_id"
               actionList={[
                 {
                   color: "primary",
@@ -72,7 +69,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                     <Avatar
                       badgeColor="warning"
                       withBadge
-                      badgeText={data.id}
+                      badgeText={data._id}
                       size="xs"
                       src={data.img}
                     />
@@ -88,7 +85,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
               ]}
               document={[
                 {
-                  id: 1,
+                  _id: 1,
                   user: "Iniolwa Sogelola",
                   age: "fema",
                   img: img,
@@ -97,7 +94,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                   phone: "0983fkfkfk8",
                 },
                 {
-                  id: 2,
+                  _id: 2,
                   user: "Wema Bank",
                   age: "femaa",
                   img: img1,
@@ -106,7 +103,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                   phone: "098ks938",
                 },
                 {
-                  id: 3,
+                  _id: 3,
                   user: "Alingo Dangote",
                   age: "femad",
                   img: img,
@@ -115,7 +112,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                   phone: "098d38",
                 },
                 {
-                  id: 4,
+                  _id: 4,
                   user: "Keve Oghenekeve",
                   age: "femas",
                   img: img1,
@@ -124,7 +121,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                   phone: "0983238",
                 },
                 {
-                  id: 5,
+                  _id: 5,
                   user: "James Bond",
                   age: "12",
                   img: img,
@@ -133,7 +130,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                   phone: "0983248",
                 },
                 {
-                  id: 6,
+                  _id: 6,
                   user: "Lucas Scott",
                   age: "femfva",
                   img: img1,

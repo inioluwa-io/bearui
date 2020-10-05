@@ -202,23 +202,25 @@ const Pagination: React.FC<PagnitionComponent> = ({
         >
           <Icon path={mdi[prevIcon]} color={textColor} size={0.75} />
         </ControlButton>
-        <PagesContainer backgroundColor={backgroundColor}>
-          {pages.map((page: number, idx: number) => (
-            <PageButton
-              key={idx}
-              backgroundColor={backgroundColor}
-              color={themeColor}
-              onClick={() => {
-                if (typeof page === "number") {
-                  gotoPage(+page)
-                }
-              }}
-              className={currentPage === +page ? "active" : ""}
-            >
-              {page}
-            </PageButton>
-          ))}
-        </PagesContainer>
+        {!!pages.length && (
+          <PagesContainer backgroundColor={backgroundColor}>
+            {pages.map((page: number, idx: number) => (
+              <PageButton
+                key={idx}
+                backgroundColor={backgroundColor}
+                color={themeColor}
+                onClick={() => {
+                  if (typeof page === "number") {
+                    gotoPage(+page)
+                  }
+                }}
+                className={currentPage === +page ? "active" : ""}
+              >
+                {page}
+              </PageButton>
+            ))}
+          </PagesContainer>
+        )}
         <ControlButton
           onClick={handleNext}
           color={themeColor}

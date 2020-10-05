@@ -239,7 +239,6 @@ const DataList: React.FC<DataListComponent> = ({
   renderRule = [],
   defaultSortIndex = 1,
   onRowSelect,
-  onRowClick,
   ...props
 }) => {
   const theme = useTheme()
@@ -330,7 +329,7 @@ const DataList: React.FC<DataListComponent> = ({
       }
     }
     setSelected(prevState)
-    getSelectorRowData(prevState)
+    onRowSelect(getSelectorRowData(prevState))
     return prevState
   }
 
@@ -343,14 +342,14 @@ const DataList: React.FC<DataListComponent> = ({
         prevState.set(itemData[uniqueIdentifier], true)
       })
       setSelected(prevState)
-      getSelectorRowData(prevState)
+      onRowSelect(getSelectorRowData(prevState))
       setSelectAll(true)
     }
     // deselect all
     else {
       prevState.clear()
       setSelected(prevState)
-      getSelectorRowData(prevState)
+      onRowSelect(getSelectorRowData(prevState))
       setSelectAll(false)
     }
   }, [selected, paginationIndexes])
@@ -436,7 +435,9 @@ const DataList: React.FC<DataListComponent> = ({
       let similar = true
       if (arr.length === arr.length && arr.length > 0) {
         for (let i = 0; i < arr.length; i++) {
-          const valueExists = mapToArr.find(item => item[0] === arr[i][uniqueIdentifier])
+          const valueExists = mapToArr.find(
+            item => item[0] === arr[i][uniqueIdentifier]
+          )
           if (valueExists === undefined || !valueExists) {
             return false
           }
@@ -561,7 +562,6 @@ const DataList: React.FC<DataListComponent> = ({
                     active={selectAll}
                     onClick={() => {
                       toggleSelectAll()
-                      onRowSelect(!selectAll ? data : [])
                     }}
                   />
                 )}
@@ -619,10 +619,11 @@ const DataList: React.FC<DataListComponent> = ({
                     <td
                       style={{ fontSize: "12px" }}
                       onClick={(e: any) => {
-                        if (e.target.parentElement[uniqueIdentifier] !== "rap-cb-" + idx) {
-                          onRowClick(dataItem)
+                        if (
+                          e.target.parentElement[uniqueIdentifier] !==
+                          "rap-cb-" + idx
+                        ) {
                           toggleCheck(dataItem[uniqueIdentifier])
-                          onRowSelect(selectedRowsData)
                         }
                       }}
                     >
@@ -632,7 +633,6 @@ const DataList: React.FC<DataListComponent> = ({
                           active={!!selected.get(dataItem[uniqueIdentifier])}
                           onClick={() => {
                             toggleCheck(dataItem[uniqueIdentifier])
-                            onRowSelect(selectedRowsData)
                           }}
                         />
                       )}
@@ -641,9 +641,12 @@ const DataList: React.FC<DataListComponent> = ({
                       <td
                         key={idx}
                         onClick={(e: any) => {
-                          if (e.target.parentElement[uniqueIdentifier] !== "rap-cb-" + idx) {
+                          if (
+                            e.target.parentElement[uniqueIdentifier] !==
+                            "rap-cb-" + idx
+                          ) {
                             toggleCheck(dataItem[uniqueIdentifier])
-                            onRowSelect(selectedRowsData)
+                            // onRowSelect(selectedRowsData)
                           }
                         }}
                       >

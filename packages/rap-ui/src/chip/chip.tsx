@@ -1,8 +1,8 @@
 import Icon from "@mdi/react"
 import * as mdi from "@mdi/js"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import { rgba, darken } from "polished"
+import { rgba, darken, buttons } from "polished"
 import { ChipComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 import { getColorFromTheme } from "../util"
@@ -44,6 +44,7 @@ const ChipItemsContainer: any = styled.div`
     padding: 15px;
     width: calc(100% - 30px);
     position: relative;
+    background: ${(props: any) => props.background};
   }
   .sc-cnt-chip {
     margin-right: 35px;
@@ -61,6 +62,27 @@ const ChipItemsContainer: any = styled.div`
     &::placeholder {
       color: #999;
     }
+  }
+`
+
+const ChipSuggestionContainer: any = styled.div`
+  width: 100%;
+  box-shadow: 0 0 30px -12px ${(props: any) => darken(0.25, props.boxShadow)};
+  border-radius: 10px;
+  width: calc(100% - 0px);
+  margin-top: 10px;
+  position: relative;
+  background: ${(props: any) => props.background};
+
+  button {
+    background: transparent;
+    border: none;
+    display: block;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    text-align: left;
   }
 `
 const ChipSingleContainer: any = styled.div`
@@ -157,6 +179,35 @@ const ChipSingle: React.FC<ChipSingleComponent> = ({
   )
 }
 
+const ChipAutoSuggestion: React.FC<any> = ({
+  setInputValue,
+  suggestions,
+  handleAdd,
+  background,
+  boxShadow,
+}) => {
+  const [suggestion, setSuggeestion] = useState(suggestions)
+  useEffect(() => {
+    setSuggeestion(suggestions)
+  }, [suggestions])
+  return (
+    <ChipSuggestionContainer background={background} boxShadow={boxShadow}>
+      {suggestion.map((item: string, idx: number) => (
+        <button
+          key={idx}
+          onClick={() => {
+            handleAdd(item)
+            setSuggeestion([])
+            setInputValue("")
+          }}
+        >
+          {item}
+        </button>
+      ))}
+    </ChipSuggestionContainer>
+  )
+}
+
 const ChipItems: React.FC<any> = ({
   items,
   children,
@@ -168,16 +219,24 @@ const ChipItems: React.FC<any> = ({
   handleAdd,
   onItemUpdate,
   handleClear,
+  onInputChange,
+  autoSuggestion,
   ...props
 }) => {
   const [inputValue, setInputValue] = useState<string>("")
   const [themeMode] = useThemeMode()
   const theme = useTheme()
   const boxShadow = darken(0, theme[themeMode].background)
+  const [suggestions, setSuggeestions] = useState(autoSuggestion)
 
-  const handleUpdateInput = e => {
-    setInputValue(e.target.value)
+  const handleUpdateInput = (value: string) => {
+    setInputValue(value)
+    onInputChange(value)
   }
+
+  useEffect(() => {
+    setSuggeestions(autoSuggestion)
+  }, [autoSuggestion])
 
   const handleAddItem = e => {
     if (e.which === 13 || e.keyCode === 13 || e.code === "Enter") {
@@ -185,12 +244,34 @@ const ChipItems: React.FC<any> = ({
         handleAdd(inputValue)
         setInputValue("")
         onItemUpdate([...items, inputValue])
+        setSuggeestions([])
       }
     }
   }
 
+  const throwAutoSuggestionError = () => {
+    if (autoSuggestion) {
+      if (!(autoSuggestion instanceof Array)) {
+        throw new Error(
+          `autoSuggestion expects property to be an Array of strings`
+        )
+      }
+      if (typeof onInputChange !== "function") {
+        throw new TypeError(
+          `onInputChange expected to be a function and passed together with autoSuggestion. Try passing a function to onInputChange property on Chip component`
+        )
+      }
+    }
+  }
+
+  throwAutoSuggestionError()
+
   return (
-    <ChipItemsContainer {...props} boxShadow={boxShadow}>
+    <ChipItemsContainer
+      {...props}
+      boxShadow={boxShadow}
+      background={theme[themeMode].cardbackground}
+    >
       <FlexRow className="sc-cont" position="center">
         <FlexRow className="sc-cnt-chip" position="center">
           {items.map((item, idx: number) => (
@@ -209,8 +290,10 @@ const ChipItems: React.FC<any> = ({
           <input
             type="text"
             placeholder={itemsPlaceholder}
-            onChange={handleUpdateInput}
-            onKeyUp={handleAddItem}
+            onChange={e => {
+              handleUpdateInput(e.target.value)
+            }}
+            onKeyDown={handleAddItem}
             value={inputValue}
           />
         </FlexRow>
@@ -222,6 +305,15 @@ const ChipItems: React.FC<any> = ({
           <Icon path={mdi.mdiClose} size={0.85} color="#f4f4f4" />
         </ClearButtonContainer>
       </FlexRow>
+      {suggestions && !!suggestions.length && (
+        <ChipAutoSuggestion
+          setInputValue={setInputValue}
+          handleAdd={handleAdd}
+          suggestions={suggestions}
+          boxShadow={boxShadow}
+          background={theme[themeMode].cardbackground}
+        />
+      )}
     </ChipItemsContainer>
   )
 }
@@ -235,6 +327,8 @@ const Chip: React.FC<ChipComponent> = ({
   transparent = false,
   itemsPlaceholder = "Add a chip here...",
   onItemUpdate,
+  onInputChange,
+  autoSuggestion,
   ...props
 }) => {
   const [chipsItem, setChipsItem] = useState(items || [""])
@@ -292,6 +386,8 @@ const Chip: React.FC<ChipComponent> = ({
         handleClear={handleClear}
         itemsPlaceholder={itemsPlaceholder}
         onItemUpdate={onItemUpdate}
+        onInputChange={onInputChange}
+        autoSuggestion={autoSuggestion}
       ></ChipItems>
     )
   }

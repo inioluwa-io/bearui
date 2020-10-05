@@ -245,7 +245,6 @@ export type DataListComponent = {
   defaultSortIndex?: number
   actionList?: ActionItem[]
   onRowSelect?: (data: any) => void
-  onRowClick?: (data: any) => void
   uniqueIdentifier?: string
 } & HTMLAttributes<HTMLDivElement>
 
@@ -350,7 +349,9 @@ export type ChipComponent = {
   transparent?: boolean
   items?: string[]
   itemsPlaceholder?: string
+  autoSuggestion?: any []
   onItemUpdate?: (value: string[]) => void
+  onInputChange?: (value: string) => void
 } & HTMLAttributes<HTMLDivElement>
 // end
 
