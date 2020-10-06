@@ -6,7 +6,6 @@ import {
   Container,
   Grid,
   Collapse,
-  FlexColumn,
 } from "@rap/ui"
 import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"

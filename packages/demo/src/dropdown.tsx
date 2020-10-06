@@ -6,7 +6,6 @@ import {
   Container,
   Grid,
   Button,
-  FlexColumn,
   Dropdown,
 } from "@rap/ui"
 import Icon from "@mdi/react"

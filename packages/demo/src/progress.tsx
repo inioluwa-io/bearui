@@ -1,19 +1,12 @@
 import React from "react"
 import {
   Container,
-  FlexColumn,
   Card,
-  Progress,
-  Datatable,
   Checkbox,
-  Chip,
-  Avatar,
   Breadcrumb,
   FlexRow,
   Grid,
 } from "@rap/ui"
-import img from "./dp1.jpg"
-import img1 from "./brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 

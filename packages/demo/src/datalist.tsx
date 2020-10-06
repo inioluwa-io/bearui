@@ -1,10 +1,8 @@
 import React from "react"
 import {
   Container,
-  FlexColumn,
   Card,
   Progress,
-  Datatable,
   DataList,
   Chip,
   Avatar,
