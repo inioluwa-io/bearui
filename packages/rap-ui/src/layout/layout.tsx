@@ -4,7 +4,7 @@ import { useTheme, useThemeMode } from "../theme"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
-import { darken, lighten } from "polished"
+import { lighten } from "polished"
 import FlexRow from "./flexRow"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {

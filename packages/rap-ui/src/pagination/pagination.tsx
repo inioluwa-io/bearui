@@ -6,7 +6,6 @@ import Icon from "@mdi/react"
 import { useTheme, useThemeMode } from "../theme"
 import { getColorFromTheme } from "../util"
 import * as mdi from "@mdi/js"
-import { rgba, lighten } from "polished"
 
 const PaginationContainer: any = styled.div`
   font-size: initial;

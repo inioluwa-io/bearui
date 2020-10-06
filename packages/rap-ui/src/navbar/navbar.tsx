@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
-import { darken, lighten } from "polished"
+import { darken } from "polished"
 import { NavbarComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 
