@@ -1,13 +1,13 @@
-import React from "react"
+import React, { HTMLAttributes } from "react"
 import styled, { StyledComponent } from "styled-components"
 
-export type ContainerProps = { gap?: string }
+export type ContainerProps = { gap?: string } & HTMLAttributes<HTMLDivElement>
 
 const ContainerDiv: StyledComponent<"div", any> = styled.div`
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  margin: 15px;
   text-align: left;
 
   > .rap-card {
@@ -31,7 +31,7 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
   }
 `
 
-const Container: React.FC<ContainerProps> = ({ children }) => {
-  return <ContainerDiv>{children}</ContainerDiv>
+const Container: React.FC<ContainerProps> = ({ children, ...props }) => {
+  return <ContainerDiv {...props}>{children}</ContainerDiv>
 }
 export default Container

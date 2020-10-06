@@ -26,6 +26,7 @@ const Table: StyledComponent<"table", any, any> = styled.table`
   width: calc(100% - 4px);
   padding: 2px;
   white-space: nowrap;
+  padding-top: ${(props: any) => props.paddingTop * 25}px;
 
   .dl-opt {
     padding: 3px;
@@ -549,7 +550,7 @@ const DataList: React.FC<DataListComponent> = ({
         style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}
         {...props}
       >
-        <Table>
+        <Table paddingTop={actionList.length}>
           <TableHead id="rap-t-hd">
             <tr
               className={

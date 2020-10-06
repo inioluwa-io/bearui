@@ -1,13 +1,8 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-} from "react"
+import React, { useRef, useEffect, useState, useCallback } from "react"
 import { DropdownComponent } from "../types"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
-import { rgba, darken, lighten } from "polished"
+import { darken, lighten } from "polished"
 import { FlexRow } from "../layout"
 import Icon from "@mdi/react"
 import { mdiChevronDown } from "@mdi/js"
@@ -16,7 +11,7 @@ import { Link } from "react-router-dom"
 const DropdownElement: any = styled.span`
   position: absolute;
   width: max-content;
-  max-width: 11rem;
+  max-width: 20rem;
   min-width: 3rem;
   z-index: 9999;
   background: ${(props: any) => props.background};
@@ -28,7 +23,7 @@ const DropdownElement: any = styled.span`
   font-size: 14px;
   visibility: hidden;
   ${(props: any) => props.position}
-  box-shadow: 0px 2px 5px ${rgba("#000", 0.25)};
+  box-shadow: 0px 2px 5px ${(props: any) => darken(0.05, props.boxShadow)};
 
   &.active {
     opacity: 1;
@@ -59,8 +54,9 @@ const DropdownList: any = styled.ul`
 
   li {
     display: block;
-    padding: 5px;
-    width: calc(100% - 10px);
+    padding: 10px 7px;
+    width: calc(100% - 14px);
+    text-align: left;
 
     a {
       text-decoration: none;
@@ -91,7 +87,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
 
   let indicatorBackground = lighten(0.2, theme[themeMode].background)
   if (themeMode === "darkmode") {
-    indicatorBackground = darken(0.035, theme[themeMode].background)
+    indicatorBackground = lighten(0.04, theme[themeMode].background)
     indicatorColor = "#f4f4f4"
   }
 
@@ -226,7 +222,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
           cursor: "pointer",
         }}
       >
-        <FlexRow gap="7px" position="bottom">
+        <FlexRow gap="7px" position="center">
           {children}
           {showIcon && (
             <Icon path={mdiChevronDown} size={0.7} color={indicatorColor} />
@@ -250,7 +246,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
           <li
             key={idx}
             onClick={() => {
-              handleBlur()
+              // handleBlur()
             }}
           >
             {item}
@@ -263,6 +259,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
   return (
     <DropdownContainer ref={refs} {...props}>
       <DropdownElement
+        boxShadow={theme[themeMode].background}
         position={getPosition()}
         background={indicatorBackground}
         color={indicatorColor}

@@ -116,7 +116,7 @@ const Notification: React.FC<NotifyProps> = ({
             </HeaderIcon>
             <h2
               style={{
-                fontSize: "16px",
+                fontSize: "15px",
                 margin: 0,
                 fontWeight: "bold",
                 color: themeMode === "darkmode" ? "#ffffff" : "#555",
@@ -127,7 +127,7 @@ const Notification: React.FC<NotifyProps> = ({
           </div>
           <p
             style={{
-              fontSize: "15px",
+              fontSize: "14px",
               color: themeMode === "darkmode" ? "#ffffff" : "#555",
               margin: "4px 0",
             }}

@@ -349,7 +349,7 @@ export type ChipComponent = {
   transparent?: boolean
   items?: string[]
   itemsPlaceholder?: string
-  autoSuggestion?: any []
+  autoSuggestion?: any[]
   onItemUpdate?: (value: string[]) => void
   onInputChange?: (value: string) => void
 } & HTMLAttributes<HTMLDivElement>
@@ -375,5 +375,20 @@ export type PagnitionComponent = {
   color?: string
   prevIcon?: string
   nextIcon?: string
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// Navbar
+export type NavbarComponent = {
+  links: (ReactElement | string)[]
+  pinToMobile?: number[]
+  position?: "static" | "sticky" | "hidden" | "floating"
+} & HTMLAttributes<HTMLDivElement>
+// end
+
+// Layout
+export type LayoutComponent = {
+  navbar?: React.FC<NavbarComponent>
+  notification: NotifyProps[]
 } & HTMLAttributes<HTMLDivElement>
 // end

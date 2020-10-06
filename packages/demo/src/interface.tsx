@@ -17,7 +17,6 @@ const Interface: React.FC<any> = () => {
   const [themeMode, setThemeMode] = useThemeMode()
   const [, addNotification] = useNotification()
   const [openModal, setOpenModal] = useState<boolean>(false)
- 
 
   return (
     <>
@@ -37,50 +36,48 @@ const Interface: React.FC<any> = () => {
         </FlexColumn>
       </Modal>
 
-      <FlexColumn style={{ width: "100%", height: "100%", minHeight: "100vh" }}>
-        <Container>
-          <Grid lgCol="3" mdCol="3" xsCol="12"></Grid>
+      <Container>
+        <Grid lgCol="3" mdCol="3" xsCol="12"></Grid>
 
-          <Card align="center" lgCol="3" mdCol="4" smCol="5" xsCol="12">
-            <h4>User Interface controls</h4>
-            <FlexRow center>
-              <p>Switch from {themeMode}</p>
-              <Switch
-                active={themeMode === "darkmode" ? true : false}
-                color="success"
-                onClick={(value: boolean) => {
-                  value ? setThemeMode("darkmode") : setThemeMode("lightmode")
-                }}
-              />
-            </FlexRow>
-            <FlexColumn gap="10px" align="stretch">
-              <Button
-                background="info"
-                onClick={() => {
-                  addNotification({
-                    title: "Award Unlocked!",
-                    icon: "mdiTrophy",
-                    text:
-                      Math.floor(Math.random() * 100) +
-                      "You have reached level 13 and you have been given free 300 coins and +3XP.",
-                  })
-                }}
-              >
-                Push Notification
-              </Button>
-              <Button
-                background="dark"
-                onClick={() => {
-                  setOpenModal(true)
-                }}
-                size="md"
-              >
-                Modal
-              </Button>
-            </FlexColumn>
-          </Card>
-        </Container>
-      </FlexColumn>
+        <Card align="center" lgCol="3" mdCol="4" smCol="5" xsCol="12">
+          <h4>User Interface controls</h4>
+          <FlexRow center>
+            <p>Switch from {themeMode}</p>
+            <Switch
+              active={themeMode === "darkmode" ? true : false}
+              color="success"
+              onClick={(value: boolean) => {
+                value ? setThemeMode("darkmode") : setThemeMode("lightmode")
+              }}
+            />
+          </FlexRow>
+          <FlexColumn gap="10px" align="stretch">
+            <Button
+              background="info"
+              onClick={() => {
+                addNotification({
+                  title: "Award Unlocked!",
+                  icon: "mdiTrophy",
+                  text:
+                    Math.floor(Math.random() * 100) +
+                    "You have reached level 13 and you have been given free 300 coins and +3XP.",
+                })
+              }}
+            >
+              Push Notification
+            </Button>
+            <Button
+              background="dark"
+              onClick={() => {
+                setOpenModal(true)
+              }}
+              size="md"
+            >
+              Modal
+            </Button>
+          </FlexColumn>
+        </Card>
+      </Container>
     </>
   )
 }

@@ -1,8 +1,19 @@
 import React, { useEffect } from "react"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, Link } from "react-router-dom"
 import "./App.css"
 import Login from "./login"
-import { useTheme, useThemeMode, Notification, NotifyProps } from "@rap/ui"
+import {
+  useTheme,
+  useThemeMode,
+  Notification,
+  NotifyProps,
+  Avatar,
+  FlexRow,
+  Navbar,
+  Layout,
+  Switch as UiSwitch,
+  Dropdown,
+} from "@rap/ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "@rap/core"
 import Table from "./table"
@@ -10,11 +21,12 @@ import BreadcrumbPage from "./breadcrumb"
 import TooltipPage from "./tooltip"
 import Interface from "./interface"
 import Login2 from "./login2"
-import Dropdown from "./dropdown"
+import DropdownPage from "./dropdown"
 import CollapsePage from "./collapse"
 import ChipPage from "./chips"
 import DataListPage from "./datalist"
 import ProgressPage from "./progress"
+import img from "./brooks-leibee-562087-unsplash.jpg"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -45,7 +57,7 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
 }
 const App: React.FC<any> = () => {
   const dataProvider = useDataProvider()
-  const [notification] = useNotification(6000)
+  const [notification] = useNotification(8000)
 
   const URL =
     process.env.NODE_ENV === "production"
@@ -57,17 +69,45 @@ const App: React.FC<any> = () => {
     dataProvider.getOne("/publish", URL)
   }, [dataProvider, URL])
 
-  const [themeMode] = useThemeMode()
+  const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
 
   return (
     <div className="App">
-      <NotificationComponent notification={notification} />
-      <header
-        className="App-header"
-        style={{ background: theme[themeMode].background }}
-      >
-        <Switch>
+      <Switch>
+        <Layout
+          notification={notification}
+          navbar={
+            <Navbar
+              links={[
+                <Link to="/">Home</Link>,
+                <Link to="/">About</Link>,
+                <Link to="/">Contact</Link>,
+                <Dropdown
+                  list={[
+                    "list 1",
+                    "list 2",
+                    <FlexRow center>
+                      <p>Switch from {themeMode}</p>
+                      <UiSwitch
+                        active={themeMode === "darkmode" ? true : false}
+                        color="success"
+                        onClick={(value: boolean) => {
+                          value
+                            ? setThemeMode("darkmode")
+                            : setThemeMode("lightmode")
+                        }}
+                      />
+                    </FlexRow>,
+                  ]}
+                  listener="click"
+                >
+                  <Avatar alt="avatar" size="xs" text="LD" src={img} />
+                </Dropdown>,
+              ]}
+            />
+          }
+        >
           <Route
             exact
             path="/"
@@ -99,7 +139,7 @@ const App: React.FC<any> = () => {
           />
           <Route
             path="/dropdown"
-            component={(props: any) => <Dropdown {...props} />}
+            component={(props: any) => <DropdownPage {...props} />}
           />
           <Route
             path="/collapse"
@@ -117,8 +157,8 @@ const App: React.FC<any> = () => {
             path="/datalist"
             component={(props: any) => <DataListPage {...props} />}
           />
-        </Switch>
-      </header>
+        </Layout>
+      </Switch>
     </div>
   )
 }
