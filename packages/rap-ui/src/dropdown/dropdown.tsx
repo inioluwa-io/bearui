@@ -211,7 +211,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
 
   const renderChildren: React.FC<any> = children => {
     return (
-      <button
+      <label
         style={{
           background: "transparent",
           fontSize: "14px",
@@ -228,7 +228,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
             <Icon path={mdiChevronDown} size={0.7} color={indicatorColor} />
           )}
         </FlexRow>
-      </button>
+      </label>
     )
   }
 
