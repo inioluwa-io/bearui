@@ -547,7 +547,12 @@ const DataList: React.FC<DataListComponent> = ({
         </FlexRow>
       </FlexColumn>
       <div
-        style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}
+        style={{
+          overflow: "hidden",
+          width: "100%",
+          overflowX: "auto",
+          marginTop: `-${actionList.length * 25}px`,
+        }}
         {...props}
       >
         <Table paddingTop={actionList.length}>
