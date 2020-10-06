@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
 import { Card } from "../card"
+import { darken, lighten } from "polished"
 import { NavbarComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 
@@ -18,7 +19,6 @@ const NavbarContainer: any = styled.div`
   ${(props: any) => props.positionStyle}
 
   @media (max-width: 768px) {
-      
   }
 `
 
@@ -42,25 +42,25 @@ const Navbar: React.FC<NavbarComponent> = ({
         width: calc(100% - 40px);
         position:sticky;
         top:0;
-        box-shadow: 0 0 25px -18px #292929;`
+        box-shadow: 0 0 25px -7px ${darken(0.07, theme[themeMode].background)}`
       }
       case "floating": {
         return `
-        width: calc(100% - 80px);
+        width: calc(100% - 90px);
         border-radius:10px;
         position:sticky;
         top:20px;
-        box-shadow: 0 0 25px -18px #292929;
-        margin:20px;`
+        box-shadow: 0 0 25px -7px  ${darken(0.07, theme[themeMode].background)};
+        margin:20px 25px;`
       }
       default: {
         return `
-        width: calc(100% - 80px);
+        width: calc(100% - 90px);
         border-radius:10px;
         top:20px;
         position:sticky;
-        box-shadow: 0 0 25px -18px #292929;
-        margin:20px;`
+        box-shadow: 0 0 25px -7px  ${darken(0.07, theme[themeMode].background)};
+        margin:20px 25px;`
       }
     }
   }
