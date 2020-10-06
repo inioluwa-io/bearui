@@ -58,7 +58,7 @@ const TabsElement: any = styled.div`
         ${(props: any) => {
           if (props.position === "left" || props.position === "right") {
             return `
-            padding: 12px 10px;
+            padding: 8px 12px;
             width:100%`
           } else {
             return "padding: 8px 12px;"

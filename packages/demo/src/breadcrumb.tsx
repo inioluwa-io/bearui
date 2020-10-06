@@ -32,7 +32,6 @@ const BreadcrumbPage: React.FC<any> = () => {
         </Grid>
         <Card xsCol="12" smCol="7">
           <Tabs
-            color="warning"
             list={[
               {
                 title: "Success",
@@ -79,9 +78,8 @@ const BreadcrumbPage: React.FC<any> = () => {
                     />
                   </Container>
                 ),
-                color: "success",
               },
-              { title: "Info", content: <p>f</p>, color: "info" },
+              { title: "Info", content: <p>f</p> },
               {
                 title: "Danger",
                 content: (
@@ -92,12 +90,10 @@ const BreadcrumbPage: React.FC<any> = () => {
                     sunt? Autem, quas. Molestias, rerum.
                   </p>
                 ),
-                color: "danger",
               },
               {
                 title: "Warning",
                 content: <p>ffmh</p>,
-                color: "warning",
               },
             ]}
           />

@@ -180,15 +180,14 @@ const ChipSingle: React.FC<ChipSingleComponent> = ({
 }
 
 const ChipAutoSuggestion: React.FC<any> = ({
-  setInputValue,
   suggestions,
-  handleAdd,
   background,
+  updateItems,
   boxShadow,
 }) => {
-  const [suggestion, setSuggeestion] = useState(suggestions)
+  const [suggestion, setSuggestion] = useState(suggestions)
   useEffect(() => {
-    setSuggeestion(suggestions)
+    setSuggestion(suggestions)
   }, [suggestions])
   return (
     <ChipSuggestionContainer background={background} boxShadow={boxShadow}>
@@ -196,9 +195,7 @@ const ChipAutoSuggestion: React.FC<any> = ({
         <button
           key={idx}
           onClick={() => {
-            handleAdd(item)
-            setSuggeestion([])
-            setInputValue("")
+            updateItems(item)
           }}
         >
           {item}
@@ -241,11 +238,17 @@ const ChipItems: React.FC<any> = ({
   const handleAddItem = e => {
     if (e.which === 13 || e.keyCode === 13 || e.code === "Enter") {
       if (!!inputValue.length) {
-        handleAdd(inputValue)
-        setInputValue("")
-        onItemUpdate([...items, inputValue])
-        setSuggeestions([])
+        updateItems(inputValue)
       }
+    }
+  }
+
+  const updateItems = value => {
+    if (!!value.length) {
+      handleAdd(value)
+      setInputValue("")
+      onItemUpdate([...items, value])
+      setSuggeestions([])
     }
   }
 
@@ -307,8 +310,7 @@ const ChipItems: React.FC<any> = ({
       </FlexRow>
       {suggestions && !!suggestions.length && (
         <ChipAutoSuggestion
-          setInputValue={setInputValue}
-          handleAdd={handleAdd}
+          updateItems={updateItems}
           suggestions={suggestions}
           boxShadow={boxShadow}
           background={theme[themeMode].cardbackground}
