@@ -129,7 +129,7 @@ const App: React.FC<any> = () => {
           }
           navbar={
             <Navbar
-              position="floating"
+              position="sticky"
               links={[
                 <Link to="/">Home</Link>,
                 <Link to="/">About</Link>,

@@ -6,7 +6,7 @@ import { useTheme, useThemeMode } from "../theme"
 
 const NavbarContainer: any = styled.div`
   position: sticky;
-  height: 70px;
+  height: 65px;
   padding: 0 20px;
   display: flex;
   z-index: 999;

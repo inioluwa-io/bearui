@@ -94,8 +94,7 @@ const SidebarContainer: any = styled.div`
   top: 0;
   height: 100vh;
   z-index: 9999;
-  display: flex;
-  flex-direction: column;
+  display: grid;
 
   .scrollbar {
     overflow: hidden auto;
@@ -189,15 +188,11 @@ const Layout: React.FC<LayoutComponent> = ({
           <div
             style={{
               position: "relative",
-              display: "flex",
-              flexDirection: "column",
             }}
           >
             {navbar}
             <div
               style={{
-                margin: " 0",
-                height: "100%",
                 width: "100%",
                 display: "flex",
               }}
