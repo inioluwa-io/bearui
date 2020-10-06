@@ -37,9 +37,9 @@ const Interface: React.FC<any> = () => {
       </Modal>
 
       <Container>
-        <Grid lgCol="3" mdCol="3" xsCol="12"></Grid>
+        <Grid lgCol="4" mdCol="4" xsCol="12"></Grid>
 
-        <Card align="center" lgCol="3" mdCol="4" smCol="5" xsCol="12">
+        <Card align="center" lgCol="4" mdCol="4" smCol="5" xsCol="12">
           <h4>User Interface controls</h4>
           <FlexRow center>
             <p>Switch from {themeMode}</p>

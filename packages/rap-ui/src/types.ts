@@ -390,5 +390,6 @@ export type NavbarComponent = {
 export type LayoutComponent = {
   navbar?: React.FC<NavbarComponent>
   notification: NotifyProps[]
+  sideBar?: ReactElement
 } & HTMLAttributes<HTMLDivElement>
 // end

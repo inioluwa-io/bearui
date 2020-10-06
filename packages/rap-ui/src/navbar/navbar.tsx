@@ -1,13 +1,12 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
-import { Card } from "../card"
 import { darken, lighten } from "polished"
 import { NavbarComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 
 const NavbarContainer: any = styled.div`
   position: sticky;
-  height: 65px;
+  height: 70px;
   padding: 0 20px;
   display: flex;
   z-index: 999;
@@ -51,7 +50,13 @@ const Navbar: React.FC<NavbarComponent> = ({
         position:sticky;
         top:20px;
         box-shadow: 0 0 25px -7px  ${darken(0.07, theme[themeMode].background)};
-        margin:20px 25px;`
+        margin:15px 25px;
+
+        @media (max-width: 768px) {
+          margin:15px;
+          width: calc(100% - 70px);
+        }
+        `
       }
       default: {
         return `
@@ -60,7 +65,7 @@ const Navbar: React.FC<NavbarComponent> = ({
         top:20px;
         position:sticky;
         box-shadow: 0 0 25px -7px  ${darken(0.07, theme[themeMode].background)};
-        margin:20px 25px;`
+        margin:15px 25px;`
       }
     }
   }
@@ -68,7 +73,7 @@ const Navbar: React.FC<NavbarComponent> = ({
   return (
     <NavbarContainer background={background} positionStyle={getPostitionStyle}>
       {links.map((link: ReactElement | string, idx: number) => (
-        <>{link}</>
+        <React.Fragment key={idx}>{link}</React.Fragment>
       ))}
     </NavbarContainer>
   )

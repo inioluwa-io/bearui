@@ -13,6 +13,7 @@ import {
   Layout,
   Switch as UiSwitch,
   Dropdown,
+  LinkButton,
 } from "@rap/ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "@rap/core"
@@ -77,8 +78,58 @@ const App: React.FC<any> = () => {
       <Switch>
         <Layout
           notification={notification}
+          sideBar={
+            <>
+              <LinkButton background="dark" to="/login2">
+                login2
+              </LinkButton>
+              <LinkButton gradient background="danger" to="/login">
+                login
+              </LinkButton>
+              <LinkButton gradient background="info" to="/interface">
+                Interface
+              </LinkButton>
+              <LinkButton gradient background="success" to="/breadcrumb">
+                Breadcrumb
+              </LinkButton>
+              <LinkButton gradient to="/datatable">
+                Datatables
+              </LinkButton>
+              <LinkButton background="warning" gradient to="/tooltip">
+                Tooltip
+              </LinkButton>
+              <LinkButton background="dark" gradient to="/dropdown">
+                Dropdown
+              </LinkButton>
+              <LinkButton background="primary" gradient to="/collapse">
+                Collapse
+              </LinkButton>
+              <LinkButton background="info" gradient to="/chip">
+                Chip
+              </LinkButton>
+              <LinkButton background="danger" gradient to="/progress">
+                Progress
+              </LinkButton>
+              <LinkButton background="warning" gradient to="/datalist">
+                Data List
+              </LinkButton>
+              <LinkButton background="danger" gradient to="/progress">
+                Progress
+              </LinkButton>
+              <LinkButton background="warning" gradient to="/datalist">
+                Data List
+              </LinkButton>
+              <LinkButton background="danger" gradient to="/progress">
+                Progress
+              </LinkButton>
+              <LinkButton background="warning" gradient to="/datalist">
+                Data List
+              </LinkButton>
+            </>
+          }
           navbar={
             <Navbar
+              position="floating"
               links={[
                 <Link to="/">Home</Link>,
                 <Link to="/">About</Link>,

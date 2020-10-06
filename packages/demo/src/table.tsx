@@ -18,10 +18,8 @@ import Icon from "@mdi/react"
 
 const Table: React.FC<any> = ({ ...props }) => {
   return (
-    <FlexColumn style={{ minHeight: "100vh" }}>
       <Container>
-        <Grid mdCol="3" smCol="1" xsCol="12"></Grid>
-        <Grid mdCol="9" smCol="11" xsCol="12">
+        <Grid xsCol="12">
           <Card withBackground={false}>
             <FlexRow gap="10px" yPosition="center" xPosition="left">
               <h3
@@ -130,7 +128,6 @@ const Table: React.FC<any> = ({ ...props }) => {
           </Card>
         </Grid>
       </Container>
-    </FlexColumn>
   )
 }
 export default Table

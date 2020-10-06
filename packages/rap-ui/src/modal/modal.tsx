@@ -10,7 +10,7 @@ const ModalBackground: any = styled.div`
   position: fixed;
   width: 100%;
   left: 0;
-  z-index: 999;
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
