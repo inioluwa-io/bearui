@@ -22,28 +22,28 @@ const Home: React.FC<any> = () => {
           <LinkButton gradient background="info" to="/interface">
             Interface
           </LinkButton>
-          <LinkButton gradient background="success" to="/breadcrumb">
+          <LinkButton gradient background="success" to="/component/breadcrumb">
             Breadcrumb
           </LinkButton>
-          <LinkButton gradient to="/datatable">
+          <LinkButton gradient to="/component/datatable">
             Datatables
           </LinkButton>
-          <LinkButton background="warning" gradient to="/tooltip">
+          <LinkButton background="warning" gradient to="/component/tooltip">
             Tooltip
           </LinkButton>
-          <LinkButton background="dark" gradient to="/dropdown">
+          <LinkButton background="dark" gradient to="/component/dropdown">
             Dropdown
           </LinkButton>
-          <LinkButton background="primary" gradient to="/collapse">
+          <LinkButton background="primary" gradient to="/component/collapse">
             Collapse
           </LinkButton>
-          <LinkButton background="info" gradient to="/chip">
+          <LinkButton background="info" gradient to="/component/chip">
             Chip
           </LinkButton>
-          <LinkButton background="danger" gradient to="/progress">
+          <LinkButton background="danger" gradient to="/component/progress">
             Progress
           </LinkButton>
-          <LinkButton background="warning" gradient to="/datalist">
+          <LinkButton background="warning" gradient to="/component/datalist">
             Data List
           </LinkButton>
         </FlexColumn>

@@ -1,19 +1,18 @@
 import React, { useEffect } from "react"
-import { Switch, Route, Link } from "react-router-dom"
+import { Switch, Route, Link, NavLink, withRouter } from "react-router-dom"
 import "./App.css"
 import Login from "./login"
 import {
-  useTheme,
   useThemeMode,
-  Notification,
-  NotifyProps,
+  useTheme,
   Avatar,
   FlexRow,
   Navbar,
   Layout,
   Switch as UiSwitch,
   Dropdown,
-  LinkButton,
+  Collapse,
+  FlexColumn,
 } from "@rap/ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "@rap/core"
@@ -28,37 +27,20 @@ import ChipPage from "./chips"
 import DataListPage from "./datalist"
 import ProgressPage from "./progress"
 import img from "./brooks-leibee-562087-unsplash.jpg"
+import Icon from "@mdi/react"
+import { AvatarPage } from "./components"
+import {
+  mdiBriefcaseOutline,
+  mdiCardTextOutline,
+  mdiCircleOutline,
+  mdiFormatPaint,
+  mdiWaterOutline,
+} from "@mdi/js"
 
-const NotificationComponent: React.FC<any> = ({ notification }) => {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: "0",
-        zIndex: 9999,
-        left: "50%",
-        transform: "translateX(-50%)",
-        display: "flex",
-        height: notification().length * 100 + "px",
-        flexDirection: "column-reverse",
-        transition: "all .45s",
-      }}
-    >
-      {notification().map((item: NotifyProps, idx: number) => (
-        <Notification
-          key={idx}
-          title={item.title}
-          text={item.text}
-          icon={item.icon}
-          iconColor={item.iconColor}
-        />
-      ))}
-    </div>
-  )
-}
-const App: React.FC<any> = () => {
+const App: React.FC<any> = ({ ...props }) => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(8000)
+  const path = props.location.pathname
 
   const URL =
     process.env.NODE_ENV === "production"
@@ -70,8 +52,9 @@ const App: React.FC<any> = () => {
     dataProvider.getOne("/publish", URL)
   }, [dataProvider, URL])
 
-  const [themeMode, setThemeMode] = useThemeMode()
   const theme = useTheme()
+  const [themeMode, setThemeMode] = useThemeMode()
+  const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
   return (
     <div className="App">
@@ -80,51 +63,299 @@ const App: React.FC<any> = () => {
           notification={notification}
           sideBar={
             <>
-              <LinkButton background="dark" to="/login2">
-                login2
-              </LinkButton>
-              <LinkButton gradient background="danger" to="/login">
-                login
-              </LinkButton>
-              <LinkButton gradient background="info" to="/interface">
-                Interface
-              </LinkButton>
-              <LinkButton gradient background="success" to="/breadcrumb">
-                Breadcrumb
-              </LinkButton>
-              <LinkButton gradient to="/datatable">
-                Datatables
-              </LinkButton>
-              <LinkButton background="warning" gradient to="/tooltip">
-                Tooltip
-              </LinkButton>
-              <LinkButton background="dark" gradient to="/dropdown">
-                Dropdown
-              </LinkButton>
-              <LinkButton background="primary" gradient to="/collapse">
-                Collapse
-              </LinkButton>
-              <LinkButton background="info" gradient to="/chip">
-                Chip
-              </LinkButton>
-              <LinkButton background="danger" gradient to="/progress">
-                Progress
-              </LinkButton>
-              <LinkButton background="warning" gradient to="/datalist">
-                Data List
-              </LinkButton>
-              <LinkButton background="danger" gradient to="/progress">
-                Progress
-              </LinkButton>
-              <LinkButton background="warning" gradient to="/datalist">
-                Data List
-              </LinkButton>
-              <LinkButton background="danger" gradient to="/progress">
-                Progress
-              </LinkButton>
-              <LinkButton background="warning" gradient to="/datalist">
-                Data List
-              </LinkButton>
+              <Collapse
+                className="group-link"
+                icon="mdiChevronRight"
+                items={[
+                  {
+                    label: (
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCardTextOutline}
+                          color={color}
+                          size={0.75}
+                        />
+                        Card
+                      </FlexRow>
+                    ),
+                    content: (
+                      <FlexColumn>
+                        <NavLink to="/card/basic" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Basic
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/card/statistics" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Statistics
+                          </FlexRow>
+                        </NavLink>
+                      </FlexColumn>
+                    ),
+                  },
+                ]}
+              ></Collapse>
+              <NavLink to="/color" activeClassName="active">
+                <FlexRow gap="13px">
+                  <Icon path={mdiWaterOutline} color={color} size={0.7} />
+                  Color
+                </FlexRow>
+              </NavLink>
+              <Collapse
+                className="group-link"
+                icon="mdiChevronRight"
+                active={/\/component/.test(path)}
+                items={[
+                  {
+                    label: (
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiBriefcaseOutline}
+                          color={color}
+                          size={0.75}
+                        />
+                        Components
+                      </FlexRow>
+                    ),
+                    active: /\/component/.test(path),
+                    content: (
+                      <FlexColumn>
+                        <NavLink
+                          to="/component/avatar"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Avatar
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/button"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Button
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/component/chip" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Chip
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/checkbox"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Checkbox
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/collapse"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Collapse
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/dropdown"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Dropdown
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/component/input" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Input
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/loader"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Loader
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/component/modal" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Modal
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/navbar"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Navbar
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/pagination"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Pagination
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/progress"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Progress
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/switch"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Switch
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/component/tab" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Tabs
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
+                          to="/component/tooltip"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Tooltip
+                          </FlexRow>
+                        </NavLink>
+                      </FlexColumn>
+                    ),
+                  },
+                ]}
+              ></Collapse>
+              <Collapse
+                className="group-link"
+                icon="mdiChevronRight"
+                items={[
+                  {
+                    label: (
+                      <FlexRow gap="13px">
+                        <Icon path={mdiFormatPaint} color={color} size={0.75} />
+                        Theme
+                      </FlexRow>
+                    ),
+                    content: (
+                      <FlexColumn>
+                        <NavLink to="/checkbox" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Checkbox
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink to="/tooltip" activeClassName="active">
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Tooltip
+                          </FlexRow>
+                        </NavLink>
+                      </FlexColumn>
+                    ),
+                  },
+                ]}
+              ></Collapse>
             </>
           }
           navbar={
@@ -169,43 +400,47 @@ const App: React.FC<any> = () => {
             component={(props: any) => <Login {...props} />}
           />
           <Route
+            path="/component/avatar"
+            component={(props: any) => <AvatarPage {...props} />}
+          />
+          <Route
             path="/login2"
             component={(props: any) => <Login2 {...props} />}
           />
           <Route
-            path="/datatable"
+            path="/component/datatable"
             component={(props: any) => <Table {...props} />}
           />
           <Route
-            path="/breadcrumb"
+            path="/component/breadcrumb"
             component={(props: any) => <BreadcrumbPage {...props} />}
           />
           <Route
-            path="/tooltip"
+            path="/component/tooltip"
             component={(props: any) => <TooltipPage {...props} />}
           />
           <Route
-            path="/interface"
+            path="/component/interface"
             component={(props: any) => <Interface {...props} />}
           />
           <Route
-            path="/dropdown"
+            path="/component/dropdown"
             component={(props: any) => <DropdownPage {...props} />}
           />
           <Route
-            path="/collapse"
+            path="/component/collapse"
             component={(props: any) => <CollapsePage {...props} />}
           />
           <Route
-            path="/chip"
+            path="/component/chip"
             component={(props: any) => <ChipPage {...props} />}
           />
           <Route
-            path="/progress"
+            path="/component/progress"
             component={(props: any) => <ProgressPage {...props} />}
           />
           <Route
-            path="/datalist"
+            path="/component/datalist"
             component={(props: any) => <DataListPage {...props} />}
           />
         </Layout>
@@ -214,4 +449,4 @@ const App: React.FC<any> = () => {
   )
 }
 
-export default App
+export default withRouter(App)

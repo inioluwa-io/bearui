@@ -9,10 +9,10 @@ import {
   Chip,
 } from "@rap/ui"
 import Icon from "@mdi/react"
-import img from "./brooks-leibee-562087-unsplash.jpg"
+import img from "../brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 
-const ChipPage: React.FC<any> = () => {
+const AvatarPage = () => {
   const [items, setItem] = useState<string[]>([
     "React",
     "React Redux",
@@ -50,7 +50,7 @@ const ChipPage: React.FC<any> = () => {
         <Card withBackground={false}>
           <FlexRow gap="10px" position="center" align="left">
             <h3 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}>
-              Chip
+              Avatar
             </h3>
             <Breadcrumb
               seperator="mdiChevronDoubleRight"
@@ -185,4 +185,4 @@ const ChipPage: React.FC<any> = () => {
     </Container>
   )
 }
-export default ChipPage
+export default AvatarPage

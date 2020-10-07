@@ -4,7 +4,7 @@ import { useTheme, useThemeMode } from "../theme"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
-import { lighten } from "polished"
+import { lighten, rgba } from "polished"
 import FlexRow from "./flexRow"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
@@ -95,10 +95,21 @@ const SidebarContainer: any = styled.div`
   height: 100vh;
   z-index: 9999;
   display: grid;
+  grid-template-rows: 65px 1fr;
+
+  * {
+    ::-webkit-scrollbar {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #aaaaaa66;
+    }
+  }
 
   .scrollbar {
     overflow: hidden auto;
-    padding: 20px 15px;
+    padding: 20px 13px;
   }
 
   &:hover {
@@ -115,7 +126,65 @@ const SidebarContainer: any = styled.div`
 
   #side-bar {
     white-space: nowrap;
-    height: 100vh;
+
+    > .group-link:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    .group-link {
+      header {
+        padding: 0 14px;
+        width: calc(100% - 28px);
+        height: 2.6rem;
+        align-items: center;
+
+        &.active {
+          border-radius: 7px;
+          background: rgba(0, 0, 0, 0.1);
+
+          + .sc-cnt {
+            margin-top: 5px;
+          }
+        }
+      }
+      .sc-cnt {
+        padding: 0;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 14px;
+      padding: 0 14px;
+      height: 2.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+
+      &:not(:last-child) {
+        margin-bottom: 0 !important;
+      }
+
+      &.active {
+        background: ${(props: any) => props.primaryColor};
+        background: linear-gradient(
+          138deg,
+          ${(props: any) => props.primaryColor},
+          ${(props: any) => rgba(props.primaryColor, 0.6)}
+        );
+        * {
+          color: #fff;
+        }
+
+        svg path {
+          fill: #fff !important;
+        }
+      }
+    }
   }
 
   @media (max-width: 991px) {
@@ -165,6 +234,7 @@ const Layout: React.FC<LayoutComponent> = ({
         <SidebarContainer
           background={theme[themeMode].cardbackground}
           boxShadow={theme[themeMode].background}
+          primaryColor={theme.colors.primary}
         >
           <FlexRow
             align="stretch"

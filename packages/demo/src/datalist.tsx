@@ -30,6 +30,7 @@ const DataListPage: React.FC<any> = ({ ...props }) => {
                 seperator="mdiChevronDoubleRight"
                 item={[
                   { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
+                  { name: "Components", to: "/" },
                   { name: "Data List", to: "" },
                 ]}
               />

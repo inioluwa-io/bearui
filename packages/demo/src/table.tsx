@@ -20,7 +20,7 @@ const Table: React.FC<any> = ({ ...props }) => {
       <Container>
         <Grid xsCol="12">
           <Card withBackground={false}>
-            <FlexRow gap="10px" yPosition="center" xPosition="left">
+            <FlexRow gap="10px" position="center" align="left">
               <h3
                 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}
               >
@@ -30,6 +30,7 @@ const Table: React.FC<any> = ({ ...props }) => {
                 seperator="mdiChevronDoubleRight"
                 item={[
                   { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
+                  { name: "Components", to: "/" },
                   { name: "Datatable", to: "" },
                 ]}
               />

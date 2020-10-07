@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { CollapseComponent } from "../types"
 import Icon from "@mdi/react"
-import { mdiChevronDown } from "@mdi/js"
+import * as mdi from "@mdi/js"
 import styled from "styled-components"
-import { useTheme, useThemeMode } from ".."
+import { useThemeMode } from ".."
 
 const CollapseContainer: any = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const CollapseElement: any = styled.li`
     padding: 1rem;
     cursor: pointer;
 
-    p {
+    .p {
       font-size: 15px;
       font-weight: 500;
       font-family: inherit;
@@ -85,7 +85,6 @@ const Collapse: React.FC<CollapseComponent> = ({
   icon,
   ...props
 }) => {
-  const theme = useTheme()
   const [themeMode] = useThemeMode()
   const iconColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
   const [selected, setSelected] = useState<Map<number | string, boolean>>(
@@ -93,7 +92,9 @@ const Collapse: React.FC<CollapseComponent> = ({
   )
 
   if (icon === undefined) {
-    icon = <Icon path={mdiChevronDown} size={0.8} color={iconColor} />
+    icon = <Icon path={mdi.mdiChevronDown} size={0.8} color={iconColor} />
+  } else {
+    icon = <Icon path={mdi[icon]} size={0.8} color={iconColor} />
   }
 
   const handleClick = (idx, disabled): void => {
@@ -109,6 +110,16 @@ const Collapse: React.FC<CollapseComponent> = ({
       }
     }
   }
+
+  useEffect(() => {
+    items.forEach((item, idx: number) => {
+      if (item.active) {
+        let prevState: Map<number | string, boolean> = new Map(selected)
+        prevState.set(idx, true)
+        setSelected(prevState)
+      }
+    })
+  }, [items])
 
   return (
     <CollapseContainer {...props}>
@@ -137,7 +148,7 @@ const Collapse: React.FC<CollapseComponent> = ({
               }}
               className={selected.get(idx) ? "active" : ""}
             >
-              <p>{item.label}</p>
+              <div className ="p">{item.label}</div>
               <div className="sc-ic">{icon}</div>
             </header>
             <div className={selected.get(idx) ? "active sc-cnt" : "sc-cnt"}>

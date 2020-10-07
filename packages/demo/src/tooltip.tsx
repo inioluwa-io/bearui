@@ -27,6 +27,7 @@ const TooltipPage: React.FC<any> = () => {
               seperator="mdiChevronDoubleRight"
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
+                { name: "Components", to: "/" },
                 { name: "Tooltip", to: "" },
               ]}
             />

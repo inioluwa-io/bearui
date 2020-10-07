@@ -308,6 +308,7 @@ type CollapseItem = {
   label: ReactElement | string
   content: ReactElement | string
   disabled?: boolean
+  active?: boolean
 }
 
 export type CollapseComponent = {
