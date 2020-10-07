@@ -51,7 +51,7 @@ const CollapseElement: any = styled.li`
     header {
       cursor: default;
     }
-    p {
+    .p {
       color: ${(props: any) =>
         props.themeMode === "lightmode" ? "#c2c6dc" : "#9799a4"} !important;
     }

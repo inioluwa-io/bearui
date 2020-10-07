@@ -137,19 +137,6 @@ const ChipPage: React.FC<any> = () => {
           </FlexRow>
         </Card>
         <Card xsCol="12">
-          <h5>Closable</h5>
-          <p>
-            To make Chip transparent set the <code>transparent</code> prop to
-            true
-          </p>
-          <FlexRow>
-            <Chip closable={true}>React</Chip>
-            <Chip closable={true}>React Redux</Chip>
-            <Chip closable={true}>GitHub</Chip>
-            <Chip closable={true}>Netlify</Chip>
-          </FlexRow>
-        </Card>
-        <Card xsCol="12">
           <h5>Add and Remove Items</h5>
           <p>
             To make Chip transparent set the <code>transparent</code> prop to

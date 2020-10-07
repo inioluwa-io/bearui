@@ -241,7 +241,7 @@ const Button: React.FC<ButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
             Theme.colors[background.trim()],
-            0.65
+            0.625
           )})`,
         background: Theme.colors[background.trim()],
       }
@@ -251,7 +251,7 @@ const Button: React.FC<ButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${background.trim()}, ${rgba(
             background.trim(),
-            0.65
+            0.625
           )})`,
         background,
       }

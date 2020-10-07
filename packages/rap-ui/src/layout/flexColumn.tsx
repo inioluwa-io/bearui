@@ -13,6 +13,8 @@ const ColumnContainer: any = styled.div`
   display: flex;
   flex-direction: column;
   // width: 100%;
+  ${(props: ColumnStyleProps) =>
+    props.align.alignItems === "stretch" && "width:100%"};
   align-items: ${(props: ColumnStyleProps) => props.align.alignItems};
 
   > :not(:last-child) {

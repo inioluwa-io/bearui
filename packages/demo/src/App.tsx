@@ -28,7 +28,7 @@ import DataListPage from "./datalist"
 import ProgressPage from "./progress"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 import Icon from "@mdi/react"
-import { AvatarPage, ButtonPage } from "./components"
+import { AvatarPage, ButtonPage, CheckboxPage } from "./components"
 import {
   mdiBriefcaseOutline,
   mdiCardTextOutline,
@@ -410,6 +410,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/component/button"
             component={(props: any) => <ButtonPage {...props} />}
+          />
+          <Route
+            path="/component/checkbox"
+            component={(props: any) => <CheckboxPage {...props} />}
           />
           <Route
             path="/component/datatable"

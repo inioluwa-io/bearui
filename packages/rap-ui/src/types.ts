@@ -316,7 +316,7 @@ export type CollapseComponent = {
   listener?: "hover" | "click"
   icon?: any
   items: CollapseItem[]
-}
+} & HTMLAttributes<HTMLDivElement>
 // end
 
 // Dropdown

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { CheckBoxComponent } from "../types"
 import styled from "styled-components"
+import { rgba } from "polished"
 import { useTheme } from "../theme"
 import { getColorFromTheme } from "../util"
 import Icon from "@mdi/react"
 import { mdiCheck } from "@mdi/js"
+import { FlexRow } from "../layout"
 
 const CheckboxButton: any = styled.button`
   position: relative;
@@ -21,7 +23,10 @@ const CheckboxButton: any = styled.button`
   outline: none;
   background: transparent;
   transition: 0.35s all 0.25s ease;
-  border: 2px solid ${(props: any) => props.color};
+
+  border: 2px solid
+    ${(props: any) =>
+      props.disabled ? `${rgba(props.color, 0.35)}` : ` ${props.color}`};
 
   ${(props: any) =>
     props.active
@@ -45,6 +50,7 @@ const CheckboxInput = styled.input`
   opacity: 0;
   cursor: pointer;
   left: 0;
+  ${(props: any) => props.disabled && `cursor: not-allowed`};
 
   &:checked {
   }
@@ -67,6 +73,7 @@ const Check: any = styled.div`
   align-items: center;
   justify-content: center;
   ${(props: any) => `background:${props.color}`};
+  ${(props: any) => props.disabled && `background: ${rgba(props.color, 0.5)}`};
 
   ${(props: any) =>
     props.active
@@ -82,40 +89,49 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   active = false,
   color = "primary",
   onClick,
+  children,
   ...props
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(active)
+  const [isActive, setIsActive] = useState<boolean>(false)
 
   const theme = useTheme()
 
   const themeColor: string = getColorFromTheme(color, theme)
   useEffect(() => {
     setIsActive(active)
-  }, [active])
+  }, [active, disabled])
 
   return (
-    <CheckboxButton
-      color={themeColor}
-      active={isActive}
-      className="sc-checkbox"
-      id={id}
-    >
-      <CheckboxInput
-        {...props}
-        type="checkbox"
+    <FlexRow gap="10px">
+      <CheckboxButton
+        color={themeColor}
+        active={isActive}
+        className="sc-checkbox"
         disabled={disabled}
-        checked={isActive}
-        onChange={e => {
-          !e.target.disabled && setIsActive(!isActive)
-          if (typeof onClick === "function") {
-            onClick(!isActive)
-          }
-        }}
-      />
-      <Check color={themeColor} active={isActive}>
-        <Icon path={mdiCheck} color="#ffffff" size={0.7} />
-      </Check>
-    </CheckboxButton>
+      >
+        <CheckboxInput
+          {...props}
+          type="checkbox"
+          id={id}
+          disabled={disabled}
+          checked={isActive}
+          onChange={e => {
+            !e.target.disabled && setIsActive(!isActive)
+            if (typeof onClick === "function") {
+              onClick(!isActive)
+            }
+          }}
+        />
+        <Check disabled={disabled} color={themeColor} active={isActive}>
+          <Icon path={mdiCheck} color="#ffffff" size={0.7} />
+        </Check>
+      </CheckboxButton>
+      {children && (
+        <label style={{ cursor: "pointer" }} htmlFor={id}>
+          {children}
+        </label>
+      )}
+    </FlexRow>
   )
 }
 export default Checkbox
