@@ -67,6 +67,14 @@ font-family: inherit;
               props.outline ? `${props.textColor};` : `${props.textColor};`}
             
           }
+
+          svg path{
+            fill: ${(props: any) => {
+              if (props.outline) {
+                return `${props.textColor} !important`
+              }
+            }}
+          }
   }
 
   &:focus{
@@ -156,7 +164,7 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "md",
-  loadingIcon,
+  loadingIcon = "mdiLoading",
   loading = false,
   ...props
 }) => {
@@ -204,11 +212,11 @@ const Button: React.FC<ButtonProps> = ({
   const getStyleFromSizeProps: Function = (): any => {
     switch (size) {
       case "xs":
-        return { padding: "5px", iconPadding: "5px" }
+        return { padding: "7px", iconPadding: "7px" }
       case "sm":
         return { padding: "9px 20px", iconPadding: "8px" }
       case "md":
-        return { padding: "10px 26px", iconPadding: "9.5px" }
+        return { padding: "10.5px 23px", iconPadding: "9.5px" }
       case "lg":
         return { padding: "16px 35px", iconPadding: "15px" }
       default:
@@ -233,7 +241,7 @@ const Button: React.FC<ButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
             Theme.colors[background.trim()],
-            0.6
+            0.65
           )})`,
         background: Theme.colors[background.trim()],
       }
@@ -243,7 +251,7 @@ const Button: React.FC<ButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${background.trim()}, ${rgba(
             background.trim(),
-            0.6
+            0.65
           )})`,
         background,
       }
@@ -261,7 +269,7 @@ const Button: React.FC<ButtonProps> = ({
   }
   const getIconStyle: Function = (): any => {
     if (iconOnly) return { margin: "0", padding: "1px" }
-    return iconRight ? { marginLeft: "4px" } : { marginRight: "4px" }
+    return iconRight ? { marginLeft: "5px" } : { marginRight: "5px" }
   }
 
   updateProps(getStyleFromCornersProps())
@@ -274,23 +282,24 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <Button1 {...props} ref={refs} className={loading ? "loading" : ""}>
-      {loading &&
-        (loadingIcon ? (
-          <div className="rap-cus-loa">{loadingIcon}</div>
-        ) : (
-          <Icon
-            className="rap-loa"
-            path={path.mdiLoading}
-            color={iconColor}
-            size={0.75}
-            style={getIconStyle()}
-          />
-        ))}
+      {loading && (
+        <Icon
+          className="rap-loa"
+          path={path[loadingIcon]}
+          color={
+            props.outline ? getStyleFromBackgroundProps().background : iconColor
+          }
+          size={0.75}
+          style={getIconStyle()}
+        />
+      )}
       {icon && (
         <Icon
           className="rap-ico"
           path={path[icon]}
-          color={iconColor}
+          color={
+            props.outline ? getStyleFromBackgroundProps().background : iconColor
+          }
           size={0.75}
           style={getIconStyle()}
         />

@@ -165,11 +165,11 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   const getStyleFromSizeProps: Function = (): any => {
     switch (size) {
       case "xs":
-        return { padding: "5px", iconPadding: "5px" }
+        return { padding: "7px", iconPadding: "7px" }
       case "sm":
         return { padding: "9px 20px", iconPadding: "8px" }
       case "md":
-        return { padding: "10px 26px", iconPadding: "9.5px" }
+        return { padding: "10.5px 23px", iconPadding: "9.5px" }
       case "lg":
         return { padding: "16px 35px", iconPadding: "15px" }
       default:
@@ -194,7 +194,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
             Theme.colors[background.trim()],
-            0.6
+            0.65
           )})`,
         background: Theme.colors[background.trim()],
       }
@@ -204,7 +204,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
           gradient &&
           `linear-gradient(138deg,${background.trim()}, ${rgba(
             background.trim(),
-            0.6
+            0.65
           )})`,
         background,
       }
@@ -241,19 +241,11 @@ const LinkButton: React.FC<LinkButtonProps> = ({
     return formatedObj
   }
 
-  //   background: "rgb(115,103,240)"
-  // backgroundgradient: "linear-gradient(138deg,rgb(115,103,240), rgba(115,103,240,0.6))"
-  // borderradius: "5px"
-  // icononly: false
-  // iconpadding: "9.5px"
-  // iconright: false
-  // padding: "9.5px 28px"
-  // textcolor: "#ffffff"
-
   return (
     <Button1 to={to} background {...formatObjKeysToLowercase(props)} ref={refs}>
       {icon && (
         <Icon
+          className="rap-ico"
           path={path[icon]}
           size={0.75}
           color={iconColor}

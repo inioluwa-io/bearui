@@ -28,7 +28,7 @@ import DataListPage from "./datalist"
 import ProgressPage from "./progress"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 import Icon from "@mdi/react"
-import { AvatarPage } from "./components"
+import { AvatarPage, ButtonPage } from "./components"
 import {
   mdiBriefcaseOutline,
   mdiCardTextOutline,
@@ -108,7 +108,7 @@ const App: React.FC<any> = ({ ...props }) => {
               <NavLink to="/color" activeClassName="active">
                 <FlexRow gap="13px">
                   <Icon path={mdiWaterOutline} color={color} size={0.7} />
-                  Color
+                  Colors
                 </FlexRow>
               </NavLink>
               <Collapse
@@ -400,12 +400,16 @@ const App: React.FC<any> = ({ ...props }) => {
             component={(props: any) => <Login {...props} />}
           />
           <Route
+            path="/login2"
+            component={(props: any) => <Login2 {...props} />}
+          />
+          <Route
             path="/component/avatar"
             component={(props: any) => <AvatarPage {...props} />}
           />
           <Route
-            path="/login2"
-            component={(props: any) => <Login2 {...props} />}
+            path="/component/button"
+            component={(props: any) => <ButtonPage {...props} />}
           />
           <Route
             path="/component/datatable"

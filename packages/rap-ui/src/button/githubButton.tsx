@@ -21,7 +21,7 @@ const GithubButton: React.FC<AppleSocialButton> = ({
 }) => {
   Object.assign(style, {
     fontFamily: "Roboto",
-    fontSize: "15px",
+    fontSize: "13px",
     lineHeight: "19px",
   })
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   FlexRow,
   Card,
@@ -6,44 +6,13 @@ import {
   Container,
   Grid,
   Avatar,
-  Chip,
+  FlexColumn,
 } from "@rap/ui"
 import Icon from "@mdi/react"
 import img from "../brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 
-const AvatarPage = () => {
-  const [items, setItem] = useState<string[]>([
-    "React",
-    "React Redux",
-    "GitHub",
-    "Netlify",
-  ])
-  const [suggestion, setSuggestion] = useState<string[]>([])
-  const generateRandomString = (prefix: string, length: number): string => {
-    const randomLength = Math.floor(Math.random() * length + 1) + 2
-    const character: string = "abcdefghijklmnopqrstuvwxyz"
-    let str: string = prefix
-
-    for (let i = 0; i < randomLength; i++) {
-      const randomCharacter =
-        character[Math.floor(Math.random() * character.length)]
-      str += randomCharacter
-    }
-    return str
-  }
-
-  const generateArrayOfString = (
-    prefix: string,
-    maxLength: number
-  ): string[] => {
-    let result = []
-    for (let i = 0; i < 4; i++) {
-      const randomStr = generateRandomString(prefix, maxLength)
-      result.push(randomStr)
-    }
-    return result
-  }
+const AvatarPage: React.FC<{}> = () => {
   return (
     <Container>
       <Grid xsCol="12">
@@ -57,7 +26,7 @@ const AvatarPage = () => {
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
                 { name: "Components", to: "/" },
-                { name: "Chip", to: "" },
+                { name: "Avatar", to: "" },
               ]}
             />
           </FlexRow>
@@ -65,120 +34,78 @@ const AvatarPage = () => {
         <Card xsCol="12">
           <h5>Default</h5>
           <p>
-            To add a Chip use the component <code>Chip</code>
+            To add an Avatar use the component <code>Avatar</code>
           </p>
           <FlexRow>
-            <Chip>Basic Chip</Chip>
-            <Chip>
-              <Avatar alt="avatar" text="LD" src={img} />
-              Avatar Image
-            </Chip>
-            <Chip>
-              <Avatar alt="avatar" text="LD" />
-              Avatar Text
-            </Chip>
-            <Chip closable={true}>Closable chip</Chip>
+            <Avatar alt="avatar" text="LD" src={img} />
+            <Avatar alt="avatar" text="LD" />
+            <Avatar alt="avatar" text="LD" src={img} withBadge badgeText="12" />
           </FlexRow>
         </Card>
         <Card xsCol="12">
-          <h5>Color</h5>
+          <h5>Size</h5>
           <p>
-            To change color of a Chip set the <code>color</code> prop
+            To change size of a Avatar set the <code>size</code> prop. Avatar
+            supports <code>xs</code>, <code>sm</code>, <code>md</code>,{" "}
+            <code>lg</code> and user defined sizes like <code>20px</code>.
+            Default is <code>sm</code>
           </p>
           <FlexRow>
-            <Chip color="primary">Basic Chip</Chip>
-            <Chip color="danger">
-              <Avatar alt="avatar" text="LD" src={img} />
-              Avatar Image
-            </Chip>
-            <Chip color="success">
-              <Avatar alt="avatar" text="LD" />
-              Avatar Text
-            </Chip>
-            <Chip color="dark" closable={true}>
-              Closable chip
-            </Chip>
+            <FlexColumn gap="5px" align="center">
+              <Avatar alt="avatar" text="LD" size="xs" src={img} />
+              <p>xs</p>
+            </FlexColumn>
+            <FlexColumn gap="5px" align="center">
+              <Avatar alt="avatar" text="LD" size="sm" />
+              <p>sm</p>
+            </FlexColumn>
+            <FlexColumn gap="5px" align="center">
+              <Avatar
+                alt="avatar"
+                text="LD"
+                size="md"
+                src={img}
+                withBadge
+                badgeText="12"
+              />
+              <p>md</p>
+            </FlexColumn>
+            <FlexColumn gap="5px" align="center">
+              <Avatar alt="avatar" text="LD" size="lg" src={img} />
+              <p>lg</p>
+            </FlexColumn>
+            <FlexColumn gap="5px" align="center">
+              <Avatar alt="avatar" text="LD" size="30px" />
+              <p>30px</p>
+            </FlexColumn>
           </FlexRow>
         </Card>
         <Card xsCol="12">
-          <h5>Transparent</h5>
+          <h5>Badge</h5>
           <p>
-            To make Chip transparent set the <code>transparent</code> prop to
-            true
+            To add a badge set the <code>badge</code> prop to true and set the{" "}
+            <code>badgeText</code>. You can also change the{" "}
+            <code>badgeColor</code>, it accepts theme colors and HEX/RGB colors
           </p>
           <FlexRow>
-            <Chip color="primary" transparent={true}>
-              Basic Chip
-            </Chip>
-            <Chip color="danger" transparent={true}>
-              <Avatar alt="avatar" text="LD" src={img} />
-              Avatar Image
-            </Chip>
-            <Chip color="success" transparent={true}>
-              <Avatar alt="avatar" text="LD" />
-              Avatar Text
-            </Chip>
-            <Chip color="dark" transparent={true} closable={true}>
-              Closable chip
-            </Chip>
-          </FlexRow>
-        </Card>
-        <Card xsCol="12">
-          <h5>Closable</h5>
-          <p>
-            To make Chip transparent set the <code>transparent</code> prop to
-            true
-          </p>
-          <FlexRow>
-            <Chip closable={true}>React</Chip>
-            <Chip closable={true}>React Redux</Chip>
-            <Chip closable={true}>GitHub</Chip>
-            <Chip closable={true}>Netlify</Chip>
-          </FlexRow>
-        </Card>
-        <Card xsCol="12">
-          <h5>Closable</h5>
-          <p>
-            To make Chip transparent set the <code>transparent</code> prop to
-            true
-          </p>
-          <FlexRow>
-            <Chip closable={true}>React</Chip>
-            <Chip closable={true}>React Redux</Chip>
-            <Chip closable={true}>GitHub</Chip>
-            <Chip closable={true}>Netlify</Chip>
-          </FlexRow>
-        </Card>
-        <Card xsCol="12">
-          <h5>Add and Remove Items</h5>
-          <p>
-            To make Chip transparent set the <code>transparent</code> prop to
-            true
-          </p>
-          <p>
-            [
-            {items.map((item, idx) => (
-              <React.Fragment key={idx}>
-                {item}
-                {idx < items.length - 1 && ", "}
-              </React.Fragment>
-            ))}
-            ]
-          </p>
-          <FlexRow>
-            <Chip
-              closable={true}
-              onItemUpdate={(value: string[]) => {
-                setItem(value)
-              }}
-              items={items}
-              autoSuggestion={suggestion}
-              onInputChange={(value: string) => {
-                setSuggestion(generateArrayOfString(value, 5))
-              }}
-            >
-              React
-            </Chip>
+            <Avatar alt="avatar" text="LD" withBadge badgeText="12" />
+            <Avatar
+              alt="avatar"
+              text="LD"
+              src={img}
+              size="xs"
+              withBadge
+              badgeColor="warning"
+              badgeText="12"
+            />
+            <Avatar
+              alt="avatar"
+              text="BL"
+              size="md"
+              withBadge
+              badgeColor="cadetblue"
+              badgeText="12"
+            />
           </FlexRow>
         </Card>
       </Grid>
