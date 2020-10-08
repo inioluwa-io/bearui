@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useCallback } from "react"
 import { Link } from "react-router-dom"
 import { LinkButtonProps } from "../types"
 import styled from "styled-components"
@@ -125,31 +125,34 @@ const LinkButton: React.FC<LinkButtonProps> = ({
 
   const Theme = useTheme()
 
+  const addPulse = useCallback(
+    e => {
+      const button: HTMLElement = refs.current
+
+      let x = e.clientX - button.getBoundingClientRect().left
+      let y = e.clientY - button.getBoundingClientRect().top
+
+      const span: HTMLSpanElement = document.createElement("span")
+      span.style.top = y + "px"
+      span.style.left = x + "px"
+      button.append(span)
+
+      setTimeout(() => {
+        button.removeChild(span)
+      }, 1000)
+    },
+    [refs]
+  )
+
   // create ripple effects when button clicked
   useEffect(() => {
     const button: HTMLElement = refs.current
-    let onButtonClick: any
 
-    onButtonClick = button.addEventListener<"click">(
-      "click",
-      (e: MouseEvent): void => {
-        let x = e.clientX - button.getBoundingClientRect().left
-        let y = e.clientY - button.getBoundingClientRect().top
-
-        const span: HTMLSpanElement = document.createElement("span")
-        span.style.top = y + "px"
-        span.style.left = x + "px"
-        button.append(span)
-
-        setTimeout(() => {
-          button.removeChild(span)
-        }, 1000)
-      }
-    )
+    button.addEventListener<"click">("click", addPulse)
     return () => {
-      button.removeEventListener("click", onButtonClick, false)
+      button.removeEventListener("click", addPulse, false)
     }
-  }, [])
+  }, [addPulse])
 
   const getStyleFromCornersProps: Function = (): any => {
     switch (corners) {

@@ -96,16 +96,19 @@ const LoaderContainer: StyledComponent<
 const LoaderElement: StyledComponent<"div", any, any> = styled.div`
   width: ${(props: any) => props.loaderwidth};
   height: ${(props: any) => props.loaderheight};
-  position: absolute;
+  position: fixed;
+  z-index: 991;
+  left: 0;
+  top: 0;
 
   .loader {
     position: sticky;
     width: ${(props: any) => props.loaderwidth};
     height: ${(props: any) => props.loaderheight};
-    background: ${(props: any) => props.background};
+    background: ${(props: any) => props.withBackground && props.background};
     left: 0;
     top: 0;
-    z-index: 991;
+    z-index: 999;
   }
   @media (max-width: 441px) {
     .rap-card {
@@ -124,6 +127,7 @@ const Loader: React.FC<LoaderComponent> = ({
   width = "100%",
   height = "100%",
   color = "",
+  withBackground = false,
   size = "5px",
   ...props
 }) => {
@@ -152,11 +156,12 @@ const Loader: React.FC<LoaderComponent> = ({
     <LoaderElement
       loaderwidth={width}
       loaderheight={height}
+      withBackground={withBackground}
       {...props}
       background={rgba(darken(0.5, theme[themeMode].background), 0.6)}
     >
       <FlexRow className="loader" center>
-        <Card size="sm">
+        <Card size="sm" withBackground={withBackground}>
           <LoaderContainer padding={size}>
             {customIcon || getAnimation()}
           </LoaderContainer>

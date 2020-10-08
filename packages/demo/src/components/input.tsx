@@ -5,15 +5,16 @@ import {
   Breadcrumb,
   Container,
   Grid,
-  Avatar,
-  FlexColumn,
   Input,
 } from "@rap/ui"
 import Icon from "@mdi/react"
-import img from "../brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
+import { useEffect } from "react"
 
 const InputPage: React.FC<{}> = () => {
+    useEffect(() => {
+      window.scrollTo(0, 0)
+    }, [])
   return (
     <Container>
       <Grid xsCol="12">
@@ -81,26 +82,26 @@ const InputPage: React.FC<{}> = () => {
           </p>
           <FlexRow>
             <Input
-              id="inf"
+              id="intjkf"
               color="primary"
               onInputChange={() => {}}
               placeholder="Primary Input"
             />
             <Input
-              id="infgd"
+              id="isgponfgd"
               color="success"
               onInputChange={() => {}}
               placeholder="Success Input"
             />
             <Input
-              id="irbn"
+              id="irwgoibn"
               color="info"
               onInputChange={() => {}}
               placeholder="Info Input"
             />
             <Input
               size="sm"
-              id="iaen"
+              id="iaerbjkn"
               color="warning"
               onInputChange={() => {}}
               placeholder="Warning Input"
@@ -116,20 +117,20 @@ const InputPage: React.FC<{}> = () => {
           <FlexRow>
             <Input
               clearButton
-              id="inf"
+              id="irlbiuernf"
               color="primary"
               onInputChange={() => {}}
               placeholder="Primary Input"
             />
             <Input
               clearButton
-              id="infgd"
+              id="afkjnminfgd"
               color="success"
               onInputChange={() => {}}
               placeholder="Success Input"
             />
             <Input
-              id="irbn"
+              id="irbnwrgbilj"
               clearButton
               color="info"
               onInputChange={() => {}}
@@ -138,7 +139,7 @@ const InputPage: React.FC<{}> = () => {
             <Input
               size="sm"
               clearButton
-              id="iaen"
+              id="iaewliugbvn"
               color="warning"
               onInputChange={() => {}}
               placeholder="Warning Input"
@@ -183,20 +184,20 @@ const InputPage: React.FC<{}> = () => {
           <p>
             To add an Icon set the <code>icon</code> prop to name of Icon. This
             uses mdi Icons, check{" "}
-            <a href="" target="_blank" rel="noopener noreferrer">
+            <a href="https://" target="_blank" rel="noopener noreferrer">
               mdi documentation
             </a>
           </p>
           <FlexRow>
             <Input
-              id="inf"
+              id="infornrfuoil"
               icon="mdiEmailOutline"
               color="primary"
               onInputChange={() => {}}
               placeholder="Enter email"
             />
             <Input
-              id="infgd"
+              id="afkbjinfgd"
               type="password"
               icon="mdiLock"
               color="success"
@@ -204,7 +205,7 @@ const InputPage: React.FC<{}> = () => {
               placeholder="Enter password"
             />
             <Input
-              id="irbn"
+              id="qkjflirbn"
               type="text"
               icon="mdiAccount"
               color="info"
@@ -213,7 +214,7 @@ const InputPage: React.FC<{}> = () => {
             />
             <Input
               size="sm"
-              id="iaen"
+              id="zfinrpeiaen"
               type="number"
               icon="mdiNumeric"
               color="warning"
@@ -229,7 +230,7 @@ const InputPage: React.FC<{}> = () => {
           </p>
           <FlexRow>
             <Input
-              id="inf"
+              id="sgljjbwninf"
               iconRight
               icon="mdiEmailOutline"
               color="primary"
@@ -237,7 +238,7 @@ const InputPage: React.FC<{}> = () => {
               placeholder="Enter email"
             />
             <Input
-              id="infgd"
+              id="slfbjeinfgd"
               iconRight
               type="password"
               icon="mdiLock"
@@ -246,7 +247,7 @@ const InputPage: React.FC<{}> = () => {
               placeholder="Enter password"
             />
             <Input
-              id="irbn"
+              id="priuebkirbn"
               iconRight
               type="text"
               icon="mdiAccount"
@@ -256,7 +257,7 @@ const InputPage: React.FC<{}> = () => {
             />
             <Input
               iconRight
-              id="iaen"
+              id="mvnrjkliaen"
               type="number"
               icon="mdiNumeric"
               color="warning"
@@ -273,7 +274,7 @@ const InputPage: React.FC<{}> = () => {
           </p>
           <FlexRow position="top">
             <Input
-              id="finf"
+              id="wiorhifinf"
               validate="alpha"
               type="email"
               color="primary"
@@ -281,14 +282,14 @@ const InputPage: React.FC<{}> = () => {
               placeholder="Alpha validation"
             />
             <Input
-              id="infgd"
+              id="zdkjflinfgd"
               validate="number"
               color="success"
               onInputChange={() => {}}
               placeholder="Number validation"
             />
             <Input
-              id="irbn"
+              id="poiurhnirbn"
               validate="email"
               color="info"
               onInputChange={() => {}}
@@ -304,7 +305,7 @@ const InputPage: React.FC<{}> = () => {
           </p>
           <FlexRow position="top">
             <Input
-              id="finf"
+              id="vkjermfinf"
               validate="alpha"
               type="text"
               color="primary"
@@ -314,7 +315,7 @@ const InputPage: React.FC<{}> = () => {
               errorMessage="Please type in only alphabets"
             />
             <Input
-              id="infgd"
+              id="aflplkjinfgd"
               validate="number"
               color="info"
               onInputChange={() => {}}
@@ -323,7 +324,7 @@ const InputPage: React.FC<{}> = () => {
               errorMessage="Please type in only numbers"
             />
             <Input
-              id="irbn"
+              id="qroimirbn"
               validate="email"
               color="warning"
               onInputChange={() => {}}

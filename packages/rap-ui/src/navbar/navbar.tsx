@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarComponent> = ({
         width: calc(100% - 40px);
         position:sticky;
         top:0;
-        box-shadow: 0 0 25px -7px ${darken(0.07, theme[themeMode].background)}`
+        box-shadow: 0 0 25px -7px rgba(0,0,0,.15);`
       }
       case "floating": {
         return `
@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarComponent> = ({
         border-radius:10px;
         position:sticky;
         top:20px;
-        box-shadow: 0 0 25px -7px  ${darken(0.07, theme[themeMode].background)};
+        box-shadow: 0 0 25px -7px rgba(0,0,0,.15);
         margin:15px 25px;
 
         @media (max-width: 768px) {

@@ -15,9 +15,9 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
   onClick,
   iconOnly = false,
   gradient = false,
-  style = {},
   size = "sm",
   children,
+  ...props
 }) => {
   let textColor: string = ""
   let background: string = ""
@@ -35,11 +35,11 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
     }
   }
 
-  Object.assign(style, {
+  let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
     lineHeight: "19px",
-  })
+  }
   return (
     <Button
       background={background}
@@ -52,6 +52,7 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
       textColor={textColor}
       style={style}
       onClick={onClick}
+      {...props}
     >
       {children || text}
     </Button>

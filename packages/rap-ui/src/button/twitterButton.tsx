@@ -16,8 +16,8 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
   gradient = false,
   onClick,
   size = "sm",
-  style = {},
   children,
+  ...props
 }) => {
   let textColor: string = ""
   let background: string = ""
@@ -35,11 +35,11 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
     }
   }
 
-  Object.assign(style, {
+  let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
     lineHeight: "19px",
-  })
+  }
   return (
     <Button
       background={background}
@@ -51,6 +51,7 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
       iconOnly={iconOnly}
       textColor={textColor}
       style={style}
+      {...props}
       onClick={onClick}
     >
       {children || text}

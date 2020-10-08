@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import {
   FlexRow,
   Card,
@@ -12,6 +12,9 @@ import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"
 
 const CheckboxPage: React.FC<any> = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <Container>
       <Grid xsCol="12">

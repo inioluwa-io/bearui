@@ -264,7 +264,7 @@ const Layout: React.FC<LayoutComponent> = ({
             }}
           >
             {navbar}
-              {children}
+            {children}
           </div>
         </FlexColumn>
       </main>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import {
   FlexRow,
   Card,
@@ -13,6 +13,10 @@ import img from "../brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 
 const AvatarPage: React.FC<{}> = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <Container>
       <Grid xsCol="12">
@@ -45,10 +49,10 @@ const AvatarPage: React.FC<{}> = () => {
         <Card xsCol="12">
           <h5>Size</h5>
           <p>
-            To change size set the <code>size</code> prop. Avatar
-            supports <code>xs</code>, <code>sm</code>, <code>md</code>,{" "}
-            <code>lg</code> and user defined sizes like <code>20px</code>.
-            Default is <code>sm</code>
+            To change size set the <code>size</code> prop. Avatar supports{" "}
+            <code>xs</code>, <code>sm</code>, <code>md</code>, <code>lg</code>{" "}
+            and user defined sizes like <code>20px</code>. Default is{" "}
+            <code>sm</code>
           </p>
           <FlexRow>
             <FlexColumn gap="5px" align="center">

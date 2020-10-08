@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   FlexRow,
   Card,
@@ -25,6 +25,9 @@ const ButtonPage: React.FC<{}> = () => {
     false,
     false,
   ])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <Container>
       <Grid xsCol="12">

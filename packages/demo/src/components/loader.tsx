@@ -10,8 +10,12 @@ import {
 } from "@rap/ui"
 import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"
+import { useEffect } from "react"
 
 const LoaderPage: React.FC<any> = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <Container>
       <Grid xsCol="12">
@@ -105,7 +109,7 @@ const LoaderPage: React.FC<any> = () => {
                 height="auto"
                 style={{ position: "relative" }}
               />
-              <p>Default (1px)</p>
+              <p>Default (1)</p>
             </FlexColumn>
             <FlexColumn align="center">
               <Loader
@@ -115,7 +119,7 @@ const LoaderPage: React.FC<any> = () => {
                 height="auto"
                 style={{ position: "relative" }}
               />
-              <p>1.5px</p>
+              <p>1.5</p>
             </FlexColumn>
             <FlexColumn align="center">
               <Loader
@@ -126,7 +130,7 @@ const LoaderPage: React.FC<any> = () => {
                 type="spinner"
                 style={{ position: "relative" }}
               />
-              <p>2px</p>
+              <p>2</p>
             </FlexColumn>
             <FlexColumn align="center">
               <Loader
@@ -136,7 +140,7 @@ const LoaderPage: React.FC<any> = () => {
                 iconSize={2.5}
                 style={{ position: "relative" }}
               />
-              <p>2.5px</p>
+              <p>2.5</p>
             </FlexColumn>
             <FlexColumn align="center">
               <Loader
@@ -147,7 +151,7 @@ const LoaderPage: React.FC<any> = () => {
                 type="spinner"
                 style={{ position: "relative" }}
               />
-              <p>3px</p>
+              <p>3</p>
             </FlexColumn>
           </FlexRow>
         </Card>

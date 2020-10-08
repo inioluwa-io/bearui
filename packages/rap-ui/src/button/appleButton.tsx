@@ -15,15 +15,15 @@ const AppleButton: React.FC<AppleSocialButton> = ({
   color = "dark",
   gradient = false,
   iconOnly = false,
-  style = {},
-  size= "sm",
+  size = "sm",
   children,
+  ...props
 }) => {
-  Object.assign(style, {
+  let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
     lineHeight: "19px",
-  })
+  }
   return (
     <Button
       background={color}
@@ -36,6 +36,7 @@ const AppleButton: React.FC<AppleSocialButton> = ({
       iconColor={color === "white" ? "#000" : "#fff"}
       onClick={onClick}
       style={style}
+      {...props}
     >
       {children || text}
     </Button>

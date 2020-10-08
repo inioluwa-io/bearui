@@ -156,6 +156,7 @@ export type ThemeMode = [
 // modal props
 export type ModalProps = {
   active: boolean
+  color?: string
   title?: string
   onClose: () => any
 } & HTMLAttributes<HTMLDivElement>
@@ -259,6 +260,7 @@ export type LoaderComponent = {
   iconSize?: number
   color?: string
   size?: string
+  withBackground?: boolean
 } & HTMLAttributes<HTMLDivElement>
 // end
 

@@ -5,6 +5,7 @@ import { rgba, darken } from "polished"
 import { RapUITheme, ModalProps } from "../types"
 import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
+import { getColorFromTheme } from "../util"
 
 const ModalBackground: any = styled.div`
   position: fixed;
@@ -114,6 +115,7 @@ const Title: any = styled.h4`
   font-size: 16px;
   font-weight: 600;
   font-weight: inherit;
+  color: ${(props: any) => props.color};
 `
 
 /**
@@ -138,11 +140,18 @@ const Modal: React.FC<ModalProps> = ({
   active = false,
   onClose,
   title,
+  color = "",
   children,
 }) => {
   const theme: RapUITheme = useTheme()
   const [themeMode] = useThemeMode()
   const ref: any = useRef()
+  let defaultColor =
+    themeMode === "lightmode" ? theme.colors.dark : theme.colors.white
+
+  if (!!color.length) {
+    defaultColor = getColorFromTheme(color, theme)
+  }
 
   const openAnimation = useCallback(() => {
     const DOMNode = ref.current
@@ -212,20 +221,12 @@ const Modal: React.FC<ModalProps> = ({
           background={theme[themeMode].cardbackground}
         >
           <Header border={theme[themeMode].background}>
-            {title && <Title>{title}</Title>}
+            {title && <Title color={defaultColor}>{title}</Title>}
             <CloseButton
               background={theme[themeMode].background}
               onClick={handleClose}
             >
-              <Icon
-                size={0.85}
-                path={mdiClose}
-                color={
-                  themeMode === "lightmode"
-                    ? theme.colors.dark
-                    : theme.colors.white
-                }
-              />
+              <Icon size={0.85} path={mdiClose} color={defaultColor} />
             </CloseButton>
           </Header>
           <InnerContainer>{children}</InnerContainer>
