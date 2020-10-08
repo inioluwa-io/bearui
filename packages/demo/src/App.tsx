@@ -13,6 +13,7 @@ import {
   Dropdown,
   Collapse,
   FlexColumn,
+  Loader,
 } from "@rap/ui"
 import Home from "./home"
 import { useDataProvider, useNotification } from "@rap/core"
@@ -28,7 +29,13 @@ import DataListPage from "./datalist"
 import ProgressPage from "./progress"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 import Icon from "@mdi/react"
-import { AvatarPage, ButtonPage, CheckboxPage, InputPage } from "./components"
+import {
+  AvatarPage,
+  ButtonPage,
+  CheckboxPage,
+  InputPage,
+  LoaderPage,
+} from "./components"
 import {
   mdiBriefcaseOutline,
   mdiCardTextOutline,
@@ -360,7 +367,7 @@ const App: React.FC<any> = ({ ...props }) => {
           }
           navbar={
             <Navbar
-              position="sticky"
+              position="floating"
               links={[
                 <Link to="/">Home</Link>,
                 <Link to="/">About</Link>,
@@ -422,6 +429,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/component/datatable"
             component={(props: any) => <Table {...props} />}
+          />
+          <Route
+            path="/component/loader"
+            component={(props: any) => <LoaderPage {...props} />}
           />
           <Route
             path="/component/breadcrumb"

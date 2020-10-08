@@ -258,17 +258,13 @@ const Layout: React.FC<LayoutComponent> = ({
           <div
             style={{
               position: "relative",
+              minHeight: "100%",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             {navbar}
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-              }}
-            >
               {children}
-            </div>
           </div>
         </FlexColumn>
       </main>

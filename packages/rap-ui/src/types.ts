@@ -257,6 +257,7 @@ export type LoaderComponent = {
   width?: string
   height?: string
   iconSize?: number
+  color?: string
   size?: string
 } & HTMLAttributes<HTMLDivElement>
 // end

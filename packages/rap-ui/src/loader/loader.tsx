@@ -7,51 +7,61 @@ import { mdiLoading } from "@mdi/js"
 import { useThemeMode, useTheme } from "../theme"
 import { darken, rgba } from "polished"
 import styled, { StyledComponent } from "styled-components"
+import { getColorFromTheme } from "../util"
 
-const BeatDiv: StyledComponent<"div", any, { size: number }> = styled.div`
+const BeatDiv: StyledComponent<"div", any, { iconSize: number }> = styled.div`
   display: flex;
   justify-content: center;
-  transform:scale3d(${(props: any) =>
-    props.size + "," + props.size + "," + props.size});
-  width: ${(props: any) => props.size * 24}px;
-  height: ${(props: any) => props.size * 24}px;
-  align-items:center;
-  position:relative;
+  width: ${(props: any) => props.iconSize * 24}px;
+  height: ${(props: any) => props.iconSize * 24}px;
+  align-items: center;
+  position: relative;
 
   .bar {
-    width: 2px;
-    background:${(props: any) => props.color}
-    height: 20px;
-    animation: pulse 0.35s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite
+    width: ${(props: any) => props.iconSize * 2 + "px"};
+    border-radius:3px;
+    background: ${(props: any) => props.color};
+    height: ${(props: any) => props.iconSize * 20 + "px"};
+    animation: pulse${(props: any) =>
+      ("" + props.iconSize).replaceAll(
+        ".",
+        "ra"
+      )} 0.25s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite
 
-    &:not(:last-child){
-      margin-right: 4px;
+    &:not(:last-child) {
+      margin-right: ${(props: any) => props.iconSize * 4 + "px"};
     }
-    &:nth-child(2n - 1){
-      animation: pulseInverse 0.35s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite;
-    }
-  }
-  @keyframes pulse {
-    from {
-      height:9px;
-    }
-    to {
-      height:20px;
+    &:nth-child(2n - 1) {
+      animation: pulseInverse${(props: any) =>
+        ("" + props.iconSize).replaceAll(
+          ".",
+          "ra"
+        )} 0.25s alternate cubic-bezier(0, 0.3, 1, 0.61) infinite;
     }
   }
-  @keyframes pulseInverse {
+  @keyframes pulse${(props: any) =>
+    ("" + props.iconSize).replaceAll(".", "ra")} {
     from {
-      height:20px;
+      height: ${(props: any) => (props.iconSize * 20) / 2.5 + "px"};
     }
     to {
-      height:9px;
+      height: ${(props: any) => props.iconSize * 20 + "px"};
+    }
+  }
+  @keyframes pulseInverse${(props: any) =>
+    ("" + props.iconSize).replaceAll(".", "ra")} {
+    from {
+      height: ${(props: any) => props.iconSize * 20 + "px"};
+    }
+    to {
+      height: ${(props: any) => (props.iconSize * 20) / 2.5 + "px"};
     }
   }
 `
 
-const BeatAnimation: React.FC<any> = ({ themeMode, size }) => {
+const BeatAnimation: React.FC<any> = ({ color, iconSize }) => {
   return (
-    <BeatDiv size={size} color={themeMode === "lightmode" ? "#444" : "#fff"}>
+    <BeatDiv iconSize={iconSize} color={color}>
       <span className="bar"></span>
       <span className="bar"></span>
       <span className="bar"></span>
@@ -84,6 +94,19 @@ const LoaderContainer: StyledComponent<
 `
 
 const LoaderElement: StyledComponent<"div", any, any> = styled.div`
+  width: ${(props: any) => props.loaderwidth};
+  height: ${(props: any) => props.loaderheight};
+  position: absolute;
+
+  .loader {
+    position: sticky;
+    width: ${(props: any) => props.loaderwidth};
+    height: ${(props: any) => props.loaderheight};
+    background: ${(props: any) => props.background};
+    left: 0;
+    top: 0;
+    z-index: 991;
+  }
   @media (max-width: 441px) {
     .rap-card {
       margin: 0;
@@ -99,25 +122,25 @@ const Loader: React.FC<LoaderComponent> = ({
   customIcon,
   iconSize = 1,
   width = "100%",
-  height = "100vh",
+  height = "100%",
+  color = "",
   size = "5px",
+  ...props
 }) => {
   const [themeMode] = useThemeMode()
   const theme: RapUITheme = useTheme()
 
+  let iconColor = themeMode === "lightmode" ? "#444" : "#fff"
+  if (!!color.length) {
+    iconColor = getColorFromTheme(color, theme)
+  }
   const getAnimation = (): any => {
     switch (type) {
       case "spinner": {
-        return (
-          <Icon
-            path={mdiLoading}
-            color={themeMode === "lightmode" ? "#444" : "#fff"}
-            size={iconSize}
-          ></Icon>
-        )
+        return <Icon path={mdiLoading} color={iconColor} size={iconSize}></Icon>
       }
       case "pulse": {
-        return <BeatAnimation themeMode={themeMode} size={iconSize} />
+        return <BeatAnimation color={iconColor} iconSize={iconSize} />
       }
       default:
         throw new Error(
@@ -126,19 +149,13 @@ const Loader: React.FC<LoaderComponent> = ({
     }
   }
   return (
-    <LoaderElement>
-      <FlexRow
-        center
-        style={{
-          width,
-          height,
-          position: "fixed",
-          background: rgba(darken(0.5, theme[themeMode].background), 0.6),
-          top: 0,
-          left: 0,
-          zIndex: 991,
-        }}
-      >
+    <LoaderElement
+      loaderwidth={width}
+      loaderheight={height}
+      {...props}
+      background={rgba(darken(0.5, theme[themeMode].background), 0.6)}
+    >
+      <FlexRow className="loader" center>
         <Card size="sm">
           <LoaderContainer padding={size}>
             {customIcon || getAnimation()}
