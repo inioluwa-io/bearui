@@ -116,7 +116,7 @@ export type InputProps = {
   color?: string
   onError?: () => any
   validate?: "alpha" | "email" | "number"
-  type?: "email" | "text" | "password"
+  type?: "email" | "text" | "password" | "number"
   size?: "sm" | "md" | "lg"
   successMessage?: string
   errorMessage?: string

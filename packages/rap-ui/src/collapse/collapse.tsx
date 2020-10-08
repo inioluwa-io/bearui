@@ -49,7 +49,7 @@ const CollapseElement: any = styled.li`
   }
   &.disabled {
     header {
-      cursor: default;
+      cursor: not-allowed;
     }
     .p {
       color: ${(props: any) =>
@@ -148,7 +148,7 @@ const Collapse: React.FC<CollapseComponent> = ({
               }}
               className={selected.get(idx) ? "active" : ""}
             >
-              <div className ="p">{item.label}</div>
+              <div className="p">{item.label}</div>
               <div className="sc-ic">{icon}</div>
             </header>
             <div className={selected.get(idx) ? "active sc-cnt" : "sc-cnt"}>

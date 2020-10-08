@@ -45,7 +45,7 @@ const AvatarPage: React.FC<{}> = () => {
         <Card xsCol="12">
           <h5>Size</h5>
           <p>
-            To change size of a Avatar set the <code>size</code> prop. Avatar
+            To change size set the <code>size</code> prop. Avatar
             supports <code>xs</code>, <code>sm</code>, <code>md</code>,{" "}
             <code>lg</code> and user defined sizes like <code>20px</code>.
             Default is <code>sm</code>

@@ -15,6 +15,18 @@ const InputElement: any = styled.div`
   height: fit-content;
   width: 220px;
   padding-bottom: ${(props: any) => props.padBottom && "19px"};
+
+  label {
+    transition: color 0.35s ease;
+    ${(props: any) => !!props.color.length && "color: " + props.color};
+  }
+
+  &:hover,
+  &:focus {
+    label {
+      color: ${(props: any) => props.labelColor};
+    }
+  }
 `
 const InputContainer: any = styled.div`
   position: relative;
@@ -167,6 +179,7 @@ const Input: React.FC<InputProps> = ({
     throw new Error("Props id and onInputChange are required")
   }
   const [inputValue, setInputValue] = useState<string>("")
+  const [labelColor, setLabelColor] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
   const [validateMesssage, setValidateMessage] = useState<string>("")
@@ -264,13 +277,17 @@ const Input: React.FC<InputProps> = ({
         setValidateMessage(errorMessage)
         setError(true)
         setSuccess(false)
-        onError()
+        if (typeof onError === "function") {
+          onError()
+        }
       }
     } else {
       setSuccess(false)
       setError(false)
       setValidateMessage("")
     }
+
+    setLabelColor("")
   }
 
   const handleChangeEvent = (e: any) => {
@@ -293,6 +310,8 @@ const Input: React.FC<InputProps> = ({
       ref={refs}
       padBottom={!!validate.length}
       inputType={type}
+      color={labelColor}
+      labelColor={formatColor()}
       {...props}
     >
       {!!label.length && <Label htmlFor={`${id}`}>{label}</Label>}
@@ -315,6 +334,9 @@ const Input: React.FC<InputProps> = ({
           clearButton={clearButton}
           iconRight={iconRight && !clearButton}
           onChange={handleChangeEvent}
+          onFocus={() => {
+            setLabelColor(formatColor())
+          }}
         />
         {icon && (
           <InputIcon
