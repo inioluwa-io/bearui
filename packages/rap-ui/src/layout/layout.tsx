@@ -127,6 +127,14 @@ const SidebarContainer: any = styled.div`
   #side-bar {
     white-space: nowrap;
 
+    h6 {
+      font-weight: 500;
+      color: rgba(125, 125, 125, 0.7);
+      font-size: 13px;
+      // font-family: Nunito sans;
+      text-transform: uppercase;
+    }
+
     > .group-link:not(:last-child) {
       margin-bottom: 0;
     }
@@ -249,7 +257,7 @@ const Layout: React.FC<LayoutComponent> = ({
             <h3 style={{ color: theme.colors.primary }}>BearUI</h3>
           </FlexRow>
           <div className="scrollbar">
-            <FlexColumn id="side-bar" gap="10px">
+            <FlexColumn id="side-bar" gap="10px" align="left">
               {sideBar}
             </FlexColumn>
           </div>

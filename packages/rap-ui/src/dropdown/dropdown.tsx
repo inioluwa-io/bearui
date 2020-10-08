@@ -84,6 +84,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
   const refs = useRef<HTMLDivElement>()
   let indicatorColor = "#444444"
   const [position, setPosition] = useState<"top" | "bottom">("top")
+  const [active, setActive] = useState<boolean>(false)
 
   let indicatorBackground = lighten(0.2, theme[themeMode].background)
   if (themeMode === "darkmode") {
@@ -117,6 +118,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
 
           if (!dpTarget.contains(e.target) && !target.contains(e.target)) {
             handleBlur()
+            setActive(false)
           }
         }
       }
@@ -287,7 +289,11 @@ const Dropdown: React.FC<DropdownComponent> = ({
         onClick={e => {
           if (listener === "click") {
             handleHover()
+            if (active) {
+              handleBlur()
+            }
           }
+          setActive(prevState => !prevState)
         }}
         onMouseLeave={e => {
           if (listener === "hover") {

@@ -159,6 +159,37 @@ const ChipPage: React.FC<any> = () => {
                 setItem(value)
               }}
               items={items}
+            >
+              React
+            </Chip>
+          </FlexRow>
+        </Card>
+        <Card xsCol="12">
+          <h5>Auto Suggestion</h5>
+          <p>
+            To add a drop down for suggested text, pass an array of strings to
+            the <code>autoSuggestion</code> prop. You can handle suggested data
+            according to input changes by passing <code>onInputChange</code>. A
+            string of input value is passed as an argument to{" "}
+            <code>onInputChange</code>.
+          </p>
+          <p>
+            [
+            {items.map((item, idx) => (
+              <React.Fragment key={idx}>
+                {item}
+                {idx < items.length - 1 && ", "}
+              </React.Fragment>
+            ))}
+            ]
+          </p>
+          <FlexRow>
+            <Chip
+              closable={true}
+              onItemUpdate={(value: string[]) => {
+                setItem(value)
+              }}
+              items={items}
               autoSuggestion={suggestion}
               onInputChange={(value: string) => {
                 setSuggestion(generateArrayOfString(value, 5))

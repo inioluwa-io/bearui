@@ -70,6 +70,7 @@ const App: React.FC<any> = ({ ...props }) => {
           notification={notification}
           sideBar={
             <>
+              <h6>UI</h6>
               <Collapse
                 className="group-link"
                 icon="mdiChevronRight"

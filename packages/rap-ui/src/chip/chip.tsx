@@ -1,8 +1,8 @@
 import Icon from "@mdi/react"
 import * as mdi from "@mdi/js"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef, useCallback } from "react"
 import styled from "styled-components"
-import { rgba, darken, buttons } from "polished"
+import { rgba, darken } from "polished"
 import { ChipComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
 import { getColorFromTheme } from "../util"
@@ -184,13 +184,18 @@ const ChipAutoSuggestion: React.FC<any> = ({
   background,
   updateItems,
   boxShadow,
+  ...props
 }) => {
   const [suggestion, setSuggestion] = useState(suggestions)
   useEffect(() => {
     setSuggestion(suggestions)
   }, [suggestions])
   return (
-    <ChipSuggestionContainer background={background} boxShadow={boxShadow}>
+    <ChipSuggestionContainer
+      background={background}
+      boxShadow={boxShadow}
+      {...props}
+    >
       {suggestion.map((item: string, idx: number) => (
         <button
           key={idx}
@@ -225,15 +230,42 @@ const ChipItems: React.FC<any> = ({
   const theme = useTheme()
   const boxShadow = darken(0, theme[themeMode].background)
   const [suggestions, setSuggeestions] = useState(autoSuggestion)
+  const refs = useRef<HTMLDivElement>()
 
   const handleUpdateInput = (value: string) => {
     setInputValue(value)
-    onInputChange(value)
+    if (typeof onInputChange === "function") {
+      onInputChange(value)
+    }
   }
+
+  const closeSugeestions = useCallback(
+    e => {
+      {
+        const DOMNode = refs.current
+        const suggestionElement = DOMNode.querySelector(".sugst")
+        const inputElement = DOMNode.querySelector("input")
+
+        if (suggestionElement) {
+          if (
+            !suggestionElement.contains(e.target) &&
+            !inputElement.contains(e.target)
+          ) {
+            setSuggeestions([])
+          }
+        }
+      }
+    },
+    [refs]
+  )
 
   useEffect(() => {
     setSuggeestions(autoSuggestion)
-  }, [autoSuggestion])
+    window.addEventListener("click", closeSugeestions)
+    return (): void => {
+      window.removeEventListener("click", closeSugeestions)
+    }
+  }, [autoSuggestion, closeSugeestions])
 
   const handleAddItem = e => {
     if (e.which === 13 || e.keyCode === 13 || e.code === "Enter") {
@@ -274,6 +306,7 @@ const ChipItems: React.FC<any> = ({
       {...props}
       boxShadow={boxShadow}
       background={theme[themeMode].cardbackground}
+      ref={refs}
     >
       <FlexRow className="sc-cont" position="center">
         <FlexRow className="sc-cnt-chip" position="center">
@@ -297,11 +330,6 @@ const ChipItems: React.FC<any> = ({
               handleUpdateInput(e.target.value)
             }}
             onKeyDown={handleAddItem}
-            onBlur={() => {
-              if (!!suggestions.length) {
-                setSuggeestions([])
-              }
-            }}
             value={inputValue}
           />
         </FlexRow>
@@ -315,6 +343,7 @@ const ChipItems: React.FC<any> = ({
       </FlexRow>
       {suggestions && !!suggestions.length && (
         <ChipAutoSuggestion
+          className="sugst"
           updateItems={updateItems}
           suggestions={suggestions}
           boxShadow={boxShadow}
@@ -338,7 +367,7 @@ const Chip: React.FC<ChipComponent> = ({
   autoSuggestion,
   ...props
 }) => {
-  const [chipsItem, setChipsItem] = useState(items || [""])
+  const [chipsItem, setChipsItem] = useState([""])
   const handleClose = (idx: number) => {
     const tmpArr = [...chipsItem]
     tmpArr.splice(idx, 1)
@@ -362,6 +391,10 @@ const Chip: React.FC<ChipComponent> = ({
   const handleAdd = (value: string) => {
     setChipsItem([...chipsItem, value])
   }
+
+  useEffect(() => {
+    setChipsItem(items || [""])
+  }, [items])
 
   if (!items) {
     return (

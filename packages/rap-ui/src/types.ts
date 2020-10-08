@@ -185,7 +185,7 @@ export type ShimmerProps = {
 
 // display props
 
-export type yPositionProps = "top" | "center" | "bottom"
+export type yPositionProps = "left" | "center" | "right"
 export type xPositionProps = "left" | "center" | "right" | "stretch"
 
 export type HTMLElement = {
