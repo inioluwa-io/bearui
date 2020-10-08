@@ -102,7 +102,7 @@ const LoaderPage: React.FC<any> = () => {
             To set the checkbox to checked state, set the <code>active</code>{" "}
             prop to true
           </p>
-          <FlexRow>
+          <FlexRow position ="bottom">
             <FlexColumn align="center">
               <Loader
                 width="auto"

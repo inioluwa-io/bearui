@@ -185,7 +185,7 @@ export type ShimmerProps = {
 
 // display props
 
-export type yPositionProps = "left" | "center" | "right"
+export type yPositionProps = "top" | "center" | "bottom"
 export type xPositionProps = "left" | "center" | "right" | "stretch"
 
 export type HTMLElement = {
@@ -201,7 +201,7 @@ export type RowProps = {
 } & HTMLAttributes<HTMLDivElement>
 
 export type FlexColumnProps = {
-  align?: yPositionProps | "stretch"
+  align?: xPositionProps
   gap?: string
 } & HTMLAttributes<HTMLDivElement>
 // end
