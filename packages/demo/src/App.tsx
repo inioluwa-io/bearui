@@ -200,6 +200,19 @@ const App: React.FC<any> = ({ ...props }) => {
                           </FlexRow>
                         </NavLink>
                         <NavLink
+                          to="/component/datalist"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            Data List
+                          </FlexRow>
+                        </NavLink>
+                        <NavLink
                           to="/component/dropdown"
                           activeClassName="active"
                         >

@@ -99,6 +99,20 @@ const ButtonPage: React.FC<{}> = () => {
           </FlexRow>
         </Card>
         <Card xsCol="12">
+          <h5>Glow</h5>
+          <p>
+            To add a glow effect, set the <code>glow</code> prop to true
+          </p>
+          <FlexRow>
+            <Button glow>Primary</Button>
+            <Button glow background="success">Success</Button>
+            <Button glow background="info">Info</Button>
+            <Button glow background="danger">Danger</Button>
+            <Button glow background="warning">Warning</Button>
+            <Button glow background="dark">Dark</Button>
+          </FlexRow>
+        </Card>
+        <Card xsCol="12">
           <h5>Gradient</h5>
           <p>
             To change the background color, set the <code>background</code> prop

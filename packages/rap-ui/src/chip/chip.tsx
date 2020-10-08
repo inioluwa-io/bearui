@@ -297,6 +297,11 @@ const ChipItems: React.FC<any> = ({
               handleUpdateInput(e.target.value)
             }}
             onKeyDown={handleAddItem}
+            onBlur={() => {
+              if (!!suggestions.length) {
+                setSuggeestions([])
+              }
+            }}
             value={inputValue}
           />
         </FlexRow>
