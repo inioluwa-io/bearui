@@ -6,16 +6,17 @@ import { getColorFromTheme } from "../util"
 import { rgba, darken, adjustHue, lighten } from "polished"
 
 const ProgressContainer: any = styled.div`
-  margin: 10px;
+  width: 100%;
+  flex: 1;
 `
 const ProgressBar: any = styled.div`
   position: relative;
-  width: 100%;
+  width: ${(props: any) => props.initialWidth};
   height: ${(props: any) => props.barHeight};
-  background: ${(props: any) => rgba(props.barColor, 0.1)};
-  border-radius: 5px;
+  background: ${(props: any) => rgba(props.barColor, 0.225)};
+  border-radius: ${(props: any) => props.barHeight};
   overflow: hidden;
-  box-shadow: 0 3px 10px -1.5px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 
   &::after {
     content: "";
@@ -50,6 +51,7 @@ const Progress: React.FC<ProgressComponent> = ({
   color = "primary",
   percent,
   height = "5px",
+  width = "100%",
   ...props
 }) => {
   const theme = useTheme()
@@ -63,6 +65,7 @@ const Progress: React.FC<ProgressComponent> = ({
         boxShadow={boxShadow}
         barColor={barColor}
         barWidth={percent}
+        initialWidth={width}
         barHeight={height}
       />
     </ProgressContainer>

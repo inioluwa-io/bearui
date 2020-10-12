@@ -247,6 +247,7 @@ export type DataListComponent = {
   actionList?: ActionItem[]
   onRowSelect?: (data: any) => void
   uniqueIdentifier?: string
+  menu?: ReactElement
 } & HTMLAttributes<HTMLDivElement>
 
 // end
@@ -362,6 +363,7 @@ export type ChipComponent = {
 // Chip
 export type ProgressComponent = {
   height?: string
+  width?: string
   color?: string
   percent: number | string
 } & HTMLAttributes<HTMLDivElement>
@@ -379,6 +381,7 @@ export type PagnitionComponent = {
   color?: string
   prevIcon?: string
   nextIcon?: string
+  max?: number
 } & HTMLAttributes<HTMLDivElement>
 // end
 

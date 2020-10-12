@@ -18,13 +18,13 @@ const BreadcrumbPage: React.FC<any> = () => {
         <Grid xsCol="12">
           <Card withBackground={false}>
             <FlexRow gap="7px" position="center" align="left">
-              <h3>Breadcrumb</h3>
+              <h3>Tab</h3>
               <Breadcrumb
                 seperator="/"
                 item={[
                   { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
-                  { name: "Data", to: "/datatable" },
-                  { name: "Crumb", to: "" },
+                  { name: "Component", to: "/component" },
+                  { name: "Tab", to: "" },
                 ]}
               />
             </FlexRow>

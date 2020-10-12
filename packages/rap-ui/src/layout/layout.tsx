@@ -164,6 +164,7 @@ const SidebarContainer: any = styled.div`
       text-decoration: none;
       font-size: 14px;
       padding: 0 14px;
+      width: calc(100% - 28px);
       height: 2.6rem;
       display: flex;
       justify-content: center;

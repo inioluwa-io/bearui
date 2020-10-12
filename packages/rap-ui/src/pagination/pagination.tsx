@@ -77,6 +77,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
   documentLength,
   onPageGoto,
   color = "primary",
+  max = 9,
   prevIcon = "mdiChevronLeft",
   nextIcon = "mdiChevronRight",
   ...props
@@ -135,8 +136,6 @@ const Pagination: React.FC<PagnitionComponent> = ({
   const createPages = useCallback(
     (length: number): number[] => {
       let pages = []
-      let max: number = 9
-
       if (max < 5 || !(max % 2)) {
         max = 9
       }
@@ -185,7 +184,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
       }
       return pages
     },
-    [currentPage]
+    [currentPage, max]
   )
 
   const pages = createPages(totalPages)

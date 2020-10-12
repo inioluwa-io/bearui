@@ -21,10 +21,6 @@ const SwitchButton: any = styled.button`
   transition: all 0.35s;
   background: ${(props: any) => (props.active ? props.color : "#eaeaea")};
   outline: none;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
 `
 
 const SwitchInput = styled.input`
@@ -42,8 +38,11 @@ const SwitchInput = styled.input`
     + .circle {
       right: 4px;
       transform: translateY(-50%);
-      box-shadow: -2px 2px 7px ${rgba("#000", 0.5)};
+      box-shadow: -2px 2px 7px ${rgba("#000", 0.35)};
     }
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 `
 
@@ -54,7 +53,7 @@ const Circle = styled.span`
   background: #ffffff;
   top: 50%;
   border-radius: 30px;
-  box-shadow: 2px 2px 7px ${rgba("#000", 0.5)};
+  box-shadow: 2px 2px 7px ${rgba("#000", 0.35)};
   transition: all 0.35s;
 
   right: calc(100% - 4px);
@@ -96,19 +95,23 @@ const Switch: React.FC<SwitchProps> = ({
     ]
     if (supportedColors.includes(color.trim())) {
       if (disabled) {
-        return rgba(lighten(0.28, colors[color]), 0.4)
+        return rgba(colors[color], 0.5)
       }
       return colors[color]
     } else {
       if (disabled) {
-        return rgba(lighten(0.28, color), 0.4)
+        return rgba(color, 0.5)
       }
       return color
     }
   }
 
   return (
-    <SwitchButton color={getColor()} active={isActive} id={id}>
+    <SwitchButton
+      color={getColor()}
+      active={isActive}
+      id={id}
+    >
       <SwitchInput
         {...props}
         type="checkbox"

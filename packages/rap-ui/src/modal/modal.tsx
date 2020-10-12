@@ -30,11 +30,26 @@ const ModalContainer: any = styled.div`
   max-height: 80vh;
   background: ${(props: any) => props.background};
   box-shadow: 0 0 20px -10px ${(props: any) => darken(0.65, props.background)};
-  transform: scale3d(0.8, 0.8, 0.8);
-  opacity: 0;
 
   @media (max-width: 768px) {
     min-width: 85vw;
+  }
+
+  ${(props: any) =>
+    props.active &&
+    "animation: popOut .35s cubic-bezier(0.38, 0.39, 0.3, 1.36)"};
+
+  @keyframes popOut {
+    from {
+      transform: scale3d(0.8, 0.8, 0.8);
+      opacity: 0;
+    }
+    80% {
+      opacity: 1;
+    }
+    to {
+      transform: scale3d(1, 1, 1);
+    }
   }
 
   @media (max-width: 441px) {
@@ -54,6 +69,9 @@ const InnerContainer: any = styled.div`
 
   > :not(:last-child) {
     margin-bottom: 25px;
+  }
+  * {
+    color: ${(props: any) => props.color};
   }
 
   @media (max-width: 441px) {
@@ -161,11 +179,6 @@ const Modal: React.FC<ModalProps> = ({
 
       DOMNode.style.transition = "all .25s"
       DOMNode.style.opacity = "1"
-
-      let modal = DOMNode.querySelector("#modal-container")
-      modal.style.transition = ".25s transform .15s, .25s opacity .15s"
-      modal.style.opacity = "1"
-      modal.style.transform = "scale3d(1,1,1)"
     }
   }, [ref])
 
@@ -184,31 +197,37 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [ref])
 
-  const handleEsc = useCallback((e: any) => {
-    if (e.which === 27 || e.keyCode === 27 || e.code === "Escape") {
-      handleClose()
+  const handleClose = useCallback(() => {
+    closeAnimation()
+    const timeout = setTimeout(() => {
+      onClose()
+    }, 300)
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [])
+  }, [onClose])
+
+  const handleEsc = useCallback(
+    (e: any) => {
+      if (e.which === 27 || e.keyCode === 27 || e.code === "Escape") {
+        handleClose()
+      }
+    },
+    [handleClose]
+  )
 
   useEffect(() => {
     if (active) {
       openAnimation()
-      window.addEventListener("keyup", handleEsc)
+      window.addEventListener("keydown", handleEsc)
     } else {
-      window.removeEventListener("keyup", handleEsc)
+      window.removeEventListener("keydown", handleEsc)
     }
 
     return () => {
-      window.removeEventListener("keyup", handleEsc)
+      window.removeEventListener("keydown", handleEsc)
     }
   }, [active])
-
-  const handleClose = () => {
-    closeAnimation()
-    setTimeout(() => {
-      onClose()
-    }, 300)
-  }
 
   return (
     active && (
@@ -219,6 +238,7 @@ const Modal: React.FC<ModalProps> = ({
         <ModalContainer
           id="modal-container"
           background={theme[themeMode].cardbackground}
+          active={active}
         >
           <Header border={theme[themeMode].background}>
             {title && <Title color={defaultColor}>{title}</Title>}
@@ -229,7 +249,7 @@ const Modal: React.FC<ModalProps> = ({
               <Icon size={0.85} path={mdiClose} color={defaultColor} />
             </CloseButton>
           </Header>
-          <InnerContainer>{children}</InnerContainer>
+          <InnerContainer color={defaultColor}>{children}</InnerContainer>
           <Footer border={theme[themeMode].background}></Footer>
         </ModalContainer>
       </ModalBackground>

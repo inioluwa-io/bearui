@@ -240,6 +240,7 @@ const DataList: React.FC<DataListComponent> = ({
   renderRule = [],
   defaultSortIndex = 1,
   onRowSelect,
+  menu,
   ...props
 }) => {
   const theme = useTheme()
@@ -453,7 +454,6 @@ const DataList: React.FC<DataListComponent> = ({
 
   const handleFilterData = useCallback(() => {
     const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
-    console.log(tmp)
     setfilteredData(tmp)
     if (selectAll && !arrayLikeMap(tmp, selected)) {
       setSelectAll(false)
@@ -528,7 +528,7 @@ const DataList: React.FC<DataListComponent> = ({
 
         {/* When row selected show actions for all */}
         <FlexRow align="stretch">
-          <p>fj</p>
+          <div>{menu}</div>
           {!!selectedRowsData.length && (
             <FlexRow style={{ width: "fit-content" }}>
               {actionList.map((actionItem, idx: number) => (

@@ -21,7 +21,6 @@ const ProgressPage: React.FC<{}> = () => {
               Progress
             </h3>
             <Breadcrumb
-              seperator="mdiChevronDoubleRight"
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
                 { name: "Progress", to: "" },
