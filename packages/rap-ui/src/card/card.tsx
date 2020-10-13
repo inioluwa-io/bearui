@@ -165,6 +165,7 @@ const Card: React.FC<CardProps> = ({
   mdCol = "",
   xsCol = "",
   withBackground = true,
+  className,
   ...props
 }) => {
   const theme = useTheme()
@@ -238,7 +239,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <CardContainer
-      className={`rap-card rap-${size}`}
+      className={`rap-card rap-${size} ${className}`}
       {...props}
       lgCol={lgCol}
       mdCol={mdCol}

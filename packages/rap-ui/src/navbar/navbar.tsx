@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useEffect } from "react"
 import styled from "styled-components"
 import { darken } from "polished"
 import { NavbarComponent } from "../types"
@@ -69,6 +69,10 @@ const Navbar: React.FC<NavbarComponent> = ({
       }
     }
   }
+
+  useEffect(() => {
+    document.body.classList.add(`nav-${position}`)
+  }, [position])
 
   return (
     <NavbarContainer background={background} positionStyle={getPostitionStyle}>

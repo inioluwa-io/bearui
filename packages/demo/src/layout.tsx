@@ -18,6 +18,7 @@ import Icon from "@mdi/react"
 import {
   mdiBriefcaseOutline,
   mdiCardTextOutline,
+  mdiCheckCircleOutline,
   mdiCircleOutline,
   mdiFormatPaint,
   mdiWaterOutline,
@@ -46,6 +47,13 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
       notification={notification}
       sideBar={
         <>
+          <h6>APPS</h6>
+          <NavLink to="/apps/todos" activeClassName="active">
+            <FlexRow gap="13px">
+              <Icon path={mdiCheckCircleOutline} color={color} size={0.7} />
+              Todos
+            </FlexRow>
+          </NavLink>
           <h6>UI</h6>
           <Collapse
             className="group-link"

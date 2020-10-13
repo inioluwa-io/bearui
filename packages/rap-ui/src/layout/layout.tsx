@@ -48,14 +48,14 @@ const LayoutContainer: any = styled.div`
     * {
       ::-webkit-scrollbar {
         height: 6px;
-        width: 8px;
+        width: 7px;
         background: rgba(0, 0, 0, 0);
         transition: all 0.25s ease;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb {
         height: 6px;
-        width: 8px;
+        width: 7px;
         background: rba(0, 0, 0, 0);
         border-radius: 4px;
         transition: all 0.25s ease;
@@ -71,14 +71,14 @@ const LayoutContainer: any = styled.div`
       width: calc(100% - 16.5rem);
     }
   }
-  @media (max-width: 991px) {
+  @media (max-width: 1200px) {
     main {
       #main-container {
         width: calc(100% - 65px);
       }
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     main {
       #main-container {
         width: 100%;
@@ -98,12 +98,8 @@ const SidebarContainer: any = styled.div`
   grid-template-rows: 65px 1fr;
 
   * {
-    ::-webkit-scrollbar {
-      opacity: 1;
-      background: rgba(0, 0, 0, 0.1);
-    }
     ::-webkit-scrollbar-thumb {
-      background: #aaaaaa66;
+      background: #aaaaaa55;
     }
   }
 
@@ -114,12 +110,8 @@ const SidebarContainer: any = styled.div`
 
   &:hover {
     * {
-      ::-webkit-scrollbar {
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.1);
-      }
       ::-webkit-scrollbar-thumb {
-        background: #aaa;
+        background: #aaaaaa88;
       }
     }
   }
@@ -133,6 +125,10 @@ const SidebarContainer: any = styled.div`
       font-size: 13px;
       // font-family: Nunito sans;
       text-transform: uppercase;
+
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
     }
 
     > .group-link:not(:last-child) {
@@ -196,11 +192,11 @@ const SidebarContainer: any = styled.div`
     }
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: 1200px) {
     width: 65px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     position: fixed;
     transform: translateX(-100%);
   }

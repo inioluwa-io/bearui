@@ -9,6 +9,7 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
   flex-wrap: wrap;
   margin: 15px;
   text-align: left;
+  align-items: flex-start;
 
   > .rap-card {
     margin: 10px;

@@ -16,6 +16,7 @@ type RowStyleProps = {
 const RowContainer: any = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex: 1;
   grid-gap: ${(props: RowStyleProps) => props.marginRight};
   grid-row-gap: calc(${(props: RowStyleProps) => props.marginRight} / 1.5);
   flex-direction: row;

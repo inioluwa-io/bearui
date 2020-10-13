@@ -66,13 +66,13 @@ const DataListOption: StyledComponent<"label", any> = styled.label`
 const DataListFilter: StyledComponent<"div", any, any> = styled.div`
   #datalist-search {
     background: ${(props: any) => props.background};
-    box-shadow: 0 0 25px -20px #242424;
+    box-shadow: 0 0 25px -17px #242424;
   }
 
   #datalist-view {
     font-size: 14px;
     background: ${(props: any) => props.background};
-    box-shadow: 0 0 25px -20px #242424;
+    box-shadow: 0 0 25px -17px #242424;
     border: 1px solid transparent;
 
     .dp-trgt {

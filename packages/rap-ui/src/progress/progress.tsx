@@ -13,7 +13,7 @@ const ProgressBar: any = styled.div`
   position: relative;
   width: ${(props: any) => props.initialWidth};
   height: ${(props: any) => props.barHeight};
-  background: ${(props: any) => rgba(props.barColor, 0.225)};
+  background: ${(props: any) => rgba(props.barColor, 0.2)};
   border-radius: ${(props: any) => props.barHeight};
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);

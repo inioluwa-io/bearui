@@ -292,7 +292,7 @@ const Button: React.FC<ButtonProps> = ({
           color={
             props.outline ? getStyleFromBackgroundProps().background : iconColor
           }
-          size={0.75}
+          size={0.73}
           style={getIconStyle()}
         />
       )}
@@ -303,7 +303,7 @@ const Button: React.FC<ButtonProps> = ({
           color={
             props.outline ? getStyleFromBackgroundProps().background : iconColor
           }
-          size={0.75}
+          size={0.73}
           style={getIconStyle()}
         />
       )}

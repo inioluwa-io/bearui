@@ -13,7 +13,7 @@ const InputElement: any = styled.div`
   text-align: left;
   margin-top: 0px;
   height: fit-content;
-  width: 220px;
+  width: 230px;
   padding-bottom: ${(props: any) => props.padBottom && "19px"};
 
   label {

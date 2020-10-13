@@ -24,6 +24,7 @@ import {
   SwitchPage,
   PaginationPage,
 } from "./components"
+import { Todos } from "./apps"
 
 const App: React.FC<any> = ({ ...props }) => {
   return (
@@ -42,6 +43,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/login2"
             component={(props: any) => <Login2 {...props} />}
+          />
+          <Route
+            path="/apps/todos"
+            component={(props: any) => <Todos {...props} />}
           />
           <Route
             path="/components/avatar"
