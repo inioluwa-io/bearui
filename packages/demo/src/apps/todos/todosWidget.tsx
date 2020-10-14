@@ -31,7 +31,7 @@ const TodosContainer: any = styled(Card)`
     // animation: fadeInUp 0.25s ease;
     border-radius: 0;
     margin: 0 2px !important;
-    width: 100% !important;
+    // width: 100% !important;
     padding-top: 15px !important;
     padding-bottom: 15px !important;
 
@@ -244,7 +244,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
                     handleSetFilter("completed", todo.id, !todo.completed)
                   }}
                 >
-                  <p className="truncate" style={{ fontWeight: 500 }}>
+                  <p style={{ fontWeight: 500 }}>
                     {todo.name}
                   </p>
                 </Checkbox>

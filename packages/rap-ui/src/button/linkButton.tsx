@@ -16,21 +16,21 @@ const Button1: any = styled(Link)`
 font-family: inherit;
   position:relative;
   background: ${(props: any) => {
-    if (props.transparent) {
+    if (props.transparent === "true") {
       return rgba(props.background, 0.15)
     } else {
-      if (props.outline) {
+      if (props.outline === "true") {
         return "transparent"
       } else {
-        return props.backgroundgradient || props.background
+        return props.backgroundGradient || props.background
       }
     }
   }};
   color: ${(props: any) => {
-    if (props.transparent) {
+    if (props.transparent === "true") {
       return props.background
     } else {
-      return props.outline ? props.background : props.textcolor
+      return props.outline === "true" ? props.background : props.textcolor
     }
   }};
   font-size: 13px;
@@ -62,15 +62,15 @@ font-family: inherit;
 
   &:hover, &:focus{
     ${(props: any) => {
-      if (props.transparent) {
+      if (props.transparent === "true") {
         return `background: ${props.background};
         color: ${props.textcolor};`
       } else {
-        if (props.outline) {
+        if (props.outline === "true") {
           return `background: ${props.background};
         color: ${props.textColor};`
         } else {
-          if (!props.backgroundgradient) {
+          if (!props.backgroundGradient) {
             return (
               "background:" +
               darken(0.05, props.background) +
@@ -132,9 +132,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   hoverColor,
   iconColor = "#ffffff",
   textColor = "#ffffff",
-  iconRight = false,
-  transparent = false,
-  gradient = false,
+  iconRight = "false",
+  transparent = "false",
+  gradient = "false",
   size = "md",
   ...props
 }) => {
