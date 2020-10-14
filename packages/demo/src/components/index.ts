@@ -8,6 +8,7 @@ import ModalPage from "./modal"
 import PaginationPage from "./pagination"
 import ProgressPage from "./progress"
 import SwitchPage from "./switch"
+import ListPage from "./list"
 
 export {
   AvatarPage,
@@ -20,4 +21,5 @@ export {
   PaginationPage,
   ProgressPage,
   SwitchPage,
+  ListPage,
 }

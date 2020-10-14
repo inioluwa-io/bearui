@@ -127,7 +127,10 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
         </Check>
       </CheckboxButton>
       {children && (
-        <label style={{ cursor: "pointer" }} htmlFor={id}>
+        <label
+          style={{ cursor: "pointer", flex: "1 1", whiteSpace: "break-spaces" }}
+          htmlFor={id}
+        >
           {children}
         </label>
       )}

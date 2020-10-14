@@ -6,12 +6,13 @@ import { RapUITheme, ModalProps } from "../types"
 import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
 import { getColorFromTheme } from "../util"
+import { Button } from "../button"
 
 const ModalBackground: any = styled.div`
   position: fixed;
   width: 100%;
   left: 0;
-  z-index: 9999;
+  z-index: 99991;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +25,7 @@ const ModalBackground: any = styled.div`
 
 const ModalContainer: any = styled.div`
   position: relative;
-  min-width: 38rem;
+  min-width: 28rem;
   border-radius: 10px;
   overflow: hidden;
   max-height: 80vh;
@@ -70,13 +71,10 @@ const InnerContainer: any = styled.div`
   > :not(:last-child) {
     margin-bottom: 25px;
   }
-  * {
-    color: ${(props: any) => props.color};
-  }
-
   @media (max-width: 441px) {
-    height: calc(100vh - 180px);
-    max-height: calc(100vh - 180px);
+    height: calc(100vh - 160px);
+    max-height: calc(100vh - 160px);
+    padding: 20px;
   }
 `
 
@@ -88,13 +86,23 @@ const Header: any = styled.div`
   grid-template-areas: ". title button";
   padding: 0 15px;
   justify-content: center;
+  color: ${(props: any) => props.color};
   border-bottom: 1px solid ${(props: any) => rgba(props.border, 0.4)};
+
+  @media (max-width: 441px) {
+    width: 100%;
+    padding: 0px;
+  }
 `
 
 const Footer: any = styled.div`
   width: calc(100% - 30px);
   height: 60px;
   padding: 0 15px;
+  display: flex;
+  justify-content: flex-end;
+  grid-gap: 10px;
+  align-items: center;
   border-top: 1px solid ${(props: any) => rgba(props.border, 0.4)};
 `
 
@@ -160,6 +168,9 @@ const Modal: React.FC<ModalProps> = ({
   title,
   color = "",
   children,
+  onSubmit,
+  submitButton,
+  ...props
 }) => {
   const theme: RapUITheme = useTheme()
   const [themeMode] = useThemeMode()
@@ -233,6 +244,7 @@ const Modal: React.FC<ModalProps> = ({
     active && (
       <ModalBackground
         ref={ref}
+        {...props}
         background={darken(0.5, theme[themeMode].background)}
       >
         <ModalContainer
@@ -250,7 +262,16 @@ const Modal: React.FC<ModalProps> = ({
             </CloseButton>
           </Header>
           <InnerContainer color={defaultColor}>{children}</InnerContainer>
-          <Footer border={theme[themeMode].background}></Footer>
+          <Footer border={theme[themeMode].background}>
+            {submitButton && (
+              <>
+                {submitButton}
+                <Button transparent onClick={handleClose}>
+                  Cancel
+                </Button>
+              </>
+            )}
+          </Footer>
         </ModalContainer>
       </ModalBackground>
     )

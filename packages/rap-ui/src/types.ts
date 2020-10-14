@@ -19,6 +19,7 @@ export type ButtonStyle = {
   borderColor?: string
   iconColor?: string
   iconOnly?: boolean
+  transparent?: boolean
   glow?: boolean
   hoverColor?: string
   size?: "xs" | "sm" | "md" | "lg"
@@ -108,6 +109,7 @@ export type InputProps = {
   id: string
   label?: string
   placeholder?: string
+  defaultValue?: string
   disabled?: boolean
   icon?: string
   clearButton?: boolean
@@ -158,6 +160,7 @@ export type ModalProps = {
   active: boolean
   color?: string
   title?: string
+  submitButton?: ReactElement
   onClose: () => any
 } & HTMLAttributes<HTMLDivElement>
 // end

@@ -22,6 +22,7 @@ import {
   ModalPage,
   TabPage,
   SwitchPage,
+  ListPage,
   PaginationPage,
 } from "./components"
 import { Todos } from "./apps"
@@ -87,6 +88,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/components/input"
             component={(props: any) => <InputPage {...props} />}
+          />
+          <Route
+            path="/components/list"
+            component={(props: any) => <ListPage {...props} />}
           />
           <Route
             path="/components/loader"

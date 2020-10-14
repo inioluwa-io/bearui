@@ -198,6 +198,16 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                         Input
                       </FlexRow>
                     </NavLink>
+                    <NavLink to="/components/list" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        List
+                      </FlexRow>
+                    </NavLink>
                     <NavLink to="/components/loader" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -328,7 +338,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
       }
       navbar={
         <Navbar
-          position="floating"
+          position="sticky"
           links={[
             <Link to="/">Home</Link>,
             <Link to="/">About</Link>,

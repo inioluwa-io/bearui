@@ -15,13 +15,24 @@ import { useTheme } from "../theme"
 const Button1: any = styled(Link)`
 font-family: inherit;
   position:relative;
-  background: ${(props: any) =>
-    props.outline
-      ? "transparent"
-      : (props.backgroundgradient !== "false" && props.backgroundgradient) ||
-        props.background};
-  color: ${(props: any) =>
-    props.outline ? props.background : props.textcolor};
+  background: ${(props: any) => {
+    if (props.transparent) {
+      return rgba(props.background, 0.15)
+    } else {
+      if (props.outline) {
+        return "transparent"
+      } else {
+        return props.backgroundgradient || props.background
+      }
+    }
+  }};
+  color: ${(props: any) => {
+    if (props.transparent) {
+      return props.background
+    } else {
+      return props.outline ? props.background : props.textcolor
+    }
+  }};
   font-size: 13px;
   padding: ${(props: any) =>
     props.icononly === "false" ? props.padding : props.iconpadding};
@@ -51,17 +62,22 @@ font-family: inherit;
 
   &:hover, &:focus{
     ${(props: any) => {
-      if (props.outline) {
+      if (props.transparent) {
         return `background: ${props.background};
         color: ${props.textcolor};`
       } else {
-        if (!props.backgroundgradient) {
-          return (
-            "background:" +
-            darken(0.05, props.background) +
-            ";" +
-            `color:${props.textcolor};`
-          )
+        if (props.outline) {
+          return `background: ${props.background};
+        color: ${props.textColor};`
+        } else {
+          if (!props.backgroundgradient) {
+            return (
+              "background:" +
+              darken(0.05, props.background) +
+              ";" +
+              `color:${props.textColor};`
+            )
+          }
         }
       }
     }}
@@ -117,6 +133,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   iconColor = "#ffffff",
   textColor = "#ffffff",
   iconRight = false,
+  transparent = false,
   gradient = false,
   size = "md",
   ...props
@@ -159,7 +176,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return { borderRadius: "5px" }
+        return size === "lg" ? { borderRadius: "9px" } : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -174,7 +191,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "md":
         return { padding: "10.5px 23px", iconPadding: "9.5px" }
       case "lg":
-        return { padding: "16px 35px", iconPadding: "15px" }
+        return { padding: "15px 32px", iconPadding: "13px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -231,7 +248,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   updateProps(getStyleFromCornersProps())
   updateProps(getStyleFromSizeProps())
   updateProps(getStyleFromBackgroundProps())
-  if (background === "white") {
+  if (background === "white" && textColor === "#ffffff") {
     updateProps({ textColor: "#222222" })
   }
   updateProps({ textColor: textColor, iconRight, iconOnly })
@@ -245,7 +262,13 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   }
 
   return (
-    <Button1 to={to} background {...formatObjKeysToLowercase(props)} ref={refs}>
+    <Button1
+      to={to}
+      background
+      transparent={transparent}
+      {...formatObjKeysToLowercase(props)}
+      ref={refs}
+    >
       {icon && (
         <Icon
           className="rap-ico"

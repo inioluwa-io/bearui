@@ -1,2 +1,3 @@
 import Todos from "./todos"
-export { Todos }
+import TodosWidget from "./todosWidget"
+export { Todos, TodosWidget }

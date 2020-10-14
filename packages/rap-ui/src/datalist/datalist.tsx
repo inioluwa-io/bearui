@@ -197,7 +197,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 17px 20px;
+      padding: 18px 20px;
       padding-right: 15px;
       position: relative;
       vertical-align: middle;
@@ -530,7 +530,7 @@ const DataList: React.FC<DataListComponent> = ({
         <FlexRow align="stretch">
           <div>{menu}</div>
           {!!selectedRowsData.length && (
-            <FlexRow style={{ width: "fit-content" }}>
+            <FlexRow style={{ width: "fit-content" }} align="right">
               {actionList.map((actionItem, idx: number) => (
                 <Button
                   key={idx}

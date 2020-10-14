@@ -31,16 +31,18 @@ const InputElement: any = styled.div`
 const InputContainer: any = styled.div`
   position: relative;
   height: ${(props: any) => props.height};
+  height: 100px;
   width: 100%;
   display: flex;
 `
-const InputHtmlElement: any = styled.input`
+const InputHtmlElement: any = styled.textarea`
   position: relative;
   height: calc(100% - (${(props: any) =>
     `${props.size} + ${props.size} + 1px)`});
   flex: 1;
   font-size: 13px; 
   font-family: inherit;
+  resize:none;
   width: 100%;
   outline: none;
   padding: ${(props: any) => props.size};
@@ -157,13 +159,12 @@ const ClearButton: any = styled.button`
  * Creates an input element
  */
 
-const Input: React.FC<InputProps> = ({
+const TextArea: React.FC<InputProps> = ({
   id,
   label = "",
   type = "text",
   disabled = false,
   placeholder,
-  defaultValue = "",
   size = "sm",
   color = "#596173",
   icon,
@@ -172,6 +173,7 @@ const Input: React.FC<InputProps> = ({
   iconBorder = true,
   onInputChange,
   validate = "",
+  defaultValue = "",
   clearButton = false,
   successMessage = "Valid",
   errorMessage = "Invalid",
@@ -199,8 +201,7 @@ const Input: React.FC<InputProps> = ({
         DOMNode.style.marginBottom = "-19px"
       }
     }
-    onInputChange(defaultValue)
-  }, [defaultValue])
+  }, [])
 
   const inputHeightSize = (): string => {
     switch (size) {
@@ -380,4 +381,4 @@ const Input: React.FC<InputProps> = ({
     </InputElement>
   )
 }
-export default Input
+export default TextArea

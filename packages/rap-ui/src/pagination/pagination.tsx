@@ -18,13 +18,21 @@ const ControlButton: any = styled.button`
   outline: none;
   border: none;
   background: ${(props: any) => props.backgroundColor};
-  width: 31px;
-  height: 31px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   transition: background 0.35s ease;
+  
+  svg path {
+    transition: background 0.35s ease;
+  }
 
   &:hover:not(.disabled) {
     background: ${(props: any) => props.color};
+
+    svg path {
+      fill: #ffffff !important;
+    }
   }
 
   &:not(.disabled) {
@@ -38,7 +46,7 @@ const PagesContainer: any = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  padding: 0 2px;
+  padding: 0 3px;
   background: ${(props: any) => props.backgroundColor};
   border-radius: 30px;
 `
@@ -49,12 +57,13 @@ const PageButton: any = styled.button`
   align-items: center;
   outline: none;
   border: none;
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   transition: background 0.35s ease;
   background: transparent;
   cursor: pointer;
+  font-weight: 500;
 
   &:first-child {
     margin-left: -2px;
@@ -66,7 +75,7 @@ const PageButton: any = styled.button`
 
   &.active {
     background: ${(props: any) => props.color};
-    font-weight: 500;
+    font-weight: 700;
     font-size: 15px;
     color: #ffffff;
   }

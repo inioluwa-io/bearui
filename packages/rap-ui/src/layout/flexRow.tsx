@@ -14,9 +14,9 @@ type RowStyleProps = {
 }
 
 const RowContainer: any = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  flex: 1;
+  // flex: 1;
   grid-gap: ${(props: RowStyleProps) => props.marginRight};
   grid-row-gap: calc(${(props: RowStyleProps) => props.marginRight} / 1.5);
   flex-direction: row;
@@ -32,6 +32,14 @@ const RowContainer: any = styled.div`
     flex-basis: 100%;
     width: 100%;
   }
+  ${(props: RowStyleProps) =>
+    props.position.alignSelf === "space-between" &&
+    `
+    > div {
+      width:fit-content;
+      flex:auto;
+    }
+    `};
 
   @media (max-width: 768px) {
     // width: calc(100% - 10px);

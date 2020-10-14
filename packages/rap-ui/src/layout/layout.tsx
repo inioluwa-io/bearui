@@ -13,7 +13,7 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
       style={{
         position: "fixed",
         top: "0",
-        zIndex: 9999,
+        zIndex: 999999,
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
@@ -47,18 +47,23 @@ const LayoutContainer: any = styled.div`
   &.isnotmobile {
     * {
       ::-webkit-scrollbar {
-        height: 6px;
-        width: 7px;
+        height: 8px;
+        width: 8px;
         background: rgba(0, 0, 0, 0);
         transition: all 0.25s ease;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb {
-        height: 6px;
-        width: 7px;
-        background: rba(0, 0, 0, 0);
+        height: 8px;
+        width: 8px;
+        background: #aaaaaa55;
         border-radius: 4px;
         transition: all 0.25s ease;
+      }
+    }
+    *:hover {
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.225);
       }
     }
   }
@@ -97,12 +102,6 @@ const SidebarContainer: any = styled.div`
   display: grid;
   grid-template-rows: 65px 1fr;
 
-  * {
-    ::-webkit-scrollbar-thumb {
-      background: #aaaaaa55;
-    }
-  }
-
   .scrollbar {
     overflow: hidden auto;
     padding: 20px 13px;
@@ -111,7 +110,7 @@ const SidebarContainer: any = styled.div`
   &:hover {
     * {
       ::-webkit-scrollbar-thumb {
-        background: #aaaaaa88;
+        // background: #aaaaaa88;
       }
     }
   }

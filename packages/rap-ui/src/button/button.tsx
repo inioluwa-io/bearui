@@ -5,6 +5,7 @@ import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
 import * as path from "@mdi/js"
 import { useTheme } from "../theme"
+
 /**
  * How it works!!
  * background - if border is true set background to transparent else check if backgroundGradient is set or background is set
@@ -14,12 +15,24 @@ import { useTheme } from "../theme"
 const Button1: any = styled.button`
 font-family: inherit;
   position:relative;
-  background: ${(props: any) =>
-    props.outline
-      ? "transparent"
-      : props.backgroundGradient || props.background};
-  color: ${(props: any) =>
-    props.outline ? props.background : props.textColor};
+  background: ${(props: any) => {
+    if (props.transparent) {
+      return rgba(props.background, 0.15)
+    } else {
+      if (props.outline) {
+        return "transparent"
+      } else {
+        return props.backgroundGradient || props.background
+      }
+    }
+  }};
+  color: ${(props: any) => {
+    if (props.transparent) {
+      return props.background
+    } else {
+      return props.outline ? props.background : props.textColor
+    }
+  }};
   font-size: 13px;
   padding: ${(props: any) =>
     !props.iconOnly ? props.padding : props.iconPadding};
@@ -41,23 +54,27 @@ font-family: inherit;
 
   &:disabled {
     background: ${(props: any) =>
-      !props.border ? lighten(0.1, props.background) : "transparent"};
+      !props.border ? lighten(0.1, props.background) : "transparent"} !important;
     cursor:not-allowed;
   }
-
+  
   &:hover, &:focus{
     ${(props: any) => {
-      if (props.outline) {
-        return `background: ${props.background};
-        color: ${props.textColor};`
+      if (props.transparent) {
+        return `background: ${props.background};`
       } else {
-        if (!props.backgroundGradient) {
-          return (
-            "background:" +
-            darken(0.05, props.background) +
-            ";" +
-            `color:${props.textColor};`
-          )
+        if (props.outline) {
+          return `background: ${props.background};
+        color: ${props.textColor};`
+        } else {
+          if (!props.backgroundGradient) {
+            return (
+              "background:" +
+              darken(0.05, props.background) +
+              ";" +
+              `color:${props.textColor};`
+            )
+          }
         }
       }
     }}
@@ -70,8 +87,12 @@ font-family: inherit;
 
           svg path{
             fill: ${(props: any) => {
-              if (props.outline) {
+              if (props.transparent) {
                 return `${props.textColor} !important`
+              } else {
+                if (props.outline) {
+                  return `${props.textColor} !important`
+                }
               }
             }}
           }
@@ -118,9 +139,8 @@ font-family: inherit;
     }
   }
   .text{
-    color: ${(props: any) =>
-      props.outline ? props.background : props.textColor};
-    }
+    color: inherit;
+  }
 
   &.loading{
     background: ${(props: any) => lighten(0.1, props.background)};
@@ -166,6 +186,8 @@ const Button: React.FC<ButtonProps> = ({
   size = "md",
   loadingIcon = "mdiLoading",
   loading = false,
+  transparent = false,
+  className,
   ...props
 }) => {
   const refs: any = useRef()
@@ -206,7 +228,9 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return { borderRadius: "5px" }
+        return size === "lg"
+          ? { borderRadius: "9px" }
+          : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -221,7 +245,7 @@ const Button: React.FC<ButtonProps> = ({
       case "md":
         return { padding: "10.5px 23px", iconPadding: "9.5px" }
       case "lg":
-        return { padding: "16px 35px", iconPadding: "15px" }
+        return { padding: "15px 32px", iconPadding: "13px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -284,15 +308,24 @@ const Button: React.FC<ButtonProps> = ({
   updateProps({ textColor: textColor, iconRight, iconOnly })
 
   return (
-    <Button1 {...props} ref={refs} className={loading ? "loading" : ""}>
+    <Button1
+      transparent={transparent}
+      {...props}
+      ref={refs}
+      className={loading ? "loading " + className : className}
+    >
       {loading && (
         <Icon
           className="rap-loa"
           path={path[loadingIcon]}
           color={
-            props.outline ? getStyleFromBackgroundProps().background : iconColor
+            transparent
+              ? getStyleFromBackgroundProps().background
+              : props.outline
+              ? getStyleFromBackgroundProps().background
+              : iconColor
           }
-          size={0.73}
+          size={size === "lg" ? 1 : 0.73}
           style={getIconStyle()}
         />
       )}
@@ -301,9 +334,13 @@ const Button: React.FC<ButtonProps> = ({
           className="rap-ico"
           path={path[icon]}
           color={
-            props.outline ? getStyleFromBackgroundProps().background : iconColor
+            transparent
+              ? getStyleFromBackgroundProps().background
+              : props.outline
+              ? getStyleFromBackgroundProps().background
+              : iconColor
           }
-          size={0.73}
+          size={size === "lg" ? 1 : 0.73}
           style={getIconStyle()}
         />
       )}
