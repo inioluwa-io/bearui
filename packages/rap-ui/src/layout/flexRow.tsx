@@ -14,7 +14,7 @@ type RowStyleProps = {
 }
 
 const RowContainer: any = styled.div`
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   // flex: 1;
   grid-gap: ${(props: RowStyleProps) => props.marginRight};
