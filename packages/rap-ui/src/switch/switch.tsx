@@ -75,7 +75,7 @@ const Switch: React.FC<SwitchProps> = ({
   disabled = false,
   onText,
   offText,
-  onClick,
+  onCheck,
   ...props
 }) => {
   const [isActive, setIsActive] = useState<boolean>(active)
@@ -107,11 +107,7 @@ const Switch: React.FC<SwitchProps> = ({
   }
 
   return (
-    <SwitchButton
-      color={getColor()}
-      active={isActive}
-      id={id}
-    >
+    <SwitchButton color={getColor()} active={isActive} id={id}>
       <SwitchInput
         {...props}
         type="checkbox"
@@ -119,7 +115,7 @@ const Switch: React.FC<SwitchProps> = ({
         checked={isActive}
         onChange={e => {
           !e.target.disabled && setIsActive(!isActive)
-          onClick(!isActive)
+          typeof onCheck === "function" && onCheck(!isActive)
         }}
       />
       <Circle className="circle"></Circle>

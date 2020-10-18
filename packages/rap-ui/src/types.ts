@@ -6,6 +6,7 @@ import {
   HTMLAttributes,
   ComponentType,
   ReactElement,
+  ClassAttributes,
 } from "react"
 
 export type ButtonStyle = {
@@ -44,12 +45,24 @@ export type FacebookSocialButton = {
   color?: "white" | "blue"
   corners?: "rounded" | "box"
 } & SocialButtonProps
-export interface SocialButtonProps extends ButtonHTMLAttributes<any> {
+
+export type InstagramSocialButton = {
+  color?: "white" | "purple"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+
+export type SlackSocialButton = {
+  color?: "white" | "purple" | "yellow"
+  corners?: "rounded" | "box"
+} & SocialButtonProps
+
+export interface SocialButtonProps
+  extends ButtonStyle,
+    ButtonHTMLAttributes<any> {
   size?: "xs" | "sm" | "md" | "lg"
   iconOnly?: boolean
   text?: string
   gradient?: boolean
-  onClick: () => any
 }
 export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
   id?: string
@@ -64,6 +77,8 @@ export type AvatarProps = {
   withBadge?: boolean
   badgeText?: string
   badgeColor?: string
+  withStatus?: boolean
+  statusColor?: string
   icon?: string
   src?: string
   text?: string
@@ -94,16 +109,16 @@ export type SwitchProps = {
   color?: string
   offText?: string
   onText?: string
-  onClick?: (param: boolean) => any
-} & HTMLAttributes<HTMLButtonElement>
+  onCheck?: (param: boolean) => void
+} & HTMLAttributes<HTMLInputElement>
 
 export type CheckBoxComponent = {
   id?: string
   active?: boolean
   disabled?: boolean
   color?: string
-  onClick?: (param: boolean) => any
-} & HTMLAttributes<HTMLButtonElement>
+  onCheck?: (param: boolean) => void
+}  & HTMLAttributes<HTMLInputElement>
 
 export type InputProps = {
   id: string
@@ -189,7 +204,7 @@ export type ShimmerProps = {
 // display props
 
 export type yPositionProps = "top" | "center" | "bottom"
-export type xPositionProps = "left" | "center" | "right" | "stretch"
+export type xPositionProps = "left" | "center" | "right" | "stretch" | "space"
 
 export type HTMLElement = {
   id?: string
@@ -206,7 +221,8 @@ export type RowProps = {
 export type FlexColumnProps = {
   align?: xPositionProps
   gap?: string
-} & HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement> &
+  ClassAttributes<HTMLDivElement>
 // end
 
 // datatable props
@@ -230,7 +246,10 @@ export type DatatableComponent = {
   renderRule?: DatatableRule[]
   defaultSortIndex?: number
   onRowSelect?: (data: any) => void
-  onRowClick?: (data: any) => void
+  onCellSelect?: (data: any) => void
+  uniqueIdentifier?: string
+  actionList?: any[]
+  menu?: ReactElement | string
 } & HTMLAttributes<HTMLDivElement>
 
 // end
@@ -398,7 +417,7 @@ export type NavbarComponent = {
 
 // Layout
 export type LayoutComponent = {
-  navbar?: React.FC<NavbarComponent>
+  navbar?: ReactElement | Element
   notification: NotifyProps[]
   sideBar?: ReactElement
 } & HTMLAttributes<HTMLDivElement>

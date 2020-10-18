@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from "react"
 import {
   FlexRow,
   Input,
@@ -10,6 +16,7 @@ import {
   TextArea,
   Tooltip,
   Dropdown,
+  useTheme,
   Chip,
   Modal,
   Button,
@@ -17,6 +24,19 @@ import {
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
 import _ from "lodash"
+import Icon from "@mdi/react"
+import {
+  mdiAccountEdit,
+  mdiBuffer,
+  mdiCards,
+  mdiCheck,
+  mdiCheckOutline,
+  mdiDelete,
+  mdiFileEdit,
+  mdiInformation,
+  mdiStar,
+  mdiStarOutline,
+} from "@mdi/js"
 
 const TodosContainer: any = styled.div`
   .add-tsk {
@@ -73,6 +93,41 @@ const TodosContainer: any = styled.div`
     position: sticky;
     top: ${(props: any) => props.panelTop};
     z-index: 99;
+
+    .dsk-filter {
+      padding: 10px 0;
+
+      h5 {
+        font-weight: 500;
+        font-size: 18px;
+      }
+
+      .flt {
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background: none;
+
+        span {
+          font-size: 15px;
+
+          transition: color 0.25s;
+        }
+
+        svg path {
+          transition: all 0.25s;
+        }
+
+        &.active {
+          span {
+            color: ${(props: any) => props.color};
+          }
+          svg path {
+            fill: ${(props: any) => props.color} !important;
+          }
+        }
+      }
+    }
   }
 
   @media (min-width: 768px) {
@@ -103,18 +158,6 @@ const TodosContainer: any = styled.div`
   }
 `
 
-const listOption: any = styled.button`
-  outline: none;
-  border: none;
-  background: transparent;
-`
-
-const LabelButton: any = styled.button`
-  outline: none;
-  border: none;
-  background: transparent;
-`
-
 const TodosList: any = styled.div`
   > div {
     margin: 0;
@@ -135,6 +178,76 @@ const TodosList: any = styled.div`
   }
 `
 
+type Filter = "completed" | "starred" | "trashed" | "important"
+
+const FilterPanel: React.FC<{
+  selectedFilter: Filter | ""
+  setSelectedFilter: Dispatch<SetStateAction<Filter | "">>
+}> = ({ setSelectedFilter, selectedFilter }) => {
+  return (
+    <div className="dsk-filter">
+      <FlexColumn>
+        <h5>Filters</h5>
+        <button
+          onClick={() => {
+            setSelectedFilter("")
+          }}
+          className={selectedFilter === "" ? "active flt" : "flt"}
+        >
+          <FlexRow gap="10px">
+            <Icon path={mdiBuffer} size={1} />
+            <span>All</span>
+          </FlexRow>
+        </button>
+        <button
+          onClick={() => {
+            setSelectedFilter("important")
+          }}
+          className={selectedFilter === "important" ? "active flt" : "flt"}
+        >
+          <FlexRow gap="10px">
+            <Icon path={mdiInformation} size={0.9} />
+            <span>Important</span>
+          </FlexRow>
+        </button>
+        <button
+          onClick={() => {
+            setSelectedFilter("starred")
+          }}
+          className={selectedFilter === "starred" ? "active flt" : "flt"}
+        >
+          <FlexRow gap="10px">
+            <Icon path={mdiStar} size={0.9} />
+            <span>Starred</span>
+          </FlexRow>
+        </button>
+        <button
+          onClick={() => {
+            setSelectedFilter("completed")
+          }}
+          className={selectedFilter === "completed" ? "active flt" : "flt"}
+        >
+          <FlexRow gap="10px">
+            <Icon path={mdiCheck} size={0.9} />
+            <span>Completed</span>
+          </FlexRow>
+        </button>
+        <button
+          onClick={() => {
+            setSelectedFilter("trashed")
+          }}
+          className={selectedFilter === "trashed" ? "active flt" : "flt"}
+        >
+          <FlexRow gap="10px">
+            <Icon path={mdiDelete} size={0.9} />
+            <span>Trashed</span>
+          </FlexRow>
+        </button>
+      </FlexColumn>
+    </div>
+  )
+}
+
 const Todos: React.FC<any> = () => {
   const [navClass, setNavClass] = useState<string>()
   const [searchValue, setSearchValue] = useState<string>("")
@@ -142,6 +255,10 @@ const Todos: React.FC<any> = () => {
   const [openEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false)
   const [todos, setTodos] = useState<TodoList[]>([])
   const [filterData, setFilterData] = useState<TodoList[]>(todos)
+  const [selectedFilter, setSelectedFilter] = useState<Filter | "">("")
+
+  const theme = useTheme()
+
   const defaultTodo = {
     id: 0,
     name: "First Todo Ever 😁",
@@ -161,8 +278,6 @@ const Todos: React.FC<any> = () => {
     { name: "Designer", color: "warning" },
     { name: "DevOps", color: "primary" },
   ]
-
-  type Filter = "completed" | "starred" | "trashed" | "important"
 
   const handleSetFilter = (
     filter: Filter,
@@ -223,10 +338,27 @@ const Todos: React.FC<any> = () => {
     [searchValue]
   )
 
+  const checkFilter = useCallback(
+    (todosItem: TodoList): boolean => {
+      if (selectedFilter === "") {
+        return true && !todosItem.trashed
+      } else {
+        if (selectedFilter !== "trashed") {
+          console.log(todosItem[selectedFilter] && !todosItem.trashed)
+          return todosItem[selectedFilter] && !todosItem.trashed
+        }
+        return todosItem[selectedFilter]
+      }
+    },
+    [selectedFilter]
+  )
+
   const searchTodo = useCallback(() => {
-    const tmp = todos.filter((todo: any) => checkSearch(todo))
+    const tmp = todos.filter(
+      (todo: any) => checkSearch(todo) && checkFilter(todo)
+    )
     setFilterData(tmp)
-  }, [checkSearch, todos])
+  }, [checkSearch, todos, checkFilter])
 
   const addNewTask = (): void => {
     const tmp: TodoList[] = [...todos]
@@ -238,7 +370,7 @@ const Todos: React.FC<any> = () => {
     setNewTodo(defaultTodo)
     window.localStorage.setItem("todo", JSON.stringify(tmp))
   }
-  
+
   const editTask = (): void => {
     const tmp: TodoList[] = [...todos]
 
@@ -267,7 +399,7 @@ const Todos: React.FC<any> = () => {
   }, [])
 
   return (
-    <TodosContainer panelTop={getPanelTop()}>
+    <TodosContainer panelTop={getPanelTop()} color={theme.colors.primary}>
       <Container>
         <Grid mdCol="4" lgCol="3" xsCol="12" className="dsk-pnl desktop">
           <Card xsCol="12" gap="15px">
@@ -294,125 +426,123 @@ const Todos: React.FC<any> = () => {
               >
                 Add Task
               </Button>
+              <FilterPanel
+                setSelectedFilter={setSelectedFilter}
+                selectedFilter={selectedFilter}
+              />
             </FlexColumn>
           </Card>
         </Grid>
         <Grid mdCol="8" lgCol="9" xsCol="12">
           <TodosList panelTop={getPanelTop()}>
             <Container>
-              {filterData
-                .filter(todo => !todo.trashed)
-                .map((todo, idx) => (
-                  <Card
-                    xsCol="12"
-                    key={idx}
-                    className={todo.completed ? "todo-complete todo" : "todo"}
-                    style={{ animationDelay: `${idx / 10}s` }}
-                  >
-                    <FlexColumn gap="10px">
-                      <FlexRow gap="0px" position="top">
-                        <Grid smCol="9" xsCol="12">
-                          <FlexRow
-                            gap="10px"
-                            onClick={() => {
-                              setNewTodo(todo)
-                              setOpenEditTaskModal(true)
-                            }}
-                          >
-                            <div>
-                              <Checkbox
-                                active={todo.completed}
-                                onClick={() => {
-                                  handleSetFilter(
-                                    "completed",
-                                    todo.id,
-                                    !todo.completed
-                                  )
-                                }}
-                              >
-                                <p style={{ fontWeight: 500 }}>{todo.name}</p>
-                              </Checkbox>
-                            </div>
-                            {todo.labels?.map((label, idx: number) => (
-                              <React.Fragment key={idx}>
-                                {labels[label] && (
-                                  <Chip
-                                    color={labels[label].color.toLowerCase()}
-                                    transparent
-                                  >
-                                    {labels[label].name}
-                                  </Chip>
-                                )}
-                              </React.Fragment>
-                            ))}
-                          </FlexRow>
-                        </Grid>
-                        <Grid smCol="3" xsCol="12">
-                          <FlexRow gap="10px" align="right">
-                            <Tooltip text="Important" position="bottom">
-                              <Button
-                                transparent={!todo.important}
-                                iconOnly
-                                background={
-                                  todo.important ? "success" : "rgba(0,0,0,.2)"
-                                }
-                                icon="mdiInformation"
-                                size="xs"
-                                onClick={() => {
-                                  handleSetFilter(
-                                    "important",
-                                    todo.id,
-                                    !todo.important
-                                  )
-                                }}
-                              ></Button>
-                            </Tooltip>
-                            <Tooltip text="Starred" position="bottom">
-                              <Button
-                                transparent={!todo.starred}
-                                iconOnly
-                                background={
-                                  todo.starred ? "warning" : "rgba(0,0,0,.2)"
-                                }
-                                onClick={() => {
-                                  handleSetFilter(
-                                    "starred",
-                                    todo.id,
-                                    !todo.starred
-                                  )
-                                }}
-                                icon="mdiStar"
-                                size="xs"
-                              ></Button>
-                            </Tooltip>
-                            <Button
-                              iconOnly
-                              background="danger"
-                              icon="mdiDelete"
-                              onClick={() => {
+              {filterData.map((todo, idx) => (
+                <Card
+                  xsCol="12"
+                  key={idx}
+                  className={todo.completed ? "todo-complete todo" : "todo"}
+                  style={{ animationDelay: `${idx / 10}s` }}
+                >
+                  <FlexColumn gap="10px">
+                    <FlexRow gap="0px" position="top">
+                      <Grid smCol="9" xsCol="12">
+                        <FlexRow
+                          gap="10px"
+                          onClick={() => {
+                            setNewTodo(todo)
+                            setOpenEditTaskModal(true)
+                          }}
+                        >
+                          <div>
+                            <Checkbox
+                              active={todo.completed}
+                              onCheck={() => {
                                 handleSetFilter(
-                                  "trashed",
+                                  "completed",
                                   todo.id,
-                                  !todo.trashed
+                                  !todo.completed
                                 )
                               }}
+                            >
+                              <p style={{ fontWeight: 500 }}>{todo.name}</p>
+                            </Checkbox>
+                          </div>
+                          {todo.labels?.map((label, idx: number) => (
+                            <React.Fragment key={idx}>
+                              {labels[label] && (
+                                <Chip
+                                  color={labels[label].color.toLowerCase()}
+                                  transparent
+                                >
+                                  {labels[label].name}
+                                </Chip>
+                              )}
+                            </React.Fragment>
+                          ))}
+                        </FlexRow>
+                      </Grid>
+                      <Grid smCol="3" xsCol="12">
+                        <FlexRow gap="10px" align="right">
+                          <Tooltip text="Important" position="bottom">
+                            <Button
+                              transparent={!todo.important}
+                              iconOnly
+                              background={
+                                todo.important ? "success" : "rgba(0,0,0,.2)"
+                              }
+                              icon="mdiInformation"
+                              size="xs"
+                              onClick={() => {
+                                handleSetFilter(
+                                  "important",
+                                  todo.id,
+                                  !todo.important
+                                )
+                              }}
+                            ></Button>
+                          </Tooltip>
+                          <Tooltip text="Starred" position="bottom">
+                            <Button
+                              transparent={!todo.starred}
+                              iconOnly
+                              background={
+                                todo.starred ? "warning" : "rgba(0,0,0,.2)"
+                              }
+                              onClick={() => {
+                                handleSetFilter(
+                                  "starred",
+                                  todo.id,
+                                  !todo.starred
+                                )
+                              }}
+                              icon="mdiStar"
                               size="xs"
                             ></Button>
-                          </FlexRow>
-                        </Grid>
-                      </FlexRow>
-                      <p
-                        className="truncate"
-                        onClick={() => {
-                          setNewTodo(todo)
-                          setOpenEditTaskModal(true)
-                        }}
-                      >
-                        {_.truncate(todo.description, { length: 120 })}
-                      </p>
-                    </FlexColumn>
-                  </Card>
-                ))}
+                          </Tooltip>
+                          <Button
+                            iconOnly
+                            background="danger"
+                            icon="mdiDelete"
+                            onClick={() => {
+                              handleSetFilter("trashed", todo.id, true)
+                            }}
+                            size="xs"
+                          ></Button>
+                        </FlexRow>
+                      </Grid>
+                    </FlexRow>
+                    <p
+                      className="truncate"
+                      onClick={() => {
+                        setNewTodo(todo)
+                        setOpenEditTaskModal(true)
+                      }}
+                    >
+                      {_.truncate(todo.description, { length: 120 })}
+                    </p>
+                  </FlexColumn>
+                </Card>
+              ))}
             </Container>
           </TodosList>
         </Grid>
@@ -481,7 +611,7 @@ const Todos: React.FC<any> = () => {
                   id={`ad-tsk${idx}`}
                   color={label.color}
                   active={newTodo.labels?.includes(idx)}
-                  onClick={(value: boolean) => {
+                  onCheck={(value: boolean) => {
                     const tmp = newTodo
                     const setLabels = new Set(tmp.labels)
 
@@ -552,62 +682,70 @@ const Todos: React.FC<any> = () => {
         }
       >
         <FlexColumn>
-          <FlexRow align="right" position="top" gap="10px">
-            <Tooltip text="Important" position="bottom">
-              <Button
-                transparent={!newTodo?.important}
-                iconOnly
-                background={newTodo?.important ? "success" : "rgba(0,0,0,.2)"}
-                icon="mdiInformation"
-                size="xs"
-                onClick={() => {
-                  setNewTodo({ ...newTodo, important: !newTodo?.important })
-                }}
-              ></Button>
-            </Tooltip>
-            <Tooltip text="Starred" position="bottom">
-              <Button
-                transparent={!newTodo?.starred}
-                iconOnly
-                background={newTodo?.starred ? "warning" : "rgba(0,0,0,.2)"}
-                onClick={() => {
-                  setNewTodo({ ...newTodo, starred: !newTodo?.starred })
-                }}
-                icon="mdiStar"
-                size="xs"
-              ></Button>
-            </Tooltip>
-            <Dropdown
-              listener="click"
-              list={labels.map((label, idx: number) => (
-                <Checkbox
-                  key={idx}
-                  id={`ad-tsk${idx}`}
-                  color={label.color}
-                  active={newTodo?.labels?.includes(idx)}
-                  onClick={(value: boolean) => {
-                    const tmp = newTodo
-                    const setLabels = new Set(tmp?.labels)
-
-                    if (value) {
-                      setLabels.add(idx)
-                    } else {
-                      setLabels.delete(idx)
-                    }
-                    setNewTodo({ ...newTodo, labels: [...setLabels] })
+          <FlexRow align="stretch" position="top">
+            <Checkbox
+              active={newTodo?.completed}
+              onCheck={() => {
+                setNewTodo({ ...newTodo, completed: !newTodo?.completed })
+              }}
+            ></Checkbox>
+            <FlexRow align="right" position="top" gap="10px">
+              <Tooltip text="Important" position="bottom">
+                <Button
+                  transparent={!newTodo?.important}
+                  iconOnly
+                  background={newTodo?.important ? "success" : "rgba(0,0,0,.2)"}
+                  icon="mdiInformation"
+                  size="xs"
+                  onClick={() => {
+                    setNewTodo({ ...newTodo, important: !newTodo?.important })
                   }}
-                >
-                  <p style={{ fontWeight: 500 }}>{label.name}</p>
-                </Checkbox>
-              ))}
-            >
-              <Button
-                iconOnly
-                background="primary"
-                icon="mdiTag"
-                size="xs"
-              ></Button>
-            </Dropdown>
+                ></Button>
+              </Tooltip>
+              <Tooltip text="Starred" position="bottom">
+                <Button
+                  transparent={!newTodo?.starred}
+                  iconOnly
+                  background={newTodo?.starred ? "warning" : "rgba(0,0,0,.2)"}
+                  onClick={() => {
+                    setNewTodo({ ...newTodo, starred: !newTodo?.starred })
+                  }}
+                  icon="mdiStar"
+                  size="xs"
+                ></Button>
+              </Tooltip>
+              <Dropdown
+                listener="click"
+                list={labels.map((label, idx: number) => (
+                  <Checkbox
+                    key={idx}
+                    id={`ad-tsk${idx}`}
+                    color={label.color}
+                    active={newTodo?.labels?.includes(idx)}
+                    onCheck={(value: boolean) => {
+                      const tmp = newTodo
+                      const setLabels = new Set(tmp?.labels)
+
+                      if (value) {
+                        setLabels.add(idx)
+                      } else {
+                        setLabels.delete(idx)
+                      }
+                      setNewTodo({ ...newTodo, labels: [...setLabels] })
+                    }}
+                  >
+                    <p style={{ fontWeight: 500 }}>{label.name}</p>
+                  </Checkbox>
+                ))}
+              >
+                <Button
+                  iconOnly
+                  background="primary"
+                  icon="mdiTag"
+                  size="xs"
+                ></Button>
+              </Dropdown>
+            </FlexRow>
           </FlexRow>
           <FlexRow align="right" position="top">
             <Input

@@ -26,7 +26,7 @@ const SwitchPage: React.FC<any> = () => {
           To add a Switch use the component <code>switch</code>.
         </p>
         <FlexRow>
-          <Switch active={true} onClick={(value: boolean) => {}} />
+          <Switch active={true} onCheck={(value: boolean) => {}} />
         </FlexRow>
       </Card>
       <Card xsCol="12">
@@ -39,25 +39,25 @@ const SwitchPage: React.FC<any> = () => {
           <Switch
             active={true}
             color="primary"
-            onClick={(value: boolean) => {}}
+            onCheck={(value: boolean) => {}}
           />
           <Switch
             active={true}
             color="success"
-            onClick={(value: boolean) => {}}
+            onCheck={(value: boolean) => {}}
           />
-          <Switch active={true} color="info" onClick={(value: boolean) => {}} />
+          <Switch active={true} color="info" onCheck={(value: boolean) => {}} />
           <Switch
             active={true}
             color="warning"
-            onClick={(value: boolean) => {}}
+            onCheck={(value: boolean) => {}}
           />
           <Switch
             active={true}
             color="danger"
-            onClick={(value: boolean) => {}}
+            onCheck={(value: boolean) => {}}
           />
-          <Switch active={true} color="dark" onClick={(value: boolean) => {}} />
+          <Switch active={true} color="dark" onCheck={(value: boolean) => {}} />
         </FlexRow>
       </Card>
       <Card xsCol="12">
@@ -67,8 +67,8 @@ const SwitchPage: React.FC<any> = () => {
           <code>active</code> prop to a boolean. Default is <code>false</code>.
         </p>
         <FlexRow>
-          <Switch color="dark" onClick={(value: boolean) => {}} />
-          <Switch active={true} color="dark" onClick={(value: boolean) => {}} />
+          <Switch color="dark" onCheck={(value: boolean) => {}} />
+          <Switch active={true} color="dark" onCheck={(value: boolean) => {}} />
         </FlexRow>
       </Card>
       <Card xsCol="12">
@@ -78,12 +78,12 @@ const SwitchPage: React.FC<any> = () => {
           Default is <code>false</code>.
         </p>
         <FlexRow>
-          <Switch color="dark" disabled onClick={(value: boolean) => {}} />
+          <Switch color="dark" disabled onCheck={(value: boolean) => {}} />
           <Switch
             active={true}
             disabled
             color="primary"
-            onClick={(value: boolean) => {}}
+            onCheck={(value: boolean) => {}}
           />
         </FlexRow>
       </Card>

@@ -1,41 +1,105 @@
-import React, { useState, useEffect } from "react"
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  ReactComponentElement,
+  ReactElement,
+} from "react"
 import styled, { StyledComponent } from "styled-components"
-import { DatatableComponent, DatatableColumns, DatatableRule } from "../types"
+import { DatatableColumns, DatatableRule, DatatableComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
-import { darken } from "polished"
-import { mdiArrowUp } from "@mdi/js"
+import { mdiArrowUp, mdiDotsHorizontal } from "@mdi/js"
 import Icon from "@mdi/react"
-
+import { rgba, darken } from "polished"
+import { FlexColumn, FlexRow } from "../layout"
+import { Input } from "../input"
+import { Button } from "../button"
+import { Dropdown } from "../dropdown"
+import { Pagination } from "../pagination"
+import { PaginationIndexes } from "../types"
+import { Checkbox } from "../checkbox"
 type TableBodyStyle = {
   background: string
-  striped: boolean
-  stripedColor: string
+  cardBackground: string
+  primaryColor: string
+  textColor: string
 }
 
 const Table: StyledComponent<"table", any, any> = styled.table`
   font-size: 14px;
+  // border-spacing: 0 1.3rem;
   border-collapse: collapse;
-  width: 100%;
+  width: calc(100% - 4px);
+  margin: 3px;
+  white-space: nowrap;
+  padding-top: ${(props: any) => props.paddingTop * 25}px;
+
+  .dl-opt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .dp-trgt {
+      padding: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      border-radius: 50%;
+      transition: all 0.25s;
+
+      &:hover,
+      &:focus {
+        background: rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    button {
+      width: 100%;
+    }
+  }
 `
 
-const CheckBox: StyledComponent<"input", any> = styled.input`
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
-  transition: opacity 0.35s;
-  opacity: 0;
+// const CheckBox: StyledComponent<"input", any> = styled.input`
+//   cursor: pointer;
+// `
+
+const DataListOption: StyledComponent<"label", any> = styled.label`
   cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+`
+
+const DataListFilter: StyledComponent<"div", any, any> = styled.div`
+  #datalist-view {
+    font-size: 14px;
+    background: ${(props: any) => props.background};
+    border: 1px solid ${(props: any) => rgba(props.textColor, 0.25)};
+
+    .dp-trgt {
+      padding: 9.5px 12px;
+    }
+
+    &:focus,
+    &:hover {
+      border: 1px solid ${(props: any) => props.primaryColor};
+    }
+  }
 `
 
 const TableHead: StyledComponent<"thead", any> = styled.thead`
   position: relative;
   tr.select {
-    input[type="checkbox"] {
+    .sc-checkbox {
       opacity: 1;
     }
-    &.selected input[type="checkbox"] {
+    &.selected .sc-checkbox {
       display: block;
     }
     th {
@@ -47,13 +111,13 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
     }
   }
   th {
-    padding: 15px 20px;
-    padding-right: 15px;
+    padding: 15px 23px;
+    // padding-right: 15px;
     text-align: left;
     font-size: 12px;
     position: relative;
 
-    svg {
+    :not(.select-box) svg {
       opacity: 0;
       transition: all 0.35s;
       position: absolute;
@@ -80,7 +144,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
       }
     }
 
-    button {
+    button:not(.sc-checkbox) {
       background: transparent;
       text-transform: uppercase;
       outline: none;
@@ -98,27 +162,28 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
   tr {
     text-align: left;
     cursor: pointer;
-    transition: background 0.35s;
-    border-radius: 30px;
+    transition: all 0.25s ease;
     position: relative;
-    border-top: 1px solid ${(props: any) => props.background};
+    border-radius: 0.3rem;
+    background: ${(props: any) => props.cardBackground};
 
-    &:hover,
-    &.selected {
-      background: ${(props: any) => darken(0.05, props.background)};
+    &:not(:last-child) {
+      border-bottom: 1px solid ${(props: any) => rgba(props.background, 1)};
     }
 
-    &:hover input[type="checkbox"],
-    &.selected input[type="checkbox"] {
+    &:hover {
+      transition: all 0.2s ease;
+    }
+
+    &.selected {
+      background: rgba(0, 0, 0, 0.075);
+      transform: unset !important;
+    }
+
+    &:hover .rap-checkbox,
+    &.selected .rap-checkbox {
       opacity: 1;
     }
-
-    ${(props: any) =>
-      props.striped &&
-      `&:nth-child(2n + 1) {
-        background: ${darken(0, props.stripedColor)};
-      }
-  `}
 
     &.select {
       td {
@@ -126,7 +191,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
           padding-left: 35px;
         }
 
-        input[type="checkbox"] {
+        .rap-checkbox {
           display: block;
         }
       }
@@ -134,23 +199,75 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 10px 20px;
-      padding-right: 15px;
+      padding-left: 23px;
+      padding-right: 23px;
       position: relative;
+      height: 55px;
       vertical-align: middle;
+      outline: none;
+      transition: all 0.35s ease;
+      text-overflow: ellipsis;
+      max-width: 180px;
+      overflow: hidden;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      border-bottom: 1px solid ${(props: any) => rgba(props.background, 1)};
+
+      > * {
+        height: 30px;
+      }
+      
+      &.dl-act {
+        overflow: unset;
+      }
+
+      a {
+        text-decoration: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        transition: color 0.35s ease;
+
+        &:hover {
+          color: ${(props: any) => props.primaryColor};
+        }
+      }
+
+      &.focus {
+        outline: 1px solid ${(props: any) => props.primaryColor};
+        color: ${(props: any) => props.primaryColor};
+      }
     }
   }
 `
 const Datatable: React.FC<DatatableComponent> = ({
-  title,
   document,
   columns,
+  actionList = [
+    {
+      color: "primary",
+      text: "Edit",
+      onClick: value => {
+        console.log(value)
+      },
+    },
+    {
+      color: "danger",
+      text: "Delete",
+      onClick: value => {
+        console.log(value)
+      },
+    },
+  ],
+  uniqueIdentifier = "id",
   renderRule = [],
-  striped = false,
-  check = false,
   defaultSortIndex = 1,
   onRowSelect,
-  onRowClick,
+  menu,
+  onCellSelect,
+  check = true,
   ...props
 }) => {
   const theme = useTheme()
@@ -160,17 +277,9 @@ const Datatable: React.FC<DatatableComponent> = ({
     new Map()
   )
   const [selectAll, setSelectAll] = useState<boolean>(false)
-  const [data, setData] = useState<any[]>(document)
-  const [toggleSortIndex, setToggleSortIndex] = useState<number>(
-    defaultSortIndex
-  )
-
-  const throwInvalidPropErr = (expected: string, recieved: string) => {
-    throw new Error(`Expected '${expected}' but got ${recieved}`)
-  }
-  const throwErr = (message: string) => {
-    throw new Error(`${message}`)
-  }
+  const [selectedRowsData, setSelectedRowsData] = useState<any[]>([])
+  const [searchValue, setSearchValue] = useState<string>("")
+  const refs = useRef<HTMLTableElement>()
 
   const sortDocumentASC = (selector: string, unsortedData: any[]): any[] => {
     const merge = (left, right) => {
@@ -206,14 +315,39 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
     return mergeSort(unsortedData)
   }
+  const [data, setData] = useState<any[]>(
+    sortDocumentASC(columns[defaultSortIndex].selector, document)
+  )
+  const [filteredData, setfilteredData] = useState<any[]>(document)
+  const [viewLength, setViewLength] = useState<number>(10)
+  const [toggleSortIndex, setToggleSortIndex] = useState<number>(
+    defaultSortIndex
+  )
+  const textColor: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+  const [paginationIndexes, setPaginationIndexes] = useState<PaginationIndexes>(
+    { startIndex: 0, endIndex: data.length }
+  )
+  const primaryColor: any = theme.colors.primary
+
+  const throwErr = (message: string) => {
+    throw new Error(`${message}`)
+  }
+
   const sortDocumentDESC = (selector: string, unsortedData: any[]): any[] => {
     return sortDocumentASC(selector, unsortedData).reverse()
   }
 
   const toggleCheck = (idx: number | string): Map<number | string, boolean> => {
+    return setCheck(idx, !selected.get(idx))
+  }
+
+  const setCheck = (
+    idx: number | string,
+    value: boolean
+  ): Map<number | string, boolean> => {
     let prevState: Map<number | string, boolean> = new Map(selected)
-    prevState.set(idx, !prevState.get(idx))
-    // deselect all is check is false
+    prevState.set(idx, value)
+    // deselect all if check is false
     if (!!!prevState.get(idx)) {
       setSelectAll(false)
     } else {
@@ -224,36 +358,46 @@ const Datatable: React.FC<DatatableComponent> = ({
       }
     }
     setSelected(prevState)
+
+    typeof onRowSelect === "function" &&
+      onRowSelect(getSelectorRowData(prevState))
     return prevState
   }
 
-  const toggleSelectAll = () => {
+  const toggleSelectAll = useCallback(() => {
     let prevState: Map<number | string, boolean> = new Map(selected)
     // selecte all
+
     if (!selectAll) {
-      data.forEach((itemData, idx: number) => {
-        prevState.set(itemData.id, true)
+      filteredData.forEach(itemData => {
+        prevState.set(itemData[uniqueIdentifier], true)
       })
       setSelected(prevState)
+
+      typeof onRowSelect === "function" &&
+        onRowSelect(getSelectorRowData(prevState))
       setSelectAll(true)
     }
     // deselect all
     else {
       prevState.clear()
       setSelected(prevState)
+
+      typeof onRowSelect === "function" &&
+        onRowSelect(getSelectorRowData(prevState))
       setSelectAll(false)
     }
-  }
+  }, [selected, paginationIndexes])
 
   const toggleSort = (e: any, selector: any, idx: number) => {
     setToggleSortIndex(idx)
 
     if (e.target.parentElement.classList.contains("rap-asc")) {
-      setData(sortDocumentDESC(selector, data))
+      setfilteredData(sortDocumentDESC(selector, filteredData))
       e.target.parentElement.classList.remove("rap-asc")
       e.target.parentElement.classList.add("rap-desc")
     } else {
-      setData(sortDocumentASC(selector, data))
+      setfilteredData(sortDocumentASC(selector, filteredData))
       e.target.parentElement.classList.remove("rap-desc")
       e.target.parentElement.classList.add("rap-asc")
     }
@@ -284,117 +428,323 @@ const Datatable: React.FC<DatatableComponent> = ({
       if (rowMapData) {
         // find match of id in sorted data and push to array
         selectedRows.push(
-          data.find((rowData: any) => +rowData.id === +rowMapIdx)
+          data.find((rowData: any) => +rowData[uniqueIdentifier] === +rowMapIdx)
         )
       }
     }
+    setSelectedRowsData(selectedRows)
     return selectedRows
   }
 
+  const checkSearch = useCallback(
+    (dataItem): boolean => {
+      let tempData = []
+      let found = false
+      if (searchValue.length) {
+        for (let i = 0; i < columns.length; i++) {
+          // if text is found return true
+          if (found) {
+            tempData.push(dataItem)
+            return true
+          }
+          const dataItemContent = dataItem[columns[i].selector]
+          if (typeof dataItemContent !== "string") {
+            return false
+          }
+          found = dataItemContent
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        }
+        return false
+      }
+      tempData.push(dataItem)
+      return true
+    },
+    [searchValue]
+  )
+
+  const arrayLikeMap = useCallback(
+    (arr, map: Map<number | string, boolean>): boolean => {
+      const mapToArr: any[] = Array.from(map)
+
+      let similar = true
+      if (arr.length === arr.length && arr.length > 0) {
+        for (let i = 0; i < arr.length; i++) {
+          const valueExists = mapToArr.find(
+            item => item[0] === arr[i][uniqueIdentifier]
+          )
+          if (valueExists === undefined || !valueExists) {
+            return false
+          }
+        }
+      } else {
+        similar = false
+      }
+      return similar
+    },
+    [filteredData]
+  )
+
+  const handleFilterData = useCallback(() => {
+    const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
+    setfilteredData(tmp)
+    if (selectAll && !arrayLikeMap(tmp, selected)) {
+      setSelectAll(false)
+    } else if (!selectAll && arrayLikeMap(tmp, selected)) {
+      setSelectAll(true)
+    }
+    getSelectorRowData(selected)
+  }, [checkSearch])
+
   useEffect(() => {
     setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
-  }, [])
+    handleFilterData()
+  }, [handleFilterData])
 
   return (
-    <div
-      style={{ overflow: "hidden", width: "100%", overflowX: "auto" }}
-      {...props}
-    >
-      {title && <p>{title}</p>}
-      <table></table>
-      <Table>
-        <TableHead id="rap-t-hd">
-          <tr
-            className={
-              check ? (selected.size ? "select selected" : "select") : ""
-            }
-          >
-            <th>
-              {check && (
-                <CheckBox
-                  type="checkbox"
-                  checked={selectAll}
-                  onChange={() => {
-                    toggleSelectAll()
-                    onRowSelect(!selectAll ? data : [])
+    <FlexColumn style={{ width: "100%" }} {...props}>
+      <FlexColumn>
+        <DataListFilter
+          background={theme[themeMode].cardbackground}
+          primaryColor={primaryColor}
+          textColor={textColor}
+        >
+          <FlexRow align="right" position="center">
+            <Dropdown
+              id="datalist-view"
+              listener="click"
+              list={[
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(10)
                   }}
-                />
-              )}
-              #
-            </th>
-
-            {columns.map((item: DatatableColumns, idx: number) => (
-              <th
-                key={idx}
-                className={idx === +toggleSortIndex ? "rap-asc" : ""}
-              >
-                {item.name && item.selector ? (
-                  <>
-                    <button
-                      onClick={e => {
-                        toggleSort(e, item.selector, idx)
-                      }}
-                    >
-                      {item.name}
-                    </button>
-                    <Icon
-                      path={mdiArrowUp}
-                      color={themeMode === "lightmode" ? "#222" : "#ffffff"}
-                      size={0.55}
-                    />
-                  </>
-                ) : (
-                  throwErr(
-                    `Columns must have properties 'name' and 'selector' in array of objects`
-                  )
+                >
+                  10
+                </DataListOption>,
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(20)
+                  }}
+                >
+                  20
+                </DataListOption>,
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(25)
+                  }}
+                >
+                  25
+                </DataListOption>,
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(30)
+                  }}
+                >
+                  30
+                </DataListOption>,
+              ]}
+            >
+              1- {viewLength} of {document.length}
+            </Dropdown>
+            <Input
+              icon="mdiMagnify"
+              type="text"
+              clearButton
+              id="datalist-search"
+              onInputChange={value => {
+                setSearchValue(value)
+              }}
+              placeholder="Search"
+              color="primary"
+            />
+          </FlexRow>
+        </DataListFilter>
+      </FlexColumn>
+      <div
+        style={{
+          overflow: "hidden",
+          width: "100%",
+          overflowX: "auto",
+        }}
+        {...props}
+      >
+        <Table paddingTop={actionList.length} ref={refs}>
+          <TableHead id="rap-t-hd">
+            <tr
+              className={
+                check ? (selected.size ? "select selected" : "select") : ""
+              }
+            >
+              <th className="select-box">
+                {check && (
+                  <Checkbox
+                    active={selectAll}
+                    onCheck={() => {
+                      toggleSelectAll()
+                    }}
+                  >
+                    <p>ID</p>
+                  </Checkbox>
                 )}
               </th>
-            ))}
-          </tr>
-        </TableHead>
-        <TableBody
-          background={darken(0.075, background)}
-          striped={striped}
-          stripedColor={theme.colors.primary}
-        >
-          {data.map((dataItem: any, idx: number) => (
-            <tr
-              key={idx}
-              className={
-                check
-                  ? selected.get(dataItem.id)
-                    ? "select selected"
-                    : "select"
-                  : ""
-              }
-              onClick={(e: any) => {
-                if (e.target.id !== "rap-cb-" + idx) {
-                  onRowClick(dataItem)
-                }
-              }}
-            >
-              <td style={{ fontSize: "12px" }}>
-                {check && (
-                  <CheckBox
-                    id={"rap-cb-" + idx}
-                    checked={!!selected.get(dataItem.id)}
-                    type="checkbox"
-                    onChange={() => {
-                      toggleCheck(dataItem.id)
-                      onRowSelect(getSelectorRowData(toggleCheck(dataItem.id)))
-                    }}
-                  />
-                )}
-                {idx + 1}
-              </td>
-              {columns.map((column: any, idx: number) => (
-                <td key={idx}>{renderColumnData(column.selector, dataItem)}</td>
+
+              {columns.map((item: DatatableColumns, idx: number) => (
+                <th
+                  key={idx}
+                  className={idx === +toggleSortIndex ? "rap-asc" : ""}
+                >
+                  {item.name && item.selector ? (
+                    <>
+                      <button
+                        onClick={e => {
+                          toggleSort(e, item.selector, idx)
+                        }}
+                      >
+                        {item.name}
+                      </button>
+                      <Icon
+                        path={mdiArrowUp}
+                        color={themeMode === "lightmode" ? "#222" : "#ffffff"}
+                        size={0.55}
+                      />
+                    </>
+                  ) : (
+                    throwErr(
+                      `Columns must have properties 'name' and 'selector' in array of objects`
+                    )
+                  )}
+                </th>
               ))}
+              {!!actionList.length && <th>ACTION</th>}
             </tr>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHead>
+          <TableBody
+            background={darken(0.075, background)}
+            cardBackground={background}
+            primaryColor={primaryColor}
+            textColor={textColor}
+          >
+            {filteredData
+              .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
+              .map((dataItem: any, idx: number) => {
+                return (
+                  <tr
+                    key={data.length - idx}
+                    className={
+                      check
+                        ? selected.get(dataItem[uniqueIdentifier])
+                          ? "select selected"
+                          : "select"
+                        : ""
+                    }
+                  >
+                    <td
+                      tabIndex={0}
+                      unselectable="on"
+                      style={{ fontSize: "12px" }}
+                      onFocus={e => {
+                        e.target.classList.add("focus")
+                      }}
+                      onBlur={e => {
+                        e.target.classList.remove("focus")
+                      }}
+                      onClick={(e: any) => {
+                        if (
+                          e.target.parentElement[uniqueIdentifier] !==
+                          "rap-cb-" + idx
+                        ) {
+                          toggleCheck(dataItem[uniqueIdentifier])
+                        }
+                      }}
+                    >
+                      {check && (
+                        <Checkbox
+                          id={"rap-cb-" + idx}
+                          active={!!selected.get(dataItem[uniqueIdentifier])}
+                          onCheck={() => {
+                            toggleCheck(dataItem[uniqueIdentifier])
+                          }}
+                        >
+                          <p>{idx + 1}</p>
+                        </Checkbox>
+                      )}
+                    </td>
+                    {columns.map((column: any, rowidx: number) => (
+                      <td
+                        key={rowidx}
+                        tabIndex={0}
+                        unselectable="on"
+                        onFocus={e => {
+                          e.target.classList.add("focus")
+                        }}
+                        onBlur={e => {
+                          e.target.classList.remove("focus")
+                        }}
+                        onClickCapture={(e: any) => {
+                          if (
+                            e.target.parentElement[uniqueIdentifier] !==
+                            "rap-cb-" + rowidx
+                          ) {
+                            const tmpSet = new Map()
+                            tmpSet.set(dataItem[uniqueIdentifier], true)
+                            setSelectAll(false)
+                            setSelected(tmpSet)
+                          }
+
+                          typeof onCellSelect === "function" &&
+                            onCellSelect(
+                              renderColumnData(column.selector, dataItem)
+                            )
+                          typeof onRowSelect === "function" &&
+                            onRowSelect([dataItem])
+                        }}
+                      >
+                        {renderColumnData(column.selector, dataItem)}
+                      </td>
+                    ))}
+                    {!!actionList.length && (
+                      <td className="dl-act">
+                        <Dropdown
+                          className="dl-opt"
+                          listener="click"
+                          showIcon={false}
+                          list={actionList.map((actionItem, idx: number) => (
+                            <Button
+                              size="sm"
+                              key={idx}
+                              background={actionItem.color}
+                              onClick={() => {
+                                actionItem.onClick(dataItem)
+                              }}
+                            >
+                              {actionItem.text}
+                            </Button>
+                          ))}
+                        >
+                          <Icon
+                            path={mdiDotsHorizontal}
+                            size={0.85}
+                            color={textColor}
+                          />
+                        </Dropdown>
+                      </td>
+                    )}
+                  </tr>
+                )
+              })}
+          </TableBody>
+        </Table>
+      </div>
+      <FlexRow align="right">
+        <Pagination
+          perPage={viewLength}
+          documentLength={filteredData.length}
+          onPageGoto={(startIndex, endIndex) => {
+            setPaginationIndexes({ startIndex, endIndex })
+          }}
+        />
+      </FlexRow>
+    </FlexColumn>
   )
 }
 export default Datatable

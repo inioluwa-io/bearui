@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { CheckBoxComponent } from "../types"
 import styled from "styled-components"
 import { rgba } from "polished"
-import { useTheme } from "../theme"
+import { useTheme, useThemeMode } from "../theme"
 import { getColorFromTheme } from "../util"
 import Icon from "@mdi/react"
 import { mdiCheck } from "@mdi/js"
@@ -26,7 +26,9 @@ const CheckboxButton: any = styled.button`
 
   border: 2px solid
     ${(props: any) =>
-      props.disabled ? `${rgba(props.color, 0.35)}` : ` ${props.color}`};
+      props.disabled
+        ? `${rgba(props.color, 0.35)}`
+        : ` ${rgba(props.textColor, 0.35)}`};
 
   ${(props: any) =>
     props.active
@@ -34,6 +36,10 @@ const CheckboxButton: any = styled.button`
       transition: all 0.35s ease;
       border: 2px solid transparent`
       : ``};
+
+  &:focus {
+    border: 2px solid ${(props: any) => props.color};
+  }
 
   &:disabled {
     cursor: not-allowed;
@@ -88,13 +94,15 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   id = "",
   active = false,
   color = "primary",
-  onClick,
+  onCheck,
   children,
   ...props
 }) => {
   const [isActive, setIsActive] = useState<boolean>(false)
 
   const theme = useTheme()
+  const [themeMode] = useThemeMode()
+  let textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
   const themeColor: string = getColorFromTheme(color, theme)
   useEffect(() => {
@@ -102,9 +110,10 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   }, [active, disabled])
 
   return (
-    <FlexRow gap="10px">
+    <FlexRow gap="10px" style={{ flexWrap: "nowrap" }}>
       <CheckboxButton
         color={themeColor}
+        textColor={textColor}
         active={isActive}
         className="sc-checkbox"
         disabled={disabled}
@@ -113,12 +122,13 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
           {...props}
           type="checkbox"
           id={id}
+          tabIndex={-1}
           disabled={disabled}
           checked={isActive}
           onChange={e => {
             !e.target.disabled && setIsActive(!isActive)
-            if (typeof onClick === "function") {
-              onClick(!isActive)
+            if (typeof onCheck === "function") {
+              onCheck(!isActive)
             }
           }}
         />
@@ -128,6 +138,7 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
       </CheckboxButton>
       {children && (
         <label
+          tabIndex={-1}
           style={{ cursor: "pointer", flex: "1 1", whiteSpace: "break-spaces" }}
           htmlFor={id}
         >

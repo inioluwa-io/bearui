@@ -231,7 +231,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
                 <Checkbox
                   active={todo.completed}
                   id={`tod-wdgt-${todo.id}`}
-                  onClick={() => {
+                  onCheck={() => {
                     handleSetFilter("completed", todo.id, !todo.completed)
                   }}
                 >

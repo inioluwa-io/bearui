@@ -3,6 +3,7 @@ import { AvatarProps } from "../types"
 import styled from "styled-components"
 import { isObject } from "../util"
 import { useTheme } from "../theme"
+import { saturate, rgba } from "polished"
 
 const AvatarComponent: any = styled.div`
   width: ${(props: any) => props.size};
@@ -59,12 +60,27 @@ const BadgeComponent: any = styled.div`
   }
 `
 
+const StatusComponent: any = styled.div`
+  position: absolute;
+  z-index: 99;
+  bottom: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: ${(props: any) => saturate(0.1, props.background)};
+  box-shadow: 0 0 5px
+    ${(props: any) => rgba(saturate(0.8, props.background), 0.3)};
+`
+
 const Avatar: React.FC<AvatarProps> = ({
   text,
   src,
   textColor,
   icon,
   withBadge,
+  withStatus = false,
+  statusColor = "success",
   badgeText,
   badgeColor = "primary",
   size = "sm",
@@ -148,6 +164,12 @@ const Avatar: React.FC<AvatarProps> = ({
         <BadgeComponent background={getBackgroundColor(badgeColor)}>
           {<span style={{ color: "#ffffff" }}>{badgeText}</span>}
         </BadgeComponent>
+      )}
+      {withStatus && (
+        <StatusComponent
+          size={getAvatarSize()}
+          background={getBackgroundColor(statusColor)}
+        />
       )}
       {!src ? (
         <span style={{ color: textColor || "#ffffff" }}>

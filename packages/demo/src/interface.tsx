@@ -46,7 +46,7 @@ const Interface: React.FC<any> = () => {
             <Switch
               active={themeMode === "darkmode" ? true : false}
               color="success"
-              onClick={(value: boolean) => {
+              onCheck={(value: boolean) => {
                 value ? setThemeMode("darkmode") : setThemeMode("lightmode")
               }}
             />

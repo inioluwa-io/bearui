@@ -16,6 +16,7 @@ import { useDataProvider, useNotification } from "@rap/core"
 import img from "./brooks-leibee-562087-unsplash.jpg"
 import Icon from "@mdi/react"
 import {
+  mdiAccountOutline,
   mdiBriefcaseOutline,
   mdiCardTextOutline,
   mdiCheckCircleOutline,
@@ -102,7 +103,6 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
           <Collapse
             className="group-link"
             icon="mdiChevronRight"
-            active={/\/components/.test(path)}
             items={[
               {
                 label: (
@@ -115,7 +115,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                     Components
                   </FlexRow>
                 ),
-                active: /\/components\//.test(path),
+                active: /\/components/g.test(path),
                 content: (
                   <FlexColumn>
                     <NavLink to="/components/avatar" activeClassName="active">
@@ -334,6 +334,47 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
               },
             ]}
           ></Collapse>
+
+          <h6>PAGES</h6>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiAccountOutline} color={color} size={0.75} />
+                    User
+                  </FlexRow>
+                ),
+                active: /\/user/g.test(path),
+                content: (
+                  <FlexColumn>
+                    <NavLink to="/user/profile" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Profile
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/user/edit" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Edit
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          ></Collapse>
         </>
       }
       navbar={
@@ -352,7 +393,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                   <UiSwitch
                     active={themeMode === "darkmode" ? true : false}
                     color="success"
-                    onClick={(value: boolean) => {
+                    onCheck={(value: boolean) => {
                       value
                         ? setThemeMode("darkmode")
                         : setThemeMode("lightmode")

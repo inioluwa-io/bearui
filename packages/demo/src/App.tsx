@@ -25,13 +25,14 @@ import {
   ListPage,
   PaginationPage,
 } from "./components"
+import { UserProfilePage } from "./pages"
 import { Todos } from "./apps"
 
 const App: React.FC<any> = ({ ...props }) => {
   return (
     <div className="App">
-      <Switch>
-        <LayoutComponent>
+      <LayoutComponent>
+        <Switch>
           <Route
             exact
             path="/"
@@ -121,8 +122,13 @@ const App: React.FC<any> = ({ ...props }) => {
             path="/components/tooltip"
             component={(props: any) => <TooltipPage {...props} />}
           />
-        </LayoutComponent>
-      </Switch>
+          <Route
+            path="/user/profile"
+            component={(props: any) => <UserProfilePage {...props} />}
+          />
+          <Route path="*" component={(props: any) => <>Not found</>} />
+        </Switch>
+      </LayoutComponent>
     </div>
   )
 }

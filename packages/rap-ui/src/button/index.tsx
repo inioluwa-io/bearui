@@ -5,6 +5,9 @@ import AppleButton from "./appleButton"
 import FacebookButton from "./facebookButton"
 import TwitterButton from "./twitterButton"
 import GithubButton from "./githubButton"
+import InstagramButton from "./instagramButton"
+import SlackButton from "./slackButton"
+import CodepenButton from "./codepenButton"
 
 export {
   Button,
@@ -14,4 +17,7 @@ export {
   AppleButton,
   FacebookButton,
   GithubButton,
+  InstagramButton,
+  SlackButton,
+  CodepenButton,
 }

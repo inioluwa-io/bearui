@@ -566,7 +566,7 @@ const DataList: React.FC<DataListComponent> = ({
                 {check && (
                   <Checkbox
                     active={selectAll}
-                    onClick={() => {
+                    onCheck={() => {
                       toggleSelectAll()
                     }}
                   />
@@ -637,7 +637,7 @@ const DataList: React.FC<DataListComponent> = ({
                         <Checkbox
                           id={"rap-cb-" + idx}
                           active={!!selected.get(dataItem[uniqueIdentifier])}
-                          onClick={() => {
+                          onCheck={() => {
                             toggleCheck(dataItem[uniqueIdentifier])
                           }}
                         />

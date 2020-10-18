@@ -54,8 +54,14 @@ font-family: inherit;
 
   &:disabled {
     background: ${(props: any) =>
-      !props.border ? lighten(0.1, props.background) : "transparent"} !important;
+      !props.border
+        ? lighten(0.1, props.background)
+        : "transparent"} !important;
     cursor:not-allowed;
+  }
+
+  svg path, .text {
+    transition: fill 0.35s ease, color 0.35s ease;
   }
   
   &:hover, &:focus{
@@ -171,7 +177,6 @@ font-family: inherit;
     }
   }
 `
-
 const Button: React.FC<ButtonProps> = ({
   children,
   icon,
@@ -228,9 +233,7 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg"
-          ? { borderRadius: "9px" }
-          : { borderRadius: "5px" }
+        return size === "lg" ? { borderRadius: "9px" } : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -325,7 +328,7 @@ const Button: React.FC<ButtonProps> = ({
               ? getStyleFromBackgroundProps().background
               : iconColor
           }
-          size={size === "lg" ? 1 : 0.73}
+          size={size === "lg" ? 1 : 0.75}
           style={getIconStyle()}
         />
       )}
@@ -340,7 +343,7 @@ const Button: React.FC<ButtonProps> = ({
               ? getStyleFromBackgroundProps().background
               : iconColor
           }
-          size={size === "lg" ? 1 : 0.73}
+          size={size === "lg" ? 1 : 0.75}
           style={getIconStyle()}
         />
       )}

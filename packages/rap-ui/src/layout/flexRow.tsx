@@ -21,7 +21,6 @@ const RowContainer: any = styled.div`
   grid-row-gap: calc(${(props: RowStyleProps) => props.marginRight} / 1.5);
   flex-direction: row;
   width: calc(100% - 0px);
-  // padding: 10px;
   align-items: ${(props: RowStyleProps) => props.position.alignItems};
   justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
 
@@ -38,6 +37,13 @@ const RowContainer: any = styled.div`
     > div {
       width:fit-content;
       flex:auto;
+    }
+    `};
+  ${(props: RowStyleProps) =>
+    props.position.alignSelf === "stretch" &&
+    `
+    > * {
+      flex:1 1;
     }
     `};
 
@@ -81,8 +87,10 @@ const FlexRow: React.FC<RowProps> = ({
     switch (position) {
       case "center":
         return "center"
-      case "stretch":
+      case "space":
         return "space-between"
+      case "stretch":
+        return "stretch"
       case "left":
         return "flex-start"
       case "right":

@@ -19,7 +19,7 @@ const TooltipPage: React.FC<any> = () => {
     <Container>
       <Grid xsCol="12">
         <Card withBackground={false}>
-          <FlexRow gap="10px" yPosition="center" xPosition="left">
+          <FlexRow gap="10px" position="center" align="left">
             <h3 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}>
               Tooltip
             </h3>
@@ -40,7 +40,7 @@ const TooltipPage: React.FC<any> = () => {
           </p>
           <FlexRow>
             <Tooltip id="firsttip" text="Tooltip Default">
-              <Switch color="success" onClick={clicked => {}} />
+              <Switch color="success" onCheck={clicked => {}} />
             </Tooltip>
             <Tooltip text="Tooltip Default">
               <Button background="dark">Button</Button>
