@@ -20,7 +20,6 @@ export type ButtonStyle = {
   borderColor?: string
   iconColor?: string
   iconOnly?: boolean
-  transparent?: boolean
   glow?: boolean
   hoverColor?: string
   size?: "xs" | "sm" | "md" | "lg"
@@ -29,6 +28,7 @@ export type ButtonStyle = {
 export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
   loading?: boolean
   loadingIcon?: any
+  transparent?: boolean
 }
 
 export type AppleSocialButton = {
@@ -67,6 +67,7 @@ export interface SocialButtonProps
 export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
   id?: string
   hoverColor?: string
+  transparent?: string
   to: string
 }
 

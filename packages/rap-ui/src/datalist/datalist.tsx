@@ -220,22 +220,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 const DataList: React.FC<DataListComponent> = ({
   document,
   columns,
-  actionList = [
-    {
-      color: "primary",
-      text: "Edit",
-      onClick: value => {
-        console.log(value)
-      },
-    },
-    {
-      color: "danger",
-      text: "Delete",
-      onClick: value => {
-        console.log(value)
-      },
-    },
-  ],
+  actionList,
   uniqueIdentifier = "id",
   renderRule = [],
   defaultSortIndex = 1,
@@ -288,9 +273,7 @@ const DataList: React.FC<DataListComponent> = ({
     }
     return mergeSort(unsortedData)
   }
-  const [data, setData] = useState<any[]>(
-    sortDocumentASC(columns[defaultSortIndex].selector, document)
-  )
+  const [data, setData] = useState<any[]>([])
   const [filteredData, setfilteredData] = useState<any[]>(document)
   const [viewLength, setViewLength] = useState<number>(5)
   const [toggleSortIndex, setToggleSortIndex] = useState<number>(
@@ -406,21 +389,24 @@ const DataList: React.FC<DataListComponent> = ({
   const checkSearch = useCallback(
     (dataItem): boolean => {
       let tempData = []
-      let found = false
       if (searchValue.length) {
         for (let i = 0; i < columns.length; i++) {
           // if text is found return true
-          if (found) {
-            tempData.push(dataItem)
-            return true
-          }
           const dataItemContent = dataItem[columns[i].selector]
-          if (typeof dataItemContent !== "string") {
-            return false
+
+          if (
+            typeof dataItemContent === "string" ||
+            typeof dataItemContent === "number"
+          ) {
+            const found = ("" + dataItemContent)
+              .toLowerCase()
+              .includes(searchValue.toLowerCase())
+
+            if (found) {
+              tempData.push(dataItem)
+              return true
+            }
           }
-          found = dataItemContent
-            .toLowerCase()
-            .includes(searchValue.toLowerCase())
         }
         return false
       }
@@ -461,13 +447,16 @@ const DataList: React.FC<DataListComponent> = ({
       setSelectAll(true)
     }
     getSelectorRowData(selected)
-  }, [checkSearch])
+  }, [checkSearch, data])
 
   useEffect(() => {
-    setData(sortDocumentASC(columns[defaultSortIndex].selector, data))
+    const sorted = sortDocumentASC(columns[defaultSortIndex].selector, document)
+    setData(sorted)
+  }, [document])
+
+  useEffect(() => {
     handleFilterData()
   }, [handleFilterData])
-
   return (
     <FlexColumn style={{ width: "100%" }} {...props}>
       <FlexColumn>
@@ -531,17 +520,18 @@ const DataList: React.FC<DataListComponent> = ({
           <div>{menu}</div>
           {!!selectedRowsData.length && (
             <FlexRow style={{ width: "fit-content" }} align="right">
-              {actionList.map((actionItem, idx: number) => (
-                <Button
-                  key={idx}
-                  background={actionItem.color}
-                  onClick={() => {
-                    actionItem.onClick(selectedRowsData)
-                  }}
-                >
-                  {actionItem.text}
-                </Button>
-              ))}
+              {actionList &&
+                actionList.map((actionItem, idx: number) => (
+                  <Button
+                    key={idx}
+                    background={actionItem.color}
+                    onClick={() => {
+                      actionItem.onClick(selectedRowsData)
+                    }}
+                  >
+                    {actionItem.text}
+                  </Button>
+                ))}
             </FlexRow>
           )}
         </FlexRow>
@@ -551,11 +541,11 @@ const DataList: React.FC<DataListComponent> = ({
           overflow: "hidden",
           width: "100%",
           overflowX: "auto",
-          marginTop: `-${actionList.length * 25}px`,
+          marginTop: `-${actionList ? actionList.length : 0 * 25}px`,
         }}
         {...props}
       >
-        <Table paddingTop={actionList.length}>
+        <Table paddingTop={actionList && actionList.length}>
           <TableHead id="rap-t-hd">
             <tr
               className={
@@ -600,7 +590,7 @@ const DataList: React.FC<DataListComponent> = ({
                   )}
                 </th>
               ))}
-              {!!actionList.length && <th>ACTION</th>}
+              {!!actionList && <th>ACTION</th>}
             </tr>
           </TableHead>
           <TableBody
@@ -610,10 +600,10 @@ const DataList: React.FC<DataListComponent> = ({
           >
             {filteredData
               .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
-              .map((dataItem: any, idx: number) => {
+              .map((dataItem: any, rowidx: number) => {
                 return (
                   <tr
-                    key={data.length - idx}
+                    key={data.length - rowidx}
                     className={
                       check
                         ? selected.get(dataItem[uniqueIdentifier])
@@ -627,7 +617,7 @@ const DataList: React.FC<DataListComponent> = ({
                       onClick={(e: any) => {
                         if (
                           e.target.parentElement[uniqueIdentifier] !==
-                          "rap-cb-" + idx
+                          "rap-cb-" + rowidx
                         ) {
                           toggleCheck(dataItem[uniqueIdentifier])
                         }
@@ -635,7 +625,7 @@ const DataList: React.FC<DataListComponent> = ({
                     >
                       {check && (
                         <Checkbox
-                          id={"rap-cb-" + idx}
+                          id={"rap-cb-" + rowidx}
                           active={!!selected.get(dataItem[uniqueIdentifier])}
                           onCheck={() => {
                             toggleCheck(dataItem[uniqueIdentifier])
@@ -659,7 +649,7 @@ const DataList: React.FC<DataListComponent> = ({
                         {renderColumnData(column.selector, dataItem)}
                       </td>
                     ))}
-                    {!!actionList.length && (
+                    {!!actionList && (
                       <td>
                         <Dropdown
                           className="dl-opt"

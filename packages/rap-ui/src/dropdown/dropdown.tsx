@@ -248,7 +248,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
           <li
             key={idx}
             onClick={() => {
-              // handleBlur()
+              handleBlur()
             }}
           >
             {item}

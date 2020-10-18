@@ -26,7 +26,7 @@ import {
   PaginationPage,
 } from "./components"
 import { UserProfilePage, EditProfilePage } from "./pages"
-import { Todos } from "./apps"
+import { Invoice, Todos } from "./apps"
 
 const App: React.FC<any> = ({ ...props }) => {
   return (
@@ -45,6 +45,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/login2"
             component={(props: any) => <Login2 {...props} />}
+          />
+          <Route
+            path="/apps/invoice"
+            component={(props: any) => <Invoice {...props} />}
           />
           <Route
             path="/apps/todos"

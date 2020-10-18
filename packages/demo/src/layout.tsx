@@ -22,6 +22,11 @@ import {
   mdiCardTextOutline,
   mdiCheckCircleOutline,
   mdiCircleOutline,
+  mdiClipboard,
+  mdiClipboardList,
+  mdiClipboardListOutline,
+  mdiClipboardText,
+  mdiClipboardTextOutline,
   mdiFormatPaint,
   mdiWaterOutline,
 } from "@mdi/js"
@@ -55,6 +60,12 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
       sideBar={
         <>
           <h6>APPS</h6>
+          <NavLink to="/apps/invoice" activeClassName="active">
+            <FlexRow gap="13px">
+              <Icon path={mdiClipboardTextOutline} color={color} size={0.75} />
+              Invoice
+            </FlexRow>
+          </NavLink>
           <NavLink to="/apps/todos" activeClassName="active">
             <FlexRow gap="13px">
               <Icon path={mdiCheckCircleOutline} color={color} size={0.7} />
