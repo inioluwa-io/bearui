@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Card,
   Container,
@@ -109,29 +109,25 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
   ...props
 }) => {
   const [navClass, setNavClass] = useState<string>()
-  const [searchValue, setSearchValue] = useState<string>("")
-  const [openEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false)
   const [todos, setTodos] = useState<TodoList[]>([])
   const [filterData, setFilterData] = useState<TodoList[]>(todos)
-  const defaultTodo = {
-    id: 0,
-    name: "First Todo Ever 😁",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci ducimus ratione qui consequatur perspiciatis voluptatum vel sapiente cumque.",
-    labels: [0],
-    completed: false,
-    important: false,
-    starred: false,
-    trashed: false,
-  }
-  const [newTodo, setNewTodo] = useState<TodoList>(defaultTodo)
-
-  const labels = [
-    { name: "Frontend", color: "info" },
-    { name: "Backend", color: "success" },
-    { name: "Designer", color: "warning" },
-    { name: "DevOps", color: "primary" },
-  ]
+  // const defaultTodo = {
+  //   id: 0,
+  //   name: "First Todo Ever 😁",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci ducimus ratione qui consequatur perspiciatis voluptatum vel sapiente cumque.",
+  //   labels: [0],
+  //   completed: false,
+  //   important: false,
+  //   starred: false,
+  //   trashed: false,
+  // }
+  // const labels = [
+  //   { name: "Frontend", color: "info" },
+  //   { name: "Backend", color: "success" },
+  //   { name: "Designer", color: "warning" },
+  //   { name: "DevOps", color: "primary" },
+  // ]
 
   type Filter = "completed" | "starred" | "trashed" | "important"
 
@@ -174,34 +170,9 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
     }
   }
 
-  const checkSearch = useCallback(
-    (todosItem: TodoList): boolean => {
-      let found = false
-      if (searchValue.length) {
-        if (
-          todosItem.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-          todosItem.description
-            .toLowerCase()
-            .includes(searchValue.toLowerCase())
-        ) {
-          found = true
-        }
-      } else {
-        found = true
-      }
-      return found
-    },
-    [searchValue]
-  )
-
-  const searchTodo = useCallback(() => {
-    const tmp = todos.filter((todo: any) => checkSearch(todo))
-    setFilterData(tmp)
-  }, [checkSearch, todos])
-
   useEffect(() => {
-    searchTodo()
-  }, [searchTodo])
+    setFilterData(todos)
+  }, [todos])
 
   useEffect(() => {
     const cacheTodos: string | null = window.localStorage.getItem("todo")

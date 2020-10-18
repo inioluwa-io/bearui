@@ -224,7 +224,7 @@ const ButtonPage: React.FC<{}> = () => {
         <p>
           To add an Icon set the <code>icon</code> prop to name of Icon. This
           uses mdi Icons, check{" "}
-          <a href="" target="_blank" rel="noopener noreferrer">
+          <a href="/#" target="_blank" rel="noopener noreferrer">
             mdi documentation
           </a>
         </p>
@@ -388,7 +388,7 @@ const ButtonPage: React.FC<{}> = () => {
         <p>
           To change loading icon set <code>loadingIcon</code> prop to name of
           Icon. This uses mdi Icons, check{" "}
-          <a href="" target="_blank" rel="noopener noreferrer">
+          <a href="/#" target="_blank" rel="noopener noreferrer">
             mdi documentation
           </a>
         </p>

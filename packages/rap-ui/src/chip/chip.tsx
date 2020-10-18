@@ -37,6 +37,7 @@ const ClearButtonContainer: any = styled.button`
 
 const ChipItemsContainer: any = styled.div`
   width: 100%;
+  position: relative;
 
   .sc-cont {
     box-shadow: 0 0 30px -12px ${(props: any) => darken(0.25, props.boxShadow)};
@@ -71,7 +72,9 @@ const ChipSuggestionContainer: any = styled.div`
   border-radius: 10px;
   width: calc(100% - 0px);
   margin-top: 10px;
-  position: relative;
+  position: absolute;
+  overflow: hidden;
+  z-index: 99;
   background: ${(props: any) => props.background};
 
   button {
@@ -83,6 +86,11 @@ const ChipSuggestionContainer: any = styled.div`
     cursor: pointer;
     padding: 15px;
     text-align: left;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
   }
 `
 const ChipSingleContainer: any = styled.div`
@@ -165,7 +173,7 @@ const ChipSingle: React.FC<ChipSingleComponent> = ({
       textColor={textColor}
       className={closable ? "sc-closeable" : ""}
     >
-      <span>{children}</span>{" "}
+      <span>{children}</span>
       {closable && (
         <CloseButtonContainer
           onClick={() => {
@@ -184,6 +192,7 @@ const ChipAutoSuggestion: React.FC<any> = ({
   background,
   updateItems,
   boxShadow,
+  setShowSuggestions,
   ...props
 }) => {
   const [suggestion, setSuggestion] = useState(suggestions)
@@ -201,6 +210,7 @@ const ChipAutoSuggestion: React.FC<any> = ({
           key={idx}
           onClick={() => {
             updateItems(item)
+            setShowSuggestions(false)
           }}
         >
           {item}
@@ -229,7 +239,8 @@ const ChipItems: React.FC<any> = ({
   const [themeMode] = useThemeMode()
   const theme = useTheme()
   const boxShadow = darken(0, theme[themeMode].background)
-  const [suggestions, setSuggeestions] = useState(autoSuggestion)
+  const [suggestions, setSuggeestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
   const refs = useRef<HTMLDivElement>()
 
   const handleUpdateInput = (value: string) => {
@@ -251,7 +262,7 @@ const ChipItems: React.FC<any> = ({
             !suggestionElement.contains(e.target) &&
             !inputElement.contains(e.target)
           ) {
-            setSuggeestions([])
+            setShowSuggestions(false)
           }
         }
       }
@@ -277,10 +288,13 @@ const ChipItems: React.FC<any> = ({
 
   const updateItems = value => {
     if (!!value.length) {
-      handleAdd(value)
       setInputValue("")
-      onItemUpdate([...items, value])
-      setSuggeestions([])
+      if (!items.includes(value)) {
+        handleAdd(value)
+        onItemUpdate([...items, value])
+      } else {
+        onItemUpdate(items)
+      }
     }
   }
 
@@ -325,6 +339,9 @@ const ChipItems: React.FC<any> = ({
           ))}
           <input
             type="text"
+            onFocus={() => {
+              setShowSuggestions(true)
+            }}
             placeholder={itemsPlaceholder}
             onChange={e => {
               handleUpdateInput(e.target.value)
@@ -338,14 +355,15 @@ const ChipItems: React.FC<any> = ({
             handleClear()
           }}
         >
-          <Icon path={mdi.mdiClose} size={0.85} color="#f4f4f4" />
+          <Icon path={mdi.mdiClose} size={0.85} />
         </ClearButtonContainer>
       </FlexRow>
-      {suggestions && !!suggestions.length && (
+      {showSuggestions && suggestions && !!suggestions.length && (
         <ChipAutoSuggestion
           className="sugst"
           updateItems={updateItems}
           suggestions={suggestions}
+          setShowSuggestions={setShowSuggestions}
           boxShadow={boxShadow}
           background={theme[themeMode].cardbackground}
         />

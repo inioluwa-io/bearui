@@ -1,2 +1,3 @@
 import UserProfilePage from "./userprofile"
-export { UserProfilePage }
+import EditProfilePage from "./editprofile"
+export { UserProfilePage, EditProfilePage }

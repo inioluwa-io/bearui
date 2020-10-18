@@ -118,7 +118,7 @@ export type CheckBoxComponent = {
   disabled?: boolean
   color?: string
   onCheck?: (param: boolean) => void
-}  & HTMLAttributes<HTMLInputElement>
+} & HTMLAttributes<HTMLInputElement>
 
 export type InputProps = {
   id: string
@@ -133,11 +133,24 @@ export type InputProps = {
   color?: string
   onError?: () => any
   validate?: "alpha" | "email" | "number"
-  type?: "email" | "text" | "password" | "number"
+  type?: "email" | "text" | "password" | "number" | "date"
   size?: "sm" | "md" | "lg"
   successMessage?: string
   errorMessage?: string
   onInputChange?: (value: string) => any
+} & HTMLAttributes<HTMLInputElement>
+
+export type SelectComponent = {
+  id?: string
+  label?: string
+  placeholder?: string
+  defaultSelected?: string
+  disabled?: boolean
+  options?: string[]
+  color?: string
+  validate?: "alpha" | "email" | "number"
+  size?: "sm" | "md" | "lg"
+  onSelect?: (value: string) => any
 } & HTMLAttributes<HTMLInputElement>
 
 export type SupportedProps = (arr: any[], value: any) => boolean

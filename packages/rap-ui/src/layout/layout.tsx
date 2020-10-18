@@ -64,6 +64,10 @@ const LayoutContainer: any = styled.div`
     *:hover {
       ::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.225);
+        background: ${(props: any) =>
+          props.themeMode === "lightmode"
+            ? "rgba(0, 0, 0, 0.225)"
+            : "rgba(255, 255, 255, 0.225)"};
       }
     }
   }
@@ -214,6 +218,7 @@ const Layout: React.FC<LayoutComponent> = ({
 
   useEffect(() => {
     const DOMNode = refs.current
+    console.log("rerender")
     if (DOMNode) {
       if (
         /iPhone|iPad|Android|Blackberry|iPod/.test(window.navigator.userAgent)
@@ -232,6 +237,7 @@ const Layout: React.FC<LayoutComponent> = ({
       ref={refs}
       {...props}
       background={theme[themeMode].background}
+      themeMode={themeMode}
     >
       <NotificationComponent notification={notification} />
       <main>

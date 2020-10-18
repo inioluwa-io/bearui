@@ -17,7 +17,7 @@ font-family: inherit;
   position:relative;
   background: ${(props: any) => {
     if (props.transparent) {
-      return rgba(props.background, 0.15)
+      return rgba(props.background, 0.175)
     } else {
       if (props.outline) {
         return "transparent"

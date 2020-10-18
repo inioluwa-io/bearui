@@ -8,6 +8,7 @@ import {
   Grid,
   FlexColumn,
   Button,
+  LinkButton,
   InstagramButton,
   FacebookButton,
   GithubButton,
@@ -159,7 +160,7 @@ const UserProfilePage = () => {
               </div>
             </div>
             <FlexRow align="stretch">
-              <Button icon="mdiAccountEdit">Edit</Button>
+              <LinkButton to ="/user/edit" icon="mdiAccountEdit">Edit</LinkButton>
               <Button icon="mdiDelete" background="danger" transparent>
                 Delete
               </Button>

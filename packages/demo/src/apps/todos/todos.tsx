@@ -26,16 +26,11 @@ import { TodoList, TodoLists } from "./mock"
 import _ from "lodash"
 import Icon from "@mdi/react"
 import {
-  mdiAccountEdit,
   mdiBuffer,
-  mdiCards,
   mdiCheck,
-  mdiCheckOutline,
   mdiDelete,
-  mdiFileEdit,
   mdiInformation,
   mdiStar,
-  mdiStarOutline,
 } from "@mdi/js"
 
 const TodosContainer: any = styled.div`

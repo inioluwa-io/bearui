@@ -25,7 +25,7 @@ import {
   ListPage,
   PaginationPage,
 } from "./components"
-import { UserProfilePage } from "./pages"
+import { UserProfilePage, EditProfilePage } from "./pages"
 import { Todos } from "./apps"
 
 const App: React.FC<any> = ({ ...props }) => {
@@ -125,6 +125,10 @@ const App: React.FC<any> = ({ ...props }) => {
           <Route
             path="/user/profile"
             component={(props: any) => <UserProfilePage {...props} />}
+          />
+          <Route
+            path="/user/edit"
+            component={(props: any) => <EditProfilePage {...props} />}
           />
           <Route path="*" component={(props: any) => <>Not found</>} />
         </Switch>

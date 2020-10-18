@@ -4,6 +4,7 @@ import "./App.css"
 import {
   useThemeMode,
   Avatar,
+  useTheme,
   FlexRow,
   Navbar,
   Layout,
@@ -40,8 +41,13 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
     dataProvider.getOne("/publish", URL)
   }, [dataProvider, URL])
 
+  const theme = useTheme()
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+
+  useEffect(() => {
+    document.body.style.background = theme[themeMode].background
+  }, [])
 
   return (
     <Layout

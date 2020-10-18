@@ -91,7 +91,10 @@ const TabsElement: any = styled.div`
                 return "transform: translateY(-3px);"
               }
             }}
-            color: ${(props: any) => props.color};
+            * {
+              fill: ${(props: any) => props.color};
+              color: ${(props: any) => props.color};
+            }
           }
         }
       }
@@ -170,7 +173,8 @@ const TabsContent: any = styled.div`
       width:calc(100% - 40px);
       overflow:hidden;`
     } else {
-      return `margin: 13px;
+      return `margin: 20px 13px;
+      margin-bottom:13px;
       width:calc(100% - 26px);
       `
     }
