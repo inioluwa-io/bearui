@@ -85,7 +85,6 @@ const TabPage: React.FC<any> = () => {
                 <Container>
                   <Tabs
                     color="warning"
-                    align="right"
                     position="left"
                     list={[
                       {

@@ -133,8 +133,9 @@ const CardContainer: any = styled.div`
   }
 
   @media (max-width: 441px) {
+    padding: ${(props: any)=> props.mobilePadding};
     width: calc(
-      100% - (${(props: any) => props.xPadding + " + " + props.xPadding})
+      100% - (${(props: any) => props.xMobilePadding + " + " + props.xMobilePadding})
     );
     margin: 0.5px 0;
     box-shadow: none;
@@ -182,7 +183,7 @@ const Card: React.FC<CardProps> = ({
           return "30px"
         }
         case "md": {
-          return "40px 60px"
+          return "60px 60px"
         }
         case "lg": {
           return "60px 80px"
@@ -212,8 +213,40 @@ const Card: React.FC<CardProps> = ({
     }
   }
 
+  const getMobilePaddingSize = (size: string): string => {
+    if (withBackground) {
+      switch (size) {
+        case "xs": {
+          return "20px"
+        }
+        case "sm": {
+          return "30px"
+        }
+        default: {
+          return "30px"
+        }
+      }
+    } else {
+      switch (size) {
+        case "xs": {
+          return "20px 0px"
+        }
+        case "sm": {
+          return "30px 0px"
+        }
+        default: {
+          return "30px 0px"
+        }
+      }
+    }
+  }
+
   let xPadding = (): string => {
     const paddingArr: string[] = getPaddingSize(size).split(" ")
+    return paddingArr[paddingArr.length - 1]
+  }
+  let xMobilePadding = (): string => {
+    const paddingArr: string[] = getMobilePaddingSize(size).split(" ")
     return paddingArr[paddingArr.length - 1]
   }
 
@@ -239,7 +272,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <CardContainer
-      className={`rap-card rap-${size} ${className}`}
+      className={`rap-card rap-${size} ${className || ""}`}
       {...props}
       lgCol={lgCol}
       mdCol={mdCol}
@@ -248,6 +281,8 @@ const Card: React.FC<CardProps> = ({
       xPadding={xPadding()}
       align={formAlignment(align)}
       padding={getPaddingSize(size)}
+      mobilePadding={getMobilePaddingSize(size)}
+      xMobilePadding={xMobilePadding()}
       background={background}
       gap={gap}
       withBackground={withBackground}

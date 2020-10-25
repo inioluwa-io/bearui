@@ -14,7 +14,6 @@ const InputElement: any = styled.div`
   margin-top: 0px;
   height: fit-content;
   width: 230px;
-  padding-bottom: ${(props: any) => props.padBottom && "19px"};
 
   label {
     transition: color 0.35s ease;
@@ -158,7 +157,7 @@ const ClearButton: any = styled.button`
  */
 
 const Input: React.FC<InputProps> = ({
-  id,
+  id = "",
   label = "",
   type = "text",
   disabled = false,
@@ -177,8 +176,8 @@ const Input: React.FC<InputProps> = ({
   errorMessage = "Invalid",
   ...props
 }) => {
-  if (!id || typeof onInputChange !== "function") {
-    throw new Error("Props id and onInputChange are required")
+  if (typeof onInputChange !== "function") {
+    throw new Error("Props onInputChange is required")
   }
   const [inputValue, setInputValue] = useState<string>(defaultValue)
   const [labelColor, setLabelColor] = useState<string>("")
@@ -204,11 +203,14 @@ const Input: React.FC<InputProps> = ({
 
   const inputHeightSize = (): string => {
     switch (size) {
+      case "xs": {
+        return "30px"
+      }
       case "sm": {
-        return "37px"
+        return "38px"
       }
       case "md": {
-        return "42px"
+        return "43px"
       }
       case "lg": {
         return "50px"
@@ -220,6 +222,9 @@ const Input: React.FC<InputProps> = ({
   }
   const inputPaddingSize = (): string => {
     switch (size) {
+      case "xs": {
+        return "8px"
+      }
       case "sm": {
         return "10px"
       }
@@ -311,7 +316,6 @@ const Input: React.FC<InputProps> = ({
   return (
     <InputElement
       ref={refs}
-      padBottom={!!validate.length}
       inputType={type}
       color={labelColor}
       labelColor={formatColor()}
@@ -368,7 +372,6 @@ const Input: React.FC<InputProps> = ({
         <span
           style={{
             fontSize: "10px",
-            position: "absolute",
             color: (success && colors.success) || (error && colors.danger),
             bottom: 0,
             margin: "3px 5px",

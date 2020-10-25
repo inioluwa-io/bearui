@@ -35,8 +35,8 @@ const RowContainer: any = styled.div`
     props.position.alignSelf === "space-between" &&
     `
     > div {
-      width:fit-content;
-      flex:auto;
+      width:auto;
+      // flex:auto;
     }
     `};
   ${(props: RowStyleProps) =>

@@ -42,7 +42,7 @@ const UserProfileContainer: any = styled(Container)`
   }
 `
 
-const UserProfilePage = () => {
+const UserViewPage = () => {
   const [navClass, setNavClass] = useState<string>()
   useEffect(() => {
     const navClassName: string | undefined = Array.from(
@@ -63,7 +63,7 @@ const UserProfilePage = () => {
       case "nav-static":
         return ` 10px`
       default:
-        return ` 95px`
+        return ` 15px`
     }
   }
   return (
@@ -71,14 +71,14 @@ const UserProfilePage = () => {
       <Card withBackground={false} xsCol="12">
         <FlexRow gap="7px" position="center" align="left">
           <h3 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}>
-            Profile
+            View
           </h3>
           <Breadcrumb
             seperator="/"
             item={[
               { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
               { name: "User", to: "/user" },
-              { name: "Profile", to: "" },
+              { name: "View", to: "" },
             ]}
           />
         </FlexRow>
@@ -86,7 +86,7 @@ const UserProfilePage = () => {
       <Grid xsCol="12">
         <Card xsCol="12" lgCol="4" mdCol="5" gap="30px" className="account">
           {/* <h5>Account</h5> */}
-          <br/>
+          <br />
           <FlexRow align="center">
             <Avatar alt="avatar" size="150px" withStatus text="LD" src={img} />
           </FlexRow>
@@ -160,7 +160,9 @@ const UserProfilePage = () => {
               </div>
             </div>
             <FlexRow align="stretch">
-              <LinkButton to ="/user/edit" icon="mdiAccountEdit">Edit</LinkButton>
+              <LinkButton to="/user/edit" icon="mdiAccountEdit">
+                Edit
+              </LinkButton>
               <Button icon="mdiDelete" background="danger" transparent>
                 Delete
               </Button>
@@ -217,4 +219,4 @@ const UserProfilePage = () => {
     </UserProfileContainer>
   )
 }
-export default UserProfilePage
+export default UserViewPage

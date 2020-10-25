@@ -6,8 +6,8 @@ import { useTheme } from "../theme"
 import { saturate, rgba } from "polished"
 
 const AvatarComponent: any = styled.div`
-  width: ${(props: any) => props.size};
-  height: ${(props: any) => props.size};
+  width: ${(props: any) => props.size} !important;
+  height: ${(props: any) => props.size} !important;
   position: relative;
   border-radius: ${(props: any) => props.size};
   background: ${(props: any) => props.color};

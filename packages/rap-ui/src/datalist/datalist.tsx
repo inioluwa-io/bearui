@@ -275,7 +275,7 @@ const DataList: React.FC<DataListComponent> = ({
   }
   const [data, setData] = useState<any[]>([])
   const [filteredData, setfilteredData] = useState<any[]>(document)
-  const [viewLength, setViewLength] = useState<number>(5)
+  const [viewLength, setViewLength] = useState<number>(10)
   const [toggleSortIndex, setToggleSortIndex] = useState<number>(
     defaultSortIndex
   )
@@ -471,13 +471,6 @@ const DataList: React.FC<DataListComponent> = ({
               list={[
                 <DataListOption
                   onClick={() => {
-                    setViewLength(5)
-                  }}
-                >
-                  5
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
                     setViewLength(10)
                   }}
                 >
@@ -485,17 +478,24 @@ const DataList: React.FC<DataListComponent> = ({
                 </DataListOption>,
                 <DataListOption
                   onClick={() => {
-                    setViewLength(15)
-                  }}
-                >
-                  15
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
                     setViewLength(20)
                   }}
                 >
                   20
+                </DataListOption>,
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(25)
+                  }}
+                >
+                  25
+                </DataListOption>,
+                <DataListOption
+                  onClick={() => {
+                    setViewLength(30)
+                  }}
+                >
+                  30
                 </DataListOption>,
               ]}
             >
@@ -541,7 +541,7 @@ const DataList: React.FC<DataListComponent> = ({
           overflow: "hidden",
           width: "100%",
           overflowX: "auto",
-          marginTop: `-${actionList ? actionList.length : 0 * 25}px`,
+          marginTop: `-${actionList ? actionList.length * 25 : 0 * 25}px`,
         }}
         {...props}
       >

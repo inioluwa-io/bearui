@@ -7,6 +7,7 @@ import React, {
 } from "react"
 import { TabList, TabsComponent } from "../types"
 import styled from "styled-components"
+import { darken } from "polished"
 import { useTheme } from "../theme"
 import { getColorFromTheme } from "../util"
 
@@ -74,13 +75,14 @@ const TabsElement: any = styled.div`
         transition: all 0.25s ease;
         text-align: center;
 
-        span {
+        > span {
           transition: all 0.25s ease;
           display: block;
         }
 
         &.active {
           span {
+            color: ${(props: any) => props.color};
             ${(props: any) => {
               if (props.position === "left") {
                 return "transform: translateX(3px);"
@@ -104,7 +106,7 @@ const TabsElement: any = styled.div`
 
 const TabsIndicator: any = styled.span`
   position: absolute;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
   ${(props: any) => {
     if (props.position === "left") {
       return `
@@ -123,8 +125,8 @@ const TabsIndicator: any = styled.span`
     } else {
       return `
       width: 100%;
-      height: 2px;
-      bottom: 0px;
+      height: 1px;
+      bottom: 1px;
       `
     }
   }}
@@ -135,18 +137,19 @@ const TabsIndicator: any = styled.span`
     z-index: 1;
     transition: all 0.25s ease;
     background: ${(props: any) => props.color};
+    box-shadow: 0 8px 35px -6px ${(props: any) => darken(0.18, props.color)};
 
     ${(props: any) => {
       if (props.position === "left") {
         return `
-        right:0;
+        right:-1px;
         height:${props.height}px;
         width:2px;
         top: ${props.top}px;
         `
       } else if (props.position === "right") {
         return `
-            right:0;
+            left:1px;
             height:${props.height}px;
             width:2px;
             top: ${props.top}px;
@@ -154,7 +157,7 @@ const TabsIndicator: any = styled.span`
       } else {
         return `
         left: 0;
-        top: 0;
+        top: -1px;
         width:${props.width}px;
         height:2px;
         left: ${props.left}px;

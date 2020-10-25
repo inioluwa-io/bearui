@@ -43,7 +43,6 @@ const SlackButton: React.FC<SlackSocialButton> = ({
   let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
-    lineHeight: "19px",
   }
   return (
     <Button

@@ -13,13 +13,9 @@ export type ButtonStyle = {
   corners?: "rounded" | "box"
   textColor?: string
   background?: string
-  gradient?: boolean
-  outline?: boolean
-  iconRight?: boolean
   icon?: string
   borderColor?: string
   iconColor?: string
-  iconOnly?: boolean
   glow?: boolean
   hoverColor?: string
   size?: "xs" | "sm" | "md" | "lg"
@@ -29,6 +25,10 @@ export interface ButtonProps extends ButtonStyle, ButtonHTMLAttributes<any> {
   loading?: boolean
   loadingIcon?: any
   transparent?: boolean
+  iconOnly?: boolean
+  gradient?: boolean
+  outline?: boolean
+  iconRight?: boolean
 }
 
 export type AppleSocialButton = {
@@ -63,12 +63,17 @@ export interface SocialButtonProps
   iconOnly?: boolean
   text?: string
   gradient?: boolean
+  transparent?: boolean
 }
 export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
   id?: string
   hoverColor?: string
   transparent?: string
   to: string
+  iconOnly?: string
+  gradient?: string
+  outline?: string
+  iconRight?: string
 }
 
 export type AvatarProps = {
@@ -122,7 +127,7 @@ export type CheckBoxComponent = {
 } & HTMLAttributes<HTMLInputElement>
 
 export type InputProps = {
-  id: string
+  id?: string
   label?: string
   placeholder?: string
   defaultValue?: string
@@ -135,7 +140,7 @@ export type InputProps = {
   onError?: () => any
   validate?: "alpha" | "email" | "number"
   type?: "email" | "text" | "password" | "number" | "date"
-  size?: "sm" | "md" | "lg"
+  size?: "xs" | "sm" | "md" | "lg"
   successMessage?: string
   errorMessage?: string
   onInputChange?: (value: string) => any

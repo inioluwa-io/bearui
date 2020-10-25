@@ -248,7 +248,7 @@ const SocialTab: React.FC<unknown> = () => {
   )
 }
 
-const EditProfilePage = () => {
+const UserEditPage = () => {
   const [navClass, setNavClass] = useState<string>()
   useEffect(() => {
     const navClassName: string | undefined = Array.from(
@@ -325,4 +325,4 @@ const EditProfilePage = () => {
     </EditProfileContainer>
   )
 }
-export default EditProfilePage
+export default UserEditPage

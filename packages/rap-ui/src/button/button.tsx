@@ -42,11 +42,16 @@ font-family: inherit;
   align-items: center;
   justify-content:center;
   flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
-  transition: all 0.35s ease;
-  border: ${(props: any) =>
-    props.outline
-      ? "1px solid " + (props.borderColor || props.background)
-      : "none"};
+  transition: background 0.35s ease, border 0.35s ease;
+  border: ${(props: any) => {
+    if (props.transparent) {
+      return "none"
+    } else {
+      return props.outline
+        ? "1px solid " + (props.borderColor || props.background)
+        : "none"
+    }
+  }};
   box-shadow: 0 8px 35px -6px ${(props: any) =>
     props.glow ? darken(0.13, props.background) : "transparent"};
   overflow:hidden;
@@ -60,8 +65,17 @@ font-family: inherit;
     cursor:not-allowed;
   }
 
-  svg path, .text {
-    transition: fill 0.35s ease, color 0.35s ease;
+  svg path {
+    transition: fill 0.35s ease;
+  }
+  
+  .text {
+    transition: color 0.35s ease !important;
+  }
+
+  .rap-ico, .rap-loa{
+    margin-top:-0.8px;
+    margin-bottom:-0.8px;
   }
   
   &:hover, &:focus{
@@ -78,7 +92,9 @@ font-family: inherit;
               "background:" +
               darken(0.05, props.background) +
               ";" +
-              `color:${props.textColor};`
+              `color:${props.textColor};
+              border:1px solid ${darken(0.05, props.background)}
+              border:none;`
             )
           }
         }
@@ -150,6 +166,9 @@ font-family: inherit;
 
   &.loading{
     background: ${(props: any) => lighten(0.1, props.background)};
+    border: 1px solid ${(props: any) =>
+      rgba(lighten(0.1, props.background), 0.045)};
+      border: none;
     .rap-core, .text, svg{
       visibility:hidden;
     }
@@ -188,7 +207,7 @@ const Button: React.FC<ButtonProps> = ({
   textColor = "#ffffff",
   iconRight = false,
   gradient = false,
-  size = "md",
+  size = "sm",
   loadingIcon = "mdiLoading",
   loading = false,
   transparent = false,
@@ -233,7 +252,7 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg" ? { borderRadius: "9px" } : { borderRadius: "5px" }
+        return size === "lg" ? { borderRadius: "7px" } : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -242,13 +261,13 @@ const Button: React.FC<ButtonProps> = ({
   const getStyleFromSizeProps: Function = (): any => {
     switch (size) {
       case "xs":
-        return { padding: "7px", iconPadding: "7px" }
+        return { padding: "6px 12px", iconPadding: "4px" }
       case "sm":
-        return { padding: "9px 20px", iconPadding: "8px" }
+        return { padding: "11.5px 24px", iconPadding: "9.8px" }
       case "md":
-        return { padding: "10.5px 23px", iconPadding: "9.5px" }
+        return { padding: "14.5px 28px", iconPadding: "12px" }
       case "lg":
-        return { padding: "15px 32px", iconPadding: "13px" }
+        return { padding: "16px 33px", iconPadding: "14px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -328,7 +347,7 @@ const Button: React.FC<ButtonProps> = ({
               ? getStyleFromBackgroundProps().background
               : iconColor
           }
-          size={size === "lg" ? 1 : 0.75}
+          size={size === "lg" ? 1 : 0.725}
           style={getIconStyle()}
         />
       )}
@@ -343,7 +362,7 @@ const Button: React.FC<ButtonProps> = ({
               ? getStyleFromBackgroundProps().background
               : iconColor
           }
-          size={size === "lg" ? 1 : 0.75}
+          size={size === "lg" ? 1 : 0.725}
           style={getIconStyle()}
         />
       )}

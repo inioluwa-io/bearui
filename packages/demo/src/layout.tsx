@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 import { Link, NavLink, withRouter } from "react-router-dom"
-import "./App.css"
 import {
   useThemeMode,
   Avatar,
@@ -22,16 +21,17 @@ import {
   mdiCardTextOutline,
   mdiCheckCircleOutline,
   mdiCircleOutline,
-  mdiClipboard,
-  mdiClipboardList,
-  mdiClipboardListOutline,
-  mdiClipboardText,
   mdiClipboardTextOutline,
   mdiFormatPaint,
+  mdiKey,
   mdiWaterOutline,
 } from "@mdi/js"
 
-const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
+const LayoutComponent: React.FC<any> = ({
+  children,
+  withBar = true,
+  ...props
+}) => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(8000)
   const path = props.location.pathname
@@ -52,7 +52,11 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
 
   useEffect(() => {
     document.body.style.background = theme[themeMode].background
-  }, [])
+  }, [theme, themeMode])
+
+  if (!withBar) {
+    return <Layout notification={notification}>{children}</Layout>
+  }
 
   return (
     <Layout
@@ -85,7 +89,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                   </FlexRow>
                 ),
                 content: (
-                  <FlexColumn>
+                  <FlexColumn  gap="5px">
                     <NavLink to="/card/basic" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -134,7 +138,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                 ),
                 active: /\/components/g.test(path),
                 content: (
-                  <FlexColumn>
+                  <FlexColumn  gap="5px">
                     <NavLink to="/components/avatar" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -325,7 +329,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                   </FlexRow>
                 ),
                 content: (
-                  <FlexColumn>
+                  <FlexColumn  gap="5px">
                     <NavLink to="/checkbox" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -366,7 +370,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                 ),
                 active: /\/user/g.test(path),
                 content: (
-                  <FlexColumn>
+                  <FlexColumn gap="5px">
                     <NavLink to="/user/profile" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -375,6 +379,87 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
                           size={0.45}
                         />
                         Profile
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/user/view" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        View
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/user/edit" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Edit
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          ></Collapse>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiKey} color={color} size={0.75} />
+                    Authentication
+                  </FlexRow>
+                ),
+                active: /\/authentication/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink
+                      to="/pages/login"
+                      target="_blank"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Login
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/pages/sociallogin"
+                      target="_blank"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Social Login
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/pages/register"
+                      target="_blank"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Register
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/user/edit" activeClassName="active">
@@ -397,6 +482,7 @@ const LayoutComponent: React.FC<any> = ({ children, ...props }) => {
       navbar={
         <Navbar
           position="sticky"
+          id="nav-bar"
           links={[
             <Link to="/">Home</Link>,
             <Link to="/">About</Link>,

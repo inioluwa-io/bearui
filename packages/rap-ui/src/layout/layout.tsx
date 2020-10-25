@@ -40,7 +40,7 @@ const LayoutContainer: any = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 2vh);
   color: white;
   background: ${(props: any) => props.background};
 
@@ -75,25 +75,34 @@ const LayoutContainer: any = styled.div`
   main {
     display: inline-flex;
     width: 100%;
+  }
 
-    #main-container {
-      width: calc(100% - 16.5rem);
-    }
-  }
-  @media (max-width: 1200px) {
+  ${(props: any) =>
+    props.sideBar &&
+    `
     main {
+      display: inline-flex;
+      width: 100%;
+  
       #main-container {
-        width: calc(100% - 65px);
+        width: calc(100% - 16.5rem);
       }
     }
-  }
-  @media (max-width: 992px) {
-    main {
-      #main-container {
-        width: 100%;
+    @media (max-width: 1200px) {
+      main {
+        #main-container {
+          width: calc(100% - 65px);
+        }
       }
     }
-  }
+    @media (max-width: 992px) {
+      main {
+        #main-container {
+          width: 100%;
+        }
+      }
+    }
+  `}
 `
 const SidebarContainer: any = styled.div`
   width: 16.5rem;
@@ -206,7 +215,7 @@ const SidebarContainer: any = styled.div`
 `
 
 const Layout: React.FC<LayoutComponent> = ({
-  navbar,
+  navbar = <></>,
   notification,
   children,
   sideBar,
@@ -238,32 +247,35 @@ const Layout: React.FC<LayoutComponent> = ({
       {...props}
       background={theme[themeMode].background}
       themeMode={themeMode}
+      sideBar={!!sideBar}
     >
       <NotificationComponent notification={notification} />
       <main>
-        <SidebarContainer
-          background={theme[themeMode].cardbackground}
-          boxShadow={theme[themeMode].background}
-          primaryColor={theme.colors.primary}
-        >
-          <FlexRow
-            align="stretch"
-            position="center"
-            style={{
-              height: "68px",
-              width: "calc(100% - 30px)",
-              padding: "0 15px",
-              overflow: "hidden",
-            }}
+        {sideBar && (
+          <SidebarContainer
+            background={theme[themeMode].cardbackground}
+            boxShadow={theme[themeMode].background}
+            primaryColor={theme.colors.primary}
           >
-            <h3 style={{ color: theme.colors.primary }}>BearUI</h3>
-          </FlexRow>
-          <div className="scrollbar">
-            <FlexColumn id="side-bar" gap="10px" align="left">
-              {sideBar}
-            </FlexColumn>
-          </div>
-        </SidebarContainer>
+            <FlexRow
+              align="stretch"
+              position="center"
+              style={{
+                height: "68px",
+                width: "calc(100% - 30px)",
+                padding: "0 15px",
+                overflow: "hidden",
+              }}
+            >
+              <h3 style={{ color: theme.colors.primary }}>BearUI</h3>
+            </FlexRow>
+            <div className="scrollbar">
+              <FlexColumn id="side-bar" gap="5px" align="left">
+                {sideBar}
+              </FlexColumn>
+            </div>
+          </SidebarContainer>
+        )}
         <FlexColumn id="main-container" style={{ minHeight: "100vh" }}>
           <div
             style={{

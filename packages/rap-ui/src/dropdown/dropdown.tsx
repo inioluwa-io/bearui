@@ -249,6 +249,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
             key={idx}
             onClick={() => {
               handleBlur()
+              setActive(false)
             }}
           >
             {item}

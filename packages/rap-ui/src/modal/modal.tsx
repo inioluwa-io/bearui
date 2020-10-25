@@ -28,7 +28,7 @@ const ModalContainer: any = styled.div`
   min-width: 28rem;
   border-radius: 10px;
   overflow: hidden;
-  max-height: 80vh;
+  max-height: 83vh;
   background: ${(props: any) => props.background};
   box-shadow: 0 0 20px -10px ${(props: any) => darken(0.65, props.background)};
 
@@ -72,8 +72,8 @@ const InnerContainer: any = styled.div`
     margin-bottom: 25px;
   }
   @media (max-width: 441px) {
-    height: calc(100vh - 160px);
-    max-height: calc(100vh - 160px);
+    height: calc(100vh - 161px);
+    max-height: calc(100vh - 161px);
     padding: 20px;
   }
 `
@@ -198,7 +198,7 @@ const Modal: React.FC<ModalProps> = ({
     if (DOMNode) {
       document.body.style.overflowY = "auto"
 
-      let modal = DOMNode.querySelector("#modal-container")
+      let modal = DOMNode.querySelector(".modal-container")
       modal.style.transition = "transform .25s, opacity .15s"
       modal.style.opacity = "0"
       modal.style.transform = "scale3d(0.8,0.8,0.8)"
@@ -248,7 +248,7 @@ const Modal: React.FC<ModalProps> = ({
         background={darken(0.5, theme[themeMode].background)}
       >
         <ModalContainer
-          id="modal-container"
+          className="modal-container"
           background={theme[themeMode].cardbackground}
           active={active}
         >

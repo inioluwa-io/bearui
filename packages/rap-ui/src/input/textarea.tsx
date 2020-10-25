@@ -110,8 +110,8 @@ const Label: any = styled.label`
 
 const InputIcon: any = styled.div`
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 11px;
+  // transform: translateY(-50%);
   left: ${(props: any) => (props.iconRight ? "auto" : "0")};
   right: ${(props: any) => (props.iconRight ? "0" : "auto")};
   display: flex;
@@ -160,7 +160,7 @@ const ClearButton: any = styled.button`
  */
 
 const TextArea: React.FC<InputProps> = ({
-  id,
+  id = "",
   label = "",
   type = "text",
   disabled = false,
@@ -179,8 +179,8 @@ const TextArea: React.FC<InputProps> = ({
   errorMessage = "Invalid",
   ...props
 }) => {
-  if (!id || typeof onInputChange !== "function") {
-    throw new Error("Props id and onInputChange are required")
+  if (typeof onInputChange !== "function") {
+    throw new Error("Props onInputChange is required")
   }
   const [inputValue, setInputValue] = useState<string>(defaultValue)
   const [labelColor, setLabelColor] = useState<string>("")

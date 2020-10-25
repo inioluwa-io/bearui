@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {
-  Card,
-  Container,
-  FlexColumn,
-  Checkbox,
-  LinkButton,
-} from "@rap/ui"
+import { Card, Container, FlexColumn, Checkbox, LinkButton } from "@rap/ui"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
 import _ from "lodash"
@@ -172,6 +166,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
 
   useEffect(() => {
     setFilterData(todos)
+    console.log("render 1")
   }, [todos])
 
   useEffect(() => {
@@ -181,6 +176,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
       JSonCacheTodos = JSON.parse(cacheTodos)
     }
     setTodos(JSonCacheTodos)
+    console.log("render 2")
   }, [])
 
   return (
@@ -206,9 +202,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
                     handleSetFilter("completed", todo.id, !todo.completed)
                   }}
                 >
-                  <p style={{ fontWeight: 500 }}>
-                    {todo.name}
-                  </p>
+                  <p style={{ fontWeight: 500 }}>{todo.name}</p>
                 </Checkbox>
                 <p
                   className="truncate"

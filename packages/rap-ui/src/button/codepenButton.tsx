@@ -22,7 +22,6 @@ const CodepenButton: React.FC<AppleSocialButton> = ({
   let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
-    lineHeight: "19px",
   }
   return (
     <Button

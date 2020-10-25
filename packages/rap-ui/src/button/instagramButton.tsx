@@ -38,7 +38,6 @@ const InstagramButton: React.FC<InstagramSocialButton> = ({
   let style = {
     fontFamily: "Roboto",
     fontSize: "13px",
-    lineHeight: "19px",
   }
   return (
     <Button

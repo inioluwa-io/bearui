@@ -17,8 +17,8 @@ const ColumnContainer: any = styled.div`
     props.align.alignItems === "stretch" && "width:100%"};
   align-items: ${(props: ColumnStyleProps) => props.align.alignItems};
 
+  grid-gap: ${(props: ColumnStyleProps) => props.marginBottom};
   > :not(:last-child) {
-    margin-bottom: ${(props: ColumnStyleProps) => props.marginBottom};
   }
 
   > * {

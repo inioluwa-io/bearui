@@ -1,0 +1,19 @@
+@media print {
+    * {
+        visibility: hidden;
+    }
+
+    #invoice-heading {
+        display: none;
+    }
+
+    #invoice {
+        margin-top: -100px;
+        visibility: visible;
+    }
+
+    #invoice * {
+        visibility: visible;
+        color: #000;
+    }
+}
