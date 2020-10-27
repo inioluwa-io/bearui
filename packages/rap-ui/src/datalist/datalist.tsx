@@ -662,6 +662,8 @@ const DataList: React.FC<DataListComponent> = ({
                               background={actionItem.color}
                               onClick={() => {
                                 actionItem.onClick(dataItem)
+
+                                // toggleCheck(dataItem[uniqueIdentifier])
                               }}
                             >
                               {actionItem.text}

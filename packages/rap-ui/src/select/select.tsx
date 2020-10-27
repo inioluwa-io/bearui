@@ -34,8 +34,7 @@ const InputContainer: any = styled.div`
 `
 const InputHtmlElement: any = styled.input`
   position: relative;
-  height: calc(100% - (${(props: any) =>
-    `${props.size} + ${props.size} + 1px)`});
+  height: calc(100% - (${(props: any) => `${props.size} + ${props.size})`});
   flex: 1;
   font-size: 13px; 
   font-family: inherit;
@@ -54,6 +53,10 @@ const InputHtmlElement: any = styled.input`
     font-weight: montserrat;
     border-bottom-left-radius:0;
     border-bottom-right-radius:0;
+  }
+
+  &:hover,&:focus{
+    border: 1px solid ${(props: any) => props.color};
   }
 
   &:focus,
@@ -85,30 +88,6 @@ const Label: any = styled.label`
   margin-bottom: 4px;
 `
 
-const InputIcon: any = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: ${(props: any) => (props.iconRight ? "auto" : "0")};
-  right: ${(props: any) => (props.iconRight ? "0" : "auto")};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
-
-  ${(props: any) =>
-    props.iconRight
-      ? `border-left: 1px solid #666;
-       padding: 0 8px 0 7px`
-      : `border-right: 1px solid #666;
-      padding: 0 7px 0 8px;`}
-  border:${(props: any) => !props.iconBorder && "none"}
-
-  svg path {
-    transition: all 0.35s;
-  }
-`
-
 const ArrowDown: any = styled.div`
   position: absolute;
   top: 50%;
@@ -130,7 +109,7 @@ const SuggestionContainer: any = styled.div`
   width: 100%;
   //   box-shadow: 0 0 15px -12px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  width: calc(100% - 0px);
+  width: calc(100% - 2px);
   top: 100%;
   position: absolute;
   border-top-left-radius: 0;
@@ -138,6 +117,7 @@ const SuggestionContainer: any = styled.div`
   overflow: hidden;
   z-index: 99;
   background: ${(props: any) => props.background};
+  border: 1px solid ${(props: any) => props.color};
 
   button {
     background: transparent;
@@ -149,12 +129,18 @@ const SuggestionContainer: any = styled.div`
     cursor: pointer;
     padding: 9px 15px;
     text-align: left;
-    transition: background 0.25s ease;
+    transition: background 0.25s ease, color 0.25s ease;
 
     &:hover,
     &.active,
     &:focus {
       background: ${(props: any) => props.color};
+      color: #f4f4f4;
+
+      span {
+        transition: color 0.25s ease;
+        color: #f4f4f4;
+      }
     }
   }
 `
@@ -246,7 +232,6 @@ const Select: React.FC<SelectComponent> = ({
 
   useEffect(() => {
     setInputValue(selectedValue)
-    console.log(selectedValue)
     if (typeof onSelect === "function") {
       onSelect(inputValue)
     }
@@ -275,7 +260,9 @@ const Select: React.FC<SelectComponent> = ({
             !inputElement.contains(e.target)
           ) {
             setShowSuggestions(false)
-            selectedValue.length > 0 && setInputValue(selectedValue)
+            selectedValue.length > 0
+              ? setInputValue(selectedValue)
+              : setInputValue("")
           }
         }
       }
@@ -344,6 +331,14 @@ const Select: React.FC<SelectComponent> = ({
           background={theme[themeMode].background}
           className="sugst"
         >
+          <button
+            onClick={() => {
+              setSelectedValue("")
+              setShowSuggestions(false)
+            }}
+          >
+            <span>...</span>
+          </button>
           {getFilteredOptions().map((option, idx: number) => (
             <button
               key={idx}

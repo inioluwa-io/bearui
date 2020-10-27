@@ -97,7 +97,6 @@ const UserViewPage = () => {
                   onClick={() => {}}
                   transparent
                   iconOnly
-                  size="md"
                 />
               </a>
             </Tooltip>
@@ -107,7 +106,6 @@ const UserViewPage = () => {
                   onClick={() => {}}
                   transparent
                   iconOnly
-                  size="md"
                 />
               </a>
             </Tooltip>
@@ -117,7 +115,6 @@ const UserViewPage = () => {
                   onClick={() => {}}
                   transparent
                   iconOnly
-                  size="md"
                 />
               </a>
             </Tooltip>
@@ -127,7 +124,6 @@ const UserViewPage = () => {
                   onClick={() => {}}
                   transparent
                   iconOnly
-                  size="md"
                 />
               </a>
             </Tooltip>
@@ -137,7 +133,6 @@ const UserViewPage = () => {
                   onClick={() => {}}
                   transparent
                   iconOnly
-                  size="md"
                 />
               </a>
             </Tooltip>

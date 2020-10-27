@@ -198,7 +198,7 @@ const Input: React.FC<InputProps> = ({
         DOMNode.style.marginBottom = "-19px"
       }
     }
-    onInputChange(defaultValue)
+    // onInputChange(defaultValue)
   }, [defaultValue])
 
   const inputHeightSize = (): string => {

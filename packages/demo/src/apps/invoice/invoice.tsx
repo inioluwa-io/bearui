@@ -6,27 +6,84 @@ import {
   Chip,
   Button,
   LinkButton,
-  FlexColumn,
-  Modal,
-  Input,
-  TextArea,
-  FlexRow,
-  Select,
 } from "@rap/ui"
-import { invoiceData, InvoiceListProp } from "./mock"
-import styled from "styled-components"
-
-const AddInvoiceComponent: any = styled(FlexColumn)`
-  @media (max-width: 441px) {
-    .row > * {
-      flex: auto;
-    }
-  }
-`
+import { invoiceData } from "./mock"
+import { InvoiceData } from "./types"
+import { AddInvoiceModal, EditInvoiceModal } from "./invoiceModal"
 
 const Invoice: React.FC<any> = () => {
-  const [invoiceList, setInvoiceList] = useState<InvoiceListProp[]>(invoiceData)
+  const defaultInvoice: InvoiceData = {
+    _id: Math.floor(Math.random() * 1024780),
+    date: Date.now(),
+    invoice_no: "",
+    status: 0,
+    recipient: { name: "", address: "", email: "", phone: "" },
+    biller: { name: "", address: "", email: "", phone: "" },
+    products: [{ name: "", description: "", price: 0, quantity: 1 }],
+    discount: 0,
+    subTotal: 0,
+    total: 0,
+  }
+  const [invoiceList, setInvoiceList] = useState<InvoiceData[]>(invoiceData)
   const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false)
+  const [newInvoice, setNewInvoice] = useState<InvoiceData>(defaultInvoice)
+
+  const removeProduct = (idx: number): void => {
+    const tmp: InvoiceData = newInvoice
+    tmp.products.splice(idx, 1)
+
+    setNewInvoice({ ...newInvoice, products: tmp.products })
+    calculateTotal()
+  }
+
+  const addProduct = (): void => {
+    const tmp: InvoiceData = newInvoice
+    tmp.products.push({ name: "", description: "", price: 0, quantity: 1 })
+
+    setNewInvoice({ ...newInvoice, products: tmp.products })
+    calculateTotal()
+  }
+
+  const calculateTotal = (): void => {
+    let subTotal: number = 0
+
+    for (let i = 0; i < newInvoice.products.length; i++) {
+      let currProduct = newInvoice.products[i]
+      subTotal += +currProduct.price * +currProduct.quantity
+    }
+    const total = subTotal - newInvoice.discount
+    const tmp = { ...newInvoice }
+    tmp.subTotal = subTotal
+    tmp.total = total
+
+    setNewInvoice(tmp)
+  }
+
+  const resetNewInvoice = (): void => {
+    setNewInvoice(defaultInvoice)
+  }
+
+  const editInvoice = (): void => {
+    const tmp = [...invoiceList]
+
+    for (let i = 0; i < tmp.length; i++) {
+      if (tmp[i]._id === newInvoice?._id) {
+        tmp[i] = newInvoice
+      }
+    }
+    setInvoiceList(tmp)
+    resetNewInvoice()
+  }
+
+  const updateNewInvoice = (data: InvoiceData): void => {
+    setNewInvoice(data)
+    console.log(data)
+  }
+
+  const updateInvoice = (): void => {
+    setInvoiceList([...invoiceList, newInvoice])
+  }
 
   return (
     <Container>
@@ -39,6 +96,7 @@ const Invoice: React.FC<any> = () => {
             <>
               <Button
                 onClick={() => {
+                  resetNewInvoice()
                   setOpenModal(true)
                 }}
                 icon="mdiPlus"
@@ -53,8 +111,9 @@ const Invoice: React.FC<any> = () => {
             {
               color: "primary",
               text: "Edit",
-              onClick: (value: InvoiceListProp) => {
-                console.log(value)
+              onClick: (value: InvoiceData) => {
+                setOpenEditModal(true)
+                updateNewInvoice(value)
               },
             },
             {
@@ -70,13 +129,25 @@ const Invoice: React.FC<any> = () => {
             {
               selector: "number",
               onRender: (data: any) => {
-                return "#" + data.number
+                return "#" + data.invoice_no
+              },
+            },
+            {
+              selector: "biller",
+              onRender: (data: any) => {
+                return data.biller.name
+              },
+            },
+            {
+              selector: "recipient",
+              onRender: (data: any) => {
+                return data.recipient.name
               },
             },
             {
               selector: "total_cost",
               onRender: (data: any) => {
-                return "$" + data.total_cost
+                return "$" + data.total
               },
             },
             {
@@ -85,7 +156,7 @@ const Invoice: React.FC<any> = () => {
                 return (
                   <LinkButton
                     background="info"
-                    to={"/apps/invoice/" + data.number}
+                    to={"/apps/invoice/" + data.invoice_no}
                   >
                     View
                   </LinkButton>
@@ -120,150 +191,26 @@ const Invoice: React.FC<any> = () => {
           document={invoiceList}
         ></DataList>
       </Card>
-      <Modal
-        active={openModal}
-        onClose={() => {
-          setOpenModal(false)
-        }}
-        title="Add Invoice"
-        submitButton={
-          <Button
-            onClick={() => {
-              // editTask()
-            }}
-          >
-            Submit
-          </Button>
-        }
-      >
-        <AddInvoiceComponent id="invoice-component" gap="40px">
-          <FlexColumn gap="calc(20px / 1.5)">
-            <FlexRow align="left" className="row">
-              <Input
-                id="invoice-no"
-                color="primary"
-                label="Invoice number"
-                placeholder="Example; #1245"
-                onInputChange={() => {}}
-              />
-            </FlexRow>
-            <FlexRow align="left" className="row">
-              <Select
-                id="status"
-                color="primary"
-                label="Status"
-                defaultSelected="Shipped"
-                options={["Shipped", "Delivered", "Canceled", "Pending"]}
-                placeholder="Example; #1245"
-              />
-            </FlexRow>
-          </FlexColumn>
-
-          {/* Recipient Information */}
-          <FlexColumn>
-            <h6 style={{ fontWeight: 500 }}>Recipient Information</h6>
-
-            <FlexColumn gap="calc(20px / 1.5)">
-              <FlexRow align="stretch" position="top" className="row">
-                <Input
-                  id="recipient-name"
-                  color="primary"
-                  placeholder="Recipient Name"
-                  onInputChange={() => {}}
-                />
-                <Input
-                  id="recipient-phone"
-                  color="primary"
-                  placeholder="Recipient Phone"
-                  onInputChange={() => {}}
-                />
-              </FlexRow>
-              <FlexRow align="stretch" position="top" className="row">
-                <Input
-                  id="recipient-email"
-                  color="primary"
-                  type="email"
-                  placeholder="Recipient Email"
-                  onInputChange={() => {}}
-                />
-                <TextArea
-                  id="recipient-addr"
-                  color="primary"
-                  placeholder="Recipient Address"
-                  onInputChange={() => {}}
-                />
-              </FlexRow>
-            </FlexColumn>
-          </FlexColumn>
-
-          {/* Biller Information */}
-          <FlexColumn>
-            <h6 style={{ fontWeight: 500 }}>Biller Information</h6>
-
-            <FlexColumn gap="calc(20px / 1.5)">
-              <FlexRow align="stretch" position="top" className="row">
-                <Input
-                  id="biller-name"
-                  color="primary"
-                  placeholder="Biller Name"
-                  onInputChange={() => {}}
-                />
-                <Input
-                  id="biller-phone"
-                  color="primary"
-                  placeholder="Biller Phone"
-                  onInputChange={() => {}}
-                />
-              </FlexRow>
-              <FlexRow align="stretch" position="top" className="row">
-                <Input
-                  id="biller-email"
-                  color="primary"
-                  type="email"
-                  placeholder="Biller Email"
-                  onInputChange={() => {}}
-                />
-                <TextArea
-                  id="biller-addr"
-                  color="primary"
-                  placeholder="Biller Address"
-                  onInputChange={() => {}}
-                />
-              </FlexRow>
-            </FlexColumn>
-          </FlexColumn>
-
-          {/* Price Information */}
-          <FlexColumn>
-            <h6 style={{ fontWeight: 500 }}>Pricing Information</h6>
-
-            <FlexColumn>
-              <FlexRow className="row">
-                <FlexRow gap="10px">
-                  <p style={{ fontWeight: 500 }}>SubTotal:</p>
-                  <p> $24,000</p>
-                </FlexRow>
-              </FlexRow>
-              <FlexRow className="row">
-                <Input
-                  id="biller-name"
-                  color="primary"
-                  validate="number"
-                  label="Discount"
-                  placeholder="0.00"
-                  onInputChange={() => {}}
-                />
-              </FlexRow>
-              <FlexRow className="row">
-                <FlexRow gap="10px">
-                  <p style={{ fontWeight: 500 }}>Total:</p>
-                  <p> $24,000</p>
-                </FlexRow>
-              </FlexRow>
-            </FlexColumn>
-          </FlexColumn>
-        </AddInvoiceComponent>
-      </Modal>
+      <AddInvoiceModal
+        newInvoice={newInvoice}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSubmit={updateInvoice}
+        addProduct={addProduct}
+        calculateTotal={calculateTotal}
+        removeProduct={removeProduct}
+        setNewInvoice={setNewInvoice}
+      />
+      <EditInvoiceModal
+        newInvoice={newInvoice}
+        openModal={openEditModal}
+        setOpenModal={setOpenEditModal}
+        onSubmit={editInvoice}
+        addProduct={addProduct}
+        calculateTotal={calculateTotal}
+        removeProduct={removeProduct}
+        setNewInvoice={setNewInvoice}
+      />
     </Container>
   )
 }

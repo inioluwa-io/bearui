@@ -4,6 +4,11 @@
   font-family: montserrat;
 }
 
+a,
+label {
+  outline: none;
+}
+
 body,
 html {
   height: 100%;

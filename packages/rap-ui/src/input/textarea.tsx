@@ -358,7 +358,7 @@ const TextArea: React.FC<InputProps> = ({
             onClick={e => {
               setInputValue("")
               onInputChange("")
-              refs.current.querySelector("input").focus()
+              refs.current.querySelector("textarea").focus()
             }}
           >
             <Icon path={mdi.mdiClose} size={0.55} color={"#f4f4f4"} />

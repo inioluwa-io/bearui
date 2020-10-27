@@ -13,15 +13,14 @@ import {
 } from "@rap/ui"
 import { withRouter } from "react-router-dom"
 import { getOneInvoice } from "./util"
-import { InvoiceListProp } from "./mock"
+import { InvoiceData } from "./types"
 import Icon from "@mdi/react"
 import { mdiEmailOutline, mdiPhone } from "@mdi/js"
 import "./style.css"
 
-
 const ViewInvoice: React.FC<any> = ({ match }) => {
   const invoice_no: string = match.params.id
-  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceListProp>()
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceData>()
 
   useEffect(() => {
     getOneInvoice(invoice_no).then(data => {
@@ -99,11 +98,14 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
               <FlexRow align="space" position="top">
                 <FlexColumn align="left" gap="7px">
                   <h6 style={{ fontWeight: 500 }}>INVOICE NO.</h6>
-                  <p>#{invoiceDetails?.number}</p>
+                  <p>#{invoiceDetails?.invoice_no}</p>
                 </FlexColumn>
                 <FlexColumn align="right" gap="7px">
                   <h6 style={{ fontWeight: 500 }}>INVOICE DATE.</h6>
-                  <p>{invoiceDetails?.date}</p>
+                  <p>
+                    {invoiceDetails?.date &&
+                      new Date(invoiceDetails?.date).toDateString()}
+                  </p>
                 </FlexColumn>
               </FlexRow>
               <FlexColumn align="right" gap="7px">
@@ -116,14 +118,11 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
             {/* Address */}
             <FlexRow align="space" position="top">
               <FlexColumn className="recipent" gap="10px">
-                <h5 style={{ fontWeight: 500 }}>{invoiceDetails?.recipient}</h5>
+                <h5 style={{ fontWeight: 500 }}>
+                  {invoiceDetails?.recipient.name}
+                </h5>
                 <p>
-                  <address>
-                    Somewhere <br />
-                    Somewhere <br />
-                    Somewhere <br />
-                    Somewhere
-                  </address>
+                  <address>{invoiceDetails?.recipient?.address}</address>
                 </p>
                 <FlexRow gap="7px">
                   <Icon path={mdiEmailOutline} size={0.75} />
@@ -135,13 +134,11 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
                 </FlexRow>
               </FlexColumn>
               <FlexColumn className="recipent" align="right" gap="10px">
-                <h5 style={{ fontWeight: 500 }}>{invoiceDetails?.biller}</h5>
+                <h5 style={{ fontWeight: 500 }}>
+                  {invoiceDetails?.biller.name}
+                </h5>
                 <p>
-                  <address>
-                    Somewhere <br />
-                    Somewhere <br />
-                    Somewhere
-                  </address>
+                  <address>{invoiceDetails?.biller?.address}</address>
                 </p>
                 <FlexRow gap="7px" align="right">
                   <Icon path={mdiEmailOutline} size={0.75} />

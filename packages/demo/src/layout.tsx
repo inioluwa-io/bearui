@@ -22,6 +22,7 @@ import {
   mdiCheckCircleOutline,
   mdiCircleOutline,
   mdiClipboardTextOutline,
+  mdiCubeOutline,
   mdiFormatPaint,
   mdiKey,
   mdiWaterOutline,
@@ -169,16 +170,6 @@ const LayoutComponent: React.FC<any> = ({
                         Chip
                       </FlexRow>
                     </NavLink>
-                    <NavLink to="/components/checkbox" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Checkbox
-                      </FlexRow>
-                    </NavLink>
                     <NavLink to="/components/collapse" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -207,16 +198,6 @@ const LayoutComponent: React.FC<any> = ({
                           size={0.45}
                         />
                         Dropdown
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/input" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Input
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/list" activeClassName="active">
@@ -282,16 +263,6 @@ const LayoutComponent: React.FC<any> = ({
                         Progress
                       </FlexRow>
                     </NavLink>
-                    <NavLink to="/components/switch" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Switch
-                      </FlexRow>
-                    </NavLink>
                     <NavLink to="/components/tab" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -310,6 +281,75 @@ const LayoutComponent: React.FC<any> = ({
                           size={0.45}
                         />
                         Tooltip
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          ></Collapse>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiCubeOutline} color={color} size={0.75} />
+                    Form Elements
+                  </FlexRow>
+                ),
+                active: /\/formelements/g.test(path),
+                content: (
+                  <FlexColumn  gap="5px">
+                    <NavLink to="/formelement/checkbox" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Checkbox
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/formelement/input" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Input
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/formelement/select" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Select
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/formelement/switch" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Switch
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/formelement/textarea" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Textarea
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>

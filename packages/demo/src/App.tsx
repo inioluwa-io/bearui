@@ -22,6 +22,8 @@ import {
   SwitchPage,
   ListPage,
   PaginationPage,
+  SelectPage,
+  TextAreaPage
 } from "./components"
 import {
   UserViewPage,
@@ -91,10 +93,6 @@ const App: React.FC = () => {
                 component={(props: any) => <BreadcrumbPage {...props} />}
               />
               <Route
-                path="/components/checkbox"
-                component={(props: any) => <CheckboxPage {...props} />}
-              />
-              <Route
                 path="/components/chip"
                 component={(props: any) => <ChipPage {...props} />}
               />
@@ -113,10 +111,6 @@ const App: React.FC = () => {
               <Route
                 path="/components/dropdown"
                 component={(props: any) => <DropdownPage {...props} />}
-              />
-              <Route
-                path="/components/input"
-                component={(props: any) => <InputPage {...props} />}
               />
               <Route
                 path="/components/list"
@@ -139,10 +133,6 @@ const App: React.FC = () => {
                 component={(props: any) => <ProgressPage {...props} />}
               />
               <Route
-                path="/components/switch"
-                component={(props: any) => <SwitchPage {...props} />}
-              />
-              <Route
                 path="/components/tab"
                 component={(props: any) => <TabPage {...props} />}
               />
@@ -161,6 +151,26 @@ const App: React.FC = () => {
               <Route
                 path="/user/edit"
                 component={(props: any) => <UserEditPage {...props} />}
+              />
+              <Route
+                path="/formelement/checkbox"
+                component={(props: any) => <CheckboxPage {...props} />}
+              />
+              <Route
+                path="/formelement/select"
+                component={(props: any) => <SelectPage {...props} />}
+              />
+              <Route
+                path="/formelement/switch"
+                component={(props: any) => <SwitchPage {...props} />}
+              />
+              <Route
+                path="/formelement/textarea"
+                component={(props: any) => <TextAreaPage {...props} />}
+              />
+              <Route
+                path="/formelement/input"
+                component={(props: any) => <InputPage {...props} />}
               />
               <Route
                 exact
