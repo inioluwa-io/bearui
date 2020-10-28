@@ -5,8 +5,8 @@ export const invoiceData: InvoiceData[] = [
     _id: 3,
     invoice_no: "1246",
     date: 1603789288059,
-    biller: { name: "Avengers Inc.", address: "", email: "", phone: "" },
-    recipient: { name: "America", address: "", email: "", phone: "" },
+    biller: { name: "Avengers Inc.", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
+    recipient: { name: "America", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
     total: 23000,
     status: 0,
     discount: 0,
@@ -25,8 +25,8 @@ export const invoiceData: InvoiceData[] = [
     _id: 4,
     invoice_no: "1247",
     date: 1623785288059,
-    biller: { name: "Avengers Inc.", address: "", email: "", phone: "" },
-    recipient: { name: "America", address: "", email: "", phone: "" },
+    biller: { name: "Avengers Inc.", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
+    recipient: { name: "America", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
     total: 23000,
     products: [
       {
@@ -45,8 +45,8 @@ export const invoiceData: InvoiceData[] = [
     _id: 1,
     invoice_no: "1244",
     date: 1123785288059,
-    biller: { name: "Avengers Inc.", address: "", email: "", phone: "" },
-    recipient: { name: "Planet Earth", address: "", email: "", phone: "" },
+    biller: { name: "Avengers Inc.", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
+    recipient: { name: "Planet Earth", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
     total: 83000,
     products: [
       {
@@ -65,8 +65,8 @@ export const invoiceData: InvoiceData[] = [
     _id: 2,
     invoice_no: "1245",
     date: 1603789288059,
-    biller: { name: "Avengers Inc.", address: "", email: "", phone: "" },
-    recipient: { name: "Azgard", address: "", email: "", phone: "" },
+    biller: { name: "Avengers Inc.", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
+    recipient: { name: "Azgard", address: "Somwehere", email: "Somwehere", phone: "0814648393" },
     total: 3000,
     products: [
       {

@@ -17,6 +17,56 @@ import { InvoiceData } from "./types"
 import Icon from "@mdi/react"
 import { mdiEmailOutline, mdiPhone } from "@mdi/js"
 import "./style.css"
+import styled from "styled-components"
+
+const ProductTable: any = styled.table`
+  border: 2px solid rgba(0, 0, 0, 0.13);
+  border-collapse: collapse;
+  padding: 0 15px;
+  overflow: hidden;
+
+  th {
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.13);
+    text-transform: uppercase;
+    padding: 12px;
+
+    &:first-child {
+      padding-right: 10vw;
+    }
+  }
+  td {
+    font-size: 14px;
+    padding: 12px;
+    font-family: inherit;
+  }
+`
+
+const ProductTotal: any = styled.table`
+  outline: 2px solid rgba(0, 0, 0, 0.13);
+  border-collapse: collapse;
+  min-width: 300px;
+  margin: 0 15px;
+
+  th {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    text-transform: uppercase;
+    padding: 12px;
+
+    &:first-child {
+      padding-right: 10vw;
+    }
+  }
+  td {
+    font-size: 14px;
+    font-family: inherit;
+    padding: 12px;
+  }
+`
 
 const ViewInvoice: React.FC<any> = ({ match }) => {
   const invoice_no: string = match.params.id
@@ -64,7 +114,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
           icon="mdiChevronLeft"
         ></LinkButton>
       </Card>
-      <Card xsCol="12" withBackground={true} gap="40px">
+      <Card xsCol="12" size="sm" withBackground={true} gap="80px">
         <FlexRow align="space" position="top" id="invoice-heading">
           <FlexRow gap="10px" position="top">
             <Input
@@ -88,7 +138,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
           </FlexRow>
         </FlexRow>
         <div id="invoice" style={{ width: "100%" }}>
-          <FlexColumn gap="35px">
+          <FlexColumn gap="50px">
             <FlexRow align="right" position="top">
               <h1 style={{ fontWeight: 500, fontSize: "2.5rem" }}>Invoice</h1>
             </FlexRow>
@@ -121,35 +171,80 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
                 <h5 style={{ fontWeight: 500 }}>
                   {invoiceDetails?.recipient.name}
                 </h5>
-                <p>
-                  <address>{invoiceDetails?.recipient?.address}</address>
-                </p>
+                <address>{invoiceDetails?.recipient?.address}</address>
+
                 <FlexRow gap="7px">
                   <Icon path={mdiEmailOutline} size={0.75} />
-                  <p>something@gmail.com</p>
+                  <p>{invoiceDetails?.recipient?.email}</p>
                 </FlexRow>
                 <FlexRow gap="7px">
                   <Icon path={mdiPhone} size={0.75} />
-                  <p>+2348 2389 4389</p>
+                  <p>{invoiceDetails?.recipient?.phone}</p>
                 </FlexRow>
               </FlexColumn>
               <FlexColumn className="recipent" align="right" gap="10px">
                 <h5 style={{ fontWeight: 500 }}>
                   {invoiceDetails?.biller.name}
                 </h5>
-                <p>
-                  <address>{invoiceDetails?.biller?.address}</address>
-                </p>
+                <address>{invoiceDetails?.biller?.address}</address>
+
                 <FlexRow gap="7px" align="right">
                   <Icon path={mdiEmailOutline} size={0.75} />
-                  <p>something@gmail.com</p>
+                  <p>{invoiceDetails?.biller?.email}</p>
                 </FlexRow>
                 <FlexRow gap="7px" align="right">
                   <Icon path={mdiPhone} size={0.75} />
-                  <p>+2348 2389 4389</p>
+                  <p>{invoiceDetails?.biller?.phone}</p>
                 </FlexRow>
               </FlexColumn>
             </FlexRow>
+
+            <FlexColumn>
+              {/* Products */}
+              <FlexRow align="stretch" id ="prod-dtl">
+                <ProductTable>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {invoiceDetails?.products.map((product, idx: number) => (
+                      <tr key={idx}>
+                        <td>{product.name}</td>
+                        <td>{product.quantity}</td>
+                        <td>${product.price}</td>
+                        <td>${product.price * product.quantity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </ProductTable>
+              </FlexRow>
+              <FlexRow align="right">
+                <ProductTotal>
+                  <thead>
+                    <tr>{/*  */}</tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Subtotal</th>
+                      <td>$ {invoiceDetails?.subTotal}</td>
+                    </tr>
+                    <tr>
+                      <th>Discount</th>
+                      <td>$ {invoiceDetails?.discount}</td>
+                    </tr>
+                    <tr>
+                      <th>Total</th>
+                      <td>$ {invoiceDetails?.total}</td>
+                    </tr>
+                  </tbody>
+                </ProductTotal>
+              </FlexRow>
+            </FlexColumn>
           </FlexColumn>
         </div>
       </Card>

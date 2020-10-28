@@ -51,6 +51,7 @@ export const AddInvoiceModal: React.FC<InvoiceModalComponent> = ({
           onClick={() => {
             onSubmit()
             setOpenModal(false)
+            document.body.style.overflowY = "auto"
           }}
         >
           Submit
@@ -340,6 +341,7 @@ export const EditInvoiceModal: React.FC<InvoiceModalComponent> = ({
           onClick={() => {
             onSubmit()
             setOpenModal(false)
+            document.body.style.overflowY = "auto"
           }}
         >
           Submit

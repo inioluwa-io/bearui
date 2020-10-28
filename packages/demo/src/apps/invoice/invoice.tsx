@@ -1,12 +1,5 @@
-import React, { useState } from "react"
-import {
-  Container,
-  Card,
-  DataList,
-  Chip,
-  Button,
-  LinkButton,
-} from "@rap/ui"
+import React, { useEffect, useState } from "react"
+import { Container, Card, DataList, Chip, Button, LinkButton } from "@rap/ui"
 import { invoiceData } from "./mock"
 import { InvoiceData } from "./types"
 import { AddInvoiceModal, EditInvoiceModal } from "./invoiceModal"
@@ -30,7 +23,7 @@ const Invoice: React.FC<any> = () => {
   const [newInvoice, setNewInvoice] = useState<InvoiceData>(defaultInvoice)
 
   const removeProduct = (idx: number): void => {
-    const tmp: InvoiceData = newInvoice
+    const tmp: InvoiceData = { ...newInvoice }
     tmp.products.splice(idx, 1)
 
     setNewInvoice({ ...newInvoice, products: tmp.products })
@@ -38,7 +31,7 @@ const Invoice: React.FC<any> = () => {
   }
 
   const addProduct = (): void => {
-    const tmp: InvoiceData = newInvoice
+    const tmp: InvoiceData = { ...newInvoice }
     tmp.products.push({ name: "", description: "", price: 0, quantity: 1 })
 
     setNewInvoice({ ...newInvoice, products: tmp.products })
@@ -47,13 +40,13 @@ const Invoice: React.FC<any> = () => {
 
   const calculateTotal = (): void => {
     let subTotal: number = 0
+    const tmp = { ...newInvoice }
 
-    for (let i = 0; i < newInvoice.products.length; i++) {
-      let currProduct = newInvoice.products[i]
+    for (let i = 0; i < tmp.products.length; i++) {
+      let currProduct = tmp.products[i]
       subTotal += +currProduct.price * +currProduct.quantity
     }
-    const total = subTotal - newInvoice.discount
-    const tmp = { ...newInvoice }
+    const total = subTotal - tmp.discount
     tmp.subTotal = subTotal
     tmp.total = total
 
@@ -78,7 +71,6 @@ const Invoice: React.FC<any> = () => {
 
   const updateNewInvoice = (data: InvoiceData): void => {
     setNewInvoice(data)
-    console.log(data)
   }
 
   const updateInvoice = (): void => {

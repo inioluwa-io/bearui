@@ -245,7 +245,10 @@ const DataList: React.FC<DataListComponent> = ({
         leftIndex = 0,
         rightIndex = 0
       while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex][selector] < right[rightIndex][selector]) {
+        const leftSelector = renderColumnData(selector, left[leftIndex])
+        const rightSelector = renderColumnData(selector, right[rightIndex])
+
+        if (leftSelector < rightSelector) {
           resultArray.push(left[leftIndex])
           leftIndex++
         } else {
@@ -392,7 +395,9 @@ const DataList: React.FC<DataListComponent> = ({
       if (searchValue.length) {
         for (let i = 0; i < columns.length; i++) {
           // if text is found return true
-          const dataItemContent = dataItem[columns[i].selector]
+          // const dataItemContent = dataItem[columns[i].selector]
+
+          let dataItemContent = renderColumnData(columns[i].selector, dataItem)
 
           if (
             typeof dataItemContent === "string" ||
