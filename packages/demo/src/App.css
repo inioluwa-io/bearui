@@ -9,6 +9,28 @@ label {
   outline: none;
 }
 
+@keyframes popOut {
+  from {
+    transform: scale3d(0.8, 0.8, 0.8);
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+svg rect,
+svg circle,
+svg line,
+svg ellipse {
+  animation: popOut .35s cubic-bezier(0.38, 0.39, 0.3, 1.36)
+}
+
 body,
 html {
   height: 100%;
@@ -23,9 +45,29 @@ html {
   flex-wrap: nowrap;
 }
 
-p {
+p,
+li,
+code {
   font-size: 14px;
   font-family: montserrat;
+}
+
+code {
+  background: rgba(0, 0, 0, .175);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+pre {
+  background: #222;
+  padding: 10px;
+  border-radius: 10px;
+  width: calc(100% - 20px)
+}
+
+pre code {
+  background: none;
+  color: #f4f4f4 !important;
 }
 
 .App-logo {

@@ -23,8 +23,11 @@ import {
   mdiCircleOutline,
   mdiClipboardTextOutline,
   mdiCubeOutline,
+  mdiCubeSend,
   mdiFormatPaint,
+  mdiGridLarge,
   mdiKey,
+  mdiLayersOutline,
   mdiWaterOutline,
 } from "@mdi/js"
 
@@ -85,12 +88,61 @@ const LayoutComponent: React.FC<any> = ({
               {
                 label: (
                   <FlexRow gap="13px">
+                    <Icon path={mdiGridLarge} color={color} size={0.75} />
+                    Layouts
+                  </FlexRow>
+                ),
+                active: /\/layouts/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink to="/layouts/grid" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Grid
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/layouts/flexrow" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Flex Row
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/layouts/flexcolumn" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Flex Column
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          ></Collapse>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
                     <Icon path={mdiCardTextOutline} color={color} size={0.75} />
                     Card
                   </FlexRow>
                 ),
                 content: (
-                  <FlexColumn  gap="5px">
+                  <FlexColumn gap="5px">
                     <NavLink to="/card/basic" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -116,9 +168,9 @@ const LayoutComponent: React.FC<any> = ({
               },
             ]}
           ></Collapse>
-          <NavLink to="/color" activeClassName="active">
-            <FlexRow gap="13px">
-              <Icon path={mdiWaterOutline} color={color} size={0.7} />
+          <NavLink to="/colors" activeClassName="active">
+            <FlexRow gap="9px">
+              <Icon path={mdiWaterOutline} color={color} size={0.875} />
               Colors
             </FlexRow>
           </NavLink>
@@ -139,7 +191,7 @@ const LayoutComponent: React.FC<any> = ({
                 ),
                 active: /\/components/g.test(path),
                 content: (
-                  <FlexColumn  gap="5px">
+                  <FlexColumn gap="5px">
                     <NavLink to="/components/avatar" activeClassName="active">
                       <FlexRow gap="13px">
                         <Icon
@@ -301,8 +353,11 @@ const LayoutComponent: React.FC<any> = ({
                 ),
                 active: /\/formelements/g.test(path),
                 content: (
-                  <FlexColumn  gap="5px">
-                    <NavLink to="/formelement/checkbox" activeClassName="active">
+                  <FlexColumn gap="5px">
+                    <NavLink
+                      to="/formelement/checkbox"
+                      activeClassName="active"
+                    >
                       <FlexRow gap="13px">
                         <Icon
                           path={mdiCircleOutline}
@@ -342,7 +397,10 @@ const LayoutComponent: React.FC<any> = ({
                         Switch
                       </FlexRow>
                     </NavLink>
-                    <NavLink to="/formelement/textarea" activeClassName="active">
+                    <NavLink
+                      to="/formelement/textarea"
+                      activeClassName="active"
+                    >
                       <FlexRow gap="13px">
                         <Icon
                           path={mdiCircleOutline}
@@ -357,44 +415,12 @@ const LayoutComponent: React.FC<any> = ({
               },
             ]}
           ></Collapse>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiFormatPaint} color={color} size={0.75} />
-                    Theme
-                  </FlexRow>
-                ),
-                content: (
-                  <FlexColumn  gap="5px">
-                    <NavLink to="/checkbox" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Checkbox
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/tooltip" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Tooltip
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
+          <NavLink to="/form-layouts" activeClassName="active">
+            <FlexRow gap="10px">
+              <Icon path={mdiLayersOutline} color={color} size={0.85} />
+              Form Layouts
+            </FlexRow>
+          </NavLink>
 
           <h6>PAGES</h6>
           <Collapse
@@ -463,6 +489,7 @@ const LayoutComponent: React.FC<any> = ({
                     <NavLink
                       to="/pages/login"
                       target="_blank"
+                      rel="noreferrer noopener"
                       activeClassName="active"
                     >
                       <FlexRow gap="13px">
@@ -477,6 +504,7 @@ const LayoutComponent: React.FC<any> = ({
                     <NavLink
                       to="/pages/sociallogin"
                       target="_blank"
+                      rel="noreferrer noopener"
                       activeClassName="active"
                     >
                       <FlexRow gap="13px">
@@ -491,6 +519,7 @@ const LayoutComponent: React.FC<any> = ({
                     <NavLink
                       to="/pages/register"
                       target="_blank"
+                      rel="noreferrer noopener"
                       activeClassName="active"
                     >
                       <FlexRow gap="13px">
@@ -500,16 +529,6 @@ const LayoutComponent: React.FC<any> = ({
                           size={0.45}
                         />
                         Register
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/user/edit" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        Edit
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>

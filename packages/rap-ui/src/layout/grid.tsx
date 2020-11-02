@@ -73,6 +73,7 @@ const Grid: React.FC<CardProps> = ({
 }) => {
   return (
     <CardContainer
+      className="grid"
       {...props}
       lgCol={lgCol}
       mdCol={mdCol}

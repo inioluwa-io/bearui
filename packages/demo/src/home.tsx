@@ -6,7 +6,7 @@ import { TodosWidget } from "./apps"
 const Home: React.FC<any> = () => {
   return (
     <Container>
-      <TodosWidget appRoute = "/apps/todos" />
+      <TodosWidget appRoute="/apps/todos" />
     </Container>
   )
 }

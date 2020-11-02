@@ -25,7 +25,10 @@ const defaultProvider: RapUITheme = {
 const ThemeContext = createContext<RapUITheme>(null)
 
 ThemeContext.displayName = "ThemeContext"
-const ThemeProvider = ({ value = defaultProvider, children }) => {
+const ThemeProvider: React.FC<{ value: RapUITheme }> = ({
+  value = defaultProvider,
+  children,
+}) => {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 

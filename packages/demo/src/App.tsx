@@ -23,7 +23,7 @@ import {
   ListPage,
   PaginationPage,
   SelectPage,
-  TextAreaPage
+  TextAreaPage,
 } from "./components"
 import {
   UserViewPage,
@@ -34,6 +34,9 @@ import {
   LoginPage,
 } from "./pages"
 import { Invoice, Todos, ViewInvoice } from "./apps"
+import FormsLayoutPage from "./forms"
+import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
+import ColorsPage from "./colors"
 
 const App: React.FC = () => {
   return (
@@ -79,6 +82,10 @@ const App: React.FC = () => {
               <Route
                 path="/apps/todos"
                 component={(props: any) => <Todos {...props} />}
+              />
+              <Route
+                path="/colors"
+                component={(props: any) => <ColorsPage {...props} />}
               />
               <Route
                 path="/components/avatar"
@@ -141,6 +148,18 @@ const App: React.FC = () => {
                 component={(props: any) => <TooltipPage {...props} />}
               />
               <Route
+                path="/layouts/grid"
+                component={(props: any) => <GridPage {...props} />}
+              />
+              <Route
+                path="/layouts/flexrow"
+                component={(props: any) => <FlexRowPage {...props} />}
+              />
+              <Route
+                path="/layouts/flexcolumn"
+                component={(props: any) => <FlexColumnPage {...props} />}
+              />
+              <Route
                 path="/user/view"
                 component={(props: any) => <UserViewPage {...props} />}
               />
@@ -151,6 +170,10 @@ const App: React.FC = () => {
               <Route
                 path="/user/edit"
                 component={(props: any) => <UserEditPage {...props} />}
+              />
+              <Route
+                path="/form-layouts"
+                component={(props: any) => <FormsLayoutPage {...props} />}
               />
               <Route
                 path="/formelement/checkbox"

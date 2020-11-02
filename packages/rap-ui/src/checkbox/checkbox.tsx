@@ -110,7 +110,7 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   }, [active, disabled])
 
   return (
-    <FlexRow gap="10px" style={{ flexWrap: "nowrap" }}>
+    <FlexRow gap="10px" style={{ flexWrap: "nowrap", width: "fit-content" }}>
       <CheckboxButton
         color={themeColor}
         textColor={textColor}
