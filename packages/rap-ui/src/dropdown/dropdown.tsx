@@ -75,7 +75,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
   listener = "hover",
   showIcon = true,
   children,
-  list = [<Link to="">List 1</Link>, "list 2", "list 3"],
+  list = [],
   ...props
 }) => {
   const theme = useTheme()

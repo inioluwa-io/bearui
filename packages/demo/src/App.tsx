@@ -37,11 +37,23 @@ import { Invoice, Todos, ViewInvoice } from "./apps"
 import FormsLayoutPage from "./forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
 import ColorsPage from "./colors"
+import Documentation from "./documentation"
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Switch>
+        <Route path="/documentation/:path?">
+          <LayoutComponent withBar={false}>
+            <Switch>
+              <Route
+                path="/documentation"
+                component={(props: any) => <Documentation {...props} />}
+              />
+            </Switch>
+          </LayoutComponent>
+        </Route>
+
         <Route path="/pages/:path?">
           <LayoutComponent withBar={false}>
             <Switch>

@@ -91,127 +91,11 @@ const LayoutContainer: any = styled.div`
     @media (max-width: 1200px) {
       main {
         #main-container {
-          width: calc(100% - 65px);
-        }
-      }
-    }
-    @media (max-width: 992px) {
-      main {
-        #main-container {
           width: 100%;
         }
       }
     }
   `}
-`
-const SidebarContainer: any = styled.div`
-  width: 16.5rem;
-  background: ${(props: any) => props.background};
-  position: sticky;
-  border-right: 1px solid ${(props: any) => lighten(0.2, props.boxShadow)};
-  top: 0;
-  height: 100vh;
-  z-index: 9999;
-  display: grid;
-  grid-template-rows: 65px 1fr;
-
-  .scrollbar {
-    overflow: hidden auto;
-    padding: 20px 13px;
-  }
-
-  &:hover {
-    * {
-      ::-webkit-scrollbar-thumb {
-        // background: #aaaaaa88;
-      }
-    }
-  }
-
-  #side-bar {
-    white-space: nowrap;
-
-    h6 {
-      font-weight: 500;
-      color: rgba(125, 125, 125, 0.7);
-      font-size: 13px;
-      // font-family: Nunito sans;
-      text-transform: uppercase;
-
-      &:not(:first-child) {
-        margin-top: 15px;
-      }
-    }
-
-    > .group-link:not(:last-child) {
-      margin-bottom: 0;
-    }
-
-    .group-link {
-      header {
-        padding: 0 14px;
-        width: calc(100% - 28px);
-        height: 2.6rem;
-        align-items: center;
-
-        &.active {
-          border-radius: 7px;
-          background: rgba(0, 0, 0, 0.1);
-
-          + .sc-cnt {
-            margin-top: 5px;
-          }
-        }
-      }
-      .sc-cnt {
-        padding: 0;
-      }
-    }
-
-    a {
-      text-decoration: none;
-      font-size: 14px;
-      padding: 0 14px;
-      width: calc(100% - 28px);
-      height: 2.6rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 7px;
-      font-size: 15px;
-      font-weight: 500;
-      transition: all 0.25s ease;
-
-      &:not(:last-child) {
-        margin-bottom: 0 !important;
-      }
-
-      &.active {
-        background: ${(props: any) => props.primaryColor};
-        background: linear-gradient(
-          138deg,
-          ${(props: any) => props.primaryColor},
-          ${(props: any) => rgba(props.primaryColor, 0.6)}
-        );
-        * {
-          color: #fff;
-        }
-
-        svg path {
-          fill: #fff !important;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 1200px) {
-    width: 65px;
-  }
-
-  @media (max-width: 992px) {
-    position: fixed;
-    transform: translateX(-100%);
-  }
 `
 
 const Layout: React.FC<LayoutComponent> = ({
@@ -227,7 +111,6 @@ const Layout: React.FC<LayoutComponent> = ({
 
   useEffect(() => {
     const DOMNode = refs.current
-    console.log("rerender")
     if (DOMNode) {
       if (
         /iPhone|iPad|Android|Blackberry|iPod/.test(window.navigator.userAgent)
@@ -248,34 +131,11 @@ const Layout: React.FC<LayoutComponent> = ({
       background={theme[themeMode].background}
       themeMode={themeMode}
       sideBar={!!sideBar}
+      id ="rap-layout"
     >
       <NotificationComponent notification={notification} />
       <main>
-        {sideBar && (
-          <SidebarContainer
-            background={theme[themeMode].cardbackground}
-            boxShadow={theme[themeMode].background}
-            primaryColor={theme.colors.primary}
-          >
-            <FlexRow
-              align="stretch"
-              position="center"
-              style={{
-                height: "68px",
-                width: "calc(100% - 30px)",
-                padding: "0 15px",
-                overflow: "hidden",
-              }}
-            >
-              <h3 style={{ color: theme.colors.primary }}>BearUI</h3>
-            </FlexRow>
-            <div className="scrollbar">
-              <FlexColumn id="side-bar" gap="5px" align="left">
-                {sideBar}
-              </FlexColumn>
-            </div>
-          </SidebarContainer>
-        )}
+        {sideBar}
         <FlexColumn id="main-container" style={{ minHeight: "100vh" }}>
           <div
             style={{

@@ -199,7 +199,10 @@ const UserProfileContainer: any = styled(Container)`
     #left-panel,
     #mobile-nav {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      top: calc(${(props: any) => props.panelTop} - 20px);
+      top: calc(
+        ${(props: any) => props.panelTop} -
+          ${(props: any) => (props.panelTop === "80px" ? "20px" : "0px")}
+      );
     }
     #left-panel {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);

@@ -6,11 +6,14 @@ import {
   useTheme,
   FlexRow,
   Navbar,
+  LinkButton,
   Layout,
   Switch as UiSwitch,
   Dropdown,
   Collapse,
   FlexColumn,
+  Sidebar,
+  Tooltip,
 } from "@rap/ui"
 import { useDataProvider, useNotification } from "@rap/core"
 import img from "./brooks-leibee-562087-unsplash.jpg"
@@ -23,13 +26,76 @@ import {
   mdiCircleOutline,
   mdiClipboardTextOutline,
   mdiCubeOutline,
-  mdiCubeSend,
-  mdiFormatPaint,
   mdiGridLarge,
   mdiKey,
   mdiLayersOutline,
+  mdiCogOutline,
+  mdiTools,
   mdiWaterOutline,
 } from "@mdi/js"
+import styled from "styled-components"
+
+const ControlPanelContainer: any = styled.div`
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  transform: translateX(100%);
+
+  a.buynow-btn {
+    left: 0;
+    width: fit-content;
+    top: 70%;
+    transform: translate(-100%, -50%);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  button.contrl {
+    background: ${(props: any) => props.color};
+    padding: 0.6rem;
+    outline: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+
+    svg {
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+`
+
+const ControlPanel: React.FC = () => {
+  const theme = useTheme()
+  const color: string = theme.colors.primary
+  return (
+    <ControlPanelContainer color={color}>
+      <button className="contrl">
+        <Icon path={mdiCogOutline} color="#ffffff" size={0.75} />
+      </button>
+      <LinkButton to="" glow className="buynow-btn" background="danger">
+        Buy Now
+      </LinkButton>
+    </ControlPanelContainer>
+  )
+}
 
 const LayoutComponent: React.FC<any> = ({
   children,
@@ -59,14 +125,19 @@ const LayoutComponent: React.FC<any> = ({
   }, [theme, themeMode])
 
   if (!withBar) {
-    return <Layout notification={notification}>{children}</Layout>
+    return (
+      <Layout notification={notification}>
+        {children}
+        <ControlPanel />
+      </Layout>
+    )
   }
 
   return (
     <Layout
       notification={notification}
       sideBar={
-        <>
+        <Sidebar>
           <h6>APPS</h6>
           <NavLink to="/apps/invoice" activeClassName="active">
             <FlexRow gap="13px">
@@ -536,16 +607,36 @@ const LayoutComponent: React.FC<any> = ({
               },
             ]}
           ></Collapse>
-        </>
+
+          <h6>OTHERS</h6>
+          <NavLink
+            to="/documentation"
+            target="__blank"
+            rel="noopener noreferrer"
+            activeClassName="active"
+          >
+            <FlexRow gap="12px">
+              <Icon path={mdiTools} color={color} size={0.7} />
+              Documentation
+            </FlexRow>
+          </NavLink>
+        </Sidebar>
       }
       navbar={
         <Navbar
-          position="sticky"
+          // position="sticky"
           id="nav-bar"
           links={[
-            <Link to="/">Home</Link>,
-            <Link to="/">About</Link>,
-            <Link to="/">Contact</Link>,
+            <Link to="/apps/todos">
+              <Tooltip text={"Todos"} position="bottom">
+                <Icon path={mdiCheckCircleOutline} color={color} size={1} />
+              </Tooltip>
+            </Link>,
+            <Link to="/apps/invoice">
+              <Tooltip text={"Invoice"} position="bottom">
+                <Icon path={mdiClipboardTextOutline} color={color} size={1} />
+              </Tooltip>
+            </Link>,
             <Dropdown
               list={[
                 "list 1",
@@ -572,6 +663,7 @@ const LayoutComponent: React.FC<any> = ({
       }
     >
       {children}
+      <ControlPanel />
     </Layout>
   )
 }

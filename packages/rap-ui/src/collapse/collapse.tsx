@@ -7,7 +7,7 @@ import { useThemeMode } from ".."
 
 const CollapseContainer: any = styled.div`
   width: 100%;
-  li {
+  li.list {
     display: block;
     transition: all 0.25s;
 
@@ -73,6 +73,7 @@ const CollapseElement: any = styled.li`
     &.active {
       height: fit-content;
       padding: 1rem;
+      padding-top: 0.1rem;
       opacity: 1;
     }
   }
@@ -127,7 +128,7 @@ const Collapse: React.FC<CollapseComponent> = ({
         {items.map((item, idx: number) => (
           <CollapseElement
             key={idx}
-            className={item.disabled ? "disabled" : ""}
+            className={item.disabled ? "disabled list" : "list"}
             themeMode={themeMode}
             onMouseEnter={() => {
               if (listener === "hover") {

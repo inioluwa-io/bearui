@@ -156,6 +156,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   transparent = "false",
   gradient = "false",
   size = "sm",
+  className,
   ...props
 }) => {
   const refs: any = useRef()
@@ -287,6 +288,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       background={background}
       transparent={transparent}
       {...formatObjKeysToLowercase(props)}
+      className={className}
       ref={refs}
     >
       {icon && (

@@ -3,19 +3,59 @@ import styled from "styled-components"
 import { darken } from "polished"
 import { NavbarComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
+import Icon from "@mdi/react"
+import { mdiMenu } from "@mdi/js"
 
 const NavbarContainer: any = styled.div`
   position: sticky;
   height: 65px;
   padding: 0 20px;
-  display: flex;
   z-index: 999;
-  justify-content: flex-end;
-  align-items: center;
-  grid-gap: 20px;
   background: ${(props: any) => props.background};
   font-size: 14px;
   ${(props: any) => props.positionStyle}
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-gap: 16px;
+  }
+  .left {
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+
+    button {
+      background: none;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    @media (max-width: 1200px) {
+      display: flex;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > div > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 
   @media (max-width: 768px) {
   }
@@ -76,9 +116,22 @@ const Navbar: React.FC<NavbarComponent> = ({
 
   return (
     <NavbarContainer background={background} positionStyle={getPostitionStyle}>
-      {links.map((link: ReactElement | string, idx: number) => (
-        <React.Fragment key={idx}>{link}</React.Fragment>
-      ))}
+      <div className="left">
+        <button
+          onClick={() => {
+            document
+              .querySelector("#rap-sidebar")
+              ?.classList?.toggle("sidebar-collapse")
+          }}
+        >
+          <Icon path={mdiMenu} size={1} />
+        </button>
+      </div>
+      <div className="right">
+        {links.map((link: ReactElement | string, idx: number) => (
+          <React.Fragment key={idx}>{link}</React.Fragment>
+        ))}
+      </div>
     </NavbarContainer>
   )
 }
