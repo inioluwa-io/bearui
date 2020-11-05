@@ -14,6 +14,7 @@ import {
   FlexColumn,
   Sidebar,
   Tooltip,
+  RapUIThemeMode,
 } from "@rap/ui"
 import { useDataProvider, useNotification } from "@rap/core"
 import img from "./brooks-leibee-562087-unsplash.jpg"
@@ -32,8 +33,10 @@ import {
   mdiCogOutline,
   mdiTools,
   mdiWaterOutline,
+  mdiClose,
 } from "@mdi/js"
 import styled from "styled-components"
+import { useState } from "react"
 
 const ControlPanelContainer: any = styled.div`
   position: fixed;
@@ -41,8 +44,48 @@ const ControlPanelContainer: any = styled.div`
   top: 0;
   height: 100%;
   transform: translateX(100%);
+  transition: transform 0.35s ease;
+  z-index: 9999;
+
+  &.active {
+    transform: translateX(0);
+
+    .pnl {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    }
+  }
+  .pnl {
+    height: 100%;
+    width: 100%;
+    top: 0;
+
+    .lay {
+      height: 100%;
+      text-align: left;
+      background: ${(props: any) => props.background};
+    }
+
+    .container {
+      padding: 20px;
+      height: calc(100% - 40px);
+      width: calc(20rem - 40px);
+      text-align: left;
+    }
+  }
+
+  #close-pnl {
+    background: transparent;
+    padding: 0.3rem;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  }
 
   a.buynow-btn {
+    position: absolute;
     left: 0;
     width: fit-content;
     top: 70%;
@@ -84,10 +127,45 @@ const ControlPanelContainer: any = styled.div`
 
 const ControlPanel: React.FC = () => {
   const theme = useTheme()
+  const [themeMode] = useThemeMode()
   const color: string = theme.colors.primary
+  const [mode, setMode] = useState<RapUIThemeMode>(themeMode)
+
+  useEffect(() => {}, [])
+
   return (
-    <ControlPanelContainer color={color}>
-      <button className="contrl">
+    <ControlPanelContainer
+      id="ctrl-pnl"
+      color={color}
+      background={theme[themeMode].cardbackground}
+    >
+      <div className="pnl">
+        <div className="lay">
+          <div className="container">
+            <FlexRow align="stretch" gap="0px">
+              <h5>Theme Customizer</h5>
+              <FlexRow align="right">
+                <button
+                  id="close-pnl"
+                  onClick={() => {
+                    document
+                      .querySelector("#ctrl-pnl")
+                      ?.classList.toggle("active")
+                  }}
+                >
+                  <Icon path={mdiClose} color="#ffffff" size={0.85} />
+                </button>
+              </FlexRow>
+            </FlexRow>
+          </div>
+        </div>
+      </div>
+      <button
+        className="contrl"
+        onClick={() => {
+          document.querySelector("#ctrl-pnl")?.classList.toggle("active")
+        }}
+      >
         <Icon path={mdiCogOutline} color="#ffffff" size={0.75} />
       </button>
       <LinkButton to="" glow className="buynow-btn" background="danger">
