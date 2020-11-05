@@ -1,6 +1,7 @@
 [build]
   publish = "packages/demo/build"
   command = "yarn run build"
+  functions = "functions"
 
   [[redirects]]
     from = "/*"
