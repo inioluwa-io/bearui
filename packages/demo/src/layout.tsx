@@ -156,10 +156,6 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
   const color: string = theme.colors.primary
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  useEffect(() => {
-    console.log(isOpen)
-  }, [isOpen])
-
   return (
     <ControlPanelContainer
       id="ctrl-pnl"

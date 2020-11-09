@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { ThemeMode, RapUIThemeMode } from "../types"
 import { SET_MODE } from "../redux/types"
@@ -28,9 +28,8 @@ import { isSupported } from "../util"
  */
 
 const useThemeMode = (): ThemeMode => {
-  const mode = useCallback<() => RapUIThemeMode>(() => {
-    return useSelector((state: any) => state.themeReducer.themeMode)
-  }, [])
+  const mode =  useSelector((state: any) => state.themeReducer.themeMode)
+  
   const dispatch = useDispatch()
 
   const finalSetMode = useCallback(
@@ -54,7 +53,7 @@ const useThemeMode = (): ThemeMode => {
     [dispatch]
   )
 
-  return [mode(), finalSetMode]
+  return [mode, finalSetMode]
 }
 
 export default useThemeMode
