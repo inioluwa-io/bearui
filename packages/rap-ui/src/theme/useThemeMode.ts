@@ -28,8 +28,9 @@ import { isSupported } from "../util"
  */
 
 const useThemeMode = (): ThemeMode => {
-  const mode =  useSelector((state: any) => state.themeReducer.themeMode)
-  
+  const mode: RapUIThemeMode = useMemo(() => {
+    return useSelector((state: any) => state.themeReducer.themeMode)
+  }, [])
   const dispatch = useDispatch()
 
   const finalSetMode = useCallback(
