@@ -38,6 +38,7 @@ import FormsLayoutPage from "./forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
 import ColorsPage from "./colors"
 import Documentation from "./documentation"
+import StatisticsCards from "./cards/statistics"
 
 const App: React.FC = () => {
   return (
@@ -102,6 +103,10 @@ const App: React.FC = () => {
               <Route
                 path="/components/avatar"
                 component={(props: any) => <AvatarPage {...props} />}
+              />
+              <Route
+                path="/card/statistics"
+                component={(props: any) => <StatisticsCards {...props} />}
               />
               <Route
                 path="/components/button"

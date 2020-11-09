@@ -127,7 +127,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
           colorStops: [],
         },
       },
-    }
+    },
   }
   const resizeChart = useCallback(() => {
     const DOMNode = refs.current
@@ -154,7 +154,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         color={color}
         background={theme[themeMode].background}
         textColor={theme[themeMode].textColor}
-        mdCol="3"
+        mdCol="4"
         smCol="4"
         xsCol="6"
         align="center"
@@ -170,7 +170,6 @@ const CompactCard: React.FC<StatisticsComponent> = ({
     return (
       <CardContainer
         lgCol="3"
-        mdCol="4"
         color={color}
         textColor={theme[themeMode].textColor}
         background={theme[themeMode].background}
@@ -186,7 +185,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
               color={color}
               size={1}
             />
-            <FlexColumn gap="3px" align="center" style={{ width: "100%" }}>
+            <FlexColumn gap="5px" align="center" style={{ width: "100%" }}>
               <h5>{title}</h5>
               <p>{value}</p>
             </FlexColumn>

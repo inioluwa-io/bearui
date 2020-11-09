@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { CardProps } from "../types"
 
 const RowContainer: any = styled.div`
   width: 100%;
@@ -17,6 +16,13 @@ const RowContainer: any = styled.div`
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+  }
+  @media (max-width: 441px) {
+    margin: 0;
+
+    > .rap-card {
+      margin: 0.5px 0;
+    }
   }
 `
 

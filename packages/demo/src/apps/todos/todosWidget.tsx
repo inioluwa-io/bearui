@@ -181,7 +181,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
 
   return (
     <TodosContainer mdCol="4" smCol="5" xsCol="12" size="xs" {...props}>
-      <h4 style={{ fontWeight: 600 }}>Todos</h4>
+      <h5 style={{ fontWeight: 600 }}>Todos</h5>
       <TodosList panelTop={getPanelTop()}>
         <Container>
           {filterData
