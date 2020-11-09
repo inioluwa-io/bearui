@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { CheckBoxComponent } from "../types"
+import { RadioComponent } from "../types"
 import styled from "styled-components"
 import { rgba } from "polished"
 import { useTheme, useThemeMode } from "../theme"
@@ -8,7 +8,7 @@ import Icon from "@mdi/react"
 import { mdiCheck } from "@mdi/js"
 import { FlexRow } from "../layout"
 
-const CheckboxButton: any = styled.button`
+const RadioButton: any = styled.button`
   position: relative;
   width: 17px;
   height: 17px;
@@ -18,7 +18,7 @@ const CheckboxButton: any = styled.button`
   font-size: 11px;
   font-family: Nunito sans;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 30px;
   border: none;
   outline: none;
   background: transparent;
@@ -31,7 +31,7 @@ const CheckboxButton: any = styled.button`
         : ` ${rgba(props.textColor, 0.35)}`};
 
   ${(props: any) =>
-    props.active
+    props.checked
       ? `
       transition: all 0.35s ease;
       border: 2px solid transparent`
@@ -46,7 +46,7 @@ const CheckboxButton: any = styled.button`
   }
 `
 
-const CheckboxInput = styled.input`
+const RadioInput = styled.input`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -71,7 +71,7 @@ const Check: any = styled.div`
   cursor: pointer;
   top: 50%;
   left: 50%;
-  border-radius: 3px;
+  border-radius: 50px;
   transform: translate(-50%, -50%) scale3d(0, 0, 0) rotate(90deg);
   padding: 3px;
   display: flex;
@@ -82,23 +82,24 @@ const Check: any = styled.div`
   ${(props: any) => props.disabled && `background: ${rgba(props.color, 0.5)}`};
 
   ${(props: any) =>
-    props.active
+    props.checked
       ? `
       transition: 0.35s transform 0.15s cubic-bezier(0.38, 0.39, 0.3, 1.36);
   transform: translate(-50%, -50%)`
       : ``};
 `
 
-const Checkbox: React.FC<CheckBoxComponent> = ({
+const Radio: React.FC<RadioComponent> = ({
   disabled = false,
   id = "",
-  active = false,
+  value = "",
   color = "primary",
   onCheck,
+  checked = false,
   children,
   ...props
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(false)
+  const [isChecked, setIsChecked] = useState<boolean>(checked)
 
   const theme = useTheme()
   const [themeMode] = useThemeMode()
@@ -106,36 +107,36 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
 
   const themeColor: string = getColorFromTheme(color, theme)
   useEffect(() => {
-    setIsActive(active)
-  }, [active, disabled])
+    setIsChecked(checked)
+  }, [checked, disabled])
 
   return (
     <FlexRow gap="7px" style={{ flexWrap: "nowrap", width: "fit-content" }}>
-      <CheckboxButton
+      <RadioButton
         color={themeColor}
         textColor={textColor}
-        active={isActive}
-        className="sc-checkbox"
+        checked={isChecked}
+        className="sc-Radio"
         disabled={disabled}
       >
-        <CheckboxInput
+        <RadioInput
           {...props}
-          type="checkbox"
+          type="radio"
           id={id}
           tabIndex={-1}
           disabled={disabled}
-          checked={isActive}
+          checked={isChecked}
           onChange={e => {
-            !e.target.disabled && setIsActive(!isActive)
+            !e.target.disabled && setIsChecked(!isChecked)
             if (typeof onCheck === "function") {
-              onCheck(!isActive)
+              onCheck(value)
             }
           }}
         />
-        <Check disabled={disabled} color={themeColor} active={isActive}>
+        <Check disabled={disabled} color={themeColor} checked={isChecked}>
           <Icon path={mdiCheck} color="#ffffff" size={0.7} />
         </Check>
-      </CheckboxButton>
+      </RadioButton>
       {children && (
         <label
           tabIndex={-1}
@@ -148,4 +149,4 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
     </FlexRow>
   )
 }
-export default Checkbox
+export default Radio

@@ -119,12 +119,24 @@ export type SwitchProps = {
 } & HTMLAttributes<HTMLInputElement>
 
 export type CheckBoxComponent = {
-  id?: string
   active?: boolean
   disabled?: boolean
   color?: string
-  onCheck?: (param: boolean) => void
+  onCheck?: (param?: boolean) => void
 } & HTMLAttributes<HTMLInputElement>
+
+export type RadioComponent = {
+  value?: string
+  checked?: boolean
+  disabled?: boolean
+  color?: string
+  onCheck?: (param?: string) => void
+} & HTMLAttributes<HTMLInputElement>
+
+export type RadioGroupComponent = {
+  defaultChecked?: string
+  onChecked?: (param?: string) => void
+} & HTMLAttributes<HTMLDivElement>
 
 export type InputProps = {
   id?: string
@@ -427,10 +439,12 @@ export type PagnitionComponent = {
 // end
 
 // Navbar
+export type NavbarPosition = "static" | "sticky" | "hidden" | "floating"
+
 export type NavbarComponent = {
   links: (ReactElement | string)[]
   pinToMobile?: number[]
-  position?: "static" | "sticky" | "hidden" | "floating"
+  position?: NavbarPosition
 } & HTMLAttributes<HTMLDivElement>
 // end
 

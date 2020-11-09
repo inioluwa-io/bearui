@@ -14,6 +14,9 @@ import {
   FlexColumn,
   Sidebar,
   Tooltip,
+  Radio,
+  NavbarPosition,
+  RadioGroup,
   RapUIThemeMode,
 } from "@rap/ui"
 import { useDataProvider, useNotification } from "@rap/core"
@@ -36,6 +39,7 @@ import {
   mdiClose,
 } from "@mdi/js"
 import styled from "styled-components"
+import { rgba } from "polished"
 import { useState } from "react"
 
 const ControlPanelContainer: any = styled.div`
@@ -51,7 +55,7 @@ const ControlPanelContainer: any = styled.div`
     transform: translateX(0);
 
     .pnl {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
   }
   .pnl {
@@ -68,8 +72,29 @@ const ControlPanelContainer: any = styled.div`
     .container {
       padding: 20px;
       height: calc(100% - 40px);
-      width: calc(20rem - 40px);
+      width: calc(25rem - 40px);
       text-align: left;
+
+      @media (max-width: 578px) {
+        width: calc(22rem - 40px);
+      }
+
+      .row {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-top: 1px solid;
+        border-color: ${(props: any) => rgba(props.border, 0.2)};
+      }
+
+      header {
+        font-size: 0.83em;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+      h5 {
+        font-size: 0.8em;
+        font-weight: 500;
+      }
     }
   }
 
@@ -96,7 +121,7 @@ const ControlPanelContainer: any = styled.div`
 
   button.contrl {
     background: ${(props: any) => props.color};
-    padding: 0.6rem;
+    padding: 0.68rem;
     outline: none;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -125,11 +150,12 @@ const ControlPanelContainer: any = styled.div`
   }
 `
 
-const ControlPanel: React.FC = () => {
+const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
   const theme = useTheme()
-  const [themeMode] = useThemeMode()
+  const [themeMode, setThemeMode] = useThemeMode()
   const color: string = theme.colors.primary
   const [mode, setMode] = useState<RapUIThemeMode>(themeMode)
+  let border = themeMode === "lightmode" ? "#444" : "#fff"
 
   useEffect(() => {}, [])
 
@@ -137,14 +163,15 @@ const ControlPanel: React.FC = () => {
     <ControlPanelContainer
       id="ctrl-pnl"
       color={color}
+      border={border}
       background={theme[themeMode].cardbackground}
     >
       <div className="pnl">
         <div className="lay">
           <div className="container">
-            <FlexRow align="stretch" gap="0px">
-              <h5>Theme Customizer</h5>
-              <FlexRow align="right">
+            <FlexColumn>
+              <FlexRow align="space" gap="0px">
+                <header>Theme Customizer</header>
                 <button
                   id="close-pnl"
                   onClick={() => {
@@ -156,7 +183,49 @@ const ControlPanel: React.FC = () => {
                   <Icon path={mdiClose} color="#ffffff" size={0.85} />
                 </button>
               </FlexRow>
-            </FlexRow>
+
+              <FlexColumn gap="0px">
+                <FlexColumn gap="10px" className="row">
+                  <h5>Theme Mode</h5>
+                  <RadioGroup
+                    defaultChecked={themeMode}
+                    onChecked={(value: RapUIThemeMode) => {
+                      setThemeMode(value)
+                    }}
+                  >
+                    <Radio value="lightmode" id="light-mode-selector">
+                      <p>Lightmode</p>
+                    </Radio>
+                    <Radio value="darkmode" id="dark-mode-selector">
+                      <p>Darkmode</p>
+                    </Radio>
+                  </RadioGroup>
+                </FlexColumn>
+
+                <FlexColumn gap="10px" className="row">
+                  <h5>Navbar Position</h5>
+                  <RadioGroup
+                    defaultChecked={navPosition}
+                    onChecked={(value: NavbarPosition) => {
+                      setNavPosition(value)
+                    }}
+                  >
+                    <Radio value="sticky" id="sticky-nav">
+                      <p>Sticky</p>
+                    </Radio>
+                    <Radio value="static" id="static-nav">
+                      <p>Static</p>
+                    </Radio>
+                    <Radio value="floating" id="floating-nav">
+                      <p>Floating</p>
+                    </Radio>
+                    <Radio value="hidden" id="hidden-nav">
+                      <p>Hidden</p>
+                    </Radio>
+                  </RadioGroup>
+                </FlexColumn>
+              </FlexColumn>
+            </FlexColumn>
           </div>
         </div>
       </div>
@@ -195,6 +264,7 @@ const LayoutComponent: React.FC<any> = ({
   }, [dataProvider, URL])
 
   const theme = useTheme()
+  const [navPosition, setNavPosition] = useState<NavbarPosition>("sticky")
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
@@ -702,7 +772,7 @@ const LayoutComponent: React.FC<any> = ({
       }
       navbar={
         <Navbar
-          // position="sticky"
+          position={navPosition}
           id="nav-bar"
           links={[
             <Link to="/apps/todos">
@@ -741,7 +811,7 @@ const LayoutComponent: React.FC<any> = ({
       }
     >
       {children}
-      <ControlPanel />
+      <ControlPanel setNavPosition={setNavPosition} navPosition={navPosition} />
     </Layout>
   )
 }
