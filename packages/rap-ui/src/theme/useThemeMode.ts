@@ -1,6 +1,7 @@
-import { useContext, useCallback } from "react"
+import { useCallback } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { ThemeMode, RapUIThemeMode } from "../types"
-import { ThemeModeContext } from "./modeContext"
+import { SET_MODE } from "../redux/types"
 import { isSupported } from "../util"
 
 /**
@@ -27,26 +28,33 @@ import { isSupported } from "../util"
  */
 
 const useThemeMode = (): ThemeMode => {
-  const { mode, setMode } = useContext(ThemeModeContext)
+  const mode = useCallback<() => RapUIThemeMode>(() => {
+    return useSelector((state: any) => state.themeReducer.themeMode)
+  }, [])
+  const dispatch = useDispatch()
 
-  const finalSetMode = useCallback((mode: RapUIThemeMode) => {
-    if (isSupported(["lightmode", "darkmode"], mode)) {
-      const body = document.body
-      body.classList.remove("lightmode")
-      body.classList.remove("darkmode")
+  const finalSetMode = useCallback(
+    (mode: RapUIThemeMode) => {
+      if (isSupported(["lightmode", "darkmode"], mode)) {
+        const body = document.body
+        body.classList.remove("lightmode")
+        body.classList.remove("darkmode")
 
-      body.classList.add(mode)
-      setMode(mode)
-      return mode
-    } else {
-      if (process.env.NODE_ENV !== "production") {
-        throw new Error(
-          `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
-        )
+        body.classList.add(mode)
+        dispatch({ type: SET_MODE, payload: mode })
+        return mode
+      } else {
+        if (process.env.NODE_ENV !== "production") {
+          throw new Error(
+            `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
+          )
+        }
       }
-    }
-  }, [mode])
-  return [mode, finalSetMode]
+    },
+    [dispatch]
+  )
+
+  return [mode(), finalSetMode]
 }
 
 export default useThemeMode

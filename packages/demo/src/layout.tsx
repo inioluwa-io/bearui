@@ -154,16 +154,18 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
   const theme = useTheme()
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = theme.colors.primary
-  const [mode, setMode] = useState<RapUIThemeMode>(themeMode)
-  let border = themeMode === "lightmode" ? "#444" : "#fff"
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    console.log(isOpen)
+  }, [isOpen])
 
   return (
     <ControlPanelContainer
       id="ctrl-pnl"
       color={color}
-      border={border}
+      className={isOpen && "active"}
+      border={theme[themeMode].textColor}
       background={theme[themeMode].cardbackground}
     >
       <div className="pnl">
@@ -175,12 +177,10 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                 <button
                   id="close-pnl"
                   onClick={() => {
-                    document
-                      .querySelector("#ctrl-pnl")
-                      ?.classList.toggle("active")
+                    setIsOpen(prev => !prev)
                   }}
                 >
-                  <Icon path={mdiClose} color="#ffffff" size={0.85} />
+                  <Icon path={mdiClose} size={0.85} />
                 </button>
               </FlexRow>
 
@@ -232,7 +232,7 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
       <button
         className="contrl"
         onClick={() => {
-          document.querySelector("#ctrl-pnl")?.classList.toggle("active")
+          setIsOpen(prev => !prev)
         }}
       >
         <Icon path={mdiCogOutline} color="#ffffff" size={0.75} />

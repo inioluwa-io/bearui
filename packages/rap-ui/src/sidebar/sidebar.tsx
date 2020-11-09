@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { FlexRow, FlexColumn } from "../layout"
-import { darken, lighten, rgba } from "polished"
+import { lighten, rgba } from "polished"
 import { useTheme, useThemeMode } from "../theme"
 import { mdiClose, mdiMenu } from "@mdi/js"
 import Icon from "@mdi/react"
@@ -156,8 +156,6 @@ const SidebarContainer: any = styled.div`
 const Sidebar: React.FC<any> = ({ children, ...props }) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
-  // const [collapse, setCollapse] = useState<boolean>()
-  const background: string = theme[themeMode].cardbackground
 
   return (
     <>

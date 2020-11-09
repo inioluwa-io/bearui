@@ -187,6 +187,7 @@ export type RapUIThemeColorsProps = {
 export type RapUIThemeModeProps = {
   background: string
   cardbackground: string
+  textColor: string
 }
 export type RapUITheme = {
   colors: RapUIThemeColorsProps
@@ -454,4 +455,53 @@ export type LayoutComponent = {
   notification: NotifyProps[]
   sideBar?: ReactElement
 } & HTMLAttributes<HTMLDivElement>
+// end
+
+
+
+export type AuthProvider = {
+  login?: (params: any) => Promise<any>
+  logout?: (params: any) => Promise<any>
+}
+
+export type NotificationQueue = (params: NotifyProps) => any
+
+export type NotificationContextProvider = [NotifyProps[], Function]
+
+export type CrudRequest = "create" | "delete" | "update" | "read"
+
+export type Identifier = string | number
+export interface Record {
+  id?: Identifier
+  [key: string]: any
+}
+
+export interface GetResult {
+  data: Record
+}
+export type ResourceState = {
+  [key: string]: GetResult
+}
+
+// Redux store state props
+export type StoreState = {
+  notificationReducer: { notification: NotifyProps[] }
+  resourceReducer: { resource: ResourceState }
+}
+// end
+
+// QueryStore props
+export type QueryStoreProps = () => {
+  getAll: (
+    resource: string
+  ) => {
+    [key: string]: any
+  }
+  getOne: (
+    resource: string,
+    params: Record
+  ) => {
+    [key: string]: any
+  }
+}
 // end

@@ -1,0 +1,7 @@
+export const SET_MODE = 'SET_MODE';
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+export const FETCH_START = 'FETCH_START';
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_FAILED = 'FETCH_FAILED';
+export const FETCH_END = 'FETCH_END';

@@ -32,3 +32,5 @@ export const getColorFromTheme = (color: string, theme: any): string => {
   }
   return finalColor
 }
+
+export const isProdEnv = (): boolean => process.env.NODE_ENV === "production"

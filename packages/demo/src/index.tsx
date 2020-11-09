@@ -5,8 +5,8 @@ import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
-import { store, DataProvider, AuthContext } from "@rap/core"
-import { ThemeProvider, ThemeModeProvider } from "@rap/ui"
+import { DataProvider, AuthContext } from "@rap/core"
+import { store } from "@rap/ui"
 
 const defaultDataProvider = {
   getOne: async (resource: string, endPoint?: string, params?: any) => {
@@ -24,24 +24,20 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <DataProvider value={defaultDataProvider}>
-        <ThemeProvider>
-          <ThemeModeProvider>
-            <AuthContext.Provider
-              value={{
-                login: async (data: any) => {
-                  try {
-                    if (data.username === "login") return Promise.resolve()
-                    return Promise.reject()
-                  } catch (e) {
-                    console.warn(e)
-                  }
-                },
-              }}
-            >
-              <App />
-            </AuthContext.Provider>
-          </ThemeModeProvider>
-        </ThemeProvider>
+        <AuthContext.Provider
+          value={{
+            login: async (data: any) => {
+              try {
+                if (data.username === "login") return Promise.resolve()
+                return Promise.reject()
+              } catch (e) {
+                console.warn(e)
+              }
+            },
+          }}
+        >
+          <App />
+        </AuthContext.Provider>
       </DataProvider>
     </Provider>
   </BrowserRouter>,

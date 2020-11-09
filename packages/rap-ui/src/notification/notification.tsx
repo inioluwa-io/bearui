@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { NotifyProps } from "../types"
 import styled from "styled-components"
 import Icon from "@mdi/react"

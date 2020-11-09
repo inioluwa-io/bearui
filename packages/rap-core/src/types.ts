@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react"
 
 export type AuthProvider = {
   login?: (params: any) => Promise<any>

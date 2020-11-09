@@ -4,8 +4,6 @@ import { useTheme, useThemeMode } from "../theme"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
-import { lighten, rgba } from "polished"
-import FlexRow from "./flexRow"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -64,10 +62,6 @@ const LayoutContainer: any = styled.div`
     *:hover {
       ::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.225);
-        background: ${(props: any) =>
-          props.themeMode === "lightmode"
-            ? "rgba(0, 0, 0, 0.225)"
-            : "rgba(255, 255, 255, 0.225)"};
       }
     }
   }
@@ -105,8 +99,6 @@ const Layout: React.FC<LayoutComponent> = ({
   sideBar,
   ...props
 }) => {
-  const [themeMode] = useThemeMode()
-  const theme = useTheme()
   const refs = useRef<HTMLDivElement>()
 
   useEffect(() => {
@@ -128,8 +120,6 @@ const Layout: React.FC<LayoutComponent> = ({
     <LayoutContainer
       ref={refs}
       {...props}
-      background={theme[themeMode].background}
-      themeMode={themeMode}
       sideBar={!!sideBar}
       id ="rap-layout"
     >

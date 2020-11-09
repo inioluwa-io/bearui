@@ -21,6 +21,9 @@
     "docs"
   ],
   "devDependencies": {
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.1.0",
+    "@types/react-router-dom": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint-plugin-react": "^7.20.6",
@@ -36,6 +39,9 @@
     "watch": "tsc --outDir esm --module es2015 --watch && tsc --watch"
   },
   "peerDependencies": {
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.1.0",
+    "@types/react-router-dom": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.1.0",
