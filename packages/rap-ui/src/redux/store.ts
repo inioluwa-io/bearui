@@ -13,7 +13,7 @@ const store = createStore(
     initialState,
     compose(
         applyMiddleware(...middleware),
-        windowObj.__REDUX_DEVTOOLS_EXTENSION__ && windowObj.__REDUX_DEVTOOLS_EXTENSION__()
+        // windowObj.__REDUX_DEVTOOLS_EXTENSION__ && windowObj.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
 export default store;
