@@ -197,7 +197,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg" ? { borderRadius: "7px" } : { borderRadius: "5px" }
+        return size === "lg" ? { borderRadius: "11px" } : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
