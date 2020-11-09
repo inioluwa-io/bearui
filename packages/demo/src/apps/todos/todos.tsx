@@ -362,6 +362,7 @@ const Todos: React.FC<any> = () => {
     tmp.unshift(tmpNewTodo)
     setTodos(tmp)
     setOpenAddTaskModal(false)
+    document.body.style.overflowY = "auto"
     setNewTodo(defaultTodo)
     window.localStorage.setItem("todo", JSON.stringify(tmp))
   }
@@ -376,6 +377,7 @@ const Todos: React.FC<any> = () => {
     }
     setTodos(tmp)
     setOpenEditTaskModal(false)
+    document.body.style.overflowY = "auto"
     setNewTodo(defaultTodo)
     window.localStorage.setItem("todo", JSON.stringify(tmp))
   }
