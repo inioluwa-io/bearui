@@ -22,6 +22,7 @@
     "@rap/ui": "^1.2.3",
     "react": "^16.13.1",
     "@rap/main": "^1.2.0",
+    "apexcharts": "^3.22.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.0",
@@ -46,6 +47,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "CI= react-scripts build",
+    "dev-build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "react-scripts test"
   },

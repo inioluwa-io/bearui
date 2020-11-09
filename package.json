@@ -37,6 +37,7 @@
     "pre:build": "yarn build:rap-ui && yarn build:rap-core && yarn build:rap-main && yarn lerna link",
     "start:demo": "yarn workspace @rap/demo cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
     "build:demo": "yarn pre:build && yarn workspace @rap/demo build",
+    "dev-build:demo": "yarn pre:build && yarn workspace @rap/demo dev-build",
     "run:demo-watch": "concurrently \"yarn watch\" \"yarn start:demo\"",
     "test:rap-demo": "yarn workspace @rap-demo test",
     "prettier": "prettier"

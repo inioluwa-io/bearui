@@ -34,23 +34,26 @@ const useThemeMode = (): ThemeMode => {
 
   const dispatch = useDispatch()
 
-  const finalSetMode = (mode: RapUIThemeMode) => {
-    if (isSupported(["lightmode", "darkmode"], mode)) {
-      const body = document.body
-      body.classList.remove("lightmode")
-      body.classList.remove("darkmode")
+  const finalSetMode = useCallback(
+    (mode: RapUIThemeMode) => {
+      if (isSupported(["lightmode", "darkmode"], mode)) {
+        const body = document.body
+        body.classList.remove("lightmode")
+        body.classList.remove("darkmode")
 
-      body.classList.add(mode)
-      dispatch({ type: SET_MODE, payload: mode })
-      return mode
-    } else {
-      if (process.env.NODE_ENV !== "production") {
-        throw new Error(
-          `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
-        )
+        body.classList.add(mode)
+        dispatch({ type: SET_MODE, payload: mode })
+        return mode
+      } else {
+        if (process.env.NODE_ENV !== "production") {
+          throw new Error(
+            `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
+          )
+        }
       }
-    }
-  }
+    },
+    [dispatch]
+  )
 
   return [mode, finalSetMode]
 }
