@@ -7,7 +7,7 @@ import { useTheme } from "../theme"
 const SwitchButton: any = styled.button`
   position: relative;
   min-width: 42px;
-  height: 22px;
+  height: 24px;
   display: flex;
   font-size: 11px;
   font-family: Nunito sans;
@@ -38,7 +38,7 @@ const SwitchInput = styled.input`
     + .circle {
       right: 4px;
       transform: translateY(-50%);
-      box-shadow: -2px 2px 7px ${rgba("#000", 0.35)};
+      box-shadow: -1px 2px 7px ${rgba("#000", 0.38)};
     }
   }
   &:disabled {
@@ -48,12 +48,12 @@ const SwitchInput = styled.input`
 
 const Circle = styled.span`
   position: absolute;
-  height: 17px;
-  width: 17px;
+  height: 18px;
+  width: 18px;
   background: #ffffff;
   top: 50%;
   border-radius: 30px;
-  box-shadow: 2px 2px 7px ${rgba("#000", 0.35)};
+  box-shadow: 1px 2px 7px ${rgba("#000", 0.35)};
   transition: all 0.35s;
 
   right: calc(100% - 4px);
@@ -95,12 +95,12 @@ const Switch: React.FC<SwitchProps> = ({
     ]
     if (supportedColors.includes(color.trim())) {
       if (disabled) {
-        return rgba(colors[color], 0.5)
+        return rgba(lighten(0.1, colors[color]), 0.5)
       }
       return colors[color]
     } else {
       if (disabled) {
-        return rgba(color, 0.5)
+        return rgba(lighten(0.1, color), 0.5)
       }
       return color
     }

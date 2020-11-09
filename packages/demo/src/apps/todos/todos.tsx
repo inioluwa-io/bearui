@@ -36,8 +36,8 @@ import {
 const TodosContainer: any = styled.div`
   .add-tsk {
     position: fixed;
-    bottom: 3rem;
-    right: 3rem;
+    bottom: 2.2rem;
+    right: 2.2rem;
     z-index: 9;
   }
 
