@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react"
 import styled from "styled-components"
-import { useTheme, useThemeMode } from "../theme"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
@@ -61,7 +60,7 @@ const LayoutContainer: any = styled.div`
     }
     *:hover {
       ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.225);
+        background: #aaaaaa88;
       }
     }
   }
@@ -117,12 +116,7 @@ const Layout: React.FC<LayoutComponent> = ({
   }, [refs])
 
   return (
-    <LayoutContainer
-      ref={refs}
-      {...props}
-      sideBar={!!sideBar}
-      id ="rap-layout"
-    >
+    <LayoutContainer ref={refs} {...props} sideBar={!!sideBar} id="rap-layout">
       <NotificationComponent notification={notification} />
       <main>
         {sideBar}
