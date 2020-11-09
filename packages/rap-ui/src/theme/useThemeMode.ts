@@ -28,31 +28,29 @@ import { isSupported } from "../util"
  */
 
 const useThemeMode = (): ThemeMode => {
-  const mode: RapUIThemeMode = useMemo(() => {
-    return useSelector((state: any) => state.themeReducer.themeMode)
-  }, [])
+  const mode: RapUIThemeMode = useSelector(
+    (state: any) => state.themeReducer.themeMode
+  )
+
   const dispatch = useDispatch()
 
-  const finalSetMode = useCallback(
-    (mode: RapUIThemeMode) => {
-      if (isSupported(["lightmode", "darkmode"], mode)) {
-        const body = document.body
-        body.classList.remove("lightmode")
-        body.classList.remove("darkmode")
+  const finalSetMode = (mode: RapUIThemeMode) => {
+    if (isSupported(["lightmode", "darkmode"], mode)) {
+      const body = document.body
+      body.classList.remove("lightmode")
+      body.classList.remove("darkmode")
 
-        body.classList.add(mode)
-        dispatch({ type: SET_MODE, payload: mode })
-        return mode
-      } else {
-        if (process.env.NODE_ENV !== "production") {
-          throw new Error(
-            `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
-          )
-        }
+      body.classList.add(mode)
+      dispatch({ type: SET_MODE, payload: mode })
+      return mode
+    } else {
+      if (process.env.NODE_ENV !== "production") {
+        throw new Error(
+          `Expected 'lightmode' or 'darkmode' as argument but got ${mode} instead`
+        )
       }
-    },
-    [dispatch]
-  )
+    }
+  }
 
   return [mode, finalSetMode]
 }
