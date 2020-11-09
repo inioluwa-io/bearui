@@ -155,13 +155,12 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         background={theme[themeMode].background}
         textColor={theme[themeMode].textColor}
         lgCol="3"
-        mdCol="4"
         smCol="6"
         xsCol="12"
         align="center"
       >
         <FlexRow align="space">
-          <FlexColumn gap="3px" align="left">
+          <FlexColumn gap="5px" align="left">
             <h5>{title}</h5>
             <p>{value}</p>
           </FlexColumn>
@@ -181,7 +180,6 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         color={color}
         textColor={theme[themeMode].textColor}
         background={theme[themeMode].background}
-        smCol="6"
         xsCol="12"
         style={{ paddingBottom: "0px", overflow: "hidden" }}
       >
