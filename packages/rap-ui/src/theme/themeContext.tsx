@@ -15,10 +15,12 @@ const defaultProvider: RapUITheme = {
   darkmode: {
     background: "#282c34",
     cardbackground: "#3E4451",
+    textColor: "#f4f4f4",
   },
   lightmode: {
     background: "#e7e7e7",
     cardbackground: "#fdfdfd",
+    textColor: "#444444",
   },
 }
 
