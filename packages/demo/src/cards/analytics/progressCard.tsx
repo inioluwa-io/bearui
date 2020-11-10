@@ -1,5 +1,5 @@
 import React from "react"
-import { ProgressCardComponent } from "../statistics/types"
+import { ProgressCardComponent } from "../types"
 import {
   Card,
   FlexColumn,
@@ -37,6 +37,11 @@ const CardContainer: any = styled(Card)`
     font-size: 0.9em;
   }
 `
+/**
+ * Progress analysis card.
+ * @param {string} title card display title
+ * @param {ProgressCardData} data array of progress data
+ */
 
 const ProgressCard: React.FC<ProgressCardComponent> = ({
   title,
@@ -46,7 +51,7 @@ const ProgressCard: React.FC<ProgressCardComponent> = ({
   const theme = useTheme()
   const [themeMode] = useThemeMode()
   return (
-    <CardContainer lgCol="4" textColor={theme[themeMode].textColor}>
+    <CardContainer {...props} lgCol="4" textColor={theme[themeMode].textColor}>
       <h5>{title}</h5>
       {data.map((item, idx: number) => (
         <FlexColumn key={idx} gap="10px">

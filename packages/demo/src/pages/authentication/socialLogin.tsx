@@ -74,7 +74,7 @@ const SocialLoginPage: React.FC<any> = () => {
             Login
           </Button>
           <p>or</p>
-          <FlexRow gap="15px">
+          <FlexRow gap="15px" align="center">
             <AppleButton onClick={() => {}} iconOnly />
             <GoogleButton onClick={() => {}} iconOnly />
             <FacebookButton onClick={() => {}} iconOnly />
