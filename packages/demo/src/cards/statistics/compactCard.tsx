@@ -6,7 +6,7 @@ import {
   useThemeMode,
 } from "@rap/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
-import { StatisticsComponent } from "./types"
+import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
 import * as path from "@mdi/js"
 import styled from "styled-components"
@@ -46,6 +46,15 @@ const CardContainer: any = styled(Card)`
   }
 `
 
+/**
+ * Compact statistics card.
+ * @param {any} apexChartSeries apexcharts series prop
+ * @param {string} title card display title
+ * @param {string} value card display value
+ * @param {string} color card accent color
+ * @param {string} icon mdi icon name
+ */
+
 const CompactCard: React.FC<StatisticsComponent> = ({
   apexChartSeries,
   title,
@@ -68,6 +77,9 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         },
         height: 350,
         type: "area",
+        zoom: {
+          enabled: false,
+        },
       },
       dataLabels: {
         enabled: false,

@@ -1,8 +1,8 @@
 import React from "react"
 import "./App.css"
-import { Container, Row } from "@rap/ui"
+import { Container } from "@rap/ui"
 import { TodosWidget } from "./apps"
-import { SplitCard, ProgressCard } from "./cards"
+import { SplitCard, ProgressCard, YearlyChartCard } from "./cards"
 
 const Home: React.FC<any> = () => {
   return (
@@ -14,7 +14,7 @@ const Home: React.FC<any> = () => {
         value="61k"
         apexChartSeries={[
           {
-            name: "series-1",
+            name: "Users",
             data: [35, 50, 30, 45, 25, 50],
           },
         ]}
@@ -26,7 +26,7 @@ const Home: React.FC<any> = () => {
         value="104k"
         apexChartSeries={[
           {
-            name: "series-1",
+            name: "Sales",
             data: [35, 50, 30, 45, 25, 50],
           },
         ]}
@@ -38,11 +38,24 @@ const Home: React.FC<any> = () => {
         value="73k"
         apexChartSeries={[
           {
-            name: "series-1",
+            name: "Orders",
             data: [35, 50, 30, 45, 25, 50],
           },
         ]}
       />
+      <YearlyChartCard
+        icon="mdiCurrencyUsd"
+        title="Yearly Sales"
+        color="success"
+        value="104k"
+        apexChartSeries={[
+          {
+            name: "Sales",
+            data: [35, 50, 30, 45, 25, 50, 35, 50, 30, 45, 25, 50],
+          },
+        ]}
+      />
+      <TodosWidget appRoute="/apps/todos" />
       <ProgressCard
         title="Platform Analysis"
         data={[
@@ -52,7 +65,6 @@ const Home: React.FC<any> = () => {
           { title: "Mac", percent: 81, diff: +50 },
         ]}
       />
-      <TodosWidget appRoute="/apps/todos" />
     </Container>
   )
 }

@@ -7,7 +7,7 @@ import {
   useThemeMode,
 } from "@rap/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
-import { StatisticsComponent } from "./types"
+import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
 import * as path from "@mdi/js"
 import styled from "styled-components"
@@ -46,6 +46,14 @@ const CardContainer: any = styled(Card)`
     }
   }
 `
+/**
+ * Split statistics card.
+ * @param {any} apexChartSeries apexcharts series prop
+ * @param {string} title card display title
+ * @param {string} value card display value
+ * @param {string} color card accent color
+ * @param {string} icon mdi icon name
+ */
 
 const SplitCard: React.FC<StatisticsComponent> = ({
   apexChartSeries,
@@ -53,6 +61,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
   value,
   color,
   icon,
+  ...props
 }) => {
   const iconPath = path as any
   const theme = useTheme()
@@ -69,6 +78,9 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         },
         height: 350,
         type: "area",
+        zoom: {
+          enabled: false,
+        },
       },
       dataLabels: {
         enabled: false,
@@ -150,6 +162,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
   if (!apexChartSeries) {
     return (
       <CardContainer
+        {...props}
         gap="15px"
         color={color}
         background={theme[themeMode].background}

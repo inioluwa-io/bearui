@@ -10,6 +10,17 @@ export type AnalyticsComponent = {
   title: string
 }
 
+export type ProgressCardData = {
+  title: string
+  percent: number
+  diff: number
+}[]
+
 export type ProgressCardComponent = {
-  data: { title: string; percent: number; diff: number }[]
+  data: ProgressCardData
 } & AnalyticsComponent
+
+export type YearlyChartCardComponent = {
+  title: string
+  apexChartSeries?: any
+}
