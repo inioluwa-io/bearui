@@ -216,7 +216,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
       > * {
         height: 30px;
       }
-      
+
       &.dl-act {
         overflow: unset;
       }
@@ -245,22 +245,8 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 const Datatable: React.FC<DatatableComponent> = ({
   document,
   columns,
-  actionList = [
-    {
-      color: "primary",
-      text: "Edit",
-      onClick: value => {
-        console.log(value)
-      },
-    },
-    {
-      color: "danger",
-      text: "Delete",
-      onClick: value => {
-        console.log(value)
-      },
-    },
-  ],
+  actionList = [],
+  showControls = true,
   uniqueIdentifier = "id",
   renderRule = [],
   defaultSortIndex = 1,
@@ -403,10 +389,12 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
   }
 
+
   const getSelectorRenderRule = (selector: string): DatatableRule => {
     return renderRule.find(item => item.selector === selector)
   }
 
+  // Check if renderule exists and render accordingly
   const renderColumnData = (selector: string, data: any) => {
     if (!renderRule) return data[selector]
     const selectorRule: DatatableRule = getSelectorRenderRule(selector)
@@ -436,6 +424,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     return selectedRows
   }
 
+
   const checkSearch = useCallback(
     (dataItem): boolean => {
       let tempData = []
@@ -463,6 +452,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     [searchValue]
   )
 
+  // Check if array has same keys and value with map
   const arrayLikeMap = useCallback(
     (arr, map: Map<number | string, boolean>): boolean => {
       const mapToArr: any[] = Array.from(map)
@@ -485,6 +475,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     [filteredData]
   )
 
+  // 
   const handleFilterData = useCallback(() => {
     const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
     setfilteredData(tmp)
@@ -503,63 +494,65 @@ const Datatable: React.FC<DatatableComponent> = ({
 
   return (
     <FlexColumn style={{ width: "100%" }} {...props}>
-      <FlexColumn>
-        <DataListFilter
-          background={theme[themeMode].cardbackground}
-          primaryColor={primaryColor}
-          textColor={textColor}
-        >
-          <FlexRow align="right" position="center">
-            <Dropdown
-              id="datalist-view"
-              listener="click"
-              list={[
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(10)
-                  }}
-                >
-                  10
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(20)
-                  }}
-                >
-                  20
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(25)
-                  }}
-                >
-                  25
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(30)
-                  }}
-                >
-                  30
-                </DataListOption>,
-              ]}
-            >
-              1- {viewLength} of {document.length}
-            </Dropdown>
-            <Input
-              icon="mdiMagnify"
-              type="text"
-              clearButton
-              id="datalist-search"
-              onInputChange={value => {
-                setSearchValue(value)
-              }}
-              placeholder="Search"
-              color="primary"
-            />
-          </FlexRow>
-        </DataListFilter>
-      </FlexColumn>
+      {showControls && (
+        <FlexColumn>
+          <DataListFilter
+            background={theme[themeMode].cardbackground}
+            primaryColor={primaryColor}
+            textColor={textColor}
+          >
+            <FlexRow align="right" position="center">
+              <Dropdown
+                id="datalist-view"
+                listener="click"
+                list={[
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(10)
+                    }}
+                  >
+                    10
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(20)
+                    }}
+                  >
+                    20
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(25)
+                    }}
+                  >
+                    25
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(30)
+                    }}
+                  >
+                    30
+                  </DataListOption>,
+                ]}
+              >
+                1- {viewLength} of {document.length}
+              </Dropdown>
+              <Input
+                icon="mdiMagnify"
+                type="text"
+                clearButton
+                id="datalist-search"
+                onInputChange={value => {
+                  setSearchValue(value)
+                }}
+                placeholder="Search"
+                color="primary"
+              />
+            </FlexRow>
+          </DataListFilter>
+        </FlexColumn>
+      )}
       <div
         style={{
           overflow: "hidden",
@@ -575,18 +568,20 @@ const Datatable: React.FC<DatatableComponent> = ({
                 check ? (selected.size ? "select selected" : "select") : ""
               }
             >
-              <th className="select-box">
-                {check && (
-                  <Checkbox
-                    active={selectAll}
-                    onCheck={() => {
-                      toggleSelectAll()
-                    }}
-                  >
-                    <p>ID</p>
-                  </Checkbox>
-                )}
-              </th>
+              {showControls && (
+                <th className="select-box">
+                  {check && (
+                    <Checkbox
+                      active={selectAll}
+                      onCheck={() => {
+                        toggleSelectAll()
+                      }}
+                    >
+                      <p>ID</p>
+                    </Checkbox>
+                  )}
+                </th>
+              )}
 
               {columns.map((item: DatatableColumns, idx: number) => (
                 <th
@@ -638,37 +633,39 @@ const Datatable: React.FC<DatatableComponent> = ({
                         : ""
                     }
                   >
-                    <td
-                      tabIndex={0}
-                      unselectable="on"
-                      style={{ fontSize: "12px" }}
-                      onFocus={e => {
-                        e.target.classList.add("focus")
-                      }}
-                      onBlur={e => {
-                        e.target.classList.remove("focus")
-                      }}
-                      onClick={(e: any) => {
-                        if (
-                          e.target.parentElement[uniqueIdentifier] !==
-                          "rap-cb-" + idx
-                        ) {
-                          toggleCheck(dataItem[uniqueIdentifier])
-                        }
-                      }}
-                    >
-                      {check && (
-                        <Checkbox
-                          id={"rap-cb-" + idx}
-                          active={!!selected.get(dataItem[uniqueIdentifier])}
-                          onCheck={() => {
+                    {showControls && (
+                      <td
+                        tabIndex={0}
+                        unselectable="on"
+                        style={{ fontSize: "12px" }}
+                        onFocus={e => {
+                          e.target.classList.add("focus")
+                        }}
+                        onBlur={e => {
+                          e.target.classList.remove("focus")
+                        }}
+                        onClick={(e: any) => {
+                          if (
+                            e.target.parentElement[uniqueIdentifier] !==
+                            "rap-cb-" + idx
+                          ) {
                             toggleCheck(dataItem[uniqueIdentifier])
-                          }}
-                        >
-                          <p>{idx + 1}</p>
-                        </Checkbox>
-                      )}
-                    </td>
+                          }
+                        }}
+                      >
+                        {check && (
+                          <Checkbox
+                            id={"rap-cb-" + idx}
+                            active={!!selected.get(dataItem[uniqueIdentifier])}
+                            onCheck={() => {
+                              toggleCheck(dataItem[uniqueIdentifier])
+                            }}
+                          >
+                            <p>{idx + 1}</p>
+                          </Checkbox>
+                        )}
+                      </td>
+                    )}
                     {columns.map((column: any, rowidx: number) => (
                       <td
                         key={rowidx}
@@ -735,15 +732,17 @@ const Datatable: React.FC<DatatableComponent> = ({
           </TableBody>
         </Table>
       </div>
-      <FlexRow align="right">
-        <Pagination
-          perPage={viewLength}
-          documentLength={filteredData.length}
-          onPageGoto={(startIndex, endIndex) => {
-            setPaginationIndexes({ startIndex, endIndex })
-          }}
-        />
-      </FlexRow>
+      {showControls && (
+        <FlexRow align="right">
+          <Pagination
+            perPage={viewLength}
+            documentLength={filteredData.length}
+            onPageGoto={(startIndex, endIndex) => {
+              setPaginationIndexes({ startIndex, endIndex })
+            }}
+          />
+        </FlexRow>
+      )}
     </FlexColumn>
   )
 }

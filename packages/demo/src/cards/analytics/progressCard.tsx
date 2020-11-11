@@ -51,7 +51,12 @@ const ProgressCard: React.FC<ProgressCardComponent> = ({
   const theme = useTheme()
   const [themeMode] = useThemeMode()
   return (
-    <CardContainer {...props} lgCol="4" textColor={theme[themeMode].textColor}>
+    <CardContainer
+      {...props}
+      lgCol="4"
+      xsCol="12"
+      textColor={theme[themeMode].textColor}
+    >
       <h5>{title}</h5>
       {data.map((item, idx: number) => (
         <FlexColumn key={idx} gap="10px">

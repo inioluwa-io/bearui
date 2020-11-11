@@ -1,6 +1,6 @@
 import { Card, useTheme, useThemeMode } from "@rap/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
-import { YearlyChartCardComponent } from "../types"
+import { ColumnCardComponent } from "../types"
 import styled from "styled-components"
 import { rgba } from "polished"
 import Chart from "react-apexcharts"
@@ -36,14 +36,18 @@ const CardContainer: any = styled(Card)`
 `
 
 /**
- * A single smooth line apexcharts card.
+ * A bar card.
  * @param {any} apexChartSeries apexcharts series prop
  * @param {string} title card display title
+ * @param {string} value card display value
+ * @param {string} color card accent color
+ * @param {string} icon mdi icon name
  */
 
-const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
+const ColumnCard: React.FC<ColumnCardComponent> = ({
   apexChartSeries,
   title,
+  apexChartOptions = {},
   ...props
 }) => {
   const theme = useTheme()
@@ -53,42 +57,24 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
 
   const state: any = {
     options: {
-      chart: {
-        type: "line",
-        toolbar: {
-          show: false,
-        },
-        height: 280,
-        zoom: {
-          enabled: false,
-        },
-        dropShadow: {
-          enabled: true,
-          enabledOnSeries: undefined,
-          top: 20,
-          left: 0,
-          blur: 6,
-          color: "#000",
-          opacity: 0.15,
-        },
-        animations: {
-          enabled: true,
-          easing: "easein",
-          speed: 1200,
-          animateGradually: {
-            enabled: true,
-            delay: 500,
-          },
-          dynamicAnimation: {
-            enabled: true,
-            speed: 850,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0,
+            },
           },
         },
+      ],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "15%",
+        },
       },
-      dataLabels: {
-        enabled: false,
-      },
-      grid: { show: true, borderColor: rgba(theme[themeMode].textColor, 0.15) },
       tooltip: {
         x: {
           show: false,
@@ -97,6 +83,9 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
           fontSize: "13px",
           fontFamily: "inherit",
         },
+      },
+      dataLabels: {
+        enabled: false,
       },
       yaxis: {
         show: false,
@@ -110,43 +99,8 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
           show: false,
         },
       },
-      stroke: {
-        curve: "smooth",
-      },
-      markers: {
-        size: 4,
-        colors: ["#FFA41B"],
-        strokeColors: "#f4f4f4",
-        strokeWidth: 2,
-        hover: {
-          size: 7,
-        },
-      },
+      grid: { show: true, borderColor: rgba(theme[themeMode].textColor, 0.15) },
       xaxis: {
-        show: true,
-        tooltip: {
-          enabled: true,
-          style: {
-            fontSize: "13px",
-            fontFamily: "inherit",
-          },
-        },
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          show: true,
-          style: {
-            colors: theme[themeMode].textColor,
-            fontSize: "13px",
-            fontFamily: "inherit",
-            fontWeight: 400,
-            cssClass: "apexcharts-xaxis-label",
-          },
-        },
         categories: [
           "Jan",
           "Feb",
@@ -161,30 +115,83 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
           "Nov",
           "Dec",
         ],
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true,
+          style: {
+            colors: theme[themeMode].textColor,
+            fontSize: "13px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      colors: [theme.colors.success, theme.colors.primary],
+      legend: {
+        show: true,
+        position: "top",
+        horizontalAlign: "left",
+        floating: false,
+        fontSize: "14px",
+        fontFamily: "inherit",
+        fontWeight: 400,
+        formatter: undefined,
+        inverseOrder: false,
+        width: undefined,
+        height: undefined,
+        tooltipHoverFormatter: undefined,
+        offsetX: -35,
+        offsetY: 0,
+        labels: {
+          colors: theme[themeMode].textColor,
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#fff",
+          fillColors: undefined,
+          radius: 12,
+          offsetX: 0,
+          offsetY: 0,
+        },
+        itemMargin: {
+          horizontal: 15,
+          vertical: 0,
+        },
       },
       fill: {
-        type: "gradient",
-        gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.7,
-          opacityTo: 0.9,
-          colorStops: [
-            {
-              offset: 0,
-              color: "#FEAC5E",
-              opacity: 1,
-            },
-            {
-              offset: 30,
-              color: "#C779D0",
-              opacity: 1,
-            },
-            {
-              offset: 100,
-              color: "#4BC0C8",
-              opacity: 1,
-            },
-          ],
+        opacity: 1,
+      },
+      chart: {
+        type: "bar",
+        stacked: true,
+        toolbar: {
+          show: false,
+        },
+        height: 280,
+        zoom: {
+          enabled: false,
+        },
+        animations: {
+          enabled: true,
+          easing: "easein",
+          speed: 1200,
+          animateGradually: {
+            enabled: true,
+            delay: 500,
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 850,
+          },
         },
       },
     },
@@ -206,9 +213,10 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
     }
   }, [resizeChart])
 
+  Object.assign(state.options, apexChartOptions)
+
   return (
     <CardContainer
-      lgCol="9"
       mdCol="8"
       xsCol="12"
       textColor={theme[themeMode].textColor}
@@ -222,7 +230,7 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
           className="rap-chart"
           options={state.options}
           series={apexChartSeries}
-          type="line"
+          type="bar"
           width={width}
           height={280}
         />
@@ -230,4 +238,4 @@ const YearlyChartCard: React.FC<YearlyChartCardComponent> = ({
     </CardContainer>
   )
 }
-export default YearlyChartCard
+export default ColumnCard

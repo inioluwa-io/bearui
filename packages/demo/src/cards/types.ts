@@ -23,4 +23,7 @@ export type ProgressCardComponent = {
 export type YearlyChartCardComponent = {
   title: string
   apexChartSeries?: any
+  apexChartOptions?: any
 }
+export type RadialCardComponent = YearlyChartCardComponent
+export type ColumnCardComponent = YearlyChartCardComponent
