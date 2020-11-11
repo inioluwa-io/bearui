@@ -8,6 +8,8 @@ import { rgba, darken, adjustHue, lighten } from "polished"
 const ProgressContainer: any = styled.div`
   width: 100%;
   flex: 1;
+  display: flex;
+  align-items: center;
 `
 const ProgressBar: any = styled.div`
   position: relative;

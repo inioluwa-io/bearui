@@ -273,6 +273,7 @@ export type DatatableComponent = {
   title?: string | HTMLAllCollection
   document: any[]
   striped?: boolean
+  showControls?:boolean;
   columns: DatatableColumns[]
   check?: boolean
   renderRule?: DatatableRule[]
