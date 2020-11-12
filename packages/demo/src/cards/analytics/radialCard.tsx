@@ -26,7 +26,7 @@ const CardContainer: any = styled(Card)`
 
     h6 {
       font-weight: 500;
-        font-size: 1.1em;
+      font-size: 1.1em;
     }
   }
   .rap-chart {
@@ -95,11 +95,7 @@ const RadialCard: React.FC<RadialCardComponent> = ({
             strokeWidth: "100%",
             margin: 0, // margin is in pixels
             dropShadow: {
-              enabled: true,
-              top: -3,
-              left: 0,
-              blur: 4,
-              opacity: 0.35,
+              enabled: false,
             },
           },
 
@@ -170,7 +166,13 @@ const RadialCard: React.FC<RadialCardComponent> = ({
       {...props}
     >
       <h5>{title}</h5>
-      <div ref={refs} style={{ width: "100%" }}>
+      <div
+        ref={refs}
+        style={{
+          width: "100%",
+          borderBottom: "1px solid " + rgba(theme[themeMode].textColor, 0.15),
+        }}
+      >
         <Chart
           className="rap-chart"
           options={state.options}

@@ -27,3 +27,4 @@ export type YearlyChartCardComponent = {
 }
 export type RadialCardComponent = YearlyChartCardComponent
 export type ColumnCardComponent = YearlyChartCardComponent
+export type PieCardComponent = { labels?: string[] } & YearlyChartCardComponent
