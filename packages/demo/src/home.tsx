@@ -3,23 +3,22 @@ import "./App.css"
 import {
   Container,
   Card,
-  Avatar,
   Chip,
   Datatable,
   Progress,
-  Button,
   FlexColumn,
   LinkButton,
 } from "@rap/ui"
 import { TodosWidget } from "./apps"
+import { TimelineWidget } from "./widgets"
 import {
   SplitCard,
+  PieCard,
   ProgressCard,
   YearlyChartCard,
   RadialCard,
   ColumnCard,
 } from "./cards"
-import { Link } from "react-router-dom"
 import img from "./dp1.jpg"
 import img1 from "./brooks-leibee-562087-unsplash.jpg"
 
@@ -96,6 +95,45 @@ const Home: React.FC<any> = () => {
           { title: "Windows", percent: 13, diff: -10 },
           { title: "Mac", percent: 81, diff: +50 },
         ]}
+      />
+      <TimelineWidget
+        data={[
+          {
+            title: "Meeting",
+            color: "primary",
+            content:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatum.",
+          },
+          {
+            title: "Chat with Fury",
+            color: "warning",
+            content:
+              "Lorem ipsum dolor sit amet seetur adipisicing elit. Delectus voluptatum.",
+          },
+          {
+            title: "Update F.R.I.D.A.Y.",
+            color: "info",
+            content:
+              "Lorem ipsum dolor sit amet coctetur adipisicing elit. Delectus voluptatum.",
+          },
+          {
+            title: "Skype with Thor",
+            color: "success",
+            content:
+              "Lorem ipsum dolor sit amet conetur adipisicing elit. Delectus voluptatum.",
+          },
+          {
+            title: "Target Practice",
+            color: "danger",
+            content:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatum.",
+          },
+        ]}
+      />
+      <PieCard
+        labels={["a"]}
+        title="Polar area"
+        apexChartSeries={[32, 40, 26]}
       />
       <TodosWidget appRoute="/apps/todos" />
       <Card xsCol="12">

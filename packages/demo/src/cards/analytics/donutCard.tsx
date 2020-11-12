@@ -1,15 +1,11 @@
 import { Card, useTheme, useThemeMode } from "@rap/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
-import { PieCardComponent } from "../types"
+import { DonutCardComponent } from "../types"
 import styled from "styled-components"
 import { rgba } from "polished"
 import Chart from "react-apexcharts"
-import { stat } from "fs"
 
 const CardContainer: any = styled(Card)`
-  overflow: hidden;
-  height: 75vh;
-
   h5 {
     font-weight: 600;
   }
@@ -23,29 +19,7 @@ const CardContainer: any = styled(Card)`
   }
   .rap-chart {
     margin: 0px;
-
-    .apexcharts-tooltip-series-group {
-      padding: 6px 11px !important;
-    }
-    .apexcharts-tooltip {
-      padding: 0;
-      background: transparent !important;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-
-      .apexcharts-tooltip-text-label,
-      .apexcharts-tooltip-text-value {
-        color: #f4f4f4;
-      }
-    }
-    .apexcharts-legend {
-      flex-direction: column !important;
-      transform: translateY(10px);
-
-      .apexcharts-legend-series {
-        padding: 3px 0;
-        width: calc(100% - 5px);
-      }
-    }
+    // width: calc(100% + 0px);
 
     .apexcharts-xaxistooltip {
       border-radius: 5px;
@@ -53,6 +27,10 @@ const CardContainer: any = styled(Card)`
       * {
         color: #444;
       }
+    }
+
+    .apexcharts-inner {
+      // transform: translate(10px, 32px);
     }
   }
 `
@@ -66,11 +44,10 @@ const CardContainer: any = styled(Card)`
  * @param {string} icon mdi icon name
  */
 
-const PieCard: React.FC<PieCardComponent> = ({
+const DonutCard: React.FC<DonutCardComponent> = ({
   apexChartSeries,
   title,
   apexChartOptions = {},
-  labels = undefined,
   ...props
 }) => {
   const theme = useTheme()
@@ -93,16 +70,9 @@ const PieCard: React.FC<PieCardComponent> = ({
         },
       ],
       plotOptions: {
-        pie: {
-          startAngle: 30,
-          expandOnClick: true,
-          offsetX: 0,
-          offsetY: 0,
-          customScale: 1,
-          dataLabels: {
-            offset: 0,
-            minAngleToShowLabel: 10,
-          },
+        bar: {
+          horizontal: false,
+          columnWidth: "15%",
         },
       },
       tooltip: {
@@ -111,34 +81,61 @@ const PieCard: React.FC<PieCardComponent> = ({
         },
         style: {
           fontSize: "13px",
-          colors: ["#fff"],
           fontFamily: "inherit",
         },
-      },
-      stroke: {
-        colors: [theme[themeMode].cardbackground],
-        width: 5,
       },
       dataLabels: {
         enabled: false,
       },
-      colors: [
-        theme.colors.warning,
-        theme.colors.success,
-        theme.colors.info,
-        theme.colors.danger,
-        theme.colors.primary,
-        "#12c2e9",
-        "#c471ed",
-        "#f64f59",
-        "#FFBF00",
-        "#2274A5",
-        "#c471ed",
-        "#12c2e9",
-      ],
+      yaxis: {
+        show: false,
+        axisTicks: {
+          show: false,
+        },
+        axisBorder: {
+          show: false,
+        },
+        labels: {
+          show: false,
+        },
+      },
+      grid: { show: true, borderColor: rgba(theme[themeMode].textColor, 0.15) },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "July",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true,
+          style: {
+            colors: theme[themeMode].textColor,
+            fontSize: "13px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      colors: [theme.colors.success, theme.colors.primary],
       legend: {
         show: true,
-        position: "bottom",
+        position: "top",
         horizontalAlign: "left",
         floating: false,
         fontSize: "14px",
@@ -149,7 +146,7 @@ const PieCard: React.FC<PieCardComponent> = ({
         width: undefined,
         height: undefined,
         tooltipHoverFormatter: undefined,
-        offsetX: -45,
+        offsetX: -35,
         offsetY: 0,
         labels: {
           colors: theme[themeMode].textColor,
@@ -171,40 +168,29 @@ const PieCard: React.FC<PieCardComponent> = ({
         },
       },
       fill: {
-        type: "gradient",
-        gradient: {
-          shade: "dark",
-          type: "vertical",
-          shadeIntensity: 0.025,
-          gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 0.8,
-          stops: [0, 100],
-          colorStops: [],
-        },
+        opacity: 1,
       },
       chart: {
-        type: "pie",
+        type: "bar",
         stacked: true,
         toolbar: {
           show: false,
         },
-        height: 400,
+        height: 280,
         zoom: {
           enabled: false,
         },
         animations: {
           enabled: true,
           easing: "easein",
-          speed: 300,
+          speed: 1200,
           animateGradually: {
             enabled: true,
-            delay: 100,
+            delay: 500,
           },
           dynamicAnimation: {
             enabled: true,
-            speed: 250,
+            speed: 850,
           },
         },
       },
@@ -227,15 +213,12 @@ const PieCard: React.FC<PieCardComponent> = ({
     }
   }, [resizeChart])
 
-  if (labels !== undefined) {
-    state.options.labels = labels
-  }
   Object.assign(state.options, apexChartOptions)
 
   return (
     <CardContainer
-      mdCol="4"
-      smCol="12"
+      mdCol="8"
+      xsCol="12"
       textColor={theme[themeMode].textColor}
       background={theme[themeMode].background}
       style={{ paddingBottom: "0px", overflow: "hidden" }}
@@ -249,10 +232,10 @@ const PieCard: React.FC<PieCardComponent> = ({
           series={apexChartSeries}
           type="pie"
           width={width}
-          height={400}
+          height={280}
         />
       </div>
     </CardContainer>
   )
 }
-export default PieCard
+export default DonutCard

@@ -89,7 +89,7 @@ const TodosList: any = styled.div`
   background: transparent;
   width: 100%;
   overflow: hidden;
-  height: 60vh;
+  height: 57vh;
   overflow-y: auto;
   * {
     ::-webkit-scrollbar-thumb {
@@ -105,23 +105,6 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
   const [navClass, setNavClass] = useState<string>()
   const [todos, setTodos] = useState<TodoList[]>([])
   const [filterData, setFilterData] = useState<TodoList[]>(todos)
-  // const defaultTodo = {
-  //   id: 0,
-  //   name: "First Todo Ever 😁",
-  //   description:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci ducimus ratione qui consequatur perspiciatis voluptatum vel sapiente cumque.",
-  //   labels: [0],
-  //   completed: false,
-  //   important: false,
-  //   starred: false,
-  //   trashed: false,
-  // }
-  // const labels = [
-  //   { name: "Frontend", color: "info" },
-  //   { name: "Backend", color: "success" },
-  //   { name: "Designer", color: "warning" },
-  //   { name: "DevOps", color: "primary" },
-  // ]
 
   type Filter = "completed" | "starred" | "trashed" | "important"
 
@@ -180,7 +163,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
   }, [])
 
   return (
-    <TodosContainer mdCol="4" smCol="5" xsCol="12" size="xs" {...props}>
+    <TodosContainer mdCol="4" smCol="12" size="xs" {...props}>
       <h5 style={{ fontWeight: 600 }}>Todos</h5>
       <TodosList panelTop={getPanelTop()}>
         <Container>
