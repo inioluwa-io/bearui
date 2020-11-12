@@ -131,9 +131,9 @@ const Home: React.FC<any> = () => {
         ]}
       />
       <PieCard
-        labels={["a"]}
-        title="Polar area"
-        apexChartSeries={[32, 40, 26]}
+        labels={["Shoes", "Clothing", "Phones", "Bags"]}
+        title="Top Searches"
+        apexChartSeries={[40, 24, 26, 8]}
       />
       <TodosWidget appRoute="/apps/todos" />
       <Card xsCol="12">

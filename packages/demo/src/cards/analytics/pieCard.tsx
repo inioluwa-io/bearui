@@ -58,12 +58,11 @@ const CardContainer: any = styled(Card)`
 `
 
 /**
- * A bar card.
+ * A Pie apexcharts card.
  * @param {any} apexChartSeries apexcharts series prop
  * @param {string} title card display title
- * @param {string} value card display value
- * @param {string} color card accent color
- * @param {string} icon mdi icon name
+ * @param {array} labels apexChart labels
+ * @param {string} apexChartOptions apexcharts series options
  */
 
 const PieCard: React.FC<PieCardComponent> = ({
@@ -144,7 +143,9 @@ const PieCard: React.FC<PieCardComponent> = ({
         fontSize: "14px",
         fontFamily: "inherit",
         fontWeight: 400,
-        formatter: undefined,
+        formatter: function (seriesName: string, opts: any) {
+          return [seriesName, " - ", opts.w.globals.series[opts.seriesIndex]]
+        },
         inverseOrder: false,
         width: undefined,
         height: undefined,
@@ -190,7 +191,7 @@ const PieCard: React.FC<PieCardComponent> = ({
         toolbar: {
           show: false,
         },
-        height: 400,
+        height: 450,
         zoom: {
           enabled: false,
         },
@@ -249,7 +250,7 @@ const PieCard: React.FC<PieCardComponent> = ({
           series={apexChartSeries}
           type="pie"
           width={width}
-          height={400}
+          height={450}
         />
       </div>
     </CardContainer>

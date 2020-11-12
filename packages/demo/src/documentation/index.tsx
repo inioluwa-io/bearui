@@ -14,6 +14,25 @@ const DocumentationContainer: any = styled(Container)`
       display: block;
     }
   }
+  .doc-main {
+    table {
+      border-collapse: collapse;
+
+      th {
+        padding: 10px 10px;
+        font-size: 14px;
+      }
+      tbody {
+        tr {
+          td {
+            border: 1px solid #aaaaaa55;
+            padding: 10px 10px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 `
 
 const Documentation: React.FC = () => {
@@ -53,7 +72,7 @@ const Documentation: React.FC = () => {
           ]}
         />
       </Card>
-      <Card mdCol="9" smCol="8" xsCol="12">
+      <Card mdCol="9" smCol="8" xsCol="12" className="doc-main">
         <FlexColumn id="avatar">
           <h5>Avatar</h5>
           <table>
@@ -69,303 +88,19 @@ const Documentation: React.FC = () => {
             <tbody>
               <tr>
                 <td>size</td>
-                <td>string</td>
-                <td>false</td>
+                <td>"xs" | "sm" | "md" | "lg"</td>
+                <td>no</td>
                 <td>sm</td>
                 <td>Size of the avatar</td>
               </tr>
               <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-            </tbody>
-          </table>
-        </FlexColumn>
-        <FlexColumn id="button">
-          <h5>Avatar</h5>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Required</th>
-                <th>Default</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-            </tbody>
-          </table>
-        </FlexColumn>
-        <FlexColumn id="breadcrumb">
-          <h5>Breadcrumb</h5>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Required</th>
-                <th>Default</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-            </tbody>
-          </table>
-        </FlexColumn>
-        <FlexColumn id="aveatar">
-          <h5>Avatar</h5>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Required</th>
-                <th>Default</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
-              </tr>
-              <tr>
-                <td>size</td>
-                <td>string</td>
-                <td>false</td>
-                <td>sm</td>
-                <td>Size of the avatar</td>
+                <td>withBadge</td>
+                <td>boolean</td>
+                <td>no</td>
+                <td>-</td>
+                <td>
+                  Determines whether avatar should display a badge or not.
+                </td>
               </tr>
             </tbody>
           </table>
