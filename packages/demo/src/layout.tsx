@@ -37,6 +37,7 @@ import {
   mdiTools,
   mdiWaterOutline,
   mdiClose,
+  mdiChatOutline,
 } from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
@@ -287,6 +288,12 @@ const LayoutComponent: React.FC<any> = ({
             <FlexRow gap="13px">
               <Icon path={mdiClipboardTextOutline} color={color} size={0.75} />
               Invoice
+            </FlexRow>
+          </NavLink>
+          <NavLink to="/apps/chat" activeClassName="active">
+            <FlexRow gap="13px">
+              <Icon path={mdiChatOutline} color={color} size={0.7} />
+              Chat
             </FlexRow>
           </NavLink>
           <NavLink to="/apps/todos" activeClassName="active">

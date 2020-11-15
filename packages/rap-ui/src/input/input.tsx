@@ -191,6 +191,7 @@ const Input: React.FC<InputProps> = ({
 
   // Reduce margin if parent is a form control element
   useEffect(() => {
+    setInputValue(defaultValue)
     if (!!validate.length) {
       const DOMNode = refs.current
       const parentNode = DOMNode.parentElement

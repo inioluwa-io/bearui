@@ -42,7 +42,7 @@ font-family: inherit;
   align-items: center;
   justify-content:center;
   flex-direction ${(props: any) => (props.iconRight ? "row-reverse" : "row")};
-  transition: background 0.35s ease, border 0.35s ease;
+  transition: background 0.25s ease, border 0.25s ease;
   border: ${(props: any) => {
     if (props.transparent) {
       return "none"
@@ -66,11 +66,11 @@ font-family: inherit;
   }
 
   svg path {
-    transition: fill 0.35s ease;
+    transition: fill 0.25s ease;
   }
   
   .text {
-    transition: color 0.35s ease !important;
+    transition: color 0.25s ease !important;
   }
 
   .rap-ico, .rap-loa{
@@ -252,7 +252,9 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg" ? { borderRadius: "11px" } : { borderRadius: "5px" }
+        return size === "lg"
+          ? { borderRadius: "11px" }
+          : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }

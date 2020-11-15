@@ -2,9 +2,7 @@ import { Card, useTheme, useThemeMode } from "@rap/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { PieCardComponent } from "../types"
 import styled from "styled-components"
-import { rgba } from "polished"
 import Chart from "react-apexcharts"
-import { stat } from "fs"
 
 const CardContainer: any = styled(Card)`
   overflow: hidden;

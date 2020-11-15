@@ -63,8 +63,8 @@ const BadgeComponent: any = styled.div`
 const StatusComponent: any = styled.div`
   position: absolute;
   z-index: 99;
-  bottom: -1px;
-  right: -1px;
+  bottom: 0px;
+  right: 0px;
   width: 10px;
   height: 10px;
   border-radius: 10px;

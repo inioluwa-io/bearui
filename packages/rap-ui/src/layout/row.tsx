@@ -26,8 +26,12 @@ const RowContainer: any = styled.div`
   }
 `
 
-const Row: React.FC = ({ children }) => {
-  return <RowContainer className="row">{children}</RowContainer>
+const Row: React.FC = ({ children, ...props }) => {
+  return (
+    <RowContainer className="row" {...props}>
+      {children}
+    </RowContainer>
+  )
 }
 
 export default Row

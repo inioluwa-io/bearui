@@ -89,7 +89,7 @@ const TodosList: any = styled.div`
   background: transparent;
   width: 100%;
   overflow: hidden;
-  height: 57vh;
+  height: 56vh;
   overflow-y: auto;
   * {
     ::-webkit-scrollbar-thumb {
