@@ -156,7 +156,7 @@ const ClearButton: any = styled.button`
 
 /**
  *
- * Creates an input element
+ * Creates a textarea element
  */
 
 const TextArea: React.FC<InputProps> = ({

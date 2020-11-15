@@ -1,4 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  HTMLAttributes,
+} from "react"
 import {
   Card,
   Container,
@@ -9,8 +15,10 @@ import {
   Button,
   FlexRow,
   Input,
+  Modal,
   Avatar,
   Dropdown,
+  Tooltip,
 } from "@rap/ui"
 import styled from "styled-components"
 import img from "../../brooks-leibee-562087-unsplash.jpg"
@@ -26,8 +34,8 @@ import {
   mdiAccountBoxOutline,
   mdiDotsHorizontal,
 } from "@mdi/js"
-import { useEffect } from "react"
 import _ from "lodash"
+import { mockUserContact } from "./mock"
 
 const ChatContainer: any = styled(Container)`
   border: 1px solid #aaaaaa44;
@@ -44,12 +52,28 @@ const ChatContainer: any = styled(Container)`
     width: calc(100% - 30px);
     border-bottom: 1px solid #aaaaaa44;
   }
+
+  .mod {
+    .modal-container {
+      > div:nth-child(2) {
+        padding: 20px;
+      }
+
+      .modal-contact-inner {
+        height: 38vh;
+
+        @media (max-width: 441px) {
+          height: 60vh;
+        }
+      }
+    }
+  }
 `
 
 const ChatListContainer: any = styled(FlexColumn)`
   overflow: hidden;
   .container {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .chat-item {
@@ -58,8 +82,9 @@ const ChatListContainer: any = styled(FlexColumn)`
     transition: background 0.25s ease;
     cursor: pointer;
 
-    &:hover {
-      background: rgba(15, 15, 15, 0.4);
+    &:hover,
+    &.active {
+      background: rgba(15, 15, 15, 0.2);
     }
   }
 `
@@ -115,7 +140,7 @@ const ContactContainer: any = styled(Grid)`
   flex-wrap: nowrap;
 `
 
-const MessagesContainer: any = styled(Grid)`
+const ConversationContainer: any = styled(Grid)`
   height: 100%;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -133,7 +158,7 @@ const MessagesContainer: any = styled(Grid)`
     overflow: hidden;
 
     .chatbubble-inner-container {
-      overflow-y: scroll;
+      overflow-y: auto;
       padding-right: 10px;
       flex-direction: column-reverse;
     }
@@ -151,13 +176,24 @@ const MessagesContainer: any = styled(Grid)`
 `
 
 const ChatBubble: any = styled.div`
-  padding: 10px;
+  padding: 12px;
   width: fit-content;
-  max-width: calc(80% - 30px);
-  border-radius: 7px;
+  max-width: calc(60% - 24px);
+  border-radius: 12px;
   font-size: 14px;
   background: ${(props: any) => props.background};
   color: #ffffff;
+  ${(props: any) =>
+    props.align === "left"
+      ? "border-top-left-radius:0px"
+      : "border-top-right-radius:0px"};
+`
+
+const BlankConversation: any = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const TabButton: React.FC<any> = ({
@@ -220,16 +256,23 @@ type UserContact = {
   id: string
   img: string
   name: string
+  favourite?: boolean
   messages: ChatMessage[]
 }
 
 type ChatListComponent = {
-  list: UserContact[]
+  list?: UserContact[]
   showMessage?: boolean
-}
+  setSelectedChat?: any
+  selectedChat?: string | number | undefined
+} & HTMLAttributes<HTMLDivElement>
+
 const ChatList: React.FC<ChatListComponent> = ({
   list,
   showMessage = true,
+  setSelectedChat,
+  selectedChat,
+  ...props
 }) => {
   const getDay = (timeStamp: number) => {
     const date = new Date(timeStamp)
@@ -237,22 +280,41 @@ const ChatList: React.FC<ChatListComponent> = ({
     return dateArray[2] + " " + dateArray[1]
   }
   return (
-    <ChatListContainer gap="0px">
+    <ChatListContainer gap="0px" {...props}>
       <FlexColumn gap="0px" className="container">
-        {list.map((contact, idx: number) => {
+        {list?.map((contact, idx: number) => {
           const lastMessage = contact.messages[0]
           return (
-            <FlexRow align="space" className="chat-item" key={idx}>
-              <FlexRow align="left" gap="10px">
+            <FlexRow
+              align="space"
+              className={
+                selectedChat === contact.id ? "active chat-item" : "chat-item"
+              }
+              key={idx}
+              onClick={() => {
+                setSelectedChat(contact.id)
+              }}
+              style={{ flexWrap: "nowrap" }}
+            >
+              <FlexRow align="left" gap="10px" style={{ flexWrap: "nowrap" }}>
                 <Avatar badgeColor="warning" withStatus src={contact.img} />
-                <FlexColumn style={{ width: "auto" }} gap="5px">
-                  <p style={{ fontWeight: 500 }}>{contact.name}</p>
-                  {showMessage && lastMessage.content && (
-                    <p>{_.truncate(lastMessage.content, { length: 25 })}</p>
+                <FlexColumn
+                  style={{ width: "auto", flexWrap: "nowrap" }}
+                  gap="3px"
+                >
+                  <p style={{ fontWeight: 500 }}>
+                    {_.truncate(contact?.name, { length: 25 })}
+                  </p>
+                  {showMessage && lastMessage?.content && (
+                    <p style={{ fontSize: "13px" }}>
+                      {_.truncate(lastMessage?.content, { length: 25 })}
+                    </p>
                   )}
                 </FlexColumn>
               </FlexRow>
-              {showMessage && <p>{getDay(lastMessage.time)}</p>}
+              {showMessage && lastMessage && (
+                <p style={{ fontSize: "12px" }}>{getDay(lastMessage.time)}</p>
+              )}
             </FlexRow>
           )
         })}
@@ -266,94 +328,13 @@ const Chat: React.FC = () => {
   const user_id = 1
   const [themeMode] = useThemeMode()
   const [activeTab, setActiveTab] = useState<number>(0)
-  const [contact, setContact] = useState<UserContact[]>([
-    {
-      id: "1",
-      name: "Bruce Banner",
-      img: img,
-      messages: [{ time: Date.now(), content: "", user_id: 0 }],
-    },
-    {
-      id: "2",
-      name: "Steve Rogers",
-      img: img,
-      messages: [{ time: Date.now(), content: "2d", user_id: 0 }],
-    },
-    {
-      id: "3",
-      name: "Bruce Banner",
-      img: img,
-      messages: [{ time: Date.now(), content: "", user_id: 0 }],
-    },
-    {
-      id: "4",
-      name: "Steve Rogers",
-      img: img,
-      messages: [
-        {
-          time: Date.now(),
-          content:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
-          user_id: 0,
-        },
-        { time: Date.now(), content: "gfg3", user_id: 0 },
-        {
-          time: Date.now(),
-          content:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
-          user_id: 0,
-        },
-        {
-          time: Date.now(),
-          content:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
-          user_id: 0,
-        },
-        { time: Date.now(), content: "frfd", user_id: 0 },
-        { time: Date.now(), content: "vr53", user_id: 1 },
-        {
-          time: Date.now(),
-          content:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
-          user_id: 0,
-        },
-        { time: Date.now(), content: "gfg3", user_id: 0 },
-        {
-          time: Date.now(),
-          content:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
-          user_id: 0,
-        },
-        { time: Date.now(), content: "vjnkerjk", user_id: 0 },
-        { time: Date.now(), content: "vjk40ik", user_id: 1 },
-        { time: Date.now(), content: "q3o3p", user_id: 1 },
-      ],
-    },
-    {
-      id: "51",
-      name: "Bruce Banner",
-      img: img,
-      messages: [{ time: Date.now(), content: "", user_id: 1 }],
-    },
-    {
-      id: "6",
-      name: "Steve Rogers",
-      img: img,
-      messages: [{ time: Date.now(), content: "2d", user_id: 1 }],
-    },
-    {
-      id: "7",
-      name: "Bruce Banner",
-      img: img,
-      messages: [{ time: Date.now(), content: "", user_id: 0 }],
-    },
-    {
-      id: "8",
-      name: "Steve Rogers",
-      img: img,
-      messages: [{ time: Date.now(), content: "2d", user_id: 0 }],
-    },
-  ])
+  const [selectedChat, setSelectedChat] = useState<
+    number | string | undefined
+  >()
+  const [contacts, setContacts] = useState<UserContact[]>(mockUserContact)
+
+  const [chats, setChats] = useState<UserContact[] | undefined>()
+  const [openModal, setOpenModal] = useState<boolean>(false)
 
   const [currMessage, setCurrMessage] = useState<string>("")
   const cardBackground = theme[themeMode].cardbackground
@@ -373,25 +354,106 @@ const Chat: React.FC = () => {
     }
   }, [refs])
 
+  const getChatsFromContact = useCallback((): UserContact[] => {
+    return contacts?.filter(contact => contact.messages.length)
+  }, [contacts])
+
+  useEffect(() => {
+    let current = true
+
+    if (current) {
+      const tmpChats = getChatsFromContact()
+      setChats(tmpChats)
+    }
+    return () => {
+      current = false
+    }
+  }, [getChatsFromContact])
+
   const submitMessage = () => {
     if (currMessage.length) {
-      const tmp: UserContact[] = [...contact]
+      const tmp: UserContact[] = [...contacts]
+      const tmpChatIndex = contacts?.findIndex(
+        chat => chat.id === selectedChat
+      ) as number
 
-      tmp[3].messages.unshift({
+      const tmpChat = contacts?.find(
+        chat => chat.id === selectedChat
+      ) as UserContact
+
+      tmpChat.messages.unshift({
         time: Date.now(),
         content: currMessage,
         user_id,
       })
+
+      tmp.splice(tmpChatIndex, 1)
+      tmp.unshift(tmpChat)
       setCurrMessage("")
-      setContact(tmp)
+      setContacts(tmp)
+      setActiveTab(0)
     }
+  }
+
+  const renderContactList = () => {
+    switch (activeTab) {
+      case 0:
+        return (
+          <ChatList
+            showMessage={true}
+            list={chats}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+          />
+        )
+      case 1:
+        return (
+          <ChatList
+            showMessage={false}
+            list={contacts}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+          />
+        )
+      case 2:
+        return (
+          <ChatList
+            showMessage={false}
+            list={contacts}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+          />
+        )
+      default:
+        return (
+          <ChatList
+            showMessage={true}
+            list={chats}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+          />
+        )
+    }
+  }
+
+  const getChat = (): UserContact => {
+    return contacts?.find(chat => chat.id === selectedChat) as UserContact
+  }
+
+  const pinChat = () => {
+    const tmp = [...contacts]
+    const tmpChat = tmp?.find(chat => chat.id === selectedChat) as UserContact
+
+    tmpChat.favourite = !!!tmpChat.favourite
+    setContacts(tmp)
   }
 
   return (
     <ChatContainer cardBackground={cardBackground}>
       <Row className="inner-container" ref={refs}>
         <ContactContainer
-          xsCol="4"
+          lgCol="4"
+          smCol="12"
           background={background}
           cardBackground={cardBackground}
         >
@@ -439,90 +501,177 @@ const Chat: React.FC = () => {
               )}
             </FlexRow>
           </FlexColumn>
-          <ChatList showMessage={true} list={contact} />
+          {renderContactList()}
         </ContactContainer>
-        <MessagesContainer xsCol="8" cardBackground={cardBackground}>
-          <FlexRow align="space" className="header">
-            <FlexColumn style={{ width: "auto" }}>
-              <h5 style={{ fontWeight: 500 }}>Bruce banner</h5>
-            </FlexColumn>
-            <FlexRow style={{ width: "auto" }} gap="10px">
-              <Button
-                corners="rounded"
-                iconOnly
-                iconColor={textColor}
-                icon="mdiVideoOutline"
-                background={cardBackground}
-              />
-              <Button
-                corners="rounded"
-                iconOnly
-                iconColor={textColor}
-                icon="mdiPhone"
-                background={cardBackground}
-              />
-              <Button
-                corners="rounded"
-                iconOnly
-                transparent
-                icon="mdiStarOutline"
-                background={"warning"}
-              />
-            </FlexRow>
-          </FlexRow>
-          <FlexColumn gap="0px" className="chatbubble-container">
-            <FlexColumn gap="5px" className="chatbubble-inner-container">
-              {contact[3].messages.map((message, idx) => {
-                const align = message.user_id === user_id ? "right" : "left"
-                return (
-                  <FlexRow key={idx} align={align}>
-                    <ChatBubble background={theme.colors.primary}>
-                      {message.content}
-                    </ChatBubble>
-                  </FlexRow>
-                )
-              })}
-            </FlexColumn>
-          </FlexColumn>
-          <form
-            onSubmit={e => {
-              e.preventDefault()
-              submitMessage()
-            }}
-          >
-            <FlexRow align="stretch" className="input-container" gap="10px">
-              <Input
-                placeholder="Type a message"
-                defaultValue={currMessage}
-                onInputChange={(val: string) => {
-                  setCurrMessage(val)
-                }}
-              />
-              <FlexRow style={{ width: "auto" }} className="button-groups">
-                {currMessage.length ? (
-                  <Button
-                    background="primary"
-                    type="button"
-                    onClick={() => {
-                      submitMessage()
-                    }}
-                  >
-                    Submit
-                  </Button>
-                ) : (
-                  <Button
-                    iconOnly
-                    icon="mdiAttachment"
-                    iconColor={textColor}
-                    background={cardBackground}
-                    type="button"
-                  />
-                )}
+        <ConversationContainer
+          lgCol="8"
+          smCol="12"
+          cardBackground={cardBackground}
+        >
+          {selectedChat ? (
+            <>
+              <FlexRow align="space" className="header">
+                <FlexColumn style={{ width: "auto" }}>
+                  <h5 style={{ fontWeight: 500 }}>{getChat().name}</h5>
+                </FlexColumn>
+                <FlexRow style={{ width: "auto" }} gap="10px">
+                  <Tooltip text="Video Call" position="bottom" delay="0.5s">
+                    <Button
+                      corners="rounded"
+                      iconOnly
+                      iconColor={textColor}
+                      icon="mdiVideoOutline"
+                      background={cardBackground}
+                    />
+                  </Tooltip>
+
+                  <Tooltip text="Audio Call" position="bottom" delay="0.5s">
+                    <Button
+                      corners="rounded"
+                      iconOnly
+                      iconColor={textColor}
+                      icon="mdiPhone"
+                      background={cardBackground}
+                    />
+                  </Tooltip>
+
+                  <Tooltip text="Pin Chat" position="bottom" delay="0.5s">
+                    <Button
+                      corners="rounded"
+                      iconOnly
+                      transparent={!getChat().favourite}
+                      onClick={pinChat}
+                      icon="mdiPin"
+                      background={"warning"}
+                    />
+                  </Tooltip>
+                </FlexRow>
               </FlexRow>
-            </FlexRow>
-          </form>
-        </MessagesContainer>
+              <FlexColumn gap="0px" className="chatbubble-container">
+                <FlexColumn gap="3px" className="chatbubble-inner-container">
+                  {getChat().messages?.map((message, idx: number) => {
+                    const align = message.user_id === user_id ? "right" : "left"
+                    const showAvatar =
+                      getChat().messages[idx + 1]?.user_id === user_id &&
+                      align === "left"
+                    const spaceUp =
+                      getChat().messages[idx + 1]?.user_id !== message.user_id 
+                    return (
+                      <FlexRow
+                        key={idx}
+                        align={align}
+                        position="bottom"
+                        gap="10px"
+                        style={{ marginTop: spaceUp ? "30px" : "0px" }}
+                      >
+                        {showAvatar ? (
+                          <Avatar src={getChat().img} size="xs" />
+                        ) : (
+                          <div style={{ width: "30px" }}></div>
+                        )}
+                        <ChatBubble
+                          align={align}
+                          background={
+                            align === "left"
+                              ? theme.colors.primary
+                              : cardBackground
+                          }
+                        >
+                          {message.content}
+                        </ChatBubble>
+                      </FlexRow>
+                    )
+                  })}
+                </FlexColumn>
+              </FlexColumn>
+              <form
+                onSubmit={e => {
+                  e.preventDefault()
+                  submitMessage()
+                }}
+              >
+                <FlexRow align="stretch" className="input-container" gap="10px">
+                  <Input
+                    placeholder="Type a message"
+                    defaultValue={currMessage}
+                    onInputChange={(val: string) => {
+                      setCurrMessage(val)
+                    }}
+                  />
+                  <FlexRow style={{ width: "auto" }} className="button-groups">
+                    {currMessage.length ? (
+                      <Button
+                        background="primary"
+                        type="button"
+                        onClick={() => {
+                          submitMessage()
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    ) : (
+                      <Button
+                        iconOnly
+                        icon="mdiAttachment"
+                        iconColor={textColor}
+                        background={cardBackground}
+                        type="button"
+                      />
+                    )}
+                  </FlexRow>
+                </FlexRow>
+              </form>
+            </>
+          ) : (
+            <BlankConversation>
+              <FlexColumn align="center">
+                <span style={{ fontSize: "1.3em", fontWeight: 700 }}>
+                  Welcome, Tony
+                </span>
+                <Avatar src={img} size="110px" />
+                <Button
+                  gradient
+                  onClick={() => {
+                    setOpenModal(true)
+                  }}
+                >
+                  Start Conversation
+                </Button>
+                <p style={{ width: "80%", textAlign: "center" }}>
+                  Search for someone to chat with or go to Contacts.
+                </p>
+              </FlexColumn>
+            </BlankConversation>
+          )}
+        </ConversationContainer>
       </Row>
+      <Modal
+        className="mod"
+        title="New Chat"
+        onClose={() => {
+          setOpenModal(false)
+        }}
+        active={openModal}
+      >
+        <FlexRow align="stretch">
+          <Input
+            icon="mdiMagnify"
+            placeholder="Search"
+            onInputChange={() => {}}
+            size="md"
+          />
+        </FlexRow>
+        <FlexColumn gap="10px">
+          <p style={{ fontWeight: 500 }}>Contacts</p>
+          <ChatList
+            className="modal-contact-inner"
+            showMessage={false}
+            list={contacts}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+          />
+        </FlexColumn>
+      </Modal>
     </ChatContainer>
   )
 }

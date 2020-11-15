@@ -15,7 +15,7 @@ const TooltipElement: any = styled.span`
   padding: 5px 6px;
   border-radius: 3px;
   opacity: 0;
-  transition: 0.25s all ${(props: any) => props.delay};
+  transition: all 0.25s;
   font-size: 12px;
   font-family: inherit;
   visibility: hidden;
@@ -25,6 +25,7 @@ const TooltipElement: any = styled.span`
   &.active {
     opacity: 1;
     visibility: visible;
+    transition: 0.25s all ${(props: any) => props.delay};
   }
 
   &::after {
