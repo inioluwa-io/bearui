@@ -194,6 +194,7 @@ const TextArea: React.FC<InputProps> = ({
 
   // Reduce margin if parent is a form control element
   useEffect(() => {
+    setInputValue(defaultValue)
     if (!!validate.length) {
       const DOMNode = refs.current
       const parentNode = DOMNode.parentElement
@@ -201,7 +202,7 @@ const TextArea: React.FC<InputProps> = ({
         DOMNode.style.marginBottom = "-19px"
       }
     }
-  }, [])
+  }, [defaultValue])
 
   const inputHeightSize = (): string => {
     switch (size) {
