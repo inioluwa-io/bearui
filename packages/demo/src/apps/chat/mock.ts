@@ -1,39 +1,46 @@
 import img from "../../brooks-leibee-562087-unsplash.jpg"
+import img1 from "../../assets/img1.jpg"
+import img2 from "../../assets/img2.jpg"
+import img3 from "../../assets/img3.jpg"
+import img5 from "../../assets/img5.png"
+import img6 from "../../assets/img6.jpg"
+import img7 from "../../assets/img7.jpg"
+
 export const mockUserContact = [
   {
     id: "1",
-    name: "Bruce Banner",
-    img: img,
+    name: "Steve Rogers",
+    img: img3,
     messages: [],
   },
   {
     id: "2",
     name: "Thor",
-    img: img,
+    img: img2,
     messages: [{ time: Date.now(), content: "2d", user_id: 0 }],
   },
   {
     id: "3",
     name: "Black Widow",
-    img: img,
+    img: img7,
     messages: [],
   },
   {
     id: "4",
-    name: "Quick Silver",
-    img: img,
+    name: "Mantis",
+    img: img5,
     messages: [
       {
         time: Date.now(),
         content:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
+          "Reeserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
         user_id: 0,
       },
       { time: Date.now(), content: "gfg3", user_id: 0 },
       {
         time: Date.now(),
         content:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
+          "elit Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
         user_id: 1,
       },
       {
@@ -47,14 +54,14 @@ export const mockUserContact = [
       {
         time: Date.now(),
         content:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat.",
         user_id: 2,
       },
       { time: Date.now(), content: "gfg3", user_id: 0 },
       {
         time: Date.now(),
         content:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis ullam vel sapiente optio quas enim eum, deserunt natus placeat corporis libero voluptas praesentium consequuntur, quia facere adipisci modi ratione in.",
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium consequuntur, quia facere adipisci modi ratione in.",
         user_id: 1,
       },
       { time: Date.now(), content: "vjnkerjk", user_id: 0 },
@@ -64,14 +71,14 @@ export const mockUserContact = [
   },
   {
     id: "51",
-    name: "Dead Pool",
-    img: img,
+    name: "Thanos",
+    img: img6,
     messages: [],
   },
   {
     id: "6",
     name: "Nick Fury",
-    img: img,
+    img: img1,
     messages: [{ time: Date.now(), content: "2d", user_id: 1 }],
   },
   {
@@ -83,7 +90,7 @@ export const mockUserContact = [
   {
     id: "8",
     name: "Rocket",
-    img: img,
+    img: img7,
     messages: [],
   },
 ]
