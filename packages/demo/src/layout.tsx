@@ -20,7 +20,7 @@ import {
   RapUIThemeMode,
 } from "@rap/ui"
 import { useDataProvider, useNotification } from "@rap/core"
-import img from "./brooks-leibee-562087-unsplash.jpg"
+import img from "./assets/img4.jpg"
 import Icon from "@mdi/react"
 import {
   mdiAccountOutline,
