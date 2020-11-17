@@ -1,3 +1,13 @@
+/**
+ * Table of Content
+ *
+ * Styled Components
+ * TabButton Component - renders tab options("chat","calls","contacts","notifications")
+ * Chat typings
+ * ChatList Component - renders a list of chat contact
+ * Chat Component - Main app component
+ */
+
 import React, {
   useRef,
   useState,
@@ -6,7 +16,6 @@ import React, {
   HTMLAttributes,
 } from "react"
 import {
-  Card,
   Container,
   Grid,
   useTheme,
@@ -21,7 +30,7 @@ import {
   Tooltip,
 } from "@rap/ui"
 import styled from "styled-components"
-import img from "../../brooks-leibee-562087-unsplash.jpg"
+import img from "../../assets/img4.jpg"
 import { Icon } from "@mdi/react"
 import {
   mdiBell,
@@ -42,9 +51,22 @@ const ChatContainer: any = styled(Container)`
   overflow: hidden;
   position: relative;
 
+  @media (max-width: 441px) {
+    width: calc(100% - 2px);
+  }
+
   .inner-container {
-    height: 80vh;
+    height: calc(100vh - (32px + ${(props: any) => props.panelTop}));
     flex-wrap: nowrap;
+
+    @media (max-width: 768px) {
+      height: calc(100vh - (12px + ${(props: any) => props.panelTop}));
+    }
+
+    @media (max-width: 441px) {
+      border: none;
+      height: calc(100vh - (2px + ${(props: any) => props.panelTop}));
+    }
   }
 
   .panel-header {
@@ -77,7 +99,7 @@ const ChatListContainer: any = styled(FlexColumn)`
   }
 
   .chat-item {
-    padding: 8px 15px;
+    padding: 9px 15px;
     width: calc(100% - 30px);
     transition: background 0.25s ease;
     cursor: pointer;
@@ -125,6 +147,11 @@ const Row: any = styled.div`
 `
 
 const ContactContainer: any = styled(Grid)`
+  @media (max-width: 768px) {
+    display: ${(props: any) => (!isNaN(props.selectedChat) ? "none" : "flex")};
+    position: absolute;
+  }
+
   .profile-det {
     padding: 0px;
     margin: 0;
@@ -144,6 +171,17 @@ const ConversationContainer: any = styled(Grid)`
   height: 100%;
   flex-direction: column;
   flex-wrap: nowrap;
+
+  @media (max-width: 768px) {
+    display: ${(props: any) => (!isNaN(props.selectedChat) ? "flex" : "none")};
+    position: absolute;
+  }
+
+  #back-btn {
+    @media (min-width: 768px) {
+      visibility: hidden;
+    }
+  }
 
   .header {
     padding: 15px 20px;
@@ -179,7 +217,7 @@ const ChatBubble: any = styled.div`
   padding: 12px;
   width: fit-content;
   max-width: calc(60% - 24px);
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 14px;
   background: ${(props: any) => props.background};
   color: #ffffff;
@@ -265,6 +303,7 @@ type ChatListComponent = {
   showMessage?: boolean
   setSelectedChat?: any
   selectedChat?: string | number | undefined
+  clickCallback?: () => void
 } & HTMLAttributes<HTMLDivElement>
 
 const ChatList: React.FC<ChatListComponent> = ({
@@ -272,6 +311,7 @@ const ChatList: React.FC<ChatListComponent> = ({
   showMessage = true,
   setSelectedChat,
   selectedChat,
+  clickCallback,
   ...props
 }) => {
   const getDay = (timeStamp: number) => {
@@ -293,6 +333,7 @@ const ChatList: React.FC<ChatListComponent> = ({
               key={idx}
               onClick={() => {
                 setSelectedChat(contact.id)
+                clickCallback && clickCallback()
               }}
               style={{ flexWrap: "nowrap" }}
             >
@@ -341,6 +382,10 @@ const Chat: React.FC = () => {
   const textColor = theme[themeMode].textColor
   const background = theme[themeMode].background
 
+  const [navClass, setNavClass] = useState<string>()
+  const [chatSearchInput, setChatSearchInput] = useState<string>("")
+  const [contactSearchInput, setContactSearchInput] = useState<string>("")
+
   const refs = useRef<HTMLDivElement>()
   useEffect(() => {
     const DOMNode = refs.current
@@ -355,9 +400,20 @@ const Chat: React.FC = () => {
   }, [refs])
 
   const getChatsFromContact = useCallback((): UserContact[] => {
-    return contacts?.filter(contact => contact.messages.length)
-  }, [contacts])
+    return contacts?.filter(
+      contact =>
+        contact.messages.length &&
+        contact.name.toLowerCase().includes(chatSearchInput.toLowerCase())
+    )
+  }, [contacts, chatSearchInput])
 
+  const getSearchedContact = useCallback((): UserContact[] => {
+    return contacts?.filter(contact =>
+      contact.name.toLowerCase().includes(contactSearchInput.toLowerCase())
+    )
+  }, [contactSearchInput])
+
+  // set chat on render
   useEffect(() => {
     let current = true
 
@@ -370,6 +426,7 @@ const Chat: React.FC = () => {
     }
   }, [getChatsFromContact])
 
+  // send message
   const submitMessage = () => {
     if (currMessage.length) {
       const tmp: UserContact[] = [...contacts]
@@ -448,14 +505,40 @@ const Chat: React.FC = () => {
     setContacts(tmp)
   }
 
+  useEffect(() => {
+    const navClassName: string | undefined = Array.from(
+      document.body.classList
+    ).find((className: string) => className.startsWith("nav-"))
+
+    if (navClassName) {
+      setNavClass(navClassName)
+    }
+  }, [])
+
+  const getPanelTop = (): string => {
+    switch (navClass) {
+      case "nav-floating":
+        return `95px`
+      case "nav-sticky":
+        return ` 65px`
+      case "nav-static":
+        return ` 10px`
+      default:
+        return ` 95px`
+    }
+  }
+  console.log(selectedChat)
+
   return (
-    <ChatContainer cardBackground={cardBackground}>
+    <ChatContainer cardBackground={cardBackground} panelTop={getPanelTop()}>
       <Row className="inner-container" ref={refs}>
         <ContactContainer
           lgCol="4"
           smCol="12"
+          id="chat-contact-panel"
           background={background}
           cardBackground={cardBackground}
+          selectedChat={selectedChat}
         >
           <FlexColumn gap="20px" className="panel-header">
             <FlexRow align="space" gap="10px">
@@ -474,12 +557,16 @@ const Chat: React.FC = () => {
 
             <FlexRow align="stretch">
               <Input
+                id="search-chat"
                 color="primary"
                 placeholder="People, groups &amp; messages"
                 icon="mdiMagnify"
                 size="xs"
                 clearButton
-                onInputChange={() => {}}
+                onInputChange={(val: string) => {
+                  activeTab !== 0 && setActiveTab(0)
+                  setChatSearchInput(val)
+                }}
               />
             </FlexRow>
             <FlexRow align="stretch" gap="0px" className="action-tab">
@@ -505,15 +592,27 @@ const Chat: React.FC = () => {
         </ContactContainer>
         <ConversationContainer
           lgCol="8"
+          id="conversation-panel"
           smCol="12"
           cardBackground={cardBackground}
+          selectedChat={selectedChat}
         >
           {selectedChat ? (
             <>
               <FlexRow align="space" className="header">
-                <FlexColumn style={{ width: "auto" }}>
+                <FlexRow style={{ width: "auto" }} gap="0px">
+                  <Button
+                    icon="mdiChevronLeft"
+                    iconOnly
+                    id="back-btn"
+                    background="transparent"
+                    onClick={() => {
+                      setSelectedChat(undefined)
+                    }}
+                  />
+
                   <h5 style={{ fontWeight: 500 }}>{getChat().name}</h5>
-                </FlexColumn>
+                </FlexRow>
                 <FlexRow style={{ width: "auto" }} gap="10px">
                   <Tooltip text="Video Call" position="bottom" delay="0.5s">
                     <Button
@@ -548,26 +647,28 @@ const Chat: React.FC = () => {
                 </FlexRow>
               </FlexRow>
               <FlexColumn gap="0px" className="chatbubble-container">
-                <FlexColumn gap="3px" className="chatbubble-inner-container">
+                <FlexColumn gap="5px" className="chatbubble-inner-container">
                   {getChat().messages?.map((message, idx: number) => {
                     const align = message.user_id === user_id ? "right" : "left"
                     const showAvatar =
-                      getChat().messages[idx + 1]?.user_id === user_id &&
-                      align === "left"
+                      (getChat().messages[idx + 1]?.user_id === user_id &&
+                        align === "left") ||
+                      (getChat().messages.length - 1 === idx &&
+                        align === "left")
                     const spaceUp =
-                      getChat().messages[idx + 1]?.user_id !== message.user_id 
+                      getChat().messages[idx + 1]?.user_id !== message.user_id
                     return (
                       <FlexRow
                         key={idx}
                         align={align}
-                        position="bottom"
+                        position="top"
                         gap="10px"
                         style={{ marginTop: spaceUp ? "30px" : "0px" }}
                       >
                         {showAvatar ? (
-                          <Avatar src={getChat().img} size="xs" />
+                          <Avatar src={getChat().img} size="sm" />
                         ) : (
-                          <div style={{ width: "30px" }}></div>
+                          <div style={{ width: "38px" }}></div>
                         )}
                         <ChatBubble
                           align={align}
@@ -655,9 +756,12 @@ const Chat: React.FC = () => {
       >
         <FlexRow align="stretch">
           <Input
+            id="search-contact"
             icon="mdiMagnify"
             placeholder="Search"
-            onInputChange={() => {}}
+            onInputChange={(val: string) => {
+              setContactSearchInput(val)
+            }}
             size="md"
           />
         </FlexRow>
@@ -666,9 +770,12 @@ const Chat: React.FC = () => {
           <ChatList
             className="modal-contact-inner"
             showMessage={false}
-            list={contacts}
+            list={getSearchedContact()}
             setSelectedChat={setSelectedChat}
             selectedChat={selectedChat}
+            clickCallback={() => {
+              setOpenModal(false)
+            }}
           />
         </FlexColumn>
       </Modal>
