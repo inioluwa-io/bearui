@@ -179,7 +179,7 @@ const ConversationContainer: any = styled(Grid)`
 
   #back-btn {
     @media (min-width: 768px) {
-      visibility: hidden;
+      display: none;
     }
   }
 
