@@ -294,6 +294,7 @@ type UserContact = {
   id: string
   img: string
   name: string
+  status?: 0 | 1 | 2
   favourite?: boolean
   messages: ChatMessage[]
 }
@@ -324,6 +325,26 @@ const ChatList: React.FC<ChatListComponent> = ({
       <FlexColumn gap="0px" className="container">
         {list?.map((contact, idx: number) => {
           const lastMessage = contact.messages[0]
+          let statusColor: string = "success"
+
+          switch (contact.status) {
+            case 2: {
+              statusColor = "success"
+              break
+            }
+            case 1: {
+              statusColor = "warning"
+              break
+            }
+            case 0: {
+              statusColor = "danger"
+              break
+            }
+            default: {
+              statusColor = "success"
+              break
+            }
+          }
           return (
             <FlexRow
               align="space"
@@ -338,7 +359,12 @@ const ChatList: React.FC<ChatListComponent> = ({
               style={{ flexWrap: "nowrap" }}
             >
               <FlexRow align="left" gap="10px" style={{ flexWrap: "nowrap" }}>
-                <Avatar badgeColor="warning" withStatus src={contact.img} />
+                <Avatar
+                  badgeColor="warning"
+                  withStatus
+                  statusColor={statusColor}
+                  src={contact.img}
+                />
                 <FlexColumn
                   style={{ width: "auto", flexWrap: "nowrap" }}
                   gap="3px"
