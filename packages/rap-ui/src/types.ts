@@ -266,14 +266,17 @@ export type DatatableColumns = {
 
 export type DatatableRule = {
   selector: string
-  onRender: (data: any) => string | ComponentType<any> | Element | JSX.Element
+  onRender: (
+    data: any,
+    idx?: number
+  ) => string | ComponentType<any> | Element | JSX.Element
 }
 
 export type DatatableComponent = {
   title?: string | HTMLAllCollection
   document: any[]
   striped?: boolean
-  showControls?:boolean;
+  showControls?: boolean
   columns: DatatableColumns[]
   check?: boolean
   renderRule?: DatatableRule[]
@@ -457,8 +460,6 @@ export type LayoutComponent = {
   sideBar?: ReactElement
 } & HTMLAttributes<HTMLDivElement>
 // end
-
-
 
 export type AuthProvider = {
   login?: (params: any) => Promise<any>

@@ -541,19 +541,18 @@ const Chat: React.FC = () => {
     }
   }, [])
 
-  const getPanelTop = (): string => {
+  const getPanelTop = useCallback((): string => {
     switch (navClass) {
       case "nav-floating":
         return `95px`
       case "nav-sticky":
         return ` 65px`
       case "nav-static":
-        return ` 10px`
+        return ` 0px`
       default:
         return ` 95px`
     }
-  }
-  console.log(selectedChat)
+  }, [navClass])
 
   return (
     <ChatContainer cardBackground={cardBackground} panelTop={getPanelTop()}>

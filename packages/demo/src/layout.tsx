@@ -38,6 +38,7 @@ import {
   mdiWaterOutline,
   mdiClose,
   mdiChatOutline,
+  mdiCartOutline,
 } from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
@@ -302,6 +303,55 @@ const LayoutComponent: React.FC<any> = ({
               Todos
             </FlexRow>
           </NavLink>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiCartOutline} color={color} size={0.75} />
+                    e-Commerce
+                  </FlexRow>
+                ),
+                active: /\/apps\/ecommerce/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink to="/apps/ecommerce/product-list" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Product List
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/apps/ecommerce/add-product" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Add Product
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/apps/ecommerce/edit-product" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        Edit Product
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          />
           <h6>UI</h6>
           <Collapse
             className="group-link"

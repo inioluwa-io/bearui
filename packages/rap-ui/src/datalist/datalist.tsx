@@ -306,6 +306,7 @@ const DataList: React.FC<DataListComponent> = ({
   ): Map<number | string, boolean> => {
     let prevState: Map<number | string, boolean> = new Map(selected)
     prevState.set(idx, value)
+    
     // deselect all if check is false
     if (!!!prevState.get(idx)) {
       setSelectAll(false)
@@ -360,12 +361,12 @@ const DataList: React.FC<DataListComponent> = ({
     return renderRule.find(item => item.selector === selector)
   }
 
-  const renderColumnData = (selector: string, data: any) => {
+  const renderColumnData = (selector: string, data: any, idx?: number) => {
     if (!renderRule) return data[selector]
     const selectorRule: DatatableRule = getSelectorRenderRule(selector)
 
     if (selectorRule) {
-      return selectorRule.onRender(data)
+      return selectorRule.onRender(data, idx)
     } else {
       return data[selector]
     }
@@ -381,10 +382,11 @@ const DataList: React.FC<DataListComponent> = ({
       if (rowMapData) {
         // find match of id in sorted data and push to array
         selectedRows.push(
-          data.find((rowData: any) => +rowData[uniqueIdentifier] === +rowMapIdx)
+          data.find((rowData: any) => rowData[uniqueIdentifier] === rowMapIdx)
         )
       }
     }
+    
     setSelectedRowsData(selectedRows)
     return selectedRows
   }
@@ -429,7 +431,7 @@ const DataList: React.FC<DataListComponent> = ({
       if (arr.length === arr.length && arr.length > 0) {
         for (let i = 0; i < arr.length; i++) {
           const valueExists = mapToArr.find(
-            item => item[0] === arr[i][uniqueIdentifier]
+            item => item[0] === arr[i][uniqueIdentifier] && item[1] === true
           )
           if (valueExists === undefined || !valueExists) {
             return false
@@ -451,17 +453,20 @@ const DataList: React.FC<DataListComponent> = ({
     } else if (!selectAll && arrayLikeMap(tmp, selected)) {
       setSelectAll(true)
     }
+    
     getSelectorRowData(selected)
   }, [checkSearch, data])
 
   useEffect(() => {
     const sorted = sortDocumentASC(columns[defaultSortIndex].selector, document)
+    
     setData(sorted)
   }, [document])
 
   useEffect(() => {
     handleFilterData()
   }, [handleFilterData])
+
   return (
     <FlexColumn style={{ width: "100%" }} {...props}>
       <FlexColumn>
@@ -523,7 +528,7 @@ const DataList: React.FC<DataListComponent> = ({
         {/* When row selected show actions for all */}
         <FlexRow align="stretch">
           <div>{menu}</div>
-          {!!selectedRowsData.length && (
+          {!!selectedRowsData?.length && (
             <FlexRow style={{ width: "fit-content" }} align="right">
               {actionList &&
                 actionList.map((actionItem, idx: number) => (
@@ -532,6 +537,7 @@ const DataList: React.FC<DataListComponent> = ({
                     background={actionItem.color}
                     onClick={() => {
                       actionItem.onClick(selectedRowsData)
+                      setSelected(new Map)
                     }}
                   >
                     {actionItem.text}
@@ -651,7 +657,7 @@ const DataList: React.FC<DataListComponent> = ({
                           }
                         }}
                       >
-                        {renderColumnData(column.selector, dataItem)}
+                        {renderColumnData(column.selector, dataItem, idx)}
                       </td>
                     ))}
                     {!!actionList && (
@@ -661,18 +667,23 @@ const DataList: React.FC<DataListComponent> = ({
                           listener="click"
                           showIcon={false}
                           list={actionList.map((actionItem, idx: number) => (
-                            <Button
-                              size="sm"
+                            <button
+                              style={{
+                                outline: "none",
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
+                                textAlign: "left",
+                              }}
                               key={idx}
-                              background={actionItem.color}
                               onClick={() => {
-                                actionItem.onClick(dataItem)
-
+                                actionItem.onClick([dataItem])
+                                setSelected(new Map)
                                 // toggleCheck(dataItem[uniqueIdentifier])
                               }}
                             >
                               {actionItem.text}
-                            </Button>
+                            </button>
                           ))}
                         >
                           <Icon

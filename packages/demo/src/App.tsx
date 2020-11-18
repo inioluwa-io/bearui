@@ -33,7 +33,7 @@ import {
   RegisterPage,
   LoginPage,
 } from "./pages"
-import { Invoice, Todos, ViewInvoice, Chat } from "./apps"
+import { Invoice, Todos, ViewInvoice, Chat,Ecommerce } from "./apps"
 import FormsLayoutPage from "./forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
 import ColorsPage from "./colors"
@@ -91,6 +91,10 @@ const App: React.FC = () => {
                 exact
                 path="/apps/chat"
                 component={(props: any) => <Chat {...props} />}
+              />
+              <Route
+                path="/apps/ecommerce"
+                component={(props: any) => <Ecommerce {...props} />}
               />
               <Route
                 exact
