@@ -6,28 +6,32 @@ import img5 from "../../assets/img5.png"
 import img6 from "../../assets/img6.jpg"
 import img7 from "../../assets/img7.jpg"
 
-export const mockUserContact = [
+export const mockUserContact: any = [
   {
     id: "1",
     name: "Steve Rogers",
+    status: 1,
     img: img3,
     messages: [],
   },
   {
     id: "2",
     name: "Thor",
+    status: 2,
     img: img2,
     messages: [{ time: Date.now(), content: "2d", user_id: 0 }],
   },
   {
     id: "3",
     name: "Black Widow",
+    status: 0,
     img: img7,
     messages: [],
   },
   {
     id: "4",
     name: "Mantis",
+    status: 1,
     img: img5,
     messages: [
       {
@@ -72,24 +76,28 @@ export const mockUserContact = [
   {
     id: "51",
     name: "Thanos",
+    status: 1,
     img: img6,
     messages: [],
   },
   {
     id: "6",
     name: "Nick Fury",
+    status: 0,
     img: img1,
     messages: [{ time: Date.now(), content: "2d", user_id: 1 }],
   },
   {
     id: "7",
     name: "Star Lord",
+    status: 0,
     img: img,
     messages: [],
   },
   {
     id: "8",
     name: "Rocket",
+    status: 2,
     img: img7,
     messages: [],
   },

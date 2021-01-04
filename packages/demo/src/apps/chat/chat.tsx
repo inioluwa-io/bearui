@@ -220,10 +220,9 @@ const ChatBubble: any = styled.div`
   border-radius: 14px;
   font-size: 14px;
   background: ${(props: any) => props.background};
-  color: #ffffff;
   ${(props: any) =>
     props.align === "left"
-      ? "border-top-left-radius:0px"
+      ? "color: #ffffff;border-top-left-radius:0px"
       : "border-top-right-radius:0px"};
 `
 
@@ -294,6 +293,7 @@ type UserContact = {
   id: string
   img: string
   name: string
+  status?: 0 | 1 | 2
   favourite?: boolean
   messages: ChatMessage[]
 }
@@ -324,39 +324,73 @@ const ChatList: React.FC<ChatListComponent> = ({
       <FlexColumn gap="0px" className="container">
         {list?.map((contact, idx: number) => {
           const lastMessage = contact.messages[0]
+          let statusColor: string = "success"
+
+          switch (contact.status) {
+            case 2: {
+              statusColor = "success"
+              break
+            }
+            case 1: {
+              statusColor = "warning"
+              break
+            }
+            case 0: {
+              statusColor = "danger"
+              break
+            }
+            default: {
+              statusColor = "success"
+              break
+            }
+          }
           return (
-            <FlexRow
-              align="space"
+            <div
               className={
                 selectedChat === contact.id ? "active chat-item" : "chat-item"
               }
               key={idx}
-              onClick={() => {
-                setSelectedChat(contact.id)
-                clickCallback && clickCallback()
-              }}
-              style={{ flexWrap: "nowrap" }}
             >
-              <FlexRow align="left" gap="10px" style={{ flexWrap: "nowrap" }}>
-                <Avatar badgeColor="warning" withStatus src={contact.img} />
-                <FlexColumn
-                  style={{ width: "auto", flexWrap: "nowrap" }}
-                  gap="3px"
-                >
-                  <p style={{ fontWeight: 500 }}>
-                    {_.truncate(contact?.name, { length: 25 })}
-                  </p>
-                  {showMessage && lastMessage?.content && (
-                    <p style={{ fontSize: "13px" }}>
-                      {_.truncate(lastMessage?.content, { length: 25 })}
-                    </p>
-                  )}
-                </FlexColumn>
+              <FlexRow
+                align="space"
+                onClick={() => {
+                  setSelectedChat(contact.id)
+                  clickCallback && clickCallback()
+                }}
+                style={{ flexWrap: "nowrap" }}
+              >
+                <div>
+                  <FlexRow
+                    align="left"
+                    gap="10px"
+                    style={{ flexWrap: "nowrap" }}
+                  >
+                    <Avatar
+                      badgeColor="warning"
+                      withStatus
+                      statusColor={statusColor}
+                      src={contact.img}
+                    />
+                    <FlexColumn
+                      style={{ width: "auto", flexWrap: "nowrap" }}
+                      gap="3px"
+                    >
+                      <p style={{ fontWeight: 500 }}>
+                        {_.truncate(contact?.name, { length: 25 })}
+                      </p>
+                      {showMessage && lastMessage?.content && (
+                        <p style={{ fontSize: "13px" }}>
+                          {_.truncate(lastMessage?.content, { length: 25 })}
+                        </p>
+                      )}
+                    </FlexColumn>
+                  </FlexRow>
+                </div>
+                {showMessage && lastMessage && (
+                  <p style={{ fontSize: "12px" }}>{getDay(lastMessage.time)}</p>
+                )}
               </FlexRow>
-              {showMessage && lastMessage && (
-                <p style={{ fontSize: "12px" }}>{getDay(lastMessage.time)}</p>
-              )}
-            </FlexRow>
+            </div>
           )
         })}
       </FlexColumn>
@@ -411,7 +445,7 @@ const Chat: React.FC = () => {
     return contacts?.filter(contact =>
       contact.name.toLowerCase().includes(contactSearchInput.toLowerCase())
     )
-  }, [contactSearchInput])
+  }, [contactSearchInput, contacts])
 
   // set chat on render
   useEffect(() => {
@@ -515,19 +549,18 @@ const Chat: React.FC = () => {
     }
   }, [])
 
-  const getPanelTop = (): string => {
+  const getPanelTop = useCallback((): string => {
     switch (navClass) {
       case "nav-floating":
         return `95px`
       case "nav-sticky":
         return ` 65px`
       case "nav-static":
-        return ` 10px`
+        return ` 0px`
       default:
         return ` 95px`
     }
-  }
-  console.log(selectedChat)
+  }, [navClass])
 
   return (
     <ChatContainer cardBackground={cardBackground} panelTop={getPanelTop()}>
@@ -599,56 +632,63 @@ const Chat: React.FC = () => {
         >
           {selectedChat ? (
             <>
-              <FlexRow align="space" className="header">
-                <FlexRow style={{ width: "auto" }} gap="0px">
-                  <Button
-                    icon="mdiChevronLeft"
-                    iconOnly
-                    id="back-btn"
-                    background="transparent"
-                    onClick={() => {
-                      setSelectedChat(undefined)
-                    }}
-                  />
+              <div className="header">
+                <FlexRow align="space">
+                  <div>
+                    <FlexRow style={{ width: "auto" }} gap="0px">
+                      <Button
+                        icon="mdiChevronLeft"
+                        iconOnly
+                        id="back-btn"
+                        background="transparent"
+                        iconColor={theme[themeMode].textColor}
+                        onClick={() => {
+                          setSelectedChat(undefined)
+                        }}
+                      />
 
-                  <h5 style={{ fontWeight: 500 }}>{getChat().name}</h5>
+                      <h5 style={{ fontWeight: 500 }}>{getChat().name}</h5>
+                    </FlexRow>
+                  </div>
+                  <div>
+                    <FlexRow style={{ width: "auto" }} gap="10px">
+                      <Tooltip text="Video Call" position="bottom" delay="0.5s">
+                        <Button
+                          corners="rounded"
+                          iconOnly
+                          iconColor={textColor}
+                          icon="mdiVideoOutline"
+                          background={cardBackground}
+                        />
+                      </Tooltip>
+
+                      <Tooltip text="Audio Call" position="bottom" delay="0.5s">
+                        <Button
+                          corners="rounded"
+                          iconOnly
+                          iconColor={textColor}
+                          icon="mdiPhone"
+                          background={cardBackground}
+                        />
+                      </Tooltip>
+
+                      <Tooltip text="Pin Chat" position="bottom" delay="0.5s">
+                        <Button
+                          corners="rounded"
+                          iconOnly
+                          transparent={!getChat().favourite}
+                          onClick={pinChat}
+                          icon="mdiPin"
+                          background={"warning"}
+                        />
+                      </Tooltip>
+                    </FlexRow>
+                  </div>
                 </FlexRow>
-                <FlexRow style={{ width: "auto" }} gap="10px">
-                  <Tooltip text="Video Call" position="bottom" delay="0.5s">
-                    <Button
-                      corners="rounded"
-                      iconOnly
-                      iconColor={textColor}
-                      icon="mdiVideoOutline"
-                      background={cardBackground}
-                    />
-                  </Tooltip>
-
-                  <Tooltip text="Audio Call" position="bottom" delay="0.5s">
-                    <Button
-                      corners="rounded"
-                      iconOnly
-                      iconColor={textColor}
-                      icon="mdiPhone"
-                      background={cardBackground}
-                    />
-                  </Tooltip>
-
-                  <Tooltip text="Pin Chat" position="bottom" delay="0.5s">
-                    <Button
-                      corners="rounded"
-                      iconOnly
-                      transparent={!getChat().favourite}
-                      onClick={pinChat}
-                      icon="mdiPin"
-                      background={"warning"}
-                    />
-                  </Tooltip>
-                </FlexRow>
-              </FlexRow>
+              </div>
               <FlexColumn gap="0px" className="chatbubble-container">
                 <FlexColumn gap="5px" className="chatbubble-inner-container">
-                  {getChat().messages?.map((message, idx: number) => {
+                  {getChat().messages?.map((message: any, idx: number) => {
                     const align = message.user_id === user_id ? "right" : "left"
                     const showAvatar =
                       (getChat().messages[idx + 1]?.user_id === user_id &&
@@ -658,29 +698,30 @@ const Chat: React.FC = () => {
                     const spaceUp =
                       getChat().messages[idx + 1]?.user_id !== message.user_id
                     return (
-                      <FlexRow
-                        key={idx}
-                        align={align}
-                        position="top"
-                        gap="10px"
-                        style={{ marginTop: spaceUp ? "30px" : "0px" }}
-                      >
-                        {showAvatar ? (
-                          <Avatar src={getChat().img} size="sm" />
-                        ) : (
-                          <div style={{ width: "38px" }}></div>
-                        )}
-                        <ChatBubble
+                      <div key={idx}>
+                        <FlexRow
                           align={align}
-                          background={
-                            align === "left"
-                              ? theme.colors.primary
-                              : cardBackground
-                          }
+                          position="top"
+                          gap="10px"
+                          style={{ marginTop: spaceUp ? "30px" : "0px" }}
                         >
-                          {message.content}
-                        </ChatBubble>
-                      </FlexRow>
+                          {showAvatar ? (
+                            <Avatar src={getChat().img} size="sm" />
+                          ) : (
+                            <div style={{ width: "38px" }}></div>
+                          )}
+                          <ChatBubble
+                            align={align}
+                            background={
+                              align === "left"
+                                ? theme.colors.primary
+                                : cardBackground
+                            }
+                          >
+                            {message.content}
+                          </ChatBubble>
+                        </FlexRow>
+                      </div>
                     )
                   })}
                 </FlexColumn>
@@ -699,27 +740,29 @@ const Chat: React.FC = () => {
                       setCurrMessage(val)
                     }}
                   />
-                  <FlexRow style={{ width: "auto" }} className="button-groups">
-                    {currMessage.length ? (
-                      <Button
-                        background="primary"
-                        type="button"
-                        onClick={() => {
-                          submitMessage()
-                        }}
-                      >
-                        Submit
-                      </Button>
-                    ) : (
-                      <Button
-                        iconOnly
-                        icon="mdiAttachment"
-                        iconColor={textColor}
-                        background={cardBackground}
-                        type="button"
-                      />
-                    )}
-                  </FlexRow>
+                  <div className="button-groups">
+                    <FlexRow style={{ width: "auto" }}>
+                      {currMessage.length ? (
+                        <Button
+                          background="primary"
+                          type="button"
+                          onClick={() => {
+                            submitMessage()
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      ) : (
+                        <Button
+                          iconOnly
+                          icon="mdiAttachment"
+                          iconColor={textColor}
+                          background={cardBackground}
+                          type="button"
+                        />
+                      )}
+                    </FlexRow>
+                  </div>
                 </FlexRow>
               </form>
             </>

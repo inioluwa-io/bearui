@@ -14,6 +14,7 @@ import { useTheme } from "../theme"
 
 const Button1: any = styled(Link)`
 font-family: inherit;
+width:fit-content;
   position:relative;
   background: ${(props: any) => {
     if (props.transparent === "true") {
@@ -197,7 +198,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg" ? { borderRadius: "11px" } : { borderRadius: "5px" }
+        return size === "lg"
+          ? { borderRadius: "11px" }
+          : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -208,7 +211,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "xs":
         return { padding: "6px 12px", iconPadding: "4px" }
       case "sm":
-        return { padding: "11.5px 24px", iconPadding: "9px" }
+        return { padding: "11.5px 24px", iconPadding: "9.8px" }
       case "md":
         return { padding: "14.5px 28px", iconPadding: "12px" }
       case "lg":
@@ -262,8 +265,8 @@ const LinkButton: React.FC<LinkButtonProps> = ({
     throw new Error("value must be an object")
   }
   const getIconStyle: Function = (): any => {
-    if (iconOnly) return { margin: "0", padding: "1px" }
-    return iconRight ? { marginLeft: "5px" } : { marginRight: "5px" }
+    if (iconOnly === "true") return { margin: "0", padding: "1px" }
+    return iconRight === "true" ? { marginLeft: "5px" } : { marginRight: "5px" }
   }
 
   updateProps(getStyleFromCornersProps())
@@ -295,8 +298,14 @@ const LinkButton: React.FC<LinkButtonProps> = ({
         <Icon
           className="rap-ico"
           path={path[icon]}
-          size={0.75}
-          color={iconColor}
+          size={size === "lg" ? 1 : 0.725}
+          color={
+            transparent === "true"
+              ? getStyleFromBackgroundProps().background
+              : props.outline === "true"
+              ? getStyleFromBackgroundProps().background
+              : iconColor
+          }
           style={getIconStyle()}
         />
       )}

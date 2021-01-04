@@ -38,6 +38,8 @@ import {
   mdiWaterOutline,
   mdiClose,
   mdiChatOutline,
+  mdiCartOutline,
+  mdiAlertDecagramOutline,
 } from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
@@ -185,10 +187,10 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                 <FlexColumn gap="10px" className="row">
                   <h5>Theme Mode</h5>
                   <RadioGroup
-                    defaultChecked={themeMode}
-                    onChecked={(value: RapUIThemeMode) => {
+                    onChecked={(value: any) => {
                       setThemeMode(value)
                     }}
+                    defaultSelected={themeMode}
                   >
                     <Radio value="lightmode" id="light-mode-selector">
                       <p>Lightmode</p>
@@ -202,9 +204,9 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                 <FlexColumn gap="10px" className="row">
                   <h5>Navbar Position</h5>
                   <RadioGroup
-                    defaultChecked={navPosition}
-                    onChecked={(value: NavbarPosition) => {
-                      setNavPosition(value)
+                    defaultSelected={navPosition}
+                    onChecked={(value: any) => {
+                      setNavPosition && setNavPosition(value)
                     }}
                   >
                     <Radio value="sticky" id="sticky-nav">
@@ -287,21 +289,83 @@ const LayoutComponent: React.FC<any> = ({
           <NavLink to="/apps/invoice" activeClassName="active">
             <FlexRow gap="13px">
               <Icon path={mdiClipboardTextOutline} color={color} size={0.75} />
-              Invoice
+
+              <p>Invoice</p>
             </FlexRow>
           </NavLink>
           <NavLink to="/apps/chat" activeClassName="active">
             <FlexRow gap="13px">
               <Icon path={mdiChatOutline} color={color} size={0.7} />
-              Chat
+
+              <p>Chat</p>
             </FlexRow>
           </NavLink>
           <NavLink to="/apps/todos" activeClassName="active">
             <FlexRow gap="13px">
               <Icon path={mdiCheckCircleOutline} color={color} size={0.7} />
-              Todos
+
+              <p>Todos</p>
             </FlexRow>
           </NavLink>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiCartOutline} color={color} size={0.75} />
+
+                    <p>e-Commerce</p>
+                  </FlexRow>
+                ),
+                active: /\/apps\/ecommerce/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink
+                      to="/apps/ecommerce/product-list"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Product List</p>
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/apps/ecommerce/add-product"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Add Product</p>
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/apps/ecommerce/edit-product"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Edit Product</p>
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          />
           <h6>UI</h6>
           <Collapse
             className="group-link"
@@ -311,7 +375,8 @@ const LayoutComponent: React.FC<any> = ({
                 label: (
                   <FlexRow gap="13px">
                     <Icon path={mdiGridLarge} color={color} size={0.75} />
-                    Layouts
+
+                    <p>Layouts</p>
                   </FlexRow>
                 ),
                 active: /\/layouts/g.test(path),
@@ -324,7 +389,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Grid
+                        <p>Grid</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/layouts/flexrow" activeClassName="active">
@@ -334,7 +399,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Flex Row
+                        <p>Flex Row</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/layouts/flexcolumn" activeClassName="active">
@@ -344,7 +409,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Flex Column
+                        <p>Flex Column</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -360,7 +425,8 @@ const LayoutComponent: React.FC<any> = ({
                 label: (
                   <FlexRow gap="13px">
                     <Icon path={mdiCardTextOutline} color={color} size={0.75} />
-                    Card
+
+                    <p>Card</p>
                   </FlexRow>
                 ),
                 content: (
@@ -372,7 +438,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Basic
+
+                        <p>Basic</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/card/statistics" activeClassName="active">
@@ -382,7 +449,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Statistics
+
+                        <p>Statistics</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -393,7 +461,8 @@ const LayoutComponent: React.FC<any> = ({
           <NavLink to="/colors" activeClassName="active">
             <FlexRow gap="9px">
               <Icon path={mdiWaterOutline} color={color} size={0.875} />
-              Colors
+
+              <p>Colors</p>
             </FlexRow>
           </NavLink>
           <Collapse
@@ -408,7 +477,8 @@ const LayoutComponent: React.FC<any> = ({
                       color={color}
                       size={0.75}
                     />
-                    Components
+
+                    <p>Components</p>
                   </FlexRow>
                 ),
                 active: /\/components/g.test(path),
@@ -421,7 +491,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Avatar
+
+                        <p>Avatar</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/button" activeClassName="active">
@@ -431,7 +502,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Button
+
+                        <p>Button</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/chip" activeClassName="active">
@@ -441,7 +513,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Chip
+
+                        <p>Chip</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/collapse" activeClassName="active">
@@ -451,7 +524,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Collapse
+
+                        <p>Collapse</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/datalist" activeClassName="active">
@@ -461,7 +535,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Data List
+                        <p>Data List</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/dropdown" activeClassName="active">
@@ -471,7 +545,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Dropdown
+
+                        <p>Dropdown</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/list" activeClassName="active">
@@ -481,7 +556,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        List
+
+                        <p>List</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/loader" activeClassName="active">
@@ -491,7 +567,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Loader
+
+                        <p>Loader</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/modal" activeClassName="active">
@@ -501,7 +578,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Modal
+
+                        <p>Modal</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/navbar" activeClassName="active">
@@ -511,7 +589,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Navbar
+                        <p>Navbar</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink
@@ -524,7 +602,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Pagination
+
+                        <p>Pagination</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/progress" activeClassName="active">
@@ -534,7 +613,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Progress
+
+                        <p>Progress</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/tab" activeClassName="active">
@@ -544,7 +624,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Tabs
+
+                        <p>Tabs</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/components/tooltip" activeClassName="active">
@@ -554,7 +635,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Tooltip
+
+                        <p>Tooltip</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -570,7 +652,8 @@ const LayoutComponent: React.FC<any> = ({
                 label: (
                   <FlexRow gap="13px">
                     <Icon path={mdiCubeOutline} color={color} size={0.75} />
-                    Form Elements
+
+                    <p>Form Elements</p>
                   </FlexRow>
                 ),
                 active: /\/formelements/g.test(path),
@@ -586,7 +669,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Checkbox
+
+                        <p>Checkbox</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/formelement/input" activeClassName="active">
@@ -596,7 +680,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Input
+
+                        <p>Input</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/formelement/select" activeClassName="active">
@@ -606,7 +691,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Select
+
+                        <p>Select</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/formelement/switch" activeClassName="active">
@@ -616,7 +702,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Switch
+
+                        <p>Switch</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink
@@ -629,7 +716,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Textarea
+
+                        <p>Textarea</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -640,7 +728,8 @@ const LayoutComponent: React.FC<any> = ({
           <NavLink to="/form-layouts" activeClassName="active">
             <FlexRow gap="10px">
               <Icon path={mdiLayersOutline} color={color} size={0.85} />
-              Form Layouts
+
+              <p>Form Layouts</p>
             </FlexRow>
           </NavLink>
 
@@ -653,7 +742,8 @@ const LayoutComponent: React.FC<any> = ({
                 label: (
                   <FlexRow gap="13px">
                     <Icon path={mdiAccountOutline} color={color} size={0.75} />
-                    User
+
+                    <p>User</p>
                   </FlexRow>
                 ),
                 active: /\/user/g.test(path),
@@ -666,7 +756,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Profile
+
+                        <p>Profile</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/user/view" activeClassName="active">
@@ -676,7 +767,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        View
+
+                        <p>View</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink to="/user/edit" activeClassName="active">
@@ -686,7 +778,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Edit
+
+                        <p>Edit</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -702,7 +795,8 @@ const LayoutComponent: React.FC<any> = ({
                 label: (
                   <FlexRow gap="13px">
                     <Icon path={mdiKey} color={color} size={0.75} />
-                    Authentication
+
+                    <p>Authentication</p>
                   </FlexRow>
                 ),
                 active: /\/authentication/g.test(path),
@@ -720,7 +814,8 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Login
+
+                        <p>Login</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink
@@ -735,7 +830,7 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Social Login
+                        <p>Social Login</p>
                       </FlexRow>
                     </NavLink>
                     <NavLink
@@ -750,7 +845,76 @@ const LayoutComponent: React.FC<any> = ({
                           color={color}
                           size={0.45}
                         />
-                        Register
+
+                        <p>Register</p>
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          ></Collapse>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon
+                      path={mdiAlertDecagramOutline}
+                      color={color}
+                      size={0.75}
+                    />
+                    <p>Error</p>
+                  </FlexRow>
+                ),
+                active: /\/authentication/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink
+                      to="/pages/notfound"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>404</p>
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/pages/comingsoon"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>500</p>
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink
+                      to="/pages/register"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      activeClassName="active"
+                    >
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Register</p>
                       </FlexRow>
                     </NavLink>
                   </FlexColumn>
@@ -768,7 +932,7 @@ const LayoutComponent: React.FC<any> = ({
           >
             <FlexRow gap="12px">
               <Icon path={mdiTools} color={color} size={0.7} />
-              Documentation
+              <p>Documentation</p>
             </FlexRow>
           </NavLink>
         </Sidebar>

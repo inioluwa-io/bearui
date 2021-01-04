@@ -177,17 +177,19 @@ const Sidebar: React.FC<any> = ({ children, ...props }) => {
           className="header"
         >
           <h3 style={{ color: theme.colors.primary }}>BearUI</h3>
-          <FlexRow align="right">
-            <button
-              onClick={() => {
-                document
-                  .querySelector("#rap-sidebar")
-                  ?.classList?.toggle("sidebar-collapse")
-              }}
-            >
-              <Icon path={mdiClose} size={1} color={theme.colors.primary} />
-            </button>
-          </FlexRow>
+          <div>
+            <FlexRow align="right">
+              <button
+                onClick={() => {
+                  document
+                    .querySelector("#rap-sidebar")
+                    ?.classList?.toggle("sidebar-collapse")
+                }}
+              >
+                <Icon path={mdiClose} size={1} color={theme.colors.primary} />
+              </button>
+            </FlexRow>
+          </div>
         </FlexRow>
         <div className="scrollbar">
           <FlexColumn id="side-bar" gap="5px" align="left">

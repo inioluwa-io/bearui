@@ -14,10 +14,12 @@ import styled from "styled-components"
 
 const GridPageContainer: any = styled(Container)`
   .indent {
-    text-indent: 30px;
+    text-indent: 10px;
+    margin-left: 20px;
     line-height: 30px;
   }
   .col {
+    width: 100%;
     background: rgba(0, 0, 0, 0.1);
     padding: 10px;
   }
@@ -90,157 +92,213 @@ const GridPage: React.FC = () => {
         <FlexColumn gap="0px">
           <Row>
             <Grid lgCol="12">
-              <FlexRow className="col" align="center">
-                <p>12</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>12</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
           <Row>
             <Grid lgCol="6">
-              <FlexRow className="col" align="center">
-                <p>6</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>6</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="6">
-              <FlexRow className="col" align="center">
-                <p>6</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>6</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
           <Row>
             <Grid lgCol="4">
-              <FlexRow className="col" align="center">
-                <p>4</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>4</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="4">
-              <FlexRow className="col" align="center">
-                <p>4</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>4</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="4">
-              <FlexRow className="col" align="center">
-                <p>4</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>4</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
 
           <Row>
             <Grid lgCol="3">
-              <FlexRow className="col" align="center">
-                <p>3</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>3</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="3">
-              <FlexRow className="col" align="center">
-                <p>3</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>3</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="3">
-              <FlexRow className="col" align="center">
-                <p>3</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>3</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="3">
-              <FlexRow className="col" align="center">
-                <p>3</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>3</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
 
           <Row>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="2">
-              <FlexRow className="col" align="center">
-                <p>2</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>2</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
 
           <Row>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
             <Grid lgCol="1">
-              <FlexRow className="col" align="center">
-                <p>1</p>
-              </FlexRow>
+              <div className="col">
+                <FlexRow align="center">
+                  <p>1</p>
+                </FlexRow>
+              </div>
             </Grid>
           </Row>
         </FlexColumn>

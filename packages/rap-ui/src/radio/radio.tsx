@@ -103,7 +103,7 @@ const Radio: React.FC<RadioComponent> = ({
 
   const theme = useTheme()
   const [themeMode] = useThemeMode()
-  let textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+  const textColor: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
   const themeColor: string = getColorFromTheme(color, theme)
   useEffect(() => {

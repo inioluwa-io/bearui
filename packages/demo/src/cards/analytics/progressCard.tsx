@@ -4,14 +4,12 @@ import {
   Card,
   FlexColumn,
   FlexRow,
-  getColorFromTheme,
   Progress,
   useTheme,
   useThemeMode,
 } from "@rap/ui"
 import styled from "styled-components"
 import { rgba } from "polished"
-import Chart from "react-apexcharts"
 import Icon from "@mdi/react"
 import { mdiArrowDown, mdiArrowUp } from "@mdi/js"
 

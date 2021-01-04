@@ -38,7 +38,7 @@ const SelectPage: React.FC = () => {
         <FlexRow>
           <Select
             size="sm"
-            id="inbt"
+            id="ianbt"
             placeholder="Choose an option"
             options={["Option 1", "Option 2", "Option 3"]}
           />
