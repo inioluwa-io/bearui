@@ -11,7 +11,7 @@ const InputElement: any = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-top: 0px;
+  // margin-top: 0px;
   height: fit-content;
   width: 230px;
   label {
@@ -111,10 +111,11 @@ const SuggestionContainer: any = styled.div`
   border-radius: 5px;
   width: calc(100% - 2px);
   top: 100%;
+  max-height: 150px;
   position: absolute;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  overflow: hidden;
+  overflow: auto;
   z-index: 99;
   background: ${(props: any) => props.background};
   border: 1px solid ${(props: any) => props.color};
@@ -331,30 +332,32 @@ const Select: React.FC<SelectComponent> = ({
           background={theme[themeMode].background}
           className="sugst"
         >
-          <button
-            onClick={() => {
-              setSelectedValue("")
-              setShowSuggestions(false)
-            }}
-          >
-            <span>...</span>
-          </button>
-          {getFilteredOptions().map((option, idx: number) => (
+          <div>
             <button
-              key={idx}
-              className={
-                option.toLowerCase() === selectedValue.toLowerCase()
-                  ? "active"
-                  : ""
-              }
               onClick={() => {
-                setSelectedValue(option)
+                setSelectedValue("")
                 setShowSuggestions(false)
               }}
             >
-              {option}
+              <span>...</span>
             </button>
-          ))}
+            {getFilteredOptions().map((option, idx: number) => (
+              <button
+                key={idx}
+                className={
+                  option.toLowerCase() === selectedValue.toLowerCase()
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  setSelectedValue(option)
+                  setShowSuggestions(false)
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </SuggestionContainer>
       )}
     </InputElement>

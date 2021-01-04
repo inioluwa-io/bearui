@@ -46,7 +46,7 @@ const TooltipPage: React.FC<any> = () => {
               <Button background="dark">Button</Button>
             </Tooltip>
             <Tooltip text="Tooltip Default">
-              <FormControl>
+              {/* <FormControl> */}
                 <Input
                   id="password"
                   type="password"
@@ -59,7 +59,7 @@ const TooltipPage: React.FC<any> = () => {
                   onError={() => {}}
                   placeholder="Enter your password"
                 />
-              </FormControl>
+              {/* </FormControl> */}
             </Tooltip>
           </FlexRow>
         </Card>

@@ -134,7 +134,7 @@ export type RadioComponent = {
 } & HTMLAttributes<HTMLInputElement>
 
 export type RadioGroupComponent = {
-  defaultChecked?: string
+  defaultSelected?: string
   onChecked?: (param?: string) => void
 } & HTMLAttributes<HTMLDivElement>
 
@@ -292,6 +292,10 @@ export type DatatableComponent = {
 
 // Data List
 type ActionItem = {
+  text: string
+  onClick: (value: any) => void
+}
+type menuActionItem = {
   color?: string
   text: string
   onClick: (value: any) => void
@@ -302,6 +306,7 @@ export type DataListComponent = {
   columns: DatatableColumns[]
   renderRule?: DatatableRule[]
   defaultSortIndex?: number
+  menuActionList?: menuActionItem[]
   actionList?: ActionItem[]
   onRowSelect?: (data: any) => void
   uniqueIdentifier?: string

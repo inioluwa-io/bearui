@@ -3,7 +3,6 @@ import ProgressCard from "./progressCard"
 import YearlyChartCard from "./yearlyChart"
 import RadialCard from "./radialCard"
 import ColumnCard from "./columnCard"
-import DonutCard from "./donutCard"
 import PieCard from "./pieCard"
 
 const AnalyticsCard: React.FC = () => {

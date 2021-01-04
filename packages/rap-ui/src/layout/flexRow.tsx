@@ -17,12 +17,15 @@ const RowContainer: any = styled.div`
   display: flex;
   flex-wrap: wrap;
   // flex: 1;
-  grid-gap: ${(props: RowStyleProps) => props.marginRight};
-  grid-row-gap: calc(${(props: RowStyleProps) => props.marginRight} / 1.5);
+  margin: ${(props: RowStyleProps) => `-${props.marginRight} 0 0 -${props.marginRight}` };
   flex-direction: row;
-  width: calc(100% - 0px);
+  width: calc(100% + ${(props: RowStyleProps) => props.marginRight});
   align-items: ${(props: RowStyleProps) => props.position.alignItems};
   justify-content: ${(props: RowStyleProps) => props.position.alignSelf};
+
+  > * {
+    margin: ${(props: RowStyleProps) => `${props.marginRight} 0 0 ${props.marginRight}`};
+  }
 
   > :not(:last-child) {
     // margin-right: ${(props: RowStyleProps) => props.marginRight};

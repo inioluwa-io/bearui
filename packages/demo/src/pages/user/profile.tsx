@@ -292,11 +292,11 @@ const PhotosPanel: React.FC = () => {
           <img src={pht4} alt="" />
         </ImgContainer>
       </div>
-      <FlexColumn align="stretch">
+      <FlexRow align="stretch">
         <LinkButton to="#" transparent="true">
           Show all
         </LinkButton>
-      </FlexColumn>
+      </FlexRow>
     </PhotosContainer>
   )
 }
@@ -368,34 +368,38 @@ const PostFeed: React.FC = () => {
         />
       </FlexRow>
       <FlexRow align="space">
-        <FlexRow gap="15px" id="post-attch">
-          <Chip>
-            <FlexRow gap="7px">
-              <Icon path={mdiImage} size={0.8} color={theme.colors.success} />
-              Photos
-            </FlexRow>
-          </Chip>
-          <Chip>
-            <FlexRow gap="7px">
-              <Icon path={mdiMovie} size={0.8} color={theme.colors.info} />
-              Video
-            </FlexRow>
-          </Chip>
-          <Chip>
-            <FlexRow gap="7px">
-              <Icon
-                className="white-bkg"
-                path={mdiEmoticon}
-                size={0.8}
-                color="#fcef31"
-              />
-              Feeling/Activity
-            </FlexRow>
-          </Chip>
-        </FlexRow>
-        <Button icon="mdiShare" iconOnly size="sm" corners="rounded">
-          Share
-        </Button>
+        <div>
+          <FlexRow gap="15px" id="post-attch">
+            <Chip>
+              <FlexRow gap="7px">
+                <Icon path={mdiImage} size={0.8} color={theme.colors.success} />
+                <div>Photos</div>
+              </FlexRow>
+            </Chip>
+            <Chip>
+              <FlexRow gap="7px">
+                <Icon path={mdiMovie} size={0.8} color={theme.colors.info} />
+                <div>Video</div>
+              </FlexRow>
+            </Chip>
+            <Chip>
+              <FlexRow gap="7px">
+                <Icon
+                  className="white-bkg"
+                  path={mdiEmoticon}
+                  size={0.8}
+                  color="#fcef31"
+                />
+                <div>Feeling/Activity</div>
+              </FlexRow>
+            </Chip>
+          </FlexRow>
+        </div>
+        <div>
+          <Button icon="mdiShare" iconOnly size="sm" corners="rounded">
+            Share
+          </Button>
+        </div>
       </FlexRow>
     </PostFeedContainer>
   )
@@ -458,13 +462,15 @@ const SinglePost: React.FC = () => {
     <SinglePostContainer xsCol="12">
       {/* Header */}
       <FlexRow align="space" position="top">
-        <FlexRow gap="10px" align="space">
-          <Avatar size="xs" src={pht1} alt="userimg" />
-          <FlexColumn gap="3px">
-            <p style={{ fontWeight: 500 }}>Tony Stark</p>
-            <p style={{ fontSize: "11px" }}>5 hours ago</p>
-          </FlexColumn>
-        </FlexRow>
+        <div>
+          <FlexRow gap="10px" align="space">
+            <Avatar size="xs" src={pht1} alt="userimg" />
+            <FlexColumn gap="3px">
+              <p style={{ fontWeight: 500 }}>Tony Stark</p>
+              <p style={{ fontSize: "11px" }}>5 hours ago</p>
+            </FlexColumn>
+          </FlexRow>
+        </div>
         <Dropdown list={["Report", "Block"]} showIcon={false} listener="click">
           <Icon path={mdiDotsHorizontal} size={0.7} />
         </Dropdown>

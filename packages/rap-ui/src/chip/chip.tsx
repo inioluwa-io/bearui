@@ -9,6 +9,7 @@ import { getColorFromTheme } from "../util"
 import { FlexRow } from "../layout"
 
 const CloseButtonContainer: any = styled.button`
+  margin: 0;
   margin-left: 6px;
   border: none;
   border-radius: 50px;
@@ -33,6 +34,7 @@ const ClearButtonContainer: any = styled.button`
   background: transparent;
   padding: 5px;
   cursor: pointer;
+  margin: 0;
 `
 
 const ChipItemsContainer: any = styled.div`
@@ -46,8 +48,10 @@ const ChipItemsContainer: any = styled.div`
     width: calc(100% - 30px);
     position: relative;
     background: ${(props: any) => props.background};
+    margin: 0;
   }
   .sc-cnt-chip {
+    margin: -20px 0 0 -20px;
     margin-right: 35px;
   }
 
@@ -322,7 +326,7 @@ const ChipItems: React.FC<any> = ({
       background={theme[themeMode].cardbackground}
       ref={refs}
     >
-      <FlexRow className="sc-cont" position="center">
+      <FlexRow className="sc-cont">
         <FlexRow className="sc-cnt-chip" position="center">
           {items.map((item, idx: number) => (
             <ChipSingle

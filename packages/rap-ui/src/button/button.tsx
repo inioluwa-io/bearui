@@ -104,7 +104,6 @@ font-family: inherit;
           .text{
             color: ${(props: any) =>
               props.outline ? `${props.textColor};` : `${props.textColor};`}
-            
           }
 
           svg path{
@@ -253,7 +252,7 @@ const Button: React.FC<ButtonProps> = ({
         return { borderRadius: "50px" }
       case "box":
         return size === "lg"
-          ? { borderRadius: "11px" }
+          ? { borderRadius: "7px" }
           : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")

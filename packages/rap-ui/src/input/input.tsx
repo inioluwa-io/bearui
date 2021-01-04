@@ -376,6 +376,7 @@ const Input: React.FC<InputProps> = ({
             color: (success && colors.success) || (error && colors.danger),
             bottom: 0,
             margin: "3px 5px",
+            // marginBottom: "-19px",
           }}
         >
           {validateMesssage}

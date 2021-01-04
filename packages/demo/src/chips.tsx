@@ -151,17 +151,15 @@ const ChipPage: React.FC<any> = () => {
             ))}
             ]
           </p>
-          <FlexRow>
-            <Chip
-              closable={true}
-              onItemUpdate={(value: string[]) => {
-                setItem(value)
-              }}
-              items={items}
-            >
-              React
-            </Chip>
-          </FlexRow>
+          <Chip
+            closable={true}
+            onItemUpdate={(value: string[]) => {
+              setItem(value)
+            }}
+            items={items}
+          >
+            React
+          </Chip>
         </Card>
         <Card xsCol="12">
           <h5>Auto Suggestion</h5>

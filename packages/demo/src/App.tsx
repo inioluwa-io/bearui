@@ -32,8 +32,10 @@ import {
   SocialLoginPage,
   RegisterPage,
   LoginPage,
+  NotFoundPage,
+  ComingSoonPage
 } from "./pages"
-import { Invoice, Todos, ViewInvoice, Chat,Ecommerce } from "./apps"
+import { Invoice, Todos, ViewInvoice, Chat, Ecommerce } from "./apps"
 import FormsLayoutPage from "./forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
 import ColorsPage from "./colors"
@@ -69,6 +71,14 @@ const App: React.FC = () => {
               <Route
                 path="/pages/register"
                 component={(props: any) => <RegisterPage {...props} />}
+              />
+              <Route
+                path="/pages/notfound"
+                component={(props: any) => <NotFoundPage {...props} />}
+              />
+              <Route
+                path="/pages/comingsoon"
+                component={(props: any) => <ComingSoonPage {...props} />}
               />
             </Switch>
           </LayoutComponent>

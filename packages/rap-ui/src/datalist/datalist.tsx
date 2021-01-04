@@ -221,6 +221,7 @@ const DataList: React.FC<DataListComponent> = ({
   document,
   columns,
   actionList,
+  menuActionList,
   uniqueIdentifier = "id",
   renderRule = [],
   defaultSortIndex = 1,
@@ -306,7 +307,7 @@ const DataList: React.FC<DataListComponent> = ({
   ): Map<number | string, boolean> => {
     let prevState: Map<number | string, boolean> = new Map(selected)
     prevState.set(idx, value)
-    
+
     // deselect all if check is false
     if (!!!prevState.get(idx)) {
       setSelectAll(false)
@@ -386,7 +387,7 @@ const DataList: React.FC<DataListComponent> = ({
         )
       }
     }
-    
+
     setSelectedRowsData(selectedRows)
     return selectedRows
   }
@@ -453,13 +454,13 @@ const DataList: React.FC<DataListComponent> = ({
     } else if (!selectAll && arrayLikeMap(tmp, selected)) {
       setSelectAll(true)
     }
-    
+
     getSelectorRowData(selected)
   }, [checkSearch, data])
 
   useEffect(() => {
     const sorted = sortDocumentASC(columns[defaultSortIndex].selector, document)
-    
+
     setData(sorted)
   }, [document])
 
@@ -509,7 +510,10 @@ const DataList: React.FC<DataListComponent> = ({
                 </DataListOption>,
               ]}
             >
-              1- {viewLength} of {document.length}
+              <p>
+                {" "}
+                1- {viewLength} of {document.length}
+              </p>
             </Dropdown>
             <Input
               icon="mdiMagnify"
@@ -530,14 +534,14 @@ const DataList: React.FC<DataListComponent> = ({
           <div>{menu}</div>
           {!!selectedRowsData?.length && (
             <FlexRow style={{ width: "fit-content" }} align="right">
-              {actionList &&
-                actionList.map((actionItem, idx: number) => (
+              {menuActionList &&
+                menuActionList.map((actionItem, idx: number) => (
                   <Button
                     key={idx}
                     background={actionItem.color}
                     onClick={() => {
                       actionItem.onClick(selectedRowsData)
-                      setSelected(new Map)
+                      setSelected(new Map())
                     }}
                   >
                     {actionItem.text}
@@ -678,7 +682,7 @@ const DataList: React.FC<DataListComponent> = ({
                               key={idx}
                               onClick={() => {
                                 actionItem.onClick([dataItem])
-                                setSelected(new Map)
+                                setSelected(new Map())
                                 // toggleCheck(dataItem[uniqueIdentifier])
                               }}
                             >

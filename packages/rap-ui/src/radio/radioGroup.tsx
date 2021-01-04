@@ -7,7 +7,7 @@ const RadioGroupContainer = styled(FlexRow)``
 
 const RadioGroup: React.FC<RadioGroupComponent> = ({
   children,
-  defaultChecked,
+  defaultSelected,
   onChecked,
   ...props
 }) => {
@@ -15,19 +15,19 @@ const RadioGroup: React.FC<RadioGroupComponent> = ({
   const [checkedIndex, setCheckedIndex] = useState<number>(0)
 
   useEffect(() => {
-    if (defaultChecked) {
+    if (defaultSelected) {
       const index = childrenNodes.findIndex(
-        child => child.props.value === defaultChecked
+        child => child.props.value === defaultSelected
       )
       setCheckedIndex(index)
     }
-  }, [defaultChecked])
+  }, [defaultSelected])
   
   const getInitialCheckedIndex = (children: ReactElement[]): number => {
     let checkedIndex
 
-    if (defaultChecked) {
-      return children.findIndex(child => child.props.value === defaultChecked)
+    if (defaultSelected) {
+      return children.findIndex(child => child.props.value === defaultSelected)
     }
 
     for (let i = 0; i < children.length; i++) {

@@ -70,19 +70,27 @@ const FlexRowPage: React.FC = () => {
           following: <code>left</code>, <code>right</code>, <code>center</code>,{" "}
           <code>stretch</code>.
         </p>
-        <FlexRow className="col" align="left">
-          <p>Left</p>
-        </FlexRow>
-        <FlexRow className="col" align="center">
-          <p>Center</p>
-        </FlexRow>
-        <FlexRow className="col" align="right">
-          <p>Right</p>
-        </FlexRow>
-        <FlexRow className="col" align="stretch">
-          <p>Stretch</p>
-          <p>Stretch</p>
-        </FlexRow>
+        <div className="col">
+          <FlexRow align="left">
+            <p>Left</p>
+          </FlexRow>
+        </div>
+        <div className="col">
+          <FlexRow align="center">
+            <p>Center</p>
+          </FlexRow>
+        </div>
+        <div className="col">
+          <FlexRow align="right">
+            <p>Right</p>
+          </FlexRow>
+        </div>
+        <div className="col">
+          <FlexRow align="stretch">
+            <p>Stretch</p>
+            <p>Stretch</p>
+          </FlexRow>
+        </div>
       </Card>
 
       <Card xsCol="12">
@@ -92,24 +100,30 @@ const FlexRowPage: React.FC = () => {
           the following: <code>top</code>, <code>center</code>,{" "}
           <code>bottom</code>.
         </p>
-        <FlexRow className="col" position="top">
-          <p>Top</p>
-          <Button size="lg" iconOnly icon="mdiCircleOutline">
-            Click
-          </Button>
-        </FlexRow>
-        <FlexRow className="col" position="bottom">
-          <p>Bottom</p>
-          <Button size="lg" iconOnly icon="mdiCircleOutline">
-            Click
-          </Button>
-        </FlexRow>
-        <FlexRow className="col" position="center">
-          <p>Center</p>
-          <Button size="lg" iconOnly icon="mdiCircleOutline">
-            Click
-          </Button>
-        </FlexRow>
+        <div className="col">
+          <FlexRow position="top">
+            <p>Top</p>
+            <Button size="lg" iconOnly icon="mdiCircleOutline">
+              Click
+            </Button>
+          </FlexRow>
+        </div>
+        <div className="col">
+          <FlexRow position="bottom">
+            <p>Bottom</p>
+            <Button size="lg" iconOnly icon="mdiCircleOutline">
+              Click
+            </Button>
+          </FlexRow>
+        </div>
+        <div className="col">
+          <FlexRow position="center">
+            <p>Center</p>
+            <Button size="lg" iconOnly icon="mdiCircleOutline">
+              Click
+            </Button>
+          </FlexRow>
+        </div>
       </Card>
 
       <Card xsCol="12">
@@ -118,19 +132,22 @@ const FlexRowPage: React.FC = () => {
           To change the gap between each children node, set the <code>gap</code>{" "}
           prop to a css size. Default is <code>20px</code>.
         </p>
-        <FlexRow className="col">
-          <Button size="lg" iconOnly icon="mdiCircleOutline">
-            Click
-          </Button>
-          <Button
-            size="lg"
-            background="warning"
-            iconOnly
-            icon="mdiCircleOutline"
-          >
-            Click
-          </Button>
-        </FlexRow>
+
+        <div className="col">
+          <FlexRow>
+            <Button size="lg" iconOnly icon="mdiCircleOutline">
+              Click
+            </Button>
+            <Button
+              size="lg"
+              background="warning"
+              iconOnly
+              icon="mdiCircleOutline"
+            >
+              Click
+            </Button>
+          </FlexRow>
+        </div>
       </Card>
     </FlexRowPageContainer>
   )

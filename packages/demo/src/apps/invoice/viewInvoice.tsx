@@ -109,33 +109,37 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
         <LinkButton
           to="./"
           background={theme[themeMode].cardbackground}
-          iconOnly
+          iconOnly="true"
           iconColor={themeMode === "lightmode" ? "#444444" : "#f4f4f4"}
           icon="mdiChevronLeft"
         ></LinkButton>
       </Card>
       <Card xsCol="12" size="sm" withBackground={true} gap="80px">
         <FlexRow align="space" position="top" id="invoice-heading">
-          <FlexRow gap="10px" position="top">
-            <Input
-              id="send-email"
-              placeholder="Email"
-              color="primary"
-              onInputChange={() => {}}
-              type="email"
-            />
-            <Button>Send Invoice</Button>
-          </FlexRow>
-          <FlexRow align="right">
-            <Button
-              icon="mdiFileOutline"
-              onClick={() => {
-                window.print()
-              }}
-            >
-              Print
-            </Button>
-          </FlexRow>
+          <div>
+            <FlexRow gap="10px" position="top">
+              <Input
+                id="send-email"
+                placeholder="Email"
+                color="primary"
+                onInputChange={() => {}}
+                type="email"
+              />
+              <Button>Send Invoice</Button>
+            </FlexRow>
+          </div>
+          <div>
+            <FlexRow align="right">
+              <Button
+                icon="mdiFileOutline"
+                onClick={() => {
+                  window.print()
+                }}
+              >
+                Print
+              </Button>
+            </FlexRow>
+          </div>
         </FlexRow>
         <div id="invoice" style={{ width: "100%" }}>
           <FlexColumn gap="50px">
@@ -201,7 +205,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
 
             <FlexColumn>
               {/* Products */}
-              <FlexRow align="stretch" id ="prod-dtl">
+              <FlexRow align="stretch" id="prod-dtl">
                 <ProductTable>
                   <thead>
                     <tr>

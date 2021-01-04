@@ -1,9 +1,4 @@
-import React, {
-  ImgHTMLAttributes,
-  useEffect,
-  useCallback,
-  useState,
-} from "react"
+import React, { ImgHTMLAttributes, useEffect, useState } from "react"
 import {
   Breadcrumb,
   Card,
@@ -19,6 +14,7 @@ import Icon from "@mdi/react"
 import { ProductProps } from "./types"
 import { getProducts } from "./utli"
 import styled from "styled-components"
+import { useHistory } from "react-router-dom"
 
 const ImageContainer: any = styled.div`
   width: 60px;
@@ -33,8 +29,6 @@ const ImageContainer: any = styled.div`
 
   img {
     position: asbolute;
-    // width: 100%;
-    // height: 100%;
     max-width: 90%;
     max-height: 90%;
   }
@@ -42,11 +36,12 @@ const ImageContainer: any = styled.div`
 
 const Image: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({
   className,
+  alt,
   ...props
 }) => {
   return (
     <ImageContainer {...className}>
-      <img {...props} />
+      <img {...props} alt={alt} />
     </ImageContainer>
   )
 }
@@ -60,13 +55,11 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<ProductProps[]>()
-  const [openModal, setOpenModal] = useState<boolean>()
 
   useEffect(() => {
     getProducts().then(resp => {
       setProducts(resp)
     })
-    console.log("rerender")
   }, [])
 
   const deleteProduct = (value: ProductProps[]) => {
@@ -76,6 +69,7 @@ const ProductList: React.FC = () => {
       setProducts(tmp)
     }
   }
+  const history = useHistory()
 
   if (!products) return <Loader />
   return (
@@ -88,7 +82,7 @@ const ProductList: React.FC = () => {
           <Breadcrumb
             item={[
               { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
-              { name: "apps", to: "#" },
+              { name: "Apps", to: "#" },
               { name: "eCommerce", to: "#" },
               { name: "Product List", to: "" },
             ]}
@@ -100,14 +94,25 @@ const ProductList: React.FC = () => {
           onRowSelect={(data: any[]) => {
             // console.log(data)
           }}
-          actionList={[
-            {
-              color: "primary",
-              text: "View Details",
-              onClick: (value: ProductProps) => {},
-            },
+          menuActionList={[
             {
               color: "danger",
+              text: "Delete",
+              onClick: deleteProduct,
+            },
+          ]}
+          actionList={[
+            {
+              text: "Edit Product",
+              onClick: (value: ProductProps[]) => {
+                import("lodash").then(lodash => {
+                  history.push(
+                    `edit-product/${lodash.kebabCase(value[0].name)}/`
+                  )
+                })
+              },
+            },
+            {
               text: "Delete",
               onClick: deleteProduct,
             },
@@ -131,7 +136,7 @@ const ProductList: React.FC = () => {
             {
               selector: "image",
               onRender: (data: ProductProps) => {
-                return <Image src={data.img} />
+                return <Image src={data.img} alt={data.name} />
               },
             },
             {

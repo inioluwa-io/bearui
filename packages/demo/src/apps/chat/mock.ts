@@ -6,7 +6,7 @@ import img5 from "../../assets/img5.png"
 import img6 from "../../assets/img6.jpg"
 import img7 from "../../assets/img7.jpg"
 
-export const mockUserContact = [
+export const mockUserContact: any = [
   {
     id: "1",
     name: "Steve Rogers",

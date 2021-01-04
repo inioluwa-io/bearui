@@ -225,7 +225,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
         }}
       >
         <FlexRow gap="7px" position="center">
-          {children}
+          <div>{children}</div>
           {showIcon && (
             <Icon path={mdiChevronDown} size={0.7} color={indicatorColor} />
           )}
