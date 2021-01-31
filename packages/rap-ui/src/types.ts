@@ -341,7 +341,7 @@ export type BreadcrumbComponent = {
 } & HTMLAttributes<HTMLDivElement>
 // end
 
-//tabs props
+// tabs props
 
 export type TabList = {
   title: ReactElement | string

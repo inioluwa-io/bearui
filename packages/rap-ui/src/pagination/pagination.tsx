@@ -22,7 +22,7 @@ const ControlButton: any = styled.button`
   height: 32px;
   border-radius: 50%;
   transition: background 0.35s ease;
-  
+
   svg path {
     transition: background 0.35s ease;
   }
@@ -103,9 +103,9 @@ const Pagination: React.FC<PagnitionComponent> = ({
   }
   const theme = useTheme()
   const [themeMode] = useThemeMode()
-  let textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
-  let themeColor = getColorFromTheme(color, theme)
-  let backgroundColor =
+  const textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+  const themeColor = getColorFromTheme(color, theme)
+  const backgroundColor =
     themeMode === "darkmode" ? "rgba(255,255,255,.15)" : "rgba(0,0,0,.07)"
 
   const gotoPage = useCallback(
@@ -116,7 +116,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
         endIndex = documentLength
       }
       if (startIndex > documentLength) {
-        let remainder = documentLength % perPage
+        const remainder = documentLength % perPage
         startIndex = documentLength - remainder
         endIndex = documentLength
       }
@@ -144,20 +144,21 @@ const Pagination: React.FC<PagnitionComponent> = ({
 
   const createPages = useCallback(
     (length: number): number[] => {
-      let pages = []
-      if (max < 5 || !(max % 2)) {
-        max = 9
+      let maxPage = max
+      const pages = []
+      if (maxPage < 5 || !(maxPage % 2)) {
+        maxPage = 9
       }
 
-      if (length < max) {
+      if (length < maxPage) {
         for (let i = 1; i <= length; i++) {
           pages.push(i)
         }
       } else {
-        let mid = Math.floor(max / 2)
+        const mid = Math.floor(maxPage / 2)
         if (currentPage > mid) {
-          let difference = mid - 2
-          let secondMid = length + mid - max
+          const difference = mid - 2
+          const secondMid = length + mid - maxPage
           if (currentPage < secondMid) {
             pages.push(1)
             pages.push("...")
@@ -168,7 +169,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
             ) {
               pages.push(i)
             }
-            if (max > 3) {
+            if (maxPage > 3) {
               pages.push("...")
             }
             pages.push(length)
@@ -180,10 +181,10 @@ const Pagination: React.FC<PagnitionComponent> = ({
             }
           }
         } else {
-          for (let i = 1; i < max + 1; i++) {
-            if (i === max - 1) {
+          for (let i = 1; i < maxPage + 1; i++) {
+            if (i === maxPage - 1) {
               pages.push("..")
-            } else if (i === max) {
+            } else if (i === maxPage) {
               pages.push(length)
             } else {
               pages.push(i)

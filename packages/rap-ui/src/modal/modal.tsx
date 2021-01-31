@@ -198,7 +198,7 @@ const Modal: React.FC<ModalProps> = ({
     if (DOMNode) {
       document.body.style.overflowY = "auto"
 
-      let modal = DOMNode.querySelector(".modal-container")
+      const modal = DOMNode.querySelector(".modal-container")
       modal.style.transition = "transform .25s, opacity .15s"
       modal.style.opacity = "0"
       modal.style.transform = "scale3d(0.8,0.8,0.8)"

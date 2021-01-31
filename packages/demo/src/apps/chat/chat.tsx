@@ -605,18 +605,20 @@ const Chat: React.FC = () => {
             <FlexRow align="stretch" gap="0px" className="action-tab">
               {["Chat", "Call", "Contact", "Notification"].map(
                 (tab, idx: number) => (
-                  <FlexRow align="center" key={idx}>
-                    <TabButton
-                      active={activeTab === idx}
-                      type={tab.toLowerCase()}
-                      color={theme.colors.primary}
-                      onClick={() => {
-                        setActiveTab(idx)
-                      }}
-                    >
-                      {tab}s
-                    </TabButton>
-                  </FlexRow>
+                  <div>
+                    <FlexRow align="center" key={idx}>
+                      <TabButton
+                        active={activeTab === idx}
+                        type={tab.toLowerCase()}
+                        color={theme.colors.primary}
+                        onClick={() => {
+                          setActiveTab(idx)
+                        }}
+                      >
+                        {tab}s
+                      </TabButton>
+                    </FlexRow>
+                  </div>
                 )
               )}
             </FlexRow>

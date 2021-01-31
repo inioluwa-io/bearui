@@ -82,7 +82,7 @@ const SocialLoginPage: React.FC<any> = () => {
             <GithubButton onClick={() => {}} iconOnly />
           </FlexRow>
           <p>
-            Not registered? <Link to="/">Create an account</Link>
+            Not registered? <Link to="/pages/register">Create an account</Link>
           </p>
         </FlexColumn>
       </LoginCard>

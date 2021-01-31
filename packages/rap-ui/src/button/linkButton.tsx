@@ -14,7 +14,7 @@ import { useTheme } from "../theme"
 
 const Button1: any = styled(Link)`
 font-family: inherit;
-width:fit-content;
+width:auto;
   position:relative;
   background: ${(props: any) => {
     if (props.transparent === "true") {
