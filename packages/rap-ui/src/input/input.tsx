@@ -11,7 +11,7 @@ const InputElement: any = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-top: 0px;
+  top: 0px;
   height: fit-content;
   width: 230px;
 
