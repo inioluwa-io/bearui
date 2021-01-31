@@ -1,9 +1,20 @@
-import React, { useState, cloneElement,useEffect, ReactElement } from "react"
+import React, { useState, cloneElement, useEffect, ReactElement } from "react"
 import styled from "styled-components"
-import { FlexRow } from "../layout"
 import { RadioGroupComponent, RadioComponent } from "../types"
 
-const RadioGroupContainer = styled(FlexRow)``
+const RadioGroupContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px 0 0 -15px;
+  flex-direction: row;
+  width: calc(100% + 15px);
+  align-items: center;
+  justify-content: flex-start;
+
+  > * {
+    margin: 15px 0 0 15px;
+  }
+`
 
 const RadioGroup: React.FC<RadioGroupComponent> = ({
   children,
@@ -22,7 +33,7 @@ const RadioGroup: React.FC<RadioGroupComponent> = ({
       setCheckedIndex(index)
     }
   }, [defaultSelected])
-  
+
   const getInitialCheckedIndex = (children: ReactElement[]): number => {
     let checkedIndex
 

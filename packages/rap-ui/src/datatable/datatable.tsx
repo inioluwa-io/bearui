@@ -331,7 +331,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     idx: number | string,
     value: boolean
   ): Map<number | string, boolean> => {
-    let prevState: Map<number | string, boolean> = new Map(selected)
+    const prevState: Map<number | string, boolean> = new Map(selected)
     prevState.set(idx, value)
     // deselect all if check is false
     if (!!!prevState.get(idx)) {
@@ -427,7 +427,7 @@ const Datatable: React.FC<DatatableComponent> = ({
 
   const checkSearch = useCallback(
     (dataItem): boolean => {
-      let tempData = []
+      const tempData = []
       let found = false
       if (searchValue.length) {
         for (let i = 0; i < columns.length; i++) {

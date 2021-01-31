@@ -40,7 +40,7 @@ const SelectPage: React.FC = () => {
             size="sm"
             id="ianbt"
             placeholder="Choose an option"
-            options={["Option 1", "Option 2", "Option 3"]}
+            options={["Option 1", "Option 2", "Option 3", "Option 4"]}
           />
         </FlexRow>
       </Card>

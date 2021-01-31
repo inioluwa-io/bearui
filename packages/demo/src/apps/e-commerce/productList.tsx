@@ -118,11 +118,11 @@ const ProductList: React.FC = () => {
             },
           ]}
           menu={
-            <>
+            <FlexRow>
               <LinkButton to="add-product/" icon="mdiPlus">
                 Add Product
               </LinkButton>
-            </>
+            </FlexRow>
           }
           defaultSortIndex={2}
           uniqueIdentifier="_id"

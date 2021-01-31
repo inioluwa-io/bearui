@@ -200,7 +200,6 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                     </Radio>
                   </RadioGroup>
                 </FlexColumn>
-
                 <FlexColumn gap="10px" className="row">
                   <h5>Navbar Position</h5>
                   <RadioGroup

@@ -63,7 +63,7 @@ const LoginPage: React.FC<any> = () => {
             Login
           </Button>
           <p>
-            Not registered? <Link to="/">Create an account</Link>
+            Not registered? <Link to="/pages/register">Create an account</Link>
           </p>
         </FlexColumn>
       </LoginCard>

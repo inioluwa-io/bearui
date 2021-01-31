@@ -140,9 +140,10 @@ const Home: React.FC<any> = () => {
         <h5>Dispatched Orders</h5>
         <Datatable
           showControls={false}
-          onRowSelect={(data: any[]) => {
-            // console.log(data)
-          }}
+          check={false}
+          // onRowSelect={(data: any[]) => {
+          //   console.log(data)
+          // }}
           defaultSortIndex={0}
           uniqueIdentifier="_id"
           columns={[
@@ -159,7 +160,7 @@ const Home: React.FC<any> = () => {
               order_no: "#12444",
               location: "Belivard, Krypton",
               order_date: "8/11/2019",
-              img: img,
+              img,
               status: (
                 <Chip transparent color="warning">
                   Pending
@@ -197,7 +198,7 @@ const Home: React.FC<any> = () => {
               order_no: "#12446",
               location: "Belivard, Krypton",
               order_date: "8/11/2019",
-              img: img,
+              img,
               status: (
                 <Chip transparent color="danger">
                   Canceled

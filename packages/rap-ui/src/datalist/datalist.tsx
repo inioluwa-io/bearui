@@ -242,9 +242,9 @@ const DataList: React.FC<DataListComponent> = ({
 
   const sortDocumentASC = (selector: string, unsortedData: any[]): any[] => {
     const merge = (left, right) => {
-      let resultArray = [],
-        leftIndex = 0,
-        rightIndex = 0
+      const resultArray = []
+      let leftIndex = 0
+      let rightIndex = 0
       while (leftIndex < left.length && rightIndex < right.length) {
         const leftSelector = renderColumnData(selector, left[leftIndex])
         const rightSelector = renderColumnData(selector, right[rightIndex])
