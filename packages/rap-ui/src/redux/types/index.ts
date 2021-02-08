@@ -5,3 +5,5 @@ export const FETCH_START = 'FETCH_START';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILED = 'FETCH_FAILED';
 export const FETCH_END = 'FETCH_END';
+export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
+export const COLLAPSE_SIDEBAR = 'COLLAPSE_SIDEBAR';

@@ -70,7 +70,7 @@ const TimelineIcon: any = styled.div`
   height: 10px;
   border-radius: 30px;
   position: relative;
-  margin-top: 6px;
+  top: 6px;
   display: flex;
   justify-content: center;
   align-items: center;

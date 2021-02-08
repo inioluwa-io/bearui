@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
+import { useCollapseSideBar } from "../theme"
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -81,13 +82,6 @@ const LayoutContainer: any = styled.div`
         width: calc(100% - 16.5rem);
       }
     }
-    @media (max-width: 1200px) {
-      main {
-        #main-container {
-          width: 100%;
-        }
-      }
-    }
   `}
 `
 
@@ -99,6 +93,16 @@ const Layout: React.FC<LayoutComponent> = ({
   ...props
 }) => {
   const refs = useRef<HTMLDivElement>()
+  const [collapseSideBar, setCollapseSideBar] = useCollapseSideBar()
+
+  const updatePageWidth = useCallback(() => {
+    const innerWidth = window.innerWidth
+    if (innerWidth <= 1200) {
+      setCollapseSideBar(true)
+    } else {
+      setCollapseSideBar(false)
+    }
+  }, [])
 
   useEffect(() => {
     const DOMNode = refs.current
@@ -114,6 +118,26 @@ const Layout: React.FC<LayoutComponent> = ({
       }
     }
   }, [refs])
+
+  useEffect(() => {
+    updatePageWidth()
+    window.addEventListener("resize", updatePageWidth)
+    return () => {
+      window.removeEventListener("resize", updatePageWidth)
+    }
+  }, [updatePageWidth])
+
+  // shrink container when min pixel reached
+  useEffect(() => {
+    const DOMNode = refs.current
+    const container: HTMLDivElement = DOMNode.querySelector("#main-container")
+
+    if (collapseSideBar) {
+      container.style.width = "100%"
+    } else {
+      container.style.width = "calc(100% - 16.5rem)"
+    }
+  }, [collapseSideBar, refs])
 
   return (
     <LayoutContainer ref={refs} {...props} sideBar={!!sideBar} id="rap-layout">

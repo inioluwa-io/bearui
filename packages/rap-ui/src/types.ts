@@ -200,6 +200,11 @@ export type ThemeMode = [
   RapUIThemeMode,
   Dispatch<SetStateAction<RapUIThemeMode>>
 ]
+
+export type SideBarHook = [
+  boolean,
+  Dispatch<SetStateAction<any>>
+]
 // end theme types
 
 // modal props

@@ -1,8 +1,8 @@
-import React, { ReactElement, useEffect } from "react"
+import React, { ReactElement, useEffect, useState, useCallback } from "react"
 import styled from "styled-components"
 import { darken } from "polished"
 import { NavbarComponent } from "../types"
-import { useTheme, useThemeMode } from "../theme"
+import { useTheme, useThemeMode, useCollapseSideBar } from "../theme"
 import Icon from "@mdi/react"
 import { mdiMenu } from "@mdi/js"
 
@@ -26,7 +26,7 @@ const NavbarContainer: any = styled.div`
     grid-gap: 16px;
   }
   .left {
-    display: none;
+    display: flex;
     justify-content: flex-start;
     align-items: center;
 
@@ -67,7 +67,14 @@ const Navbar: React.FC<NavbarComponent> = ({
 }) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
+  const [collapseSideBar, setCollapseSideBar] = useCollapseSideBar()
   const background: string = theme[themeMode].cardbackground
+  const [pageWidth, setPageWidth] = useState<number | undefined>()
+
+  const updatePageWidth = useCallback(() => {
+    const innerWidth = window.innerWidth
+    setPageWidth(innerWidth)
+  }, [])
 
   const getPostitionStyle = () => {
     switch (position) {
@@ -110,6 +117,23 @@ const Navbar: React.FC<NavbarComponent> = ({
     }
   }
 
+  const toggleSideBar = () => {
+    const sideBar: HTMLDivElement = document.querySelector("#rap-sidebar")
+    if (pageWidth <= 1200) {
+      sideBar?.classList?.toggle("sidebar-collapse")
+    } else {
+      setCollapseSideBar(!collapseSideBar)
+    }
+  }
+
+  useEffect(() => {
+    updatePageWidth()
+    window.addEventListener("resize", updatePageWidth)
+    return () => {
+      window.removeEventListener("resize", updatePageWidth)
+    }
+  }, [updatePageWidth])
+
   useEffect(() => {
     document.body.classList.add(`nav-${position}`)
   }, [position])
@@ -117,14 +141,8 @@ const Navbar: React.FC<NavbarComponent> = ({
   return (
     <NavbarContainer background={background} positionStyle={getPostitionStyle}>
       <div className="left">
-        <button
-          onClick={() => {
-            document
-              .querySelector("#rap-sidebar")
-              ?.classList?.toggle("sidebar-collapse")
-          }}
-        >
-          <Icon path={mdiMenu} size={1} />
+        <button id="sidebar-toggle-btn" onClick={toggleSideBar}>
+          <Icon path={mdiMenu} size={1} color={theme.colors.primary} />
         </button>
       </div>
       <div className="right">

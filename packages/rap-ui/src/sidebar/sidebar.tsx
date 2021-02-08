@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useCallback, useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { FlexRow, FlexColumn } from "../layout"
 import { lighten, rgba } from "polished"
-import { useTheme, useThemeMode } from "../theme"
+import { useTheme, useThemeMode, useCollapseSideBar } from "../theme"
 import { mdiClose, mdiMenu } from "@mdi/js"
 import Icon from "@mdi/react"
 
@@ -122,7 +122,7 @@ const SidebarContainer: any = styled.div`
   //   width: 65px;
   // }
 
-  @media (max-width: 1200px) {
+  &.collapsed {
     position: fixed;
     transform: translateX(-100%);
     transition: transform 0.35s;
@@ -151,15 +151,95 @@ const SidebarContainer: any = styled.div`
       }
     }
   }
+  @media (max-width: 1200px) {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.35s;
+
+    + .underlay {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9991;
+      height: 100vh;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      visibility: hidden;
+    }
+
+    &.sidebar-collapse {
+      transform: translateX(-0%);
+
+      + .underlay {
+        visibility: visible;
+      }
+    }
+    .header {
+      button {
+        display: block;
+      }
+    }
+  }
 `
 
 const Sidebar: React.FC<any> = ({ children, ...props }) => {
   const theme = useTheme()
   const [themeMode] = useThemeMode()
+  const refs = useRef<HTMLDivElement>()
+  const [collapseSideBar] = useCollapseSideBar()
+
+  const [pageWidth, setPageWidth] = useState<number | undefined>()
+
+  const updatePageWidth = useCallback(() => {
+    const innerWidth = window.innerWidth
+    setPageWidth(innerWidth)
+  }, [])
+
+  const hideSideBar = useCallback(
+    e => {
+      const DOMNode = refs.current
+      const toggleBtn: HTMLButtonElement = document.querySelector(
+        "#sidebar-toggle-btn"
+      )
+
+      if (!DOMNode?.contains(e.target) && !toggleBtn.contains(e.target)) {
+        if (
+          DOMNode?.classList?.value.includes("sidebar-collapse") &&
+          collapseSideBar
+        ) {
+          DOMNode?.classList?.remove("sidebar-collapse")
+        }
+      }
+    },
+    [refs, pageWidth]
+  )
+
+  useEffect(() => {
+    updatePageWidth()
+    window.addEventListener("resize", updatePageWidth)
+    return () => {
+      window.removeEventListener("resize", updatePageWidth)
+    }
+  }, [updatePageWidth])
+
+  useEffect(() => {
+    window.addEventListener("click", hideSideBar)
+    return () => {
+      window.removeEventListener("click", hideSideBar)
+    }
+  }, [hideSideBar])
+
+  useEffect(() => {
+    const sideBar: HTMLDivElement = document.querySelector("#rap-sidebar")
+    collapseSideBar
+      ? sideBar.classList.add("collapsed")
+      : sideBar.classList.remove("collapsed")
+  }, [collapseSideBar])
 
   return (
     <>
       <SidebarContainer
+        ref={refs}
         background={theme[themeMode].cardbackground}
         boxShadow={theme[themeMode].background}
         primaryColor={theme.colors.primary}
@@ -169,8 +249,7 @@ const Sidebar: React.FC<any> = ({ children, ...props }) => {
           align="stretch"
           position="center"
           style={{
-            height: "68px",
-            width: "calc(100% - 30px)",
+            width: "calc(100% - 15px)",
             padding: "0 15px",
             overflow: "hidden",
           }}

@@ -39,6 +39,7 @@ import {
   mdiClose,
   mdiChatOutline,
   mdiCartOutline,
+  mdiHomeOutline,
   mdiAlertDecagramOutline,
 } from "@mdi/js"
 import styled from "styled-components"
@@ -217,9 +218,6 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                     <Radio value="floating" id="floating-nav">
                       <p>Floating</p>
                     </Radio>
-                    <Radio value="hidden" id="hidden-nav">
-                      <p>Hidden</p>
-                    </Radio>
                   </RadioGroup>
                 </FlexColumn>
               </FlexColumn>
@@ -284,6 +282,46 @@ const LayoutComponent: React.FC<any> = ({
       notification={notification}
       sideBar={
         <Sidebar>
+          <Collapse
+            className="group-link"
+            icon="mdiChevronRight"
+            items={[
+              {
+                label: (
+                  <FlexRow gap="13px">
+                    <Icon path={mdiHomeOutline} color={color} size={0.75} />
+
+                    <p>Dashboard</p>
+                  </FlexRow>
+                ),
+                active: /\/dashboard/g.test(path),
+                content: (
+                  <FlexColumn gap="5px">
+                    <NavLink to="/dashboard/default" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Default</p>
+                      </FlexRow>
+                    </NavLink>
+                    <NavLink to="/dashboard/crypto" activeClassName="active">
+                      <FlexRow gap="13px">
+                        <Icon
+                          path={mdiCircleOutline}
+                          color={color}
+                          size={0.45}
+                        />
+                        <p>Crypto</p>
+                      </FlexRow>
+                    </NavLink>
+                  </FlexColumn>
+                ),
+              },
+            ]}
+          />
           <h6>APPS</h6>
           <NavLink to="/apps/invoice" activeClassName="active">
             <FlexRow gap="13px">
