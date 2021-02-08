@@ -135,7 +135,11 @@ const Layout: React.FC<LayoutComponent> = ({
     if (collapseSideBar) {
       container.style.width = "100%"
     } else {
-      container.style.width = "calc(100% - 16.5rem)"
+      if (!sideBar) {
+        container.style.width = "100%"
+      } else {
+        container.style.width = "calc(100% - 16.5rem)"
+      }
     }
   }, [collapseSideBar, refs])
 
