@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, Fragment } from "react"
 import { Link, NavLink, withRouter } from "react-router-dom"
 import {
   useThemeMode,
@@ -17,34 +17,21 @@ import {
   Radio,
   NavbarPosition,
   RadioGroup,
-  RapUIThemeMode,
-} from "@rap/ui"
-import { useDataProvider, useNotification } from "@rap/core"
+} from "@bearui/ui"
+import { useDataProvider, useNotification } from "@bearui/core"
 import img from "./assets/img4.jpg"
 import Icon from "@mdi/react"
 import {
-  mdiAccountOutline,
-  mdiBriefcaseOutline,
-  mdiCardTextOutline,
   mdiCheckCircleOutline,
   mdiCircleOutline,
   mdiClipboardTextOutline,
-  mdiCubeOutline,
-  mdiGridLarge,
-  mdiKey,
-  mdiLayersOutline,
   mdiCogOutline,
-  mdiTools,
-  mdiWaterOutline,
   mdiClose,
-  mdiChatOutline,
-  mdiCartOutline,
-  mdiHomeOutline,
-  mdiAlertDecagramOutline,
 } from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
 import { useState } from "react"
+import { navigationConfig, NavigationConfigProps, themeConfig } from "./configs"
 
 const ControlPanelContainer: any = styled.div`
   position: fixed;
@@ -247,7 +234,7 @@ const LayoutComponent: React.FC<any> = ({
 }) => {
   const dataProvider = useDataProvider()
   const [notification] = useNotification(8000)
-  const path = props.location.pathname
+  const locationPath = props.location.pathname
 
   const URL =
     process.env.NODE_ENV === "production"
@@ -260,13 +247,87 @@ const LayoutComponent: React.FC<any> = ({
   }, [dataProvider, URL])
 
   const theme = useTheme()
-  const [navPosition, setNavPosition] = useState<NavbarPosition>("sticky")
+  const [navPosition, setNavPosition] = useState<NavbarPosition>(
+    themeConfig.navbarPosition
+  )
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
   useEffect(() => {
+    setThemeMode(themeConfig.currentTheme)
+  }, [setThemeMode, theme])
+
+  useEffect(() => {
     document.body.style.background = theme[themeMode].background
-  }, [theme, themeMode])
+  }, [themeMode])
+
+  const renderNav = (nav: NavigationConfigProps[]) => {
+    return nav.map(link => {
+      const { title, path, icon, subMenu, key, headMenu, pathProps } = link
+
+      if (subMenu.length && icon) {
+        const titleString = title.toLowerCase().split(" ").join("")
+        const reg = new RegExp(`/${titleString}`, "g")
+
+        return (
+          <Fragment key={key}>
+            {headMenu && <h6>{headMenu}</h6>}
+            <Collapse
+              className="group-link"
+              icon="mdiChevronRight"
+              items={[
+                {
+                  label: (
+                    <FlexRow gap="13px">
+                      <Icon path={icon} color={color} size={0.75} />
+                      <p>{title}</p>
+                    </FlexRow>
+                  ),
+                  active: reg.test(locationPath),
+                  content: subMenu.length ? (
+                    renderNav(subMenu)
+                  ) : (
+                    <FlexColumn gap="5px">
+                      {subMenu.map((menu, idx) => (
+                        <NavLink
+                          {...pathProps}
+                          key={idx}
+                          to="/dashboard/default"
+                          activeClassName="active"
+                        >
+                          <FlexRow gap="13px">
+                            <Icon
+                              path={mdiCircleOutline}
+                              color={color}
+                              size={0.45}
+                            />
+                            <p>{menu.title}</p>
+                          </FlexRow>
+                        </NavLink>
+                      ))}
+                    </FlexColumn>
+                  ),
+                },
+              ]}
+            />
+          </Fragment>
+        )
+      } else {
+        return (
+          <NavLink {...pathProps} to={path} activeClassName="active" key={key}>
+            <FlexRow gap="13px">
+              <Icon
+                path={icon || mdiCircleOutline}
+                color={color}
+                size={icon ? 0.75 : 0.45}
+              />
+              <p>{title}</p>
+            </FlexRow>
+          </NavLink>
+        )
+      }
+    })
+  }
 
   if (!withBar) {
     return (
@@ -281,697 +342,15 @@ const LayoutComponent: React.FC<any> = ({
     <Layout
       notification={notification}
       sideBar={
-        <Sidebar>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiHomeOutline} color={color} size={0.75} />
-
-                    <p>Dashboard</p>
-                  </FlexRow>
-                ),
-                active: /\/dashboard/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink to="/dashboard/default" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Default</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/dashboard/crypto" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Crypto</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          />
-          <h6>APPS</h6>
-          <NavLink to="/apps/invoice" activeClassName="active">
-            <FlexRow gap="13px">
-              <Icon path={mdiClipboardTextOutline} color={color} size={0.75} />
-
-              <p>Invoice</p>
-            </FlexRow>
-          </NavLink>
-          <NavLink to="/apps/chat" activeClassName="active">
-            <FlexRow gap="13px">
-              <Icon path={mdiChatOutline} color={color} size={0.7} />
-
-              <p>Chat</p>
-            </FlexRow>
-          </NavLink>
-          <NavLink to="/apps/todos" activeClassName="active">
-            <FlexRow gap="13px">
-              <Icon path={mdiCheckCircleOutline} color={color} size={0.7} />
-
-              <p>Todos</p>
-            </FlexRow>
-          </NavLink>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiCartOutline} color={color} size={0.75} />
-
-                    <p>e-Commerce</p>
-                  </FlexRow>
-                ),
-                active: /\/apps\/ecommerce/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink
-                      to="/apps/ecommerce/product-list"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Product List</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/apps/ecommerce/add-product"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Add Product</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/apps/ecommerce/edit-product"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Edit Product</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          />
-          <h6>UI</h6>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiGridLarge} color={color} size={0.75} />
-
-                    <p>Layouts</p>
-                  </FlexRow>
-                ),
-                active: /\/layouts/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink to="/layouts/grid" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Grid</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/layouts/flexrow" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Flex Row</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/layouts/flexcolumn" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Flex Column</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiCardTextOutline} color={color} size={0.75} />
-
-                    <p>Card</p>
-                  </FlexRow>
-                ),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink to="/card/basic" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Basic</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/card/statistics" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Statistics</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <NavLink to="/colors" activeClassName="active">
-            <FlexRow gap="9px">
-              <Icon path={mdiWaterOutline} color={color} size={0.875} />
-
-              <p>Colors</p>
-            </FlexRow>
-          </NavLink>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon
-                      path={mdiBriefcaseOutline}
-                      color={color}
-                      size={0.75}
-                    />
-
-                    <p>Components</p>
-                  </FlexRow>
-                ),
-                active: /\/components/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink to="/components/avatar" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Avatar</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/button" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Button</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/chip" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Chip</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/collapse" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Collapse</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/datalist" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Data List</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/dropdown" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Dropdown</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/list" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>List</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/loader" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Loader</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/modal" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Modal</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/navbar" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Navbar</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/components/pagination"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Pagination</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/progress" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Progress</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/tab" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Tabs</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/components/tooltip" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Tooltip</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiCubeOutline} color={color} size={0.75} />
-
-                    <p>Form Elements</p>
-                  </FlexRow>
-                ),
-                active: /\/formelements/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink
-                      to="/formelement/checkbox"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Checkbox</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/formelement/input" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Input</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/formelement/select" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Select</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/formelement/switch" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Switch</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/formelement/textarea"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Textarea</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <NavLink to="/form-layouts" activeClassName="active">
-            <FlexRow gap="10px">
-              <Icon path={mdiLayersOutline} color={color} size={0.85} />
-
-              <p>Form Layouts</p>
-            </FlexRow>
-          </NavLink>
-
-          <h6>PAGES</h6>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiAccountOutline} color={color} size={0.75} />
-
-                    <p>User</p>
-                  </FlexRow>
-                ),
-                active: /\/user/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink to="/user/profile" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Profile</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/user/view" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>View</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink to="/user/edit" activeClassName="active">
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Edit</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon path={mdiKey} color={color} size={0.75} />
-
-                    <p>Authentication</p>
-                  </FlexRow>
-                ),
-                active: /\/authentication/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink
-                      to="/pages/login"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Login</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/pages/sociallogin"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Social Login</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/pages/register"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-
-                        <p>Register</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-          <Collapse
-            className="group-link"
-            icon="mdiChevronRight"
-            items={[
-              {
-                label: (
-                  <FlexRow gap="13px">
-                    <Icon
-                      path={mdiAlertDecagramOutline}
-                      color={color}
-                      size={0.75}
-                    />
-                    <p>Error</p>
-                  </FlexRow>
-                ),
-                active: /\/authentication/g.test(path),
-                content: (
-                  <FlexColumn gap="5px">
-                    <NavLink
-                      to="/pages/notfound"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>404</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/pages/comingsoon"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>500</p>
-                      </FlexRow>
-                    </NavLink>
-                    <NavLink
-                      to="/pages/register"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      activeClassName="active"
-                    >
-                      <FlexRow gap="13px">
-                        <Icon
-                          path={mdiCircleOutline}
-                          color={color}
-                          size={0.45}
-                        />
-                        <p>Register</p>
-                      </FlexRow>
-                    </NavLink>
-                  </FlexColumn>
-                ),
-              },
-            ]}
-          ></Collapse>
-
-          <h6>OTHERS</h6>
-          <NavLink
-            to="/documentation"
-            target="__blank"
-            rel="noopener noreferrer"
-            activeClassName="active"
-          >
-            <FlexRow gap="12px">
-              <Icon path={mdiTools} color={color} size={0.7} />
-              <p>Documentation</p>
-            </FlexRow>
-          </NavLink>
+        <Sidebar
+          logo={
+            <>
+              <img src={require("./assets/logo.png")} alt="logo" />
+              <h4 style={{ color }}>BearUI</h4>
+            </>
+          }
+        >
+          {renderNav(navigationConfig)}
         </Sidebar>
       }
       navbar={
@@ -991,19 +370,11 @@ const LayoutComponent: React.FC<any> = ({
             </Link>,
             <Dropdown
               list={[
-                "list 1",
-                "list 2",
+                "Profile",
+                "Settings",
                 <FlexRow center>
-                  <p>Switch from {themeMode}</p>
-                  <UiSwitch
-                    active={themeMode === "darkmode" ? true : false}
-                    color="success"
-                    onCheck={(value: boolean) => {
-                      value
-                        ? setThemeMode("darkmode")
-                        : setThemeMode("lightmode")
-                    }}
-                  />
+                  <p>Turn on data saver</p>
+                  <UiSwitch color="success" />
                 </FlexRow>,
               ]}
               listener="click"

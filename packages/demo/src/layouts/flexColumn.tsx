@@ -7,7 +7,7 @@ import {
   FlexRow,
   Breadcrumb,
   Button,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { FlexRow, Card, Breadcrumb, Container, Input } from "@rap/ui"
+import { FlexRow, Card, Breadcrumb, Container, Input } from "@bearui/ui"
 import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"
 import { useEffect } from "react"

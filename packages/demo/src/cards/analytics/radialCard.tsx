@@ -1,4 +1,4 @@
-import { Card, FlexRow, useTheme, useThemeMode, FlexColumn } from "@rap/ui"
+import { Card, FlexRow, useTheme, useThemeMode, FlexColumn } from "@bearui/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { RadialCardComponent } from "../types"
 import styled from "styled-components"

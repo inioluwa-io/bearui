@@ -6,7 +6,7 @@ import {
   Container,
   FlexColumn,
   Loader,
-} from "@rap/ui"
+} from "@bearui/ui"
 import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"
 import { useEffect } from "react"

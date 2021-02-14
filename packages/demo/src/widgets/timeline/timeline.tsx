@@ -8,7 +8,7 @@ import {
   FlexColumn,
   FlexRow,
   getColorFromTheme,
-} from "@rap/ui"
+} from "@bearui/ui"
 
 type TimelineData = {
   title: string

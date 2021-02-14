@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Container, Card, DataList, Chip, Button, LinkButton } from "@rap/ui"
+import { Container, Card, DataList, Chip, Button, LinkButton } from "@bearui/ui"
 import { invoiceData } from "./mock"
 import { InvoiceData } from "./types"
 import { AddInvoiceModal, EditInvoiceModal } from "./invoiceModal"

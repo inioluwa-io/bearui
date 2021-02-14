@@ -6,7 +6,7 @@ import {
   Input,
   Select,
   TextArea,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React, { Dispatch } from "react"
 import styled from "styled-components"
 import { InvoiceData } from "./types"

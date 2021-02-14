@@ -1,4 +1,4 @@
-import { FlexRow, Container, Card, Collapse, FlexColumn } from "@rap/ui"
+import { FlexRow, Container, Card, Collapse, FlexColumn } from "@bearui/ui"
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"

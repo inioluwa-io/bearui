@@ -1,6 +1,6 @@
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
-import { Container, Card, FlexRow, Breadcrumb, Button } from "@rap/ui"
+import { Container, Card, FlexRow, Breadcrumb, Button } from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 

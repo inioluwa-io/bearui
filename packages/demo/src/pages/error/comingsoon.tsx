@@ -1,4 +1,4 @@
-import { Card, FlexColumn, FlexRow, Input, Button, useThemeMode } from "@rap/ui"
+import { Card, FlexColumn, FlexRow, Input, Button, useThemeMode } from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 import SVGComingSoon from "../../assets/comingsoon.svg"
@@ -75,32 +75,6 @@ const ComingSoonCard: any = styled(Card)`
 
 const ComingSoonPage: React.FC = () => {
   const [themeMode] = useThemeMode()
-  const now = Date.now()
-  const toDate = new Date()
-  toDate.setTime(now + 50135795321)
-
-  const countdown = () => {
-    const now = Date.now()
-    const differenceStamp = toDate.getTime() - now
-
-    const difference = new Date(differenceStamp)
-
-    const sec = difference.getSeconds()
-    const min = difference.getMinutes()
-    const hr = difference.getHours()
-    const day = difference.getDate()
-
-    const diffDay = console.log(
-      difference.getDate(),
-      difference.getHours(),
-      difference.getMinutes(),
-      difference.getSeconds()
-    )
-
-    requestAnimationFrame(countdown)
-  }
-
-  //   requestAnimationFrame(countdown)
 
   return (
     <FlexRow center style={{ height: "100%" }}>

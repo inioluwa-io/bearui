@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Input, FlexRow, Card, FlexColumn, Checkbox } from "@rap/ui"
+import { Button, Input, FlexRow, Card, FlexColumn, Checkbox } from "@bearui/ui"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 

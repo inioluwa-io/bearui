@@ -1,4 +1,4 @@
-import { Container, Row } from "@rap/ui"
+import { Container, Row } from "@bearui/ui"
 import React from "react"
 import CompactCard from "./compactCard"
 import SplitCard from "./splitCard"

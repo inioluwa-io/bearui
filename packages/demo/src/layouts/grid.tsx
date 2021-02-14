@@ -8,7 +8,7 @@ import {
   Grid,
   Row,
   FlexColumn,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 

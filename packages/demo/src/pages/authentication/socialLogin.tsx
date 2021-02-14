@@ -10,7 +10,7 @@ import {
   GithubButton,
   GoogleButton,
   TwitterButton,
-} from "@rap/ui"
+} from "@bearui/ui"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 

@@ -8,7 +8,7 @@ import {
   Container,
   Modal,
   Button,
-} from "@rap/ui"
+} from "@bearui/ui"
 import Icon from "@mdi/react"
 import { mdiHomeOutline } from "@mdi/js"
 

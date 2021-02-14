@@ -11,7 +11,7 @@ import {
   Select,
   Tabs,
   Input,
-} from "@rap/ui"
+} from "@bearui/ui"
 import {
   mdiAccountOutline,
   mdiHomeOutline,
@@ -19,7 +19,7 @@ import {
   mdiShareVariantOutline,
 } from "@mdi/js"
 import Icon from "@mdi/react"
-import img from "../../brooks-leibee-562087-unsplash.jpg"
+import img from "../../assets/brooks-leibee-562087-unsplash.jpg"
 import styled from "styled-components"
 
 const EditProfileContainer: any = styled(Container)`

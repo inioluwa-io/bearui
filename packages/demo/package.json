@@ -1,6 +1,6 @@
 {
-  "name": "@rap/demo",
-  "description": "Demo for the react admin panel package ",
+  "name": "@bearui/demo",
+  "description": "Demo for the bearui admin template ",
   "version": "1.2.4",
   "private": true,
   "dependencies": {
@@ -18,10 +18,9 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "4.1.1",
     "immutable": "^4.0.0-rc.12",
-    "@rap/core": "^1.2.4",
-    "@rap/ui": "^1.2.3",
+    "@bearui/core": "^1.2.4",
+    "@bearui/ui": "^1.2.3",
     "react": "^16.13.1",
-    "@rap/main": "^1.2.0",
     "apexcharts": "^3.22.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

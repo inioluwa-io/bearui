@@ -7,7 +7,7 @@ import {
   Progress,
   useTheme,
   useThemeMode,
-} from "@rap/ui"
+} from "@bearui/ui"
 import styled from "styled-components"
 import { rgba } from "polished"
 import Icon from "@mdi/react"

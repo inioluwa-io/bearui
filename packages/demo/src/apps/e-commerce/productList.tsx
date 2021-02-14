@@ -8,7 +8,7 @@ import {
   FlexRow,
   Chip,
   LinkButton,
-} from "@rap/ui"
+} from "@bearui/ui"
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 import { ProductProps } from "./types"

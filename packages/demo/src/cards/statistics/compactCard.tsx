@@ -4,7 +4,7 @@ import {
   getColorFromTheme,
   useTheme,
   useThemeMode,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"

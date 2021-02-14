@@ -10,7 +10,7 @@ import {
   useTheme,
   Button,
   Loader,
-} from "@rap/ui"
+} from "@bearui/ui"
 import { withRouter } from "react-router-dom"
 import { getOneInvoice } from "./util"
 import { InvoiceData } from "./types"

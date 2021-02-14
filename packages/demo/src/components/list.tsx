@@ -7,9 +7,9 @@ import {
   Avatar,
   FlexColumn,
   List,
-} from "@rap/ui"
+} from "@bearui/ui"
 import Icon from "@mdi/react"
-import img from "../brooks-leibee-562087-unsplash.jpg"
+import img from "../assets/brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 
 const ListPage: React.FC<{}> = () => {

@@ -7,7 +7,7 @@ import {
   Progress,
   FlexColumn,
   LinkButton,
-} from "@rap/ui"
+} from "@bearui/ui"
 import { TodosWidget } from "../apps"
 import { TimelineWidget } from "../widgets"
 import {
@@ -18,8 +18,8 @@ import {
   RadialCard,
   ColumnCard,
 } from "../cards"
-import img from "../dp1.jpg"
-import img1 from "../brooks-leibee-562087-unsplash.jpg"
+import img from "../assets/dp1.jpg"
+import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
 
 const Default: React.FC<any> = () => {
   return (

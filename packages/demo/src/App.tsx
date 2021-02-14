@@ -1,13 +1,13 @@
 import React, { lazy, Suspense } from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 import "./App.css"
-import Table from "./table"
-import BreadcrumbPage from "./breadcrumb"
-import TooltipPage from "./tooltip"
-import DropdownPage from "./dropdown"
-import CollapsePage from "./collapse"
-import ChipPage from "./chips"
-import DataListPage from "./datalist"
+import Table from "./components/table"
+import BreadcrumbPage from "./components/breadcrumb"
+import TooltipPage from "./components/tooltip"
+import DropdownPage from "./components/dropdown"
+import CollapsePage from "./components/collapse"
+import ChipPage from "./components/chips"
+import DataListPage from "./components/datalist"
 import LayoutComponent from "./layout"
 import {
   AvatarPage,
@@ -35,10 +35,10 @@ import {
 } from "./pages"
 import FormsLayoutPage from "./forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "./layouts"
-import ColorsPage from "./colors"
+import ColorsPage from "./components/colors"
 import Documentation from "./documentation"
 import StatisticsCards from "./cards/statistics"
-import { Loader } from "@rap/ui"
+import { Loader } from "@bearui/ui"
 
 // Code splitting
 const Default = lazy(() =>

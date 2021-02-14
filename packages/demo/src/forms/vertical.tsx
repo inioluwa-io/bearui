@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, FlexColumn, FlexRow, Input } from "@rap/ui"
+import { Button, Card, Checkbox, FlexColumn, FlexRow, Input } from "@bearui/ui"
 import React from "react"
 
 const VerticalForm: React.FC = () => {

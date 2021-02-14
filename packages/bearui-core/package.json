@@ -1,0 +1,56 @@
+{
+  "name": "@bearui/core",
+  "version": "1.2.4",
+  "description": "Core component for react-admin-panel",
+  "author": "Inioluwa Sogelola <inioluwwa4.is@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "module": "esm/index.js",
+  "sideEffects": false,
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "*.md",
+    "esm",
+    "src",
+    "docs"
+  ],
+  "devDependencies": {
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.1.0",
+    "@types/react-router-dom": "^5.1.0",
+    "redux-thunk": "^2.3.0",
+    "rimraf": "^2.6.3",
+    "ts-loader": "^8.0.0",
+    "typescript": "^3.9.6",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint-plugin-react": "^7.20.6"
+  },
+  "scripts": {
+    "build": "yarn run build-cjs && yarn run build-esm",
+    "build-cjs": "rimraf ./lib && tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build-esm": "rimraf ./esm && tsc --outDir esm --module es2015",
+    "watch": "tsc --outDir esm --module es2015 --watch && tsc --watch"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.1.0",
+    "react-router-dom": "^5.1.0",
+    "redux": "^3.7.2 || ^4.0.3",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.41",
+    "axios": "^0.19.2"
+  }
+}

@@ -1,4 +1,4 @@
-import { Card, useTheme, useThemeMode } from "@rap/ui"
+import { Card, useTheme, useThemeMode } from "@bearui/ui"
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { ColumnCardComponent } from "../types"
 import styled from "styled-components"

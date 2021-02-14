@@ -5,8 +5,8 @@ import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
-import { DataProvider, AuthContext } from "@rap/core"
-import { store } from "@rap/ui"
+import { DataProvider, AuthContext } from "@bearui/core"
+import { store } from "@bearui/ui"
 
 const defaultDataProvider = {
   getOne: async (resource: string, endPoint?: string, params?: any) => {

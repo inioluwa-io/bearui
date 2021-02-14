@@ -1,7 +1,7 @@
 import React from "react"
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
-import { Container, Card, FlexRow, Breadcrumb } from "@rap/ui"
+import { Container, Card, FlexRow, Breadcrumb } from "@bearui/ui"
 import VerticalForm from "./vertical"
 import HorizontalForm from "./horizontal"
 

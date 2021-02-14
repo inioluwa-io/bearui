@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Card, Container, FlexColumn, Checkbox, LinkButton } from "@rap/ui"
+import { Card, Container, FlexColumn, Checkbox, LinkButton } from "@bearui/ui"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
 import _ from "lodash"

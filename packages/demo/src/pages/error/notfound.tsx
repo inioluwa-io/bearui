@@ -1,4 +1,4 @@
-import { Card, FlexColumn, FlexRow, LinkButton, useThemeMode } from "@rap/ui"
+import { Card, FlexColumn, FlexRow, LinkButton, useThemeMode } from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 import Image4SVG40404 from "../../assets/404.svg"

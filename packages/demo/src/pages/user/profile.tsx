@@ -27,11 +27,11 @@ import {
   Button,
   Input,
   Dropdown,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import pht2 from "../../brooks-leibee-562087-unsplash.jpg"
+import pht2 from "../../assets/brooks-leibee-562087-unsplash.jpg"
 import pht1 from "../../assets/avocado_minimalism_pink_120543_3840x2400.jpg"
 import pht3 from "../../assets/chris-lawton-5IHz5WhosQE-unsplash.jpg"
 import pht4 from "../../assets/pht4.png"
@@ -482,7 +482,7 @@ const SinglePost: React.FC = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat odio
           quas illum doloremque odit nihil, nesciunt harum debitis quasi
           eligendi..{" "}
-          <a href="#" style={{ color: theme.colors.info }}>
+          <a href="/#" style={{ color: theme.colors.info }}>
             See more
           </a>
         </p>

@@ -1,20 +1,4 @@
-/**
- * Table of Content
- *
- * Styled Components
- * TabButton Component - renders tab options("chat","calls","contacts","notifications")
- * Chat typings
- * ChatList Component - renders a list of chat contact
- * Chat Component - Main app component
- */
-
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  HTMLAttributes,
-} from "react"
+import React, { useRef, useState, useCallback, useEffect } from "react"
 import {
   Container,
   Grid,
@@ -28,23 +12,15 @@ import {
   Avatar,
   Dropdown,
   Tooltip,
-} from "@rap/ui"
+} from "@bearui/ui"
 import styled from "styled-components"
 import img from "../../assets/img4.jpg"
 import { Icon } from "@mdi/react"
-import {
-  mdiBell,
-  mdiAccountBox,
-  mdiMessage,
-  mdiMessageOutline,
-  mdiBellOutline,
-  mdiPhone,
-  mdiPhoneOutline,
-  mdiAccountBoxOutline,
-  mdiDotsHorizontal,
-} from "@mdi/js"
-import _ from "lodash"
+import { mdiDotsHorizontal } from "@mdi/js"
 import { mockUserContact } from "./mock"
+import { UserContact } from "./types"
+import TabButton from "./components/tabButton"
+import ChatList from "./components/chatList"
 
 const ChatContainer: any = styled(Container)`
   border: 1px solid #aaaaaa44;
@@ -88,51 +64,6 @@ const ChatContainer: any = styled(Container)`
           height: 60vh;
         }
       }
-    }
-  }
-`
-
-const ChatListContainer: any = styled(FlexColumn)`
-  overflow: hidden;
-  .container {
-    overflow-y: auto;
-  }
-
-  .chat-item {
-    padding: 9px 15px;
-    width: calc(100% - 30px);
-    transition: background 0.25s ease;
-    cursor: pointer;
-
-    &:hover,
-    &.active {
-      background: rgba(15, 15, 15, 0.2);
-    }
-  }
-`
-
-const TabButtonStyle: any = styled.button`
-  background: transparent;
-  border: none;
-  outline: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  grid-gap: 3px;
-  font-size: 9px;
-  transition: color 0.25s ease;
-  ${(props: any) => props.active && "color: " + props.color};
-
-  svg path {
-    transition: all 0.25s ease;
-  }
-
-  &:hover {
-    color: ${(props: any) => props.color};
-
-    svg path {
-      fill: ${(props: any) => props.color} !important;
     }
   }
 `
@@ -232,171 +163,6 @@ const BlankConversation: any = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-const TabButton: React.FC<any> = ({
-  active = false,
-  children,
-  type,
-  color,
-  onClick,
-}) => {
-  const renderIcon = () => {
-    switch (type) {
-      case "chat":
-        return active ? (
-          <Icon path={mdiMessage} size={0.85} color={color} />
-        ) : (
-          <Icon path={mdiMessageOutline} size={0.85} />
-        )
-      case "call":
-        return active ? (
-          <Icon path={mdiPhone} size={0.9} color={color} />
-        ) : (
-          <Icon path={mdiPhoneOutline} size={0.9} />
-        )
-      case "contact":
-        return active ? (
-          <Icon path={mdiAccountBox} size={0.9} color={color} />
-        ) : (
-          <Icon path={mdiAccountBoxOutline} size={0.9} />
-        )
-      case "notification":
-        return active ? (
-          <Icon path={mdiBell} size={0.9} color={color} />
-        ) : (
-          <Icon path={mdiBellOutline} size={0.9} />
-        )
-    }
-  }
-  return (
-    <TabButtonStyle
-      color={color}
-      active={active}
-      onClick={() => {
-        onClick()
-      }}
-    >
-      {renderIcon()}
-      {children}
-    </TabButtonStyle>
-  )
-}
-
-type ChatMessage = {
-  id?: string
-  time: number
-  content: string
-  user_id?: number | string
-}
-
-type UserContact = {
-  id: string
-  img: string
-  name: string
-  status?: 0 | 1 | 2
-  favourite?: boolean
-  messages: ChatMessage[]
-}
-
-type ChatListComponent = {
-  list?: UserContact[]
-  showMessage?: boolean
-  setSelectedChat?: any
-  selectedChat?: string | number | undefined
-  clickCallback?: () => void
-} & HTMLAttributes<HTMLDivElement>
-
-const ChatList: React.FC<ChatListComponent> = ({
-  list,
-  showMessage = true,
-  setSelectedChat,
-  selectedChat,
-  clickCallback,
-  ...props
-}) => {
-  const getDay = (timeStamp: number) => {
-    const date = new Date(timeStamp)
-    const dateArray = date.toDateString().split(" ")
-    return dateArray[2] + " " + dateArray[1]
-  }
-  return (
-    <ChatListContainer gap="0px" {...props}>
-      <FlexColumn gap="0px" className="container">
-        {list?.map((contact, idx: number) => {
-          const lastMessage = contact.messages[0]
-          let statusColor: string = "success"
-
-          switch (contact.status) {
-            case 2: {
-              statusColor = "success"
-              break
-            }
-            case 1: {
-              statusColor = "warning"
-              break
-            }
-            case 0: {
-              statusColor = "danger"
-              break
-            }
-            default: {
-              statusColor = "success"
-              break
-            }
-          }
-          return (
-            <div
-              className={
-                selectedChat === contact.id ? "active chat-item" : "chat-item"
-              }
-              key={idx}
-            >
-              <FlexRow
-                align="space"
-                onClick={() => {
-                  setSelectedChat(contact.id)
-                  clickCallback && clickCallback()
-                }}
-                style={{ flexWrap: "nowrap" }}
-              >
-                <div>
-                  <FlexRow
-                    align="left"
-                    gap="10px"
-                    style={{ flexWrap: "nowrap" }}
-                  >
-                    <Avatar
-                      badgeColor="warning"
-                      withStatus
-                      statusColor={statusColor}
-                      src={contact.img}
-                    />
-                    <FlexColumn
-                      style={{ width: "auto", flexWrap: "nowrap" }}
-                      gap="3px"
-                    >
-                      <p style={{ fontWeight: 500 }}>
-                        {_.truncate(contact?.name, { length: 25 })}
-                      </p>
-                      {showMessage && lastMessage?.content && (
-                        <p style={{ fontSize: "13px" }}>
-                          {_.truncate(lastMessage?.content, { length: 25 })}
-                        </p>
-                      )}
-                    </FlexColumn>
-                  </FlexRow>
-                </div>
-                {showMessage && lastMessage && (
-                  <p style={{ fontSize: "12px" }}>{getDay(lastMessage.time)}</p>
-                )}
-              </FlexRow>
-            </div>
-          )
-        })}
-      </FlexColumn>
-    </ChatListContainer>
-  )
-}
 
 const Chat: React.FC = () => {
   const theme = useTheme()
@@ -575,10 +341,12 @@ const Chat: React.FC = () => {
         >
           <FlexColumn gap="20px" className="panel-header">
             <FlexRow align="space" gap="10px">
-              <FlexRow align="left" gap="10px">
-                <Avatar badgeColor="warning" withStatus src={img} />
-                <p style={{ fontWeight: 500 }}>Tony Stark</p>
-              </FlexRow>
+              <div>
+                <FlexRow align="left" gap="10px">
+                  <Avatar badgeColor="warning" withStatus src={img} />
+                  <p style={{ fontWeight: 500 }}>Tony Stark</p>
+                </FlexRow>
+              </div>
               <Dropdown
                 showIcon={false}
                 listener="click"
@@ -605,7 +373,7 @@ const Chat: React.FC = () => {
             <FlexRow align="stretch" gap="0px" className="action-tab">
               {["Chat", "Call", "Contact", "Notification"].map(
                 (tab, idx: number) => (
-                  <div>
+                  <div key={idx}>
                     <FlexRow align="center" key={idx}>
                       <TabButton
                         active={activeTab === idx}

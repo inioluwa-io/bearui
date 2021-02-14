@@ -6,7 +6,7 @@ import {
   FlexRow,
   Grid,
   Input,
-} from "@rap/ui"
+} from "@bearui/ui"
 import React from "react"
 
 const HorizontalForm: React.FC = () => {
