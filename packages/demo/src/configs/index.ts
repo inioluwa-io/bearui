@@ -1,4 +1,4 @@
-import navigationConfig, { NavigationConfigProps } from "./navigationConfig"
+import navigationConfig from "./navigationConfig"
 import themeConfig from "./appConfig"
-export type { NavigationConfigProps }
+export * from "./navigationConfig"
 export { navigationConfig, themeConfig }
