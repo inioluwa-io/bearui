@@ -230,6 +230,7 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
 const LayoutComponent: React.FC<any> = ({
   children,
   withBar = true,
+  navConfig = navigationConfig,
   ...props
 }) => {
   const dataProvider = useDataProvider()
@@ -350,7 +351,7 @@ const LayoutComponent: React.FC<any> = ({
             </>
           }
         >
-          {renderNav(navigationConfig)}
+          {renderNav(navConfig)}
         </Sidebar>
       }
       navbar={

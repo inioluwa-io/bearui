@@ -201,10 +201,7 @@ export type ThemeMode = [
   Dispatch<SetStateAction<RapUIThemeMode>>
 ]
 
-export type SideBarHook = [
-  boolean,
-  Dispatch<SetStateAction<any>>
-]
+export type SideBarHook = [boolean, Dispatch<SetStateAction<any>>]
 // end theme types
 
 // modal props
@@ -355,11 +352,11 @@ export type TabList = {
 }
 
 export type TabsComponent = {
-  align?: "center" | "right" | "fixed"
+  align?: "center" | "right" | "fixed" | "left"
   position?: "top" | "left" | "right"
   list: TabList[]
   color?: string
-  onTabClick?: () => void
+  onTabClick?: (key?: number) => void
 } & HTMLAttributes<HTMLDivElement>
 //
 

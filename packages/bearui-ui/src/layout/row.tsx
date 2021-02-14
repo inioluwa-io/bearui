@@ -1,4 +1,4 @@
-import React from "react"
+import React, { HTMLAttributes } from "react"
 import styled from "styled-components"
 
 const RowContainer: any = styled.div`
@@ -26,7 +26,10 @@ const RowContainer: any = styled.div`
   }
 `
 
-const Row: React.FC = ({ children, ...props }) => {
+const Row: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  ...props
+}) => {
   return (
     <RowContainer className="row" {...props}>
       {children}

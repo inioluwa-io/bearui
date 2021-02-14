@@ -8,11 +8,8 @@ import {
   LinkButton,
   Avatar,
 } from "@bearui/ui"
-import {
-  SplitCard,
-  ProgressCard,
-  ColumnCard,
-} from "../cards"
+import { SplitCard, ProgressCard, ColumnCard } from "../cards"
+import { CryptoWidget, NewsWidget } from "../widgets"
 import img from "../assets/dp1.jpg"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
 
@@ -79,6 +76,8 @@ const Crypto: React.FC<any> = () => {
           { title: "LTC", percent: 17, diff: -10 },
         ]}
       />
+      <CryptoWidget />
+      <NewsWidget />
 
       <Card xsCol="12">
         <h5>Active Orders</h5>

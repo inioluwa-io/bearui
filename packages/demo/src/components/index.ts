@@ -8,7 +8,6 @@ import ModalPage from "./modal"
 import PaginationPage from "./pagination"
 import ProgressPage from "./progress"
 import SwitchPage from "./switch"
-import ListPage from "./list"
 import SelectPage from "./select"
 import TextAreaPage from "./textarea"
 
@@ -23,7 +22,6 @@ export {
   PaginationPage,
   ProgressPage,
   SwitchPage,
-  ListPage,
   SelectPage,
   TextAreaPage,
 }

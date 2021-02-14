@@ -216,6 +216,16 @@ const Button: React.FC<ButtonProps> = ({
   const refs: any = useRef()
 
   const Theme = useTheme()
+  const supportedColors = [
+    "primary",
+    "success",
+    "info",
+    "danger",
+    "warning",
+    "transparent",
+    "white",
+    "dark",
+  ]
 
   const addPulse = useCallback(
     e => {
@@ -251,9 +261,7 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg"
-          ? { borderRadius: "7px" }
-          : { borderRadius: "5px" }
+        return size === "lg" ? { borderRadius: "7px" } : { borderRadius: "5px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -275,16 +283,6 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   const getStyleFromBackgroundProps: Function = (): any => {
-    const supportedColors = [
-      "primary",
-      "success",
-      "info",
-      "danger",
-      "warning",
-      "transparent",
-      "white",
-      "dark",
-    ]
     if (supportedColors.includes(background.trim())) {
       return {
         backgroundGradient:

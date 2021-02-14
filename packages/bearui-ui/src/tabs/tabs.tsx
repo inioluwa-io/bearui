@@ -36,7 +36,7 @@ const TabsElement: any = styled.div`
         return "overflow-x: auto;"
       }
     }}
-    width: ${(props: any) => `${props.fixed ? "100%" : "fit-content"}`};
+    width: ${(props: any) => `${props.fixed ? "100%" : "100%"}`};
   }
   ul {
     display: flex;
@@ -338,7 +338,7 @@ const Tabs: React.FC<TabsComponent> = ({
       top: currentTab.top,
     })
     if (typeof onTabClick === "function") {
-      onTabClick()
+      onTabClick(idx)
     }
   }
 
@@ -362,7 +362,12 @@ const Tabs: React.FC<TabsComponent> = ({
     }
   }
   return (
-    <TabsContainer ref={refs} position={position} {...props}>
+    <TabsContainer
+      ref={refs}
+      position={position}
+      {...props}
+      className="tab-container"
+    >
       <TabsElement
         color={indicatorColor}
         fixed={align === "fixed"}

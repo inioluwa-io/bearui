@@ -127,13 +127,6 @@ const navigationConfig: NavigationConfigProps[] = [
     breadcrumb: false,
     subMenu: [
       {
-        key: "basic",
-        path: "/card/basic",
-        title: "Basic",
-        breadcrumb: false,
-        subMenu: [],
-      },
-      {
         key: "statistics",
         path: "/card/statistics",
         title: "Statistics",
