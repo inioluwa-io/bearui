@@ -24,7 +24,8 @@ const App: React.FC = () => {
           </div>
         }
       >
-        <Routes />
+        <p>Hi</p>
+        {/* <Routes /> */}
       </Suspense>
     </div>
   )
