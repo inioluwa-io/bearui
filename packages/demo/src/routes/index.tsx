@@ -1,37 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 import "../App.css"
-import Table from "../components/table"
-import BreadcrumbPage from "../components/breadcrumb"
-import TooltipPage from "../components/tooltip"
-import DropdownPage from "../components/dropdown"
-import CollapsePage from "../components/collapse"
-import ChipPage from "../components/chips"
-import DataListPage from "../components/datalist"
 import LayoutComponent from "../layout"
-import {
-  AvatarPage,
-  CheckboxPage,
-  ProgressPage,
-  InputPage,
-  LoaderPage,
-  ModalPage,
-  TabPage,
-  SwitchPage,
-  PaginationPage,
-  SelectPage,
-  TextAreaPage,
-} from "../components"
-import {
-  UserViewPage,
-  UserEditPage,
-  UserProfilePage,
-  SocialLoginPage,
-  RegisterPage,
-  LoginPage,
-  NotFoundPage,
-  ComingSoonPage,
-} from "../pages"
 import FormsLayoutPage from "../forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "../layouts"
 import ColorsPage from "../components/colors"
@@ -93,6 +63,163 @@ const ViewInvoice = lazy(() =>
 const Ecommerce = lazy(() =>
   import("../apps").then(module => ({
     default: module.Ecommerce,
+  }))
+)
+
+const Table = lazy(() =>
+  import("../components/table").then(module => ({
+    default: module.default,
+  }))
+)
+
+const BreadcrumbPage = lazy(() =>
+  import("../components/breadcrumb").then(module => ({
+    default: module.default,
+  }))
+)
+
+const TooltipPage = lazy(() =>
+  import("../components/tooltip").then(module => ({
+    default: module.default,
+  }))
+)
+
+const DropdownPage = lazy(() =>
+  import("../components/dropdown").then(module => ({
+    default: module.default,
+  }))
+)
+
+const CollapsePage = lazy(() =>
+  import("../components/collapse").then(module => ({
+    default: module.default,
+  }))
+)
+
+const ChipPage = lazy(() =>
+  import("../components/chips").then(module => ({
+    default: module.default,
+  }))
+)
+
+const DataListPage = lazy(() =>
+  import("../components/datalist").then(module => ({
+    default: module.default,
+  }))
+)
+
+const AvatarPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.AvatarPage,
+  }))
+)
+
+const CheckboxPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.CheckboxPage,
+  }))
+)
+
+const ProgressPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.ProgressPage,
+  }))
+)
+
+const InputPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.InputPage,
+  }))
+)
+
+const LoaderPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.LoaderPage,
+  }))
+)
+
+const ModalPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.ModalPage,
+  }))
+)
+
+const TabPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.TabPage,
+  }))
+)
+
+const SwitchPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.SwitchPage,
+  }))
+)
+
+const PaginationPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.PaginationPage,
+  }))
+)
+
+const SelectPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.SelectPage,
+  }))
+)
+
+const TextAreaPage = lazy(() =>
+  import("../components").then(module => ({
+    default: module.TextAreaPage,
+  }))
+)
+
+// Pages
+const UserViewPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.UserViewPage,
+  }))
+)
+
+const UserEditPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.UserEditPage,
+  }))
+)
+
+const UserProfilePage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.UserProfilePage,
+  }))
+)
+
+const SocialLoginPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.SocialLoginPage,
+  }))
+)
+
+const RegisterPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.RegisterPage,
+  }))
+)
+
+const LoginPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.LoginPage,
+  }))
+)
+
+const NotFoundPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.NotFoundPage,
+  }))
+)
+
+const ComingSoonPage = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.ComingSoonPage,
   }))
 )
 

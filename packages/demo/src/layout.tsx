@@ -346,7 +346,7 @@ const LayoutComponent: React.FC<any> = ({
         <Sidebar
           logo={
             <>
-              <img src={require("./assets/logo.png")} alt="logo" />
+              <img src={require("./assets/logo-min.png")} alt="logo" />
               <h4 style={{ color }}>BearUI</h4>
             </>
           }
