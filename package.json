@@ -37,7 +37,7 @@
     "build:demo": "yarn pre:build && yarn workspace @bearui/demo build",
     "dev-build:demo": "yarn pre:build && yarn workspace @bearui/demo dev-build",
     "start": "concurrently \"yarn watch\" \"yarn start:demo\"",
-    "test:bearui-demo": "yarn workspace @bearui-demo test",
+    "test:bearui-demo": "yarn workspace @bearui/demo test",
     "prettier": "prettier"
   },
   "eslintConfig": {
@@ -49,6 +49,7 @@
       "not dead",
       "not op_mini all"
     ],
+    
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
