@@ -16,7 +16,7 @@ import {
   SlackButton,
   TwitterButton,
 } from "@bearui/ui"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiAccountEdit, mdiDelete, mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 import img from "../../assets/brooks-leibee-562087-unsplash.jpg"
 import styled from "styled-components"
@@ -93,47 +93,27 @@ const UserViewPage = () => {
           <FlexRow align="center">
             <Tooltip text="Instagram">
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <InstagramButton
-                  onClick={() => {}}
-                  transparent
-                  iconOnly
-                />
+                <InstagramButton onClick={() => {}} transparent iconOnly />
               </a>
             </Tooltip>
             <Tooltip text="Facebook">
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <FacebookButton
-                  onClick={() => {}}
-                  transparent
-                  iconOnly
-                />
+                <FacebookButton onClick={() => {}} transparent iconOnly />
               </a>
             </Tooltip>
             <Tooltip text="Slack">
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <SlackButton
-                  onClick={() => {}}
-                  transparent
-                  iconOnly
-                />
+                <SlackButton onClick={() => {}} transparent iconOnly />
               </a>
             </Tooltip>
             <Tooltip text="Twitter">
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <TwitterButton
-                  onClick={() => {}}
-                  transparent
-                  iconOnly
-                />
+                <TwitterButton onClick={() => {}} transparent iconOnly />
               </a>
             </Tooltip>
             <Tooltip text="Github">
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <GithubButton
-                  onClick={() => {}}
-                  transparent
-                  iconOnly
-                />
+                <GithubButton onClick={() => {}} transparent iconOnly />
               </a>
             </Tooltip>
           </FlexRow>
@@ -155,10 +135,10 @@ const UserViewPage = () => {
               </div>
             </div>
             <FlexRow align="stretch">
-              <LinkButton to="/user/edit" icon="mdiAccountEdit">
+              <LinkButton to="/user/edit" icon={mdiAccountEdit}>
                 Edit
               </LinkButton>
-              <Button icon="mdiDelete" background="danger" transparent>
+              <Button icon={mdiDelete} background="danger" transparent>
                 Delete
               </Button>
             </FlexRow>

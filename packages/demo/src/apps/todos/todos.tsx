@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-} from "react"
+import React, { useEffect, useState, useCallback } from "react"
 import {
   FlexRow,
   Input,
@@ -21,9 +17,10 @@ import {
 } from "@bearui/ui"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
-import _ from "lodash"
+import { truncate } from "lodash"
 import FilterPanel from "./components/filterPanel"
 import { Filter } from "./types"
+import { mdiMagnify, mdiPlus, mdiInformation, mdiStar, mdiDelete, mdiTag } from "@mdi/js"
 
 const TodosContainer: any = styled.div`
   .add-tsk {
@@ -324,7 +321,7 @@ const Todos: React.FC<any> = () => {
           <Card xsCol="12" gap="15px">
             <FlexRow align="right" position="top">
               <Input
-                icon="mdiMagnify"
+                icon={mdiMagnify}
                 type="text"
                 id="todos-search"
                 clearButton
@@ -338,7 +335,7 @@ const Todos: React.FC<any> = () => {
             </FlexRow>
             <FlexColumn align="stretch">
               <Button
-                icon="mdiPlus"
+                icon={mdiPlus}
                 onClick={() => {
                   setOpenAddTaskModal(true)
                 }}
@@ -409,7 +406,7 @@ const Todos: React.FC<any> = () => {
                               background={
                                 todo.important ? "success" : "rgba(0,0,0,.2)"
                               }
-                              icon="mdiInformation"
+                              icon={mdiInformation}
                               size="xs"
                               onClick={() => {
                                 handleSetFilter(
@@ -434,14 +431,14 @@ const Todos: React.FC<any> = () => {
                                   !todo.starred
                                 )
                               }}
-                              icon="mdiStar"
+                              icon={mdiStar}
                               size="xs"
                             ></Button>
                           </Tooltip>
                           <Button
                             iconOnly
                             background="danger"
-                            icon="mdiDelete"
+                            icon={mdiDelete}
                             onClick={() => {
                               handleSetFilter("trashed", todo.id, true)
                             }}
@@ -457,7 +454,7 @@ const Todos: React.FC<any> = () => {
                         setOpenEditTaskModal(true)
                       }}
                     >
-                      {_.truncate(todo.description, { length: 120 })}
+                      {truncate(todo.description, { length: 120 })}
                     </p>
                   </FlexColumn>
                 </Card>
@@ -470,7 +467,7 @@ const Todos: React.FC<any> = () => {
         className="add-tsk mobile"
         glow
         iconOnly
-        icon="mdiPlus"
+        icon={mdiPlus}
         size="lg"
         onClick={() => {
           setOpenAddTaskModal(true)
@@ -503,7 +500,7 @@ const Todos: React.FC<any> = () => {
                 transparent={!newTodo.important}
                 iconOnly
                 background={newTodo.important ? "success" : "rgba(0,0,0,.2)"}
-                icon="mdiInformation"
+                icon={mdiInformation}
                 size="xs"
                 onClick={() => {
                   setNewTodo({ ...newTodo, important: !newTodo.important })
@@ -518,7 +515,7 @@ const Todos: React.FC<any> = () => {
                 onClick={() => {
                   setNewTodo({ ...newTodo, starred: !newTodo.starred })
                 }}
-                icon="mdiStar"
+                icon={mdiStar}
                 size="xs"
               ></Button>
             </Tooltip>
@@ -549,7 +546,7 @@ const Todos: React.FC<any> = () => {
               <Button
                 iconOnly
                 background="primary"
-                icon="mdiTag"
+                icon={mdiTag}
                 size="xs"
               ></Button>
             </Dropdown>
@@ -614,7 +611,7 @@ const Todos: React.FC<any> = () => {
                   transparent={!newTodo?.important}
                   iconOnly
                   background={newTodo?.important ? "success" : "rgba(0,0,0,.2)"}
-                  icon="mdiInformation"
+                  icon={mdiInformation}
                   size="xs"
                   onClick={() => {
                     setNewTodo({ ...newTodo, important: !newTodo?.important })
@@ -629,7 +626,7 @@ const Todos: React.FC<any> = () => {
                   onClick={() => {
                     setNewTodo({ ...newTodo, starred: !newTodo?.starred })
                   }}
-                  icon="mdiStar"
+                  icon={mdiStar}
                   size="xs"
                 ></Button>
               </Tooltip>
@@ -660,7 +657,7 @@ const Todos: React.FC<any> = () => {
                 <Button
                   iconOnly
                   background="primary"
-                  icon="mdiTag"
+                  icon={mdiTag}
                   size="xs"
                 ></Button>
               </Dropdown>

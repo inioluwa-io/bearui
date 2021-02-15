@@ -1,3 +1,4 @@
+import { mdiGoogle } from "@mdi/js"
 import React from "react"
 import { GoogleSocialButton } from "../types"
 import Button from "./button"
@@ -48,7 +49,7 @@ const GoogleButton: React.FC<GoogleSocialButton> = ({
       iconColor={textColor}
       corners={corners}
       gradient={gradient}
-      icon="mdiGoogle"
+      icon={mdiGoogle}
       iconOnly={iconOnly}
       textColor={textColor}
       style={style}

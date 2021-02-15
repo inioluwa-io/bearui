@@ -4,15 +4,14 @@ import { BreadcrumbComponent, BreadcrumbItem } from "../types"
 import styled, { StyledComponent } from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 
 const BreadcrumbDiv: StyledComponent<
   "ul",
   any,
-  { color: string; textColor: string; seperatorColor: string }
+  { color: string; textColor: string; separatorColor: string }
 > = styled.ul`
   display: flex;
-  jusitfy-content: center;
+  justify-content: center;
   flex-wrap: wrap;
 
   li {
@@ -38,7 +37,7 @@ const BreadcrumbDiv: StyledComponent<
 
     span {
       margin: 0 7px;
-      color: ${(props: any) => props.seperatorColor};
+      color: ${(props: any) => props.separatorColor};
       display: flex;
       justify-content: center;
       align-items: center;
@@ -56,7 +55,7 @@ const BreadcrumbDiv: StyledComponent<
 const Breadcrumb: React.FC<BreadcrumbComponent> = ({
   item,
   color = "primary",
-  seperator = "/",
+  separator = "/",
 }) => {
   if (!(item instanceof Array)) {
     throw new Error(`Required item to be an array but got ${typeof item}`)
@@ -71,12 +70,12 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
   if (color === "dark") {
     color = mode === "lightmode" ? "#222" : "#f4f4f4"
   }
-  const seperatorColor: any = mode === "lightmode" ? "#222" : "#f4f4f4"
+  const separatorColor: any = mode === "lightmode" ? "#222" : "#f4f4f4"
   return (
     <BreadcrumbDiv
       color={colors[color] || color}
-      textColor={seperatorColor}
-      seperatorColor={seperatorColor}
+      textColor={separatorColor}
+      separatorColor={separatorColor}
     >
       {item.map((list: BreadcrumbItem, idx: number) => (
         <li key={idx}>
@@ -84,14 +83,14 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
             <>
               <Link to={list.to}>{list.name}</Link>{" "}
               <span>
-                {seperator.length > 1 ? (
+                {separator.length > 1 ? (
                   <Icon
-                    path={path[seperator]}
+                    path={separator}
                     size={0.7}
-                    color={seperatorColor}
+                    color={separatorColor}
                   />
                 ) : (
-                  seperator
+                  separator
                 )}
               </span>
             </>

@@ -13,7 +13,7 @@ import {
   GoogleButton,
 } from "@bearui/ui"
 import Icon from "@mdi/react"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiDelete, mdiDotsHexagon, mdiDownload, mdiEmailOutline, mdiHeart, mdiHome, mdiHomeOutline, mdiStar } from "@mdi/js"
 
 const ButtonPage: React.FC<{}> = () => {
   const [active, setActive] = useState([
@@ -229,20 +229,20 @@ const ButtonPage: React.FC<{}> = () => {
           </a>
         </p>
         <FlexRow>
-          <Button icon="mdiEmailOutline">Send Email</Button>
-          <Button icon="mdiHeart" background="success">
+          <Button icon={mdiEmailOutline}>Send Email</Button>
+          <Button icon={mdiHeart} background="success">
             Save
           </Button>
-          <Button icon="mdiDownload" background="info">
+          <Button icon={mdiDownload} background="info">
             Download
           </Button>
-          <Button icon="mdiDelete" background="danger">
+          <Button icon={mdiDelete} background="danger">
             Delete
           </Button>
-          <Button icon="mdiStar" background="warning">
+          <Button icon={mdiStar} background="warning">
             Add to Favourite
           </Button>
-          <Button icon="mdiHome" background="dark">
+          <Button icon={mdiHome} background="dark">
             Home
           </Button>
         </FlexRow>
@@ -253,22 +253,22 @@ const ButtonPage: React.FC<{}> = () => {
           To move icon to the the right set <code>iconRight</code> prop to true
         </p>
         <FlexRow>
-          <Button iconRight icon="mdiEmailOutline">
+          <Button iconRight icon={mdiEmailOutline}>
             Send Email
           </Button>
-          <Button iconRight icon="mdiHeart" background="success">
+          <Button iconRight icon={mdiHeart} background="success">
             Save
           </Button>
-          <Button iconRight icon="mdiDownload" background="info">
+          <Button iconRight icon={mdiDownload} background="info">
             Download
           </Button>
-          <Button iconRight icon="mdiDelete" background="danger">
+          <Button iconRight icon={mdiDelete} background="danger">
             Delete
           </Button>
-          <Button iconRight icon="mdiStar" background="warning">
+          <Button iconRight icon={mdiStar} background="warning">
             Add to Favourite
           </Button>
-          <Button iconRight icon="mdiHome" background="dark">
+          <Button iconRight icon={mdiHome} background="dark">
             Home
           </Button>
         </FlexRow>
@@ -279,22 +279,22 @@ const ButtonPage: React.FC<{}> = () => {
           To show only icon in the button set <code>iconOnly</code> prop to true
         </p>
         <FlexRow>
-          <Button iconOnly icon="mdiEmailOutline">
+          <Button iconOnly icon={mdiEmailOutline}>
             Send Email
           </Button>
-          <Button iconOnly outline icon="mdiHeart" background="success">
+          <Button iconOnly outline icon={mdiHeart} background="success">
             Save
           </Button>
-          <Button iconOnly outline icon="mdiDownload" background="info">
+          <Button iconOnly outline icon={mdiDownload} background="info">
             Download
           </Button>
-          <Button iconOnly icon="mdiDelete" background="danger">
+          <Button iconOnly icon={mdiDelete} background="danger">
             Delete
           </Button>
-          <Button iconOnly outline icon="mdiStar" background="warning">
+          <Button iconOnly outline icon={mdiStar} background="warning">
             Add to Favourite
           </Button>
-          <Button iconOnly icon="mdiHome" background="dark">
+          <Button iconOnly icon={mdiHome} background="dark">
             Home
           </Button>
         </FlexRow>
@@ -313,7 +313,7 @@ const ButtonPage: React.FC<{}> = () => {
               setActive(newArr)
             }}
             loading={active[0]}
-            icon="mdiEmailOutline"
+            icon={mdiEmailOutline}
           >
             Email
           </Button>
@@ -325,7 +325,7 @@ const ButtonPage: React.FC<{}> = () => {
               setActive(newArr)
             }}
             loading={active[1]}
-            icon="mdiHeart"
+            icon={mdiHeart}
             background="success"
           >
             Save
@@ -338,7 +338,7 @@ const ButtonPage: React.FC<{}> = () => {
               setActive(newArr)
             }}
             loading={active[2]}
-            icon="mdiDownload"
+            icon={mdiDownload}
             background="info"
           >
             Download
@@ -351,7 +351,7 @@ const ButtonPage: React.FC<{}> = () => {
               setActive(newArr)
             }}
             loading={active[3]}
-            icon="mdiDelete"
+            icon={mdiDelete}
             background="danger"
           >
             Delete
@@ -364,7 +364,7 @@ const ButtonPage: React.FC<{}> = () => {
               setActive(newArr)
             }}
             loading={active[4]}
-            icon="mdiStar"
+            icon={mdiStar}
             background="warning"
           >
             Add Favourite
@@ -393,22 +393,22 @@ const ButtonPage: React.FC<{}> = () => {
           </a>
         </p>
         <FlexRow>
-          <Button loading icon="mdiEmailOutline">
+          <Button loading loadingIcon={mdiEmailOutline}>
             Email
           </Button>
-          <Button loading loadingIcon="mdiHeart" background="success">
+          <Button loading loadingIcon={mdiHeart} background="success">
             Save
           </Button>
-          <Button loading loadingIcon="mdiDownload" background="info">
+          <Button loading loadingIcon={mdiDownload} background="info">
             Download
           </Button>
-          <Button loading loadingIcon="mdiDelete" background="danger">
+          <Button loading loadingIcon={mdiDelete} background="danger">
             Delete
           </Button>
-          <Button loading loadingIcon="mdiStar" background="warning">
+          <Button loading loadingIcon={mdiStar} background="warning">
             Add Favourite
           </Button>
-          <Button loading loadingIcon="mdiDotsHexagon" background="dark">
+          <Button loading loadingIcon={mdiDotsHexagon} background="dark">
             Click me
           </Button>
         </FlexRow>

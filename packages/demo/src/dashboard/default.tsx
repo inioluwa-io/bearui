@@ -20,6 +20,7 @@ import {
 } from "../cards"
 import img from "../assets/dp1.jpg"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
+import { mdiAccountGroupOutline, mdiCurrencyUsd, mdiCartOutline } from "@mdi/js"
 
 const Default: React.FC<any> = () => {
   return (
@@ -28,7 +29,7 @@ const Default: React.FC<any> = () => {
         <h3>Hello Mr Stark!</h3>
       </Card>
       <SplitCard
-        icon="mdiAccountGroupOutline"
+        icon={mdiAccountGroupOutline}
         title="Total Users"
         color="primary"
         value="61k"
@@ -40,7 +41,7 @@ const Default: React.FC<any> = () => {
         ]}
       />
       <SplitCard
-        icon="mdiCurrencyUsd"
+        icon={mdiCurrencyUsd}
         title="Total Sales"
         color="success"
         value="104k"
@@ -52,7 +53,7 @@ const Default: React.FC<any> = () => {
         ]}
       />
       <SplitCard
-        icon="mdiCartOutline"
+        icon={mdiCartOutline}
         title="Total Orders"
         color="warning"
         value="73k"

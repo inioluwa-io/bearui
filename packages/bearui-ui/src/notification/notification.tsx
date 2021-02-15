@@ -3,7 +3,6 @@ import { NotifyProps } from "../types"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 import { darken, rgba } from "polished"
-import * as path from "@mdi/js"
 import { useTheme, useThemeMode } from "../theme"
 
 const NotificationDiv: any = styled.div`
@@ -109,7 +108,7 @@ const Notification: React.FC<NotifyProps> = ({
           <div style={{ display: "flex" }}>
             <HeaderIcon>
               <Icon
-                path={path[icon]}
+                path={icon}
                 color={colors[iconColor] || iconColor || colors.warning}
                 size={0.8}
               />

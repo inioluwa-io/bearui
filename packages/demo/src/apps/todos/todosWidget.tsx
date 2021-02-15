@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Card, Container, FlexColumn, Checkbox, LinkButton } from "@bearui/ui"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
-import _ from "lodash"
+import { truncate } from "lodash"
 
 const TodosContainer: any = styled(Card)`
   .add-tsk {
@@ -193,7 +193,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
                     handleSetFilter("completed", todo.id, !todo.completed)
                   }}
                 >
-                  {_.truncate(todo.description, { length: 120 })}
+                  {truncate(todo.description, { length: 120 })}
                 </p>
               </Card>
             ))}

@@ -1,4 +1,5 @@
 import { Container, Row } from "@bearui/ui"
+import { mdiCalendarOutline, mdiHeartOutline, mdiChatOutline, mdiCloudUpload, mdiEyeOutline, mdiCloudDownload, mdiAccountGroupOutline, mdiCurrencyUsd, mdiCartOutline, mdiTruckOutline } from "@mdi/js"
 import React from "react"
 import CompactCard from "./compactCard"
 import SplitCard from "./splitCard"
@@ -7,37 +8,37 @@ const StatisticsCards: React.FC = () => {
   return (
     <Container>
       <CompactCard
-        icon="mdiCalendarOutline"
+        icon={mdiCalendarOutline}
         title="Events"
         color="warning"
         value="13"
       />
       <CompactCard
-        icon="mdiHeartOutline"
+        icon={mdiHeartOutline}
         title="Likes"
         color="danger"
         value="11k"
       />
       <CompactCard
-        icon="mdiChatOutline"
+        icon={mdiChatOutline}
         title="Comments"
         color="info"
         value="23k"
       />
       <CompactCard
-        icon="mdiCloudUpload"
+        icon={mdiCloudUpload}
         title="Uploads"
         color="success"
         value="118"
       />
       <CompactCard
-        icon="mdiEyeOutline"
+        icon={mdiEyeOutline}
         title="Views"
         color="primary"
         value="18k"
       />
       <CompactCard
-        icon="mdiCloudDownload"
+        icon={mdiCloudDownload}
         title="Downloads"
         color="info"
         value="118"
@@ -45,25 +46,25 @@ const StatisticsCards: React.FC = () => {
 
       <Row>
         <SplitCard
-          icon="mdiAccountGroupOutline"
+          icon={mdiAccountGroupOutline}
           title="Total Users"
           color="primary"
           value="123k"
         />
         <SplitCard
-          icon="mdiCurrencyUsd"
+          icon={mdiCurrencyUsd}
           title="Total Sales"
           color="success"
           value="123k"
         />
         <SplitCard
-          icon="mdiCartOutline"
+          icon={mdiCartOutline}
           title="Total Orders"
           color="warning"
           value="23k"
         />
         <SplitCard
-          icon="mdiTruckOutline"
+          icon={mdiTruckOutline}
           title="Total Returns"
           color="danger"
           value="118"
@@ -71,7 +72,7 @@ const StatisticsCards: React.FC = () => {
       </Row>
 
       <CompactCard
-        icon="mdiAccountGroupOutline"
+        icon={mdiAccountGroupOutline}
         title="Total Users"
         color="primary"
         value="123k"
@@ -83,7 +84,7 @@ const StatisticsCards: React.FC = () => {
         ]}
       />
       <CompactCard
-        icon="mdiCurrencyUsd"
+        icon={mdiCurrencyUsd}
         title="Total Sales"
         color="success"
         value="123k"
@@ -95,7 +96,7 @@ const StatisticsCards: React.FC = () => {
         ]}
       />
       <CompactCard
-        icon="mdiCartOutline"
+        icon={mdiCartOutline}
         title="Total Orders"
         color="warning"
         value="23k"
@@ -107,7 +108,7 @@ const StatisticsCards: React.FC = () => {
         ]}
       />
       <CompactCard
-        icon="mdiTruckOutline"
+        icon={mdiTruckOutline}
         title="Total Returns"
         color="danger"
         value="118"
@@ -120,7 +121,7 @@ const StatisticsCards: React.FC = () => {
       />
 
       <SplitCard
-        icon="mdiAccountGroupOutline"
+        icon={mdiAccountGroupOutline}
         title="Total Users"
         color="primary"
         value="123k"
@@ -132,7 +133,7 @@ const StatisticsCards: React.FC = () => {
         ]}
       />
       <SplitCard
-        icon="mdiCurrencyUsd"
+        icon={mdiCurrencyUsd}
         title="Total Sales"
         color="success"
         value="123k"
@@ -144,7 +145,7 @@ const StatisticsCards: React.FC = () => {
         ]}
       />
       <SplitCard
-        icon="mdiCartOutline"
+        icon={mdiCartOutline}
         title="Total Orders"
         color="warning"
         value="23k"

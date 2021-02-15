@@ -1,5 +1,5 @@
 import { FlexColumn, FlexRow, Avatar } from "@bearui/ui"
-import _ from "lodash"
+import { truncate } from "lodash"
 import React, { HTMLAttributes } from "react"
 import styled from "styled-components"
 import { UserContact } from "../types"
@@ -100,11 +100,11 @@ const ChatList: React.FC<ChatListComponent> = ({
                       gap="3px"
                     >
                       <p style={{ fontWeight: 500 }}>
-                        {_.truncate(contact?.name, { length: 25 })}
+                        {truncate(contact?.name, { length: 25 })}
                       </p>
                       {showMessage && lastMessage?.content && (
                         <p style={{ fontSize: "13px" }}>
-                          {_.truncate(lastMessage?.content, { length: 25 })}
+                          {truncate(lastMessage?.content, { length: 25 })}
                         </p>
                       )}
                     </FlexColumn>

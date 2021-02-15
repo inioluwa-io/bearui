@@ -16,7 +16,7 @@ import {
 import styled from "styled-components"
 import img from "../../assets/img4.jpg"
 import { Icon } from "@mdi/react"
-import { mdiDotsHorizontal } from "@mdi/js"
+import { mdiAttachment, mdiChevronLeft, mdiDotsHorizontal, mdiMagnify, mdiPhone, mdiPin, mdiVideoOutline } from "@mdi/js"
 import { mockUserContact } from "./mock"
 import { UserContact } from "./types"
 import TabButton from "./components/tabButton"
@@ -361,7 +361,7 @@ const Chat: React.FC = () => {
                 id="search-chat"
                 color="primary"
                 placeholder="People, groups &amp; messages"
-                icon="mdiMagnify"
+                icon={mdiMagnify}
                 size="xs"
                 clearButton
                 onInputChange={(val: string) => {
@@ -407,7 +407,7 @@ const Chat: React.FC = () => {
                   <div>
                     <FlexRow style={{ width: "auto" }} gap="0px">
                       <Button
-                        icon="mdiChevronLeft"
+                        icon={mdiChevronLeft}
                         iconOnly
                         id="back-btn"
                         background="transparent"
@@ -427,7 +427,7 @@ const Chat: React.FC = () => {
                           corners="rounded"
                           iconOnly
                           iconColor={textColor}
-                          icon="mdiVideoOutline"
+                          icon={mdiVideoOutline}
                           background={cardBackground}
                         />
                       </Tooltip>
@@ -437,7 +437,7 @@ const Chat: React.FC = () => {
                           corners="rounded"
                           iconOnly
                           iconColor={textColor}
-                          icon="mdiPhone"
+                          icon={mdiPhone}
                           background={cardBackground}
                         />
                       </Tooltip>
@@ -448,7 +448,7 @@ const Chat: React.FC = () => {
                           iconOnly
                           transparent={!getChat().favourite}
                           onClick={pinChat}
-                          icon="mdiPin"
+                          icon={mdiPin}
                           background={"warning"}
                         />
                       </Tooltip>
@@ -525,7 +525,7 @@ const Chat: React.FC = () => {
                       ) : (
                         <Button
                           iconOnly
-                          icon="mdiAttachment"
+                          icon={mdiAttachment}
                           iconColor={textColor}
                           background={cardBackground}
                           type="button"
@@ -570,7 +570,7 @@ const Chat: React.FC = () => {
         <FlexRow align="stretch">
           <Input
             id="search-contact"
-            icon="mdiMagnify"
+            icon={mdiMagnify}
             placeholder="Search"
             onInputChange={(val: string) => {
               setContactSearchInput(val)

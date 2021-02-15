@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react"
 import { InputProps } from "../types"
 import styled from "styled-components"
 import { isSupported } from "../util"
-import * as mdi from "@mdi/js"
 import { Icon } from "@mdi/react"
 import { useTheme, useThemeMode } from "../theme"
+import { mdiClose } from "@mdi/js"
 
 const InputElement: any = styled.div`
   position: relative;
@@ -351,7 +351,7 @@ const Input: React.FC<InputProps> = ({
             iconRight={iconRight && !clearButton}
             iconBorder={iconBorder}
           >
-            <Icon path={mdi[icon]} size={0.72} color={inputIconColor()} />
+            <Icon path={icon} size={0.72} color={inputIconColor()} />
           </InputIcon>
         )}
         {clearButton && !!inputValue.length && (
@@ -365,7 +365,7 @@ const Input: React.FC<InputProps> = ({
               refs.current.querySelector("input").focus()
             }}
           >
-            <Icon path={mdi.mdiClose} size={0.55} color={"#f4f4f4"} />
+            <Icon path={mdiClose} size={0.55} color={"#f4f4f4"} />
           </ClearButton>
         )}
       </InputContainer>

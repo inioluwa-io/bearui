@@ -1,3 +1,4 @@
+import { mdiInstagram } from "@mdi/js"
 import React from "react"
 import { InstagramSocialButton } from "../types"
 import Button from "./button"
@@ -47,7 +48,7 @@ const InstagramButton: React.FC<InstagramSocialButton> = ({
       corners={corners}
       gradient={gradient}
       iconOnly={iconOnly}
-      icon="mdiInstagram"
+      icon={mdiInstagram}
       textColor={textColor}
       style={style}
       onClick={onClick}

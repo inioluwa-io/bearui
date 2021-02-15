@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Button, Input, FlexRow, Card, FlexColumn } from "@bearui/ui"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { mdiEmailOutline, mdiLock } from "@mdi/js"
 
 const LoginCard: any = styled(Card)`
   @media (max-width: 441px) {
@@ -28,7 +29,7 @@ const LoginPage: React.FC<any> = () => {
                 color="primary"
                 label="Email"
                 validate="email"
-                icon="mdiEmailOutline"
+                icon={mdiEmailOutline}
                 onInputChange={(value: string) => {
                   console.log(value)
                 }}
@@ -41,7 +42,7 @@ const LoginPage: React.FC<any> = () => {
                 id="password"
                 type="password"
                 color="primary"
-                icon="mdiLock"
+                icon={mdiLock}
                 label="Password"
                 validate="number"
                 onInputChange={(value: string) => {

@@ -1,4 +1,4 @@
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiCircleOutline, mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 import { Container, Card, FlexRow, Breadcrumb, Button } from "@bearui/ui"
 import React from "react"
@@ -103,7 +103,7 @@ const FlexRowPage: React.FC = () => {
         <div className="col">
           <FlexRow position="top">
             <p>Top</p>
-            <Button size="lg" iconOnly icon="mdiCircleOutline">
+            <Button size="lg" iconOnly icon={mdiCircleOutline}>
               Click
             </Button>
           </FlexRow>
@@ -111,7 +111,7 @@ const FlexRowPage: React.FC = () => {
         <div className="col">
           <FlexRow position="bottom">
             <p>Bottom</p>
-            <Button size="lg" iconOnly icon="mdiCircleOutline">
+            <Button size="lg" iconOnly icon={mdiCircleOutline}>
               Click
             </Button>
           </FlexRow>
@@ -119,7 +119,7 @@ const FlexRowPage: React.FC = () => {
         <div className="col">
           <FlexRow position="center">
             <p>Center</p>
-            <Button size="lg" iconOnly icon="mdiCircleOutline">
+            <Button size="lg" iconOnly icon={mdiCircleOutline}>
               Click
             </Button>
           </FlexRow>
@@ -135,14 +135,14 @@ const FlexRowPage: React.FC = () => {
 
         <div className="col">
           <FlexRow>
-            <Button size="lg" iconOnly icon="mdiCircleOutline">
+            <Button size="lg" iconOnly icon={mdiCircleOutline}>
               Click
             </Button>
             <Button
               size="lg"
               background="warning"
               iconOnly
-              icon="mdiCircleOutline"
+              icon={mdiCircleOutline}
             >
               Click
             </Button>

@@ -1,3 +1,4 @@
+import { mdiGithub } from "@mdi/js"
 import React from "react"
 import { AppleSocialButton } from "../types"
 import Button from "./button"
@@ -26,7 +27,7 @@ const GithubButton: React.FC<AppleSocialButton> = ({
     <Button
       background={color}
       size={size}
-      icon="mdiGithub"
+      icon={mdiGithub}
       gradient={gradient}
       corners={corners}
       iconOnly={iconOnly}

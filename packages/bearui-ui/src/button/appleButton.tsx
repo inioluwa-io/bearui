@@ -1,3 +1,4 @@
+import { mdiApple } from "@mdi/js"
 import React from "react"
 import { AppleSocialButton } from "../types"
 import Button from "./button"
@@ -27,7 +28,7 @@ const AppleButton: React.FC<AppleSocialButton> = ({
     <Button
       background={color}
       size={size}
-      icon="mdiApple"
+      icon={mdiApple}
       gradient={gradient}
       corners={corners}
       iconOnly={iconOnly}

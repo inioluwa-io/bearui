@@ -8,7 +8,6 @@ import {
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
 import Chart from "react-apexcharts"
@@ -62,7 +61,6 @@ const CompactCard: React.FC<StatisticsComponent> = ({
   color,
   icon,
 }) => {
-  const iconPath = path as any
   const theme = useTheme()
   const [themeMode] = useThemeMode()
   color = getColorFromTheme(color, theme)
@@ -171,7 +169,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         xsCol="6"
         align="center"
       >
-        <Icon className="icon" path={iconPath[icon]} color={color} size={1.1} />
+        <Icon className="icon" path={icon} color={color} size={1.1} />
         <FlexColumn gap="3px" align="center">
           <h5>{title}</h5>
           <p>{value}</p>
@@ -193,7 +191,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
           <FlexColumn align="center" gap="20px" style={{ width: "100%" }}>
             <Icon
               className="icon"
-              path={iconPath[icon]}
+              path={icon}
               color={color}
               size={1}
             />

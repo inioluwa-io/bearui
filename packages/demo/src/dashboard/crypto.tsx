@@ -12,6 +12,7 @@ import { SplitCard, ProgressCard, ColumnCard } from "../cards"
 import { CryptoWidget, NewsWidget } from "../widgets"
 import img from "../assets/dp1.jpg"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
+import { mdiBitcoin, mdiLitecoin, mdiEthereum } from "@mdi/js"
 
 const Crypto: React.FC<any> = () => {
   return (
@@ -20,7 +21,7 @@ const Crypto: React.FC<any> = () => {
         <h3>Hello Mr Stark!</h3>
       </Card>
       <SplitCard
-        icon="mdiBitcoin"
+        icon={mdiBitcoin}
         title="Bitcoin"
         color="warning"
         value="$27,133"
@@ -32,7 +33,7 @@ const Crypto: React.FC<any> = () => {
         ]}
       />
       <SplitCard
-        icon="mdiLitecoin"
+        icon={mdiLitecoin}
         title="Litecoin"
         color="info"
         value="$180"
@@ -44,7 +45,7 @@ const Crypto: React.FC<any> = () => {
         ]}
       />
       <SplitCard
-        icon="mdiEthereum"
+        icon={mdiEthereum}
         title="Ethereum"
         color="dark"
         value="$1923"

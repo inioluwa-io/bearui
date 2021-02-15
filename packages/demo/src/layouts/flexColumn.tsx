@@ -1,4 +1,4 @@
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiCircleOutline, mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 import {
   Container,
@@ -101,14 +101,14 @@ const FlexColumnPage: React.FC = () => {
           prop to a css size. Default is <code>20px</code>.
         </p>
         <FlexColumn className="col">
-          <Button size="lg" iconOnly icon="mdiCircleOutline">
+          <Button size="lg" iconOnly icon={mdiCircleOutline}>
             Click
           </Button>
           <Button
             size="lg"
             background="warning"
             iconOnly
-            icon="mdiCircleOutline"
+            icon={mdiCircleOutline}
           >
             Click
           </Button>

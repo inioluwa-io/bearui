@@ -1,6 +1,6 @@
 import React from "react"
-import { Card, FlexRow, FlexColumn, Grid, Row } from "@bearui/ui"
-import _ from "lodash"
+import { Card, FlexColumn, Grid, Row } from "@bearui/ui"
+import { truncate } from "lodash"
 import styled from "styled-components"
 import pht1 from "../../assets/avocado_minimalism_pink_120543_3840x2400.jpg"
 import pht3 from "../../assets/chris-lawton-5IHz5WhosQE-unsplash.jpg"
@@ -104,7 +104,7 @@ const NewsWidget: React.FC<NewsWidgetProps> = ({
               <Grid xsCol="8">
                 <FlexColumn gap="10px" className="details">
                   <h2>{post.title}</h2>
-                  <p>{_.truncate(post.description, { length: 80 })}</p>
+                  <p>{truncate(post.description, { length: 80 })}</p>
                   <span>{postDate}</span>
                 </FlexColumn>
               </Grid>

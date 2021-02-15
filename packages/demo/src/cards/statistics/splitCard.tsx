@@ -9,7 +9,6 @@ import {
 import React, { useRef, useEffect, useCallback, useState } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
 import Chart from "react-apexcharts"
@@ -63,7 +62,6 @@ const SplitCard: React.FC<StatisticsComponent> = ({
   icon,
   ...props
 }) => {
-  const iconPath = path as any
   const theme = useTheme()
   const [themeMode] = useThemeMode()
   color = getColorFromTheme(color, theme)
@@ -179,7 +177,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
           </FlexColumn>
           <Icon
             className="icon"
-            path={iconPath[icon]}
+            path={icon}
             color={color}
             size={1.1}
           />
@@ -205,7 +203,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
               </FlexColumn>
               <Icon
                 className="icon"
-                path={iconPath[icon]}
+                path={icon}
                 color={color}
                 size={1.1}
               />

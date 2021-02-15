@@ -1,7 +1,7 @@
 import React from "react"
 import { FlexRow, Card, Breadcrumb, Container, Input } from "@bearui/ui"
 import Icon from "@mdi/react"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiAccount, mdiEmailOutline, mdiHomeOutline, mdiLock, mdiNumeric } from "@mdi/js"
 import { useEffect } from "react"
 
 const InputPage: React.FC<{}> = () => {
@@ -182,7 +182,7 @@ const InputPage: React.FC<{}> = () => {
         <FlexRow>
           <Input
             id="infornrfuoil"
-            icon="mdiEmailOutline"
+            icon={mdiEmailOutline}
             color="primary"
             onInputChange={() => {}}
             placeholder="Enter email"
@@ -190,7 +190,7 @@ const InputPage: React.FC<{}> = () => {
           <Input
             id="afkbjinfgd"
             type="password"
-            icon="mdiLock"
+            icon={mdiLock}
             color="success"
             onInputChange={() => {}}
             placeholder="Enter password"
@@ -198,7 +198,7 @@ const InputPage: React.FC<{}> = () => {
           <Input
             id="qkjflirbn"
             type="text"
-            icon="mdiAccount"
+            icon={mdiAccount}
             color="info"
             onInputChange={() => {}}
             placeholder="Enter fullname"
@@ -207,7 +207,7 @@ const InputPage: React.FC<{}> = () => {
             size="sm"
             id="zfinrpeiaen"
             type="number"
-            icon="mdiNumeric"
+            icon={mdiNumeric}
             color="warning"
             onInputChange={() => {}}
             placeholder="Enter age"
@@ -223,7 +223,7 @@ const InputPage: React.FC<{}> = () => {
           <Input
             id="sgljjbwninf"
             iconRight
-            icon="mdiEmailOutline"
+            icon={mdiEmailOutline}
             color="primary"
             onInputChange={() => {}}
             placeholder="Enter email"
@@ -232,7 +232,7 @@ const InputPage: React.FC<{}> = () => {
             id="slfbjeinfgd"
             iconRight
             type="password"
-            icon="mdiLock"
+            icon={mdiLock}
             color="success"
             onInputChange={() => {}}
             placeholder="Enter password"
@@ -241,7 +241,7 @@ const InputPage: React.FC<{}> = () => {
             id="priuebkirbn"
             iconRight
             type="text"
-            icon="mdiAccount"
+            icon={mdiAccount}
             color="info"
             onInputChange={() => {}}
             placeholder="Enter fullname"
@@ -250,7 +250,7 @@ const InputPage: React.FC<{}> = () => {
             iconRight
             id="mvnrjkliaen"
             type="number"
-            icon="mdiNumeric"
+            icon={mdiNumeric}
             color="warning"
             onInputChange={() => {}}
             placeholder="Enter age"

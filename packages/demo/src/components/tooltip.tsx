@@ -11,7 +11,7 @@ import {
   Input,
 } from "@bearui/ui"
 import Icon from "@mdi/react"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiHomeOutline, mdiLock } from "@mdi/js"
 
 const TooltipPage: React.FC<any> = () => {
   return (
@@ -50,7 +50,7 @@ const TooltipPage: React.FC<any> = () => {
                   id="password"
                   type="password"
                   color="primary"
-                  icon="mdiLock"
+                  icon={mdiLock}
                   validate="number"
                   onInputChange={(value: string) => {
                     console.log(value)

@@ -10,6 +10,8 @@ import {
   mdiDotsHorizontal,
   mdiEmoticon,
   mdiMenu,
+  mdiAccountPlus,
+  mdiShare,
 } from "@mdi/js"
 import Icon from "@mdi/react"
 import {
@@ -319,7 +321,7 @@ const SuggestedPanel: React.FC = () => {
         </FlexRow>
         <Button
           style={{ padding: "7px" }}
-          icon="mdiAccountPlus"
+          icon={mdiAccountPlus}
           corners="rounded"
           outline
           iconOnly
@@ -396,7 +398,7 @@ const PostFeed: React.FC = () => {
           </FlexRow>
         </div>
         <div>
-          <Button icon="mdiShare" iconOnly size="sm" corners="rounded">
+          <Button icon={mdiShare} iconOnly size="sm" corners="rounded">
             Share
           </Button>
         </div>
@@ -451,7 +453,7 @@ const SinglePost: React.FC = () => {
           size="sm"
           placeholder="Add comment"
         />
-        <Button icon="mdiShare" size="sm" corners="box">
+        <Button icon={mdiShare} size="sm" corners="box">
           Share
         </Button>
       </FlexRow>

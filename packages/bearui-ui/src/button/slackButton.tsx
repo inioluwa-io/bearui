@@ -1,3 +1,4 @@
+import { mdiSlack } from "@mdi/js"
 import React from "react"
 import { SlackSocialButton } from "../types"
 import Button from "./button"
@@ -52,7 +53,7 @@ const SlackButton: React.FC<SlackSocialButton> = ({
       corners={corners}
       gradient={gradient}
       iconOnly={iconOnly}
-      icon="mdiSlack"
+      icon={mdiSlack}
       textColor={textColor}
       style={style}
       onClick={onClick}

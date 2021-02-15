@@ -3,7 +3,6 @@ import { ButtonProps } from "../types"
 import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 import { useTheme } from "../theme"
 
 /**
@@ -338,7 +337,7 @@ const Button: React.FC<ButtonProps> = ({
       {loading && (
         <Icon
           className="rap-loa"
-          path={path[loadingIcon]}
+          path={loadingIcon}
           color={
             transparent
               ? getStyleFromBackgroundProps().background
@@ -353,7 +352,7 @@ const Button: React.FC<ButtonProps> = ({
       {icon && (
         <Icon
           className="rap-ico"
-          path={path[icon]}
+          path={icon}
           color={
             transparent
               ? getStyleFromBackgroundProps().background

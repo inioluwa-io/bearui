@@ -9,7 +9,7 @@ import {
   Chip,
   LinkButton,
 } from "@bearui/ui"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiHomeOutline, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 import { ProductProps } from "./types"
 import { getProducts } from "./utli"
@@ -119,7 +119,7 @@ const ProductList: React.FC = () => {
           ]}
           menu={
             <FlexRow>
-              <LinkButton to="add-product/" icon="mdiPlus">
+              <LinkButton to="add-product/" icon={mdiPlus}>
                 Add Product
               </LinkButton>
             </FlexRow>

@@ -4,7 +4,6 @@ import { LinkButtonProps } from "../types"
 import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
-import * as path from "@mdi/js"
 import { useTheme } from "../theme"
 /**
  * How it works!!
@@ -297,7 +296,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       {icon && (
         <Icon
           className="rap-ico"
-          path={path[icon]}
+          path={icon}
           size={size === "lg" ? 1 : 0.725}
           color={
             transparent === "true"

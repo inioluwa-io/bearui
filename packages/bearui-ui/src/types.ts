@@ -339,7 +339,7 @@ export type BreadcrumbItem = {
 export type BreadcrumbComponent = {
   item: BreadcrumbItem[]
   color?: string
-  seperator?: string
+  separator?: string
 } & HTMLAttributes<HTMLDivElement>
 // end
 

@@ -18,7 +18,7 @@ const BreadcrumbPage: React.FC<any> = () => {
           <FlexRow gap="7px" position="center" align="left">
             <h3>Tab</h3>
             <Breadcrumb
-              seperator="/"
+              separator="/"
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
                 { name: "Component", to: "/component" },

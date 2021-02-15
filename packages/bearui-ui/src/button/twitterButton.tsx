@@ -1,3 +1,4 @@
+import { mdiTwitter } from "@mdi/js"
 import React from "react"
 import { FacebookSocialButton } from "../types"
 import Button from "./button"
@@ -46,7 +47,7 @@ const TwitterButton: React.FC<FacebookSocialButton> = ({
       iconColor={textColor}
       corners={corners}
       gradient={gradient}
-      icon="mdiTwitter"
+      icon={mdiTwitter}
       iconOnly={iconOnly}
       textColor={textColor}
       style={style}

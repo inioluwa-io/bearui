@@ -1,3 +1,4 @@
+import { mdiFacebook } from "@mdi/js"
 import React from "react"
 import { FacebookSocialButton } from "../types"
 import Button from "./button"
@@ -47,7 +48,7 @@ const FacebookButton: React.FC<FacebookSocialButton> = ({
       corners={corners}
       gradient={gradient}
       iconOnly={iconOnly}
-      icon="mdiFacebook"
+      icon={mdiFacebook}
       textColor={textColor}
       style={style}
       onClick={onClick}

@@ -1,3 +1,4 @@
+import { mdiCodepen } from "@mdi/js"
 import React from "react"
 import { AppleSocialButton } from "../types"
 import Button from "./button"
@@ -27,7 +28,7 @@ const CodepenButton: React.FC<AppleSocialButton> = ({
     <Button
       background={color}
       size={size}
-      icon="mdiCodepen"
+      icon={mdiCodepen}
       gradient={gradient}
       corners={corners}
       iconOnly={iconOnly}
