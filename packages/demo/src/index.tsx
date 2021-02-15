@@ -24,18 +24,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <DataProvider value={defaultDataProvider}>
-        <AuthContext.Provider
-          value={{
-            login: async (data: any) => {
-              try {
-                if (data.username === "login") return Promise.resolve()
-                return Promise.reject()
-              } catch (e) {
-                console.warn(e)
-              }
-            },
-          }}
-        >
+        <AuthContext.Provider>
           <App />
         </AuthContext.Provider>
       </DataProvider>
