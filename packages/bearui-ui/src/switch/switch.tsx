@@ -80,7 +80,8 @@ const Switch: React.FC<SwitchProps> = ({
 }) => {
   const [isActive, setIsActive] = useState<boolean>(active)
 
-  const colors = useTheme().colors
+  const [theme] = useTheme()
+  const { colors } = theme
 
   const getColor: Function = (): any => {
     const supportedColors = [

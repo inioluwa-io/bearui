@@ -2,11 +2,10 @@ import React, { useRef, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import { rgba, darken } from "polished"
-import { PopUpProps, RapUITheme } from "../types"
+import { PopUpProps } from "../types"
 import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
 import { getColorFromTheme } from "../util"
-import { Button } from "../button"
 
 const PopUpBackground: any = styled.div`
   position: fixed;

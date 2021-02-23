@@ -1,7 +1,7 @@
 import React from "react"
 import Card from "../card/card"
 import FlexRow from "../layout/flexRow"
-import { LoaderComponent, RapUITheme } from "../types"
+import { LoaderComponent } from "../types"
 import Icon from "@mdi/react"
 import { mdiLoading } from "@mdi/js"
 import { useThemeMode, useTheme } from "../theme"
@@ -132,7 +132,7 @@ const Loader: React.FC<LoaderComponent> = ({
   ...props
 }) => {
   const [themeMode] = useThemeMode()
-  const [theme]: RapUI[theme] = useTheme()
+  const [theme]: any = useTheme()
 
   let iconColor = themeMode === "lightmode" ? "#444" : "#fff"
   if (!!color.length) {

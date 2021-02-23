@@ -32,7 +32,7 @@ const initialState = {
 
 type State = {
   themeMode: RapUIThemeMode
-  theme: RapUITheme
+  theme: any
 }
 
 type ActionType = {
