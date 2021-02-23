@@ -1,5 +1,5 @@
 {
-  "name": "react-admin-panel-lerna",
+  "name": "bearui-main",
   "version": "0.1.0",
   "private": true,
   "workspaces": {
@@ -31,7 +31,7 @@
     "build:bearui-ui": "yarn workspace @bearui/ui build",
     "start:bearui-ui": "yarn workspace @bearui/ui watch",
     "build:bearui-core": "yarn workspace @bearui/core build",
-    "start:bearui-core": "yarn workspace @bearui/core build",
+    "start:bearui-core": "yarn workspace @bearui/core watch",
     "pre:build": "yarn build:bearui-ui && yarn build:bearui-core && yarn lerna link",
     "start:demo": "yarn workspace @bearui/demo cross-env REACT_APP_DATA_PROVIDER=rest yarn -s start",
     "build:demo": "yarn pre:build && yarn workspace @bearui/demo build",

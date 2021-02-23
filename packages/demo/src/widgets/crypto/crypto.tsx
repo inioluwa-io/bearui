@@ -12,14 +12,13 @@ import {
 } from "@bearui/ui"
 import styled from "styled-components"
 import Icon from "@mdi/react"
-import { mdiBitcoin, mdiEthereum } from "@mdi/js"
+import { mdiBitcoin, mdiEthereum, mdiMagnify } from "@mdi/js"
 import { themeConfig } from "../../configs"
 
 type CryptoWidget = {}
 
 const CardContainer: any = styled(Card)`
   h6 {
-    font-weight: 600;
     font-size: 15px;
   }
   #crypto-currency-section {
@@ -62,7 +61,7 @@ const CryptoButton: any = styled.label`
 `
 
 const CryptoWidget: React.FC = ({ ...props }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const [tabIndex, setTabIndex] = useState(0)
 
@@ -123,7 +122,7 @@ const CryptoWidget: React.FC = ({ ...props }) => {
         </FlexRow>
       </FlexColumn>
       <FlexRow align="stretch">
-        <Button size="md" icon="mdiMagnify">
+        <Button corners = "box" size="md" icon={mdiMagnify}>
           Find Offers
         </Button>
       </FlexRow>

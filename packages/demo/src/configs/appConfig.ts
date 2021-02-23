@@ -4,16 +4,18 @@ type ThemeConfigProps = {
   navbarPosition: NavbarPosition
   currentTheme: RapUIThemeMode
   colorPalette: RapUITheme
+  restEndPoint: string
 }
 
 const themeConfig: ThemeConfigProps = {
   navbarPosition: "sticky",
-  currentTheme: "lightmode",
+  currentTheme: "darkmode",
+  restEndPoint: "http://localhost:5000",
   colorPalette: {
     colors: {
-      primary: "rgb(115,103,240)",
+      primary: "#3e49da",
       success: "rgb(40,199,111)",
-      info: "rgb(45, 136, 255)",
+      info: "#3e49da",
       warning: "rgb(255,159,67)",
       danger: "rgb(234,84,85)",
       transparent: "rgba(255,255,255,0)",
@@ -22,12 +24,12 @@ const themeConfig: ThemeConfigProps = {
     },
     darkmode: {
       background: "#282c34",
-      cardbackground: "#3E4451",
+      cardbackground: "#363b44",
       textColor: "#f4f4f4",
     },
     lightmode: {
-      background: "#e7e7e7",
       cardbackground: "#fdfdfd",
+      background: "#f0f0f3",
       textColor: "#444444",
     },
   },

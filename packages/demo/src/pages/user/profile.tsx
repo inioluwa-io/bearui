@@ -43,7 +43,7 @@ import { rgba } from "polished"
 const ImgContainer: any = styled.div`
   width: 100%;
   position: relative;
-  border-radius: 8px;
+  border-radius: 22px;
   background: transparent;
   display: flex;
   align-items: center;
@@ -252,7 +252,7 @@ const PanelContainer: any = styled.div`
 
   a {
     width: 100%;
-    border-radius: 8px;
+    border-radius: 20px;
     height: 90px;
     text-decoration: none;
     position: relative;
@@ -352,7 +352,7 @@ const PostFeedContainer: any = styled(Card)`
 `
 
 const PostFeed: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
 
   return (
     <PostFeedContainer xsCol="12">
@@ -426,7 +426,7 @@ const SinglePostContainer: any = styled(Card)`
 `
 
 const SinglePost: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
 
   const Photos: React.FC = () => {
     return (
@@ -452,8 +452,9 @@ const SinglePost: React.FC = () => {
           onInputChange={() => {}}
           size="sm"
           placeholder="Add comment"
+          corners="rounded"
         />
-        <Button icon={mdiShare} size="sm" corners="box">
+        <Button icon={mdiShare} size="sm" corners="rounded">
           Share
         </Button>
       </FlexRow>
@@ -496,7 +497,7 @@ const SinglePost: React.FC = () => {
 }
 
 const LinksPanel: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
 
   return (

@@ -9,7 +9,7 @@ const AvatarComponent: any = styled.div`
   width: ${(props: any) => props.size} !important;
   height: ${(props: any) => props.size} !important;
   position: relative;
-  border-radius: ${(props: any) => props.size};
+  border-radius: ${(props: any) => +props.size.split("px").join("") / 3}px;
   background: ${(props: any) => props.color};
   display: flex;
   align-items: center;
@@ -17,7 +17,6 @@ const AvatarComponent: any = styled.div`
 
   span {
     font-size: 12px;
-    font-family: Nunito sans;
     line-height: 0;
   }
 `
@@ -35,7 +34,7 @@ const AvatarImgContainer: any = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  border-radius: ${(props: any) => props.size};
+  border-radius: ${(props: any) => +props.size.split("px").join("") / 3}px;
   align-items: center;
   height: 100%;
 `
@@ -62,13 +61,14 @@ const BadgeComponent: any = styled.div`
 
 const StatusComponent: any = styled.div`
   position: absolute;
-  z-index: 99;
-  bottom: 0px;
-  right: 0px;
+  z-index: 9;
+  bottom: ${(props: any) => props.size / 20}px;
+  right: ${(props: any) => props.size / 20}px;
   width: 10px;
   height: 10px;
-  border-radius: 10px;
+  padding: ${(props: any) => props.size / 12}px;
   background: ${(props: any) => saturate(0.1, props.background)};
+  border-radius: ${(props: any) => props.size / 2}px;
   box-shadow: 0 0 5px
     ${(props: any) => rgba(saturate(0.8, props.background), 0.3)};
 `
@@ -94,7 +94,7 @@ const Avatar: React.FC<AvatarProps> = ({
   if (color === "white" && !textColor) {
     textColor = "#222222"
   }
-  const theme = useTheme()
+  const [theme] = useTheme()
 
   const getBackgroundColor: Function = (color: string): any => {
     const supportedColors = [
@@ -157,7 +157,7 @@ const Avatar: React.FC<AvatarProps> = ({
   if (withBadge && !badgeText) {
     throw new SyntaxError("badgeText cannot be empty when withBadge is true")
   }
-
+  const calculatedSize = +getAvatarSize().split("px").join("") / 3
   return (
     <AvatarComponent {...props} className="sc-avatar">
       {withBadge && (
@@ -167,7 +167,7 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
       {withStatus && (
         <StatusComponent
-          size={getAvatarSize()}
+          size={calculatedSize}
           background={getBackgroundColor(statusColor)}
         />
       )}

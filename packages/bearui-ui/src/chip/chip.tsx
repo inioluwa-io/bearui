@@ -153,7 +153,7 @@ const ChipSingle: React.FC<ChipSingleComponent> = ({
   onClose,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   let textColor = "#f4f4f4"
 
@@ -241,7 +241,7 @@ const ChipItems: React.FC<any> = ({
 }) => {
   const [inputValue, setInputValue] = useState<string>("")
   const [themeMode] = useThemeMode()
-  const theme = useTheme()
+  const [theme] = useTheme()
   const boxShadow = darken(0, theme[themeMode].background)
   const [suggestions, setSuggeestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)

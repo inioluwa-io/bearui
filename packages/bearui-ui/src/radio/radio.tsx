@@ -101,7 +101,7 @@ const Radio: React.FC<RadioComponent> = ({
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked)
 
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const textColor: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 

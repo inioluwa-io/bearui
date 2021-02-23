@@ -23,12 +23,12 @@ const ContainerDiv: StyledComponent<"div", any> = styled.div`
   }
 
   @media (max-width: 441px) {
-    margin: 0;
-    width: 100%;
+    // margin: 0;
+    // width: 100%;
 
-    > .rap-card {
-      margin: 0.5px 0;
-    }
+    // > .rap-card {
+    //   margin: 0.5px 0;
+    // }
   }
 `
 

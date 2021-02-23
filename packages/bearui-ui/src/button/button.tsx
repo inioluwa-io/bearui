@@ -51,7 +51,7 @@ font-family: inherit;
         : "none"
     }
   }};
-  box-shadow: 0 8px 35px -6px ${(props: any) =>
+  box-shadow: 0 9px 35px -7px ${(props: any) =>
     props.glow ? darken(0.13, props.background) : "transparent"};
   overflow:hidden;
   box-sizing: border-box;
@@ -214,7 +214,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const refs: any = useRef()
 
-  const Theme = useTheme()
+  const [theme] = useTheme()
   const supportedColors = [
     "primary",
     "success",
@@ -260,7 +260,9 @@ const Button: React.FC<ButtonProps> = ({
       case "rounded":
         return { borderRadius: "50px" }
       case "box":
-        return size === "lg" ? { borderRadius: "7px" } : { borderRadius: "5px" }
+        return size === "lg"
+          ? { borderRadius: "16px" }
+          : { borderRadius: "10px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -286,11 +288,11 @@ const Button: React.FC<ButtonProps> = ({
       return {
         backgroundGradient:
           gradient &&
-          `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
-            Theme.colors[background.trim()],
+          `linear-gradient(138deg,${theme.colors[background.trim()]}, ${rgba(
+            theme.colors[background.trim()],
             0.625
           )})`,
-        background: Theme.colors[background.trim()],
+        background: theme.colors[background.trim()],
       }
     } else {
       return {

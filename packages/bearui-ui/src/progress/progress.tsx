@@ -56,7 +56,7 @@ const Progress: React.FC<ProgressComponent> = ({
   width = "100%",
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const barColor = getColorFromTheme(color, theme)
   const boxShadow = darken(0, theme[themeMode].background)

@@ -84,10 +84,10 @@ const Notification: React.FC<NotifyProps> = ({
   iconColor,
   text,
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const colors = theme.colors
-  const background:string = theme[themeMode]["cardbackground"]
+  const background: string = theme[themeMode]["cardbackground"]
 
   return (
     <NotificationDiv

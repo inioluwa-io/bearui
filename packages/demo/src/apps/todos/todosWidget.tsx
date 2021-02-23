@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react"
-import { Card, Container, FlexColumn, Checkbox, LinkButton } from "@bearui/ui"
+import {
+  Card,
+  Container,
+  FlexColumn,
+  Checkbox,
+  LinkButton,
+  useThemeMode,
+} from "@bearui/ui"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
 import { truncate } from "lodash"
+import { themeConfig } from "../../configs"
+import { rgba } from "polished"
 
 const TodosContainer: any = styled(Card)`
+  overflow: hidden;
   .add-tsk {
     position: fixed;
     bottom: 3rem;
@@ -14,14 +24,16 @@ const TodosContainer: any = styled(Card)`
 
   .todo {
     // animation: fadeInUp 0.25s ease;
-    border-radius: 0;
-    margin: 0 2px !important;
+    margin: 0 0px !important;
     // width: 100% !important;
     padding-top: 15px !important;
     padding-bottom: 15px !important;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border 0.25s;
 
     &:not(:last-child) {
-      border-bottom: 1px solid #eaeaea;
+      margin-bottom: 15px !important;
     }
   }
 
@@ -45,6 +57,7 @@ const TodosContainer: any = styled(Card)`
   }
 
   .todo-complete {
+    border: 1px solid ${rgba(themeConfig.colorPalette.colors.primary, 0.6)};
     p {
       text-decoration: line-through;
     }
@@ -96,6 +109,10 @@ const TodosList: any = styled.div`
       background: #aaaaaa55;
     }
   }
+
+  @media (min-width: 768px) {
+    width: calc(100% + 15px);
+  }
 `
 
 const TodosWidget: React.FC<{ appRoute: string }> = ({
@@ -105,6 +122,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
   const [navClass, setNavClass] = useState<string>()
   const [todos, setTodos] = useState<TodoList[]>([])
   const [filterData, setFilterData] = useState<TodoList[]>(todos)
+  const [themeMode] = useThemeMode()
 
   type Filter = "completed" | "starred" | "trashed" | "important"
 
@@ -149,7 +167,6 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
 
   useEffect(() => {
     setFilterData(todos)
-    console.log("render 1")
   }, [todos])
 
   useEffect(() => {
@@ -159,12 +176,11 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
       JSonCacheTodos = JSON.parse(cacheTodos)
     }
     setTodos(JSonCacheTodos)
-    console.log("render 2")
   }, [])
 
   return (
     <TodosContainer mdCol="4" smCol="12" size="xs" {...props}>
-      <h5 style={{ fontWeight: 600 }}>Todos</h5>
+      <h5>Todos</h5>
       <TodosList panelTop={getPanelTop()}>
         <Container>
           {filterData
@@ -172,9 +188,10 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
             .map((todo, idx) => (
               <Card
                 xsCol="12"
-                withBackground={false}
+                withBackground={true}
                 gap="10px"
-                key={idx}
+                key={"todosWidget" + idx}
+                background={themeConfig.colorPalette[themeMode].background}
                 className={todo.completed ? "todo-complete todo" : "todo"}
                 style={{ animationDelay: `${idx / 10}s` }}
               >

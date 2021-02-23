@@ -21,6 +21,7 @@ export type TimelineWidgetComponent = {
 }
 
 const CardContainer: any = styled(Card)`
+  overflow: hidden;
   .timeline-outer {
     position: relative;
 
@@ -39,7 +40,7 @@ const CardContainer: any = styled(Card)`
 
       span {
         font-size: 15px;
-        font-weight: 600;
+        // font-weight: 600;
       }
       p {
         font-size: 14px;
@@ -65,10 +66,9 @@ const CardContainer: any = styled(Card)`
 `
 
 const TimelineIcon: any = styled.div`
-  background: ${(props: any) => rgba(props.color, 0.85)};
   width: 10px;
   height: 10px;
-  border-radius: 30px;
+  border-radius: 3px;
   position: relative;
   top: 6px;
   display: flex;
@@ -78,10 +78,10 @@ const TimelineIcon: any = styled.div`
   &::after {
     content: "";
     position: absolute;
-    width: 22px;
-    border-radius: 30px;
-    height: 22px;
-    background: ${(props: any) => rgba(props.color, 0.45)};
+    width: 18px;
+    border-radius: 5px;
+    height: 18px;
+    background: ${(props: any) => rgba(props.color, 1)};
   }
 
   svg {
@@ -96,7 +96,7 @@ const TimelineWidget: React.FC<TimelineWidgetComponent> = ({
   data,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
 
   return (
@@ -107,7 +107,7 @@ const TimelineWidget: React.FC<TimelineWidgetComponent> = ({
       textColor={theme[themeMode].textColor}
       {...props}
     >
-      <h5 style={{ fontWeight: 600 }}>Timeline</h5>
+      <h5>Timeline</h5>
       <div className="container">
         <FlexColumn className="timeline-outer">
           {data.map((item, idx: number) => (

@@ -4,31 +4,14 @@ import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
-import { Provider } from "react-redux"
-import { DataProvider, AuthContext } from "@bearui/core"
-import { store } from "@bearui/ui"
-
-const defaultDataProvider = {
-  getOne: async (resource: string, endPoint?: string, params?: any) => {
-    try {
-      const res = await fetch(endPoint + resource, { method: "GET" })
-      const json = await res.json()
-      return { data: json }
-    } catch (e) {
-      console.warn(e)
-    }
-  },
-}
+// import { Provider } from "react-redux"
+// import { store } from "@bearui/ui"
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <DataProvider value={defaultDataProvider}>
-        <AuthContext.Provider>
-          <App />
-        </AuthContext.Provider>
-      </DataProvider>
-    </Provider>
+    {/* <Provider store={store}> */}
+    <App />
+    {/* </Provider> */}
   </BrowserRouter>,
   document.getElementById("root")
 )

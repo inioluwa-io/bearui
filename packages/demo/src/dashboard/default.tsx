@@ -7,6 +7,8 @@ import {
   Progress,
   FlexColumn,
   LinkButton,
+  Button,
+  FlexRow,
 } from "@bearui/ui"
 import { TodosWidget } from "../apps"
 import { TimelineWidget } from "../widgets"
@@ -19,6 +21,7 @@ import {
   ColumnCard,
 } from "../cards"
 import img from "../assets/dp1.jpg"
+import cardImg from "../assets/car1.png"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
 import { mdiAccountGroupOutline, mdiCurrencyUsd, mdiCartOutline } from "@mdi/js"
 
@@ -27,6 +30,45 @@ const Default: React.FC<any> = () => {
     <Container>
       <Card withBackground={false} xsCol="12">
         <h3>Hello Mr Stark!</h3>
+      </Card>
+      <Card
+        mdCol="6"
+        lgCol="8"
+        xsCol="12"
+        backgroundImg={cardImg}
+        textColor="white"
+      >
+        <h3>Premium Access</h3>
+        <p>More than +30 new features and updated storage.</p>
+        <Button background="dark" corners="rounded" glow>
+          Try now for free
+        </Button>
+      </Card>
+      <Card
+        textColor="white"
+        mdCol="6"
+        lgCol="4"
+        xsCol="12"
+        background="#932ed2"
+        gap="30px"
+      >
+        <h5>Your Plan</h5>
+        <FlexColumn gap="15px">
+          <FlexColumn gap="6px">
+            <FlexRow align="space">
+              <p>Storage Space</p>
+              <p>227/500 MB</p>
+            </FlexRow>
+            <Progress color="white" percent={(227 * 100) / 500} />
+          </FlexColumn>
+          <FlexColumn gap="6px">
+            <FlexRow align="space">
+              <p>Bandwidth</p>
+              <p>0.61/1 GB </p>
+            </FlexRow>
+            <Progress color="white" percent={(0.6 * 100) / 1}></Progress>
+          </FlexColumn>
+        </FlexColumn>
       </Card>
       <SplitCard
         icon={mdiAccountGroupOutline}
@@ -136,7 +178,7 @@ const Default: React.FC<any> = () => {
         apexChartSeries={[40, 24, 26, 8]}
       />
       <TodosWidget appRoute="/apps/todos" />
-      <Card xsCol="12">
+      <Card xsCol="12" style={{ overflow: "hidden" }}>
         <h5>Dispatched Orders</h5>
         <Datatable
           showControls={false}

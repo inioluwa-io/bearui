@@ -41,7 +41,7 @@ const InputHtmlElement: any = styled.input`
   width: 100%;
   outline: none;
   padding: ${(props: any) => props.size};
-  border-radius: 5px;
+  border-radius: ${(props: any) => props.corners};
   border: 1px solid transparent;
   background: ${(props: any) => props.background.background || "transparent"};
   padding-right:33px;
@@ -51,12 +51,15 @@ const InputHtmlElement: any = styled.input`
   &::placeholder,&.fade{
     color: #777;
     font-weight: montserrat;
+    border-radius: 9px;
     border-bottom-left-radius:0;
     border-bottom-right-radius:0;
   }
 
   &:hover,&:focus{
     border: 1px solid ${(props: any) => props.color};
+  }
+  &:focus{
   }
 
   &:focus,
@@ -108,7 +111,7 @@ const ArrowDown: any = styled.div`
 const SuggestionContainer: any = styled.div`
   width: 100%;
   //   box-shadow: 0 0 15px -12px rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
+  border-radius: 9px;
   width: calc(100% - 2px);
   top: 100%;
   max-height: 150px;
@@ -156,6 +159,7 @@ const Select: React.FC<SelectComponent> = ({
   label = "",
   disabled = false,
   placeholder,
+  corners = "rounded",
   defaultSelected = "",
   size = "sm",
   options = [],
@@ -167,7 +171,7 @@ const Select: React.FC<SelectComponent> = ({
   const [selectedValue, setSelectedValue] = useState<string>(defaultSelected)
   const [labelColor, setLabelColor] = useState<string>("")
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const theme = useTheme()
+  const [theme] = useTheme()
   const colors = theme.colors
   const [themeMode] = useThemeMode()
   const refs: any = useRef()
@@ -201,6 +205,19 @@ const Select: React.FC<SelectComponent> = ({
       }
       default: {
         throw new Error("size not supported")
+      }
+    }
+  }
+  const getBorderRadius = (): string => {
+    switch (corners) {
+      case "rounded": {
+        return "50px"
+      }
+      case "box": {
+        return "9px"
+      }
+      default: {
+        throw new Error("corners not supported")
       }
     }
   }
@@ -305,6 +322,7 @@ const Select: React.FC<SelectComponent> = ({
         <InputHtmlElement
           background={theme[themeMode]}
           color={formatColor()}
+          corners={getBorderRadius()}
           colors={colors}
           textColor={themeMode === "lightmode" ? "#111" : "#f4f4f4"}
           size={inputPaddingSize()}
@@ -329,6 +347,7 @@ const Select: React.FC<SelectComponent> = ({
       {showSuggestions && (
         <SuggestionContainer
           color={formatColor()}
+          corners={getBorderRadius()}
           background={theme[themeMode].background}
           className="sugst"
         >

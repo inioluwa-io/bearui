@@ -2,9 +2,15 @@ import React, { ReactElement, useEffect, useState, useCallback } from "react"
 import styled from "styled-components"
 import { darken } from "polished"
 import { NavbarComponent } from "../types"
-import { useTheme, useThemeMode, useCollapseSideBar } from "../theme"
+import {
+  useTheme,
+  useThemeMode,
+  useCollapseSideBar,
+  useHideSideBar,
+} from "../theme"
 import Icon from "@mdi/react"
-import { mdiMenu } from "@mdi/js"
+import { mdiMagnify, mdiMenu } from "@mdi/js"
+import { Input } from ".."
 
 const NavbarContainer: any = styled.div`
   position: sticky;
@@ -30,17 +36,39 @@ const NavbarContainer: any = styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    button {
-      background: none;
-      outline: none;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    > *:not(:last-child) {
+      margin-right: 10px;
     }
-    @media (max-width: 1200px) {
-      display: flex;
+
+    button.sidebar-toggle-btn {
+      display: none;
+      padding: 5px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+
+      span {
+        position: relative;
+        width: 12px;
+        height: 2px;
+        border-radius: 2px;
+        background: ${(props: any) => props.primaryColor};
+
+        &:nth-child(2) {
+          width: 24px;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 4px;
+        }
+      }
+      @media (max-width: 1200px) {
+        display: flex;
+      }
     }
   }
 
@@ -58,25 +86,29 @@ const NavbarContainer: any = styled.div`
   }
 
   @media (max-width: 768px) {
+    padding: 0 15px;
+    width: calc(100% - 30px);
   }
 `
 
 const Navbar: React.FC<NavbarComponent> = ({
   links,
+  searchable = true,
   position = "floating",
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const [collapseSideBar, setCollapseSideBar] = useCollapseSideBar()
-  const background: string = theme[themeMode].cardbackground
+  const background: string = theme[themeMode].background
   const [pageWidth, setPageWidth] = useState<number | undefined>()
+  const [hideSideBar, setHideSideBar] = useHideSideBar()
 
   const updatePageWidth = useCallback(() => {
     const innerWidth = window.innerWidth
     setPageWidth(innerWidth)
   }, [])
 
-  const getPostitionStyle = () => {
+  const getPositionStyle = () => {
     switch (position) {
       case "static": {
         return `
@@ -88,7 +120,7 @@ const Navbar: React.FC<NavbarComponent> = ({
         width: calc(100% - 40px);
         position:sticky;
         top:0;
-        box-shadow: 0 0 25px -7px rgba(0,0,0,.15);`
+        // box-shadow: 0 0 25px -7px rgba(0,0,0,.15);`
       }
       case "floating": {
         return `
@@ -118,9 +150,8 @@ const Navbar: React.FC<NavbarComponent> = ({
   }
 
   const toggleSideBar = () => {
-    const sideBar: HTMLDivElement = document.querySelector("#rap-sidebar")
     if (pageWidth <= 1200) {
-      sideBar?.classList?.toggle("sidebar-collapse")
+      setHideSideBar(!hideSideBar)
     } else {
       setCollapseSideBar(!collapseSideBar)
     }
@@ -139,11 +170,30 @@ const Navbar: React.FC<NavbarComponent> = ({
   }, [position])
 
   return (
-    <NavbarContainer background={background} positionStyle={getPostitionStyle}>
+    <NavbarContainer
+      background={background}
+      primaryColor={theme.colors.primary}
+      positionStyle={getPositionStyle}
+    >
       <div className="left">
-        <button id="sidebar-toggle-btn" onClick={toggleSideBar}>
-          <Icon path={mdiMenu} size={1} color={theme.colors.primary} />
+        <button className="sidebar-toggle-btn" onClick={toggleSideBar}>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
+        {searchable && (
+          <Input
+            id="navbar-search"
+            onInputChange={() => {}}
+            placeholder="Search"
+            iconBorder={false}
+            clearButton={true}
+            corners="rounded"
+            color="primary"
+            background={theme[themeMode].cardbackground}
+            icon={mdiMagnify}
+          />
+        )}
       </div>
       <div className="right">
         {links.map((link: ReactElement | string, idx: number) => (

@@ -9,7 +9,7 @@ import React, { useRef, useEffect, useCallback, useState } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
 import styled from "styled-components"
-import { rgba } from "polished"
+import { rgba, darken } from "polished"
 import Chart from "react-apexcharts"
 
 const CardContainer: any = styled(Card)`
@@ -24,12 +24,15 @@ const CardContainer: any = styled(Card)`
   }
 
   .icon {
-    padding: 8px;
-    border-radius: 5px;
-    background: ${(props: any) => rgba(props.color, 0.175)};
+    padding: 9px;
+    border-radius: 11px;
+    background: linear-gradient(
+      135deg,
+      ${(props: any) => props.color + ", " + darken(0.075, props.color)}
+    );
   }
   .apexcharts-tooltip {
-    background: ${(props: any) => props.background} !important;
+    background: ${(props: any) => props.tooltipBackground} !important;
     color: ${(props: any) => props.textColor};
     border: none !important;
     padding: 3px;
@@ -61,7 +64,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
   color,
   icon,
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   color = getColorFromTheme(color, theme)
   const refs = useRef<HTMLDivElement | any>()
@@ -132,7 +135,7 @@ const CompactCard: React.FC<StatisticsComponent> = ({
           gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
           inverseColors: true,
           opacityFrom: 0.5,
-          opacityTo: 0.2,
+          opacityTo: 0.3,
           stops: [0, 70, 100],
           colorStops: [],
         },
@@ -162,14 +165,13 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         lgCol="2"
         gap="15px"
         color={color}
-        background={theme[themeMode].background}
         textColor={theme[themeMode].textColor}
         mdCol="4"
         smCol="4"
         xsCol="6"
         align="center"
       >
-        <Icon className="icon" path={icon} color={color} size={1.1} />
+        <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
         <FlexColumn gap="3px" align="center">
           <h5>{title}</h5>
           <p>{value}</p>
@@ -182,19 +184,14 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         lgCol="3"
         color={color}
         textColor={theme[themeMode].textColor}
-        background={theme[themeMode].background}
+        tooltipBackground={theme[themeMode].background}
         smCol="6"
         xsCol="12"
         style={{ paddingBottom: "0px", overflow: "hidden" }}
       >
         <div ref={refs} style={{ width: "100%" }}>
           <FlexColumn align="center" gap="20px" style={{ width: "100%" }}>
-            <Icon
-              className="icon"
-              path={icon}
-              color={color}
-              size={1}
-            />
+          <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
             <FlexColumn gap="5px" align="center" style={{ width: "100%" }}>
               <h5>{title}</h5>
               <p>{value}</p>

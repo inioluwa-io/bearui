@@ -9,7 +9,7 @@ const CardContainer: any = styled(Card)`
   height: 75vh;
 
   h5 {
-    font-weight: 600;
+    // font-weight: 600;
   }
 
   .apexcharts-tooltip {
@@ -70,7 +70,7 @@ const PieCard: React.FC<PieCardComponent> = ({
   labels = undefined,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const refs = useRef<HTMLDivElement | any>()
   const [width, setWidth] = useState<number>()
@@ -236,7 +236,6 @@ const PieCard: React.FC<PieCardComponent> = ({
       mdCol="4"
       smCol="12"
       textColor={theme[themeMode].textColor}
-      background={theme[themeMode].background}
       style={{ paddingBottom: "0px", overflow: "hidden" }}
       {...props}
     >

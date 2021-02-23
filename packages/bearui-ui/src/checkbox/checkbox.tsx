@@ -18,7 +18,7 @@ const CheckboxButton: any = styled.button`
   font-size: 11px;
   font-family: Nunito sans;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 30px;
   border: none;
   outline: none;
   background: transparent;
@@ -71,7 +71,7 @@ const Check: any = styled.div`
   cursor: pointer;
   top: 50%;
   left: 50%;
-  border-radius: 3px;
+  border-radius: 30px;
   transform: translate(-50%, -50%) scale3d(0, 0, 0) rotate(90deg);
   padding: 3px;
   display: flex;
@@ -93,14 +93,14 @@ const Checkbox: React.FC<CheckBoxComponent> = ({
   disabled = false,
   id = "",
   active = false,
-  color = "primary",
+  color = "success",
   onCheck,
   children,
   ...props
 }) => {
   const [isActive, setIsActive] = useState<boolean>(false)
 
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   let textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 

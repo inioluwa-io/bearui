@@ -1,15 +1,12 @@
 import React, { useEffect, Fragment } from "react"
-import { Link, NavLink, withRouter } from "react-router-dom"
+import { NavLink, withRouter } from "react-router-dom"
 import {
   useThemeMode,
-  Avatar,
   useTheme,
   FlexRow,
   Navbar,
   LinkButton,
   Layout,
-  Switch as UiSwitch,
-  Dropdown,
   Collapse,
   FlexColumn,
   Sidebar,
@@ -17,16 +14,17 @@ import {
   Radio,
   NavbarPosition,
   RadioGroup,
+  Dropdown,
+  Row,
 } from "@bearui/ui"
-import { useDataProvider, useNotification } from "@bearui/core"
-import img from "./assets/img4.jpg"
+import { useNotification } from "@bearui/core"
+import img from "./assets/pht4.png"
 import Icon from "@mdi/react"
 import {
-  mdiCheckCircleOutline,
   mdiCircleOutline,
-  mdiClipboardTextOutline,
   mdiCogOutline,
   mdiClose,
+  mdiBellOutline,
 } from "@mdi/js"
 import styled from "styled-components"
 import { rgba } from "polished"
@@ -47,6 +45,9 @@ const ControlPanelContainer: any = styled.div`
 
     .pnl {
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 18px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
   .pnl {
@@ -58,6 +59,9 @@ const ControlPanelContainer: any = styled.div`
       height: 100%;
       text-align: left;
       background: ${(props: any) => props.background};
+      border-radius: 18px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
 
     .container {
@@ -142,7 +146,7 @@ const ControlPanelContainer: any = styled.div`
 `
 
 const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = theme.colors.primary
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -233,21 +237,10 @@ const LayoutComponent: React.FC<any> = ({
   navConfig = navigationConfig,
   ...props
 }) => {
-  const dataProvider = useDataProvider()
   const [notification] = useNotification(8000)
   const locationPath = props.location.pathname
 
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? "https://faceform.herokuapp.com/api/v1"
-      : "http://localhost:8888/api/v1"
-
-  useEffect(() => {
-    dataProvider.getOne("/template", URL)
-    dataProvider.getOne("/publish", URL)
-  }, [dataProvider, URL])
-
-  const theme = useTheme()
+  const [theme, setTheme] = useTheme()
   const [navPosition, setNavPosition] = useState<NavbarPosition>(
     themeConfig.navbarPosition
   )
@@ -255,12 +248,13 @@ const LayoutComponent: React.FC<any> = ({
   const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
 
   useEffect(() => {
+    setTheme(themeConfig.colorPalette)
     setThemeMode(themeConfig.currentTheme)
-  }, [setThemeMode, theme])
+  }, [setThemeMode, setTheme])
 
   useEffect(() => {
     document.body.style.background = theme[themeMode].background
-  }, [themeMode])
+  }, [themeMode, theme])
 
   const renderNav = (nav: NavigationConfigProps[]) => {
     return nav.map(link => {
@@ -344,6 +338,10 @@ const LayoutComponent: React.FC<any> = ({
       notification={notification}
       sideBar={
         <Sidebar
+          avatarText="DP"
+          fullName="Tony Stark"
+          role="Admin"
+          avatarImg={img}
           logo={
             <>
               <img src={require("./assets/logo-min.png")} alt="logo" />
@@ -359,29 +357,11 @@ const LayoutComponent: React.FC<any> = ({
           position={navPosition}
           id="nav-bar"
           links={[
-            <Link to="/apps/todos">
-              <Tooltip text={"Todos"} position="bottom">
-                <Icon path={mdiCheckCircleOutline} color={color} size={1} />
-              </Tooltip>
-            </Link>,
-            <Link to="/apps/invoice">
-              <Tooltip text={"Invoice"} position="bottom">
-                <Icon path={mdiClipboardTextOutline} color={color} size={1} />
-              </Tooltip>
-            </Link>,
-            <Dropdown
-              list={[
-                "Profile",
-                "Settings",
-                <FlexRow center>
-                  <p>Turn on data saver</p>
-                  <UiSwitch color="success" />
-                </FlexRow>,
-              ]}
-              listener="click"
-            >
-              <Avatar alt="avatar" size="xs" text="LD" src={img} />
-            </Dropdown>,
+            <Tooltip text="Notification" position="left">
+              <Dropdown listener="click" list={[<Row></Row>]} showIcon={false}>
+                <Icon path={mdiBellOutline} color={color} size={1} />
+              </Dropdown>
+            </Tooltip>,
           ]}
         />
       }

@@ -20,7 +20,14 @@ import { TodoList, TodoLists } from "./mock"
 import { truncate } from "lodash"
 import FilterPanel from "./components/filterPanel"
 import { Filter } from "./types"
-import { mdiMagnify, mdiPlus, mdiInformation, mdiStar, mdiDelete, mdiTag } from "@mdi/js"
+import {
+  mdiMagnify,
+  mdiPlus,
+  mdiInformation,
+  mdiStar,
+  mdiDelete,
+  mdiTag,
+} from "@mdi/js"
 
 const TodosContainer: any = styled.div`
   .add-tsk {
@@ -171,7 +178,7 @@ const Todos: React.FC<any> = () => {
   const [filterData, setFilterData] = useState<TodoList[]>(todos)
   const [selectedFilter, setSelectedFilter] = useState<Filter | "">("")
 
-  const theme = useTheme()
+  const [theme] = useTheme()
 
   const defaultTodo = {
     id: 0,

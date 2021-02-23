@@ -1,4 +1,4 @@
-import { SET_MODE } from "../types"
+import { SET_MODE, SET_THEME } from "../types"
 import { RapUITheme, RapUIThemeMode } from "../../types"
 import { Reducer } from "react"
 
@@ -36,7 +36,7 @@ type State = {
 }
 
 type ActionType = {
-  readonly type: typeof SET_MODE
+  readonly type: typeof SET_MODE | typeof SET_THEME
   readonly payload: RapUIThemeMode
 }
 
@@ -50,6 +50,11 @@ const themeReducer: Reducer<State, ActionType> = (
       return {
         ...state,
         themeMode: action.payload,
+      }
+    case SET_THEME:
+      return {
+        ...state,
+        theme: action.payload,
       }
     default:
       return state

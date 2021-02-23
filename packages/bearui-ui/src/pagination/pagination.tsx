@@ -101,7 +101,7 @@ const Pagination: React.FC<PagnitionComponent> = ({
   if (documentLength % perPage) {
     totalPages += 1
   }
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const textColor = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
   const themeColor = getColorFromTheme(color, theme)

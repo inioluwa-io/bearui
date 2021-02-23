@@ -1,12 +1,21 @@
-15 error Error: Command failed: git remote update
-15 error fatal: unable to access 'https://github.com/nerdi-caveman/react-admin-panel.git/': Could not resolve host: github.com
-15 error error: Could not fetch origin
-15 error
-15 error Fetching origin
-15 error
-15 error     at makeError (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\execa\index.js:174:9)
-15 error     at Function.module.exports.sync (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\execa\index.js:338:15)
-15 error     at Object.execSync (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\child-process\index.js:26:16)
-15 error     at updateRemote (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\lib\is-behind-upstream.js:26:16)
-15 error     at isBehindUpstream (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\lib\is-behind-upstream.js:11:3)
-15 error     at VersionCommand.initialize (C:\Users\INIOLUWA\Coding\Open-source\react-admin-panel\node_modules\@lerna\version\index.js:154:9)
+0 silly argv {
+0 silly argv   _: [ 'create' ],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'C:\\Users\\USER\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   name: 'bu-rest-provider'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath C:\Code\bearui
+3 error Error: canceled
+3 error     at Interface.<anonymous> (C:\Code\bearui\node_modules\read\lib\read.js:66:13)
+3 error     at Interface.emit (events.js:315:20)
+3 error     at Interface._ttyWrite (readline.js:875:16)
+3 error     at ReadStream.onkeypress (readline.js:213:10)
+3 error     at ReadStream.emit (events.js:315:20)
+3 error     at emitKeys (internal/readline/utils.js:345:14)
+3 error     at emitKeys.next (<anonymous>)
+3 error     at ReadStream.onData (readline.js:1144:36)
+3 error     at ReadStream.emit (events.js:315:20)
+3 error     at addChunk (internal/streams/readable.js:309:12)
+3 error     at readableAddChunk (internal/streams/readable.js:284:9)
+3 error     at ReadStream.Readable.push (internal/streams/readable.js:223:10)

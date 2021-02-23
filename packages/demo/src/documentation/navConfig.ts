@@ -1,9 +1,5 @@
 import {
-  mdiAccountOutline,
-  mdiAlertDecagramOutline,
   mdiBriefcaseOutline,
-  mdiCubeOutline,
-  mdiKey,
 } from "@mdi/js"
 import { NavigationConfigProps } from "../configs"
 

@@ -25,15 +25,17 @@ label {
     transform: scale3d(1, 1, 1);
   }
 }
-body{
-  background: rgb(40, 44, 52);
-}
 body,
 html {
   height: 100%;
   width: 100%;
 }
-
+html{
+  position: relative;
+}
+body{
+  background: rgb(40, 44, 52);
+}
 .App {
   text-align: center;
   /* overflow-x: hidden; */

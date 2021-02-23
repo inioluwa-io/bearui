@@ -256,7 +256,7 @@ const Datatable: React.FC<DatatableComponent> = ({
   check = true,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const background: string = theme[themeMode].cardbackground
   const [selected, setSelected] = useState<Map<number | string, boolean>>(
@@ -389,7 +389,6 @@ const Datatable: React.FC<DatatableComponent> = ({
     }
   }
 
-
   const getSelectorRenderRule = (selector: string): DatatableRule => {
     return renderRule.find(item => item.selector === selector)
   }
@@ -423,7 +422,6 @@ const Datatable: React.FC<DatatableComponent> = ({
     setSelectedRowsData(selectedRows)
     return selectedRows
   }
-
 
   const checkSearch = useCallback(
     (dataItem): boolean => {
@@ -475,7 +473,7 @@ const Datatable: React.FC<DatatableComponent> = ({
     [filteredData]
   )
 
-  // 
+  //
   const handleFilterData = useCallback(() => {
     const tmp = data.filter((dataItem: any) => checkSearch(dataItem))
     setfilteredData(tmp)

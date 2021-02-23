@@ -1,4 +1,3 @@
-
 export type AuthProvider = {
   login?: (params: any) => Promise<any>
   logout?: (params: any) => Promise<any>
@@ -32,7 +31,14 @@ export type StoreState = {
 
 // DataProvider props
 export type DataProviderProps = {
-  getOne: (resource: string, endPoint?: string, params?: Record) => Promise<any>
+  getOne?: (resource: string, params?: Record) => Promise<any>
+  getMany?: (resource: string, params?: Record) => Promise<any>
+  getList?: (resource: string, params?: Record) => Promise<any>
+  create?: (resource: string, params?: Record) => Promise<any>
+  update?: (resource: string, params?: Record) => Promise<any>
+  updateMany?: (resource: string, params?: Record) => Promise<any>
+  delete?: (resource: string, params?: Record) => Promise<any>
+  deleteMany?: (resource: string, params?: Record) => Promise<any>
 }
 export interface getOneParams {
   id: Record

@@ -1,14 +1,19 @@
 import React, { createContext, useState } from "react"
 import { DataProviderProps, Record } from "../types"
 
-export const defaultDataProvider = {
-  getOne: async (
-    resource: string,
-    endPoint: string,
-    params: Record,
-  ) => {
+export const defaultDataProvider: DataProviderProps = {
+  getOne: async (resource: string, params: Record) => {
     try {
-      const res = await fetch(endPoint + resource, { method: "GET" })
+      const res = await fetch(`${resource}/${params.id}`, { method: "GET" })
+      const json = await res.json()
+      return { data: json }
+    } catch (e) {
+      console.warn(e)
+    }
+  },
+  getMany: async (resource: string, params: Record) => {
+    try {
+      const res = await fetch(resource, { method: "GET" })
       const json = await res.json()
       return { data: json }
     } catch (e) {

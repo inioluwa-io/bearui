@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import { CardProps } from "../types"
+import { getColorFromTheme } from "../util"
 
 type CardContainerProps = {
   background: string
@@ -41,16 +42,44 @@ const CardContainer: any = styled.div`
   flex-direction: column;
   background: ${(props: CardContainerProps) =>
     !props.withBackground ? "none" : props.background};
-  border-radius: 10px;
+  border-radius: 18px;
   ${(props: CardContainerProps) => {
     if (props.withBackground) {
       return `
-      box-shadow: 0 0 15px rgba(0,0,0,.15);`
+      // box-shadow: 0 0 12px rgba(0,0,0,.05);`
     }
   }}
-  margin:20px;
+  overflow:hidden;
+  margin:25px;
   position: relative;
   height: fit-content;
+  > *, p{
+    color:${(props: any) => props.cardTextColor};
+  }
+  ${(props: any) =>
+    props.backgroundImg &&
+    `
+    background-image: url('${props.backgroundImg}');
+    min-height:6rem;
+    background-repeat: repeat;
+    background-size: cover;
+    background-position-y: center;
+
+    &::after{
+      width:100%;
+      height:100%;
+      left:0;
+      top:0;
+      content:"";
+      position:absolute;
+      background:rgba(0,0,0,.085);
+      border-radius: 18px;
+    }
+    > *,p{
+      z-index:1;
+      color:${(props: any) => props.cardTextColor};
+    }
+    `}
   ${(props: CardContainerProps) =>
     (props.lgCol &&
       "width:calc(" +
@@ -133,13 +162,14 @@ const CardContainer: any = styled.div`
   }
 
   @media (max-width: 441px) {
-    padding: ${(props: any)=> props.mobilePadding};
+    padding: ${(props: any) => props.mobilePadding};
     width: calc(
-      100% - (${(props: any) => props.xMobilePadding + " + " + props.xMobilePadding})
+      100% - (${(props: any) =>
+        props.xMobilePadding + " + " + props.xMobilePadding})
     );
-    margin: 0.5px 0;
+    // margin: 0.5px 0;
     box-shadow: none;
-    border-radius: 0;
+    // border-radius: 0;
 
     ${(props: CardContainerProps) => {
       if (!props.withBackground) {
@@ -166,12 +196,26 @@ const Card: React.FC<CardProps> = ({
   mdCol = "",
   xsCol = "",
   withBackground = true,
+  backgroundImg,
   className,
+  textColor,
+  background,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
-  const background: string = theme[themeMode].cardbackground
+  let cardBackground: string = ""
+  let cardTextColor: string = ""
+  if (background) {
+    cardBackground = getColorFromTheme(background, theme)
+  } else {
+    cardBackground = theme[themeMode].cardbackground
+  }
+  if (textColor) {
+    cardTextColor = getColorFromTheme(textColor, theme)
+  } else {
+    cardTextColor = themeMode === "darkmode" ? "#ffffff" : "#444444"
+  }
 
   const getPaddingSize = (size: string): string => {
     if (withBackground) {
@@ -283,10 +327,12 @@ const Card: React.FC<CardProps> = ({
       padding={getPaddingSize(size)}
       mobilePadding={getMobilePaddingSize(size)}
       xMobilePadding={xMobilePadding()}
-      background={background}
+      background={cardBackground}
+      backgroundImg={backgroundImg}
       gap={gap}
       withBackground={withBackground}
       yPadding={yPadding()}
+      cardTextColor={cardTextColor}
     >
       {children}
     </CardContainer>

@@ -19,7 +19,6 @@ const BreadcrumbDiv: StyledComponent<
     font-size: 14px;
     align-items: flex-end;
 
-
     a {
       text-decoration: none;
       color: ${(props: any) => props.color};
@@ -65,7 +64,8 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
       throw new Error("Item is required")
     }
   }
-  const { colors } = useTheme()
+  const [theme] = useTheme()
+  const { colors } = theme
   const [mode] = useThemeMode()
   if (color === "dark") {
     color = mode === "lightmode" ? "#222" : "#f4f4f4"
@@ -84,11 +84,7 @@ const Breadcrumb: React.FC<BreadcrumbComponent> = ({
               <Link to={list.to}>{list.name}</Link>{" "}
               <span>
                 {separator.length > 1 ? (
-                  <Icon
-                    path={separator}
-                    size={0.7}
-                    color={separatorColor}
-                  />
+                  <Icon path={separator} size={0.7} color={separatorColor} />
                 ) : (
                   separator
                 )}

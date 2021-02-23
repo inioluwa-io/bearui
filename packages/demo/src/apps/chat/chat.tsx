@@ -16,7 +16,15 @@ import {
 import styled from "styled-components"
 import img from "../../assets/img4.jpg"
 import { Icon } from "@mdi/react"
-import { mdiAttachment, mdiChevronLeft, mdiDotsHorizontal, mdiMagnify, mdiPhone, mdiPin, mdiVideoOutline } from "@mdi/js"
+import {
+  mdiAttachment,
+  mdiChevronLeft,
+  mdiDotsHorizontal,
+  mdiMagnify,
+  mdiPhone,
+  mdiPin,
+  mdiVideoOutline,
+} from "@mdi/js"
 import { mockUserContact } from "./mock"
 import { UserContact } from "./types"
 import TabButton from "./components/tabButton"
@@ -24,6 +32,7 @@ import ChatList from "./components/chatList"
 
 const ChatContainer: any = styled(Container)`
   border: 1px solid #aaaaaa44;
+  border-radius: 12px;
   overflow: hidden;
   position: relative;
 
@@ -165,7 +174,7 @@ const BlankConversation: any = styled.div`
 `
 
 const Chat: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const user_id = 1
   const [themeMode] = useThemeMode()
   const [activeTab, setActiveTab] = useState<number>(0)
@@ -364,6 +373,7 @@ const Chat: React.FC = () => {
                 icon={mdiMagnify}
                 size="xs"
                 clearButton
+                corners="rounded"
                 onInputChange={(val: string) => {
                   activeTab !== 0 && setActiveTab(0)
                   setChatSearchInput(val)
@@ -542,9 +552,15 @@ const Chat: React.FC = () => {
                 <span style={{ fontSize: "1.3em", fontWeight: 700 }}>
                   Welcome, Tony
                 </span>
-                <Avatar src={img} size="110px" />
+                <Avatar
+                  src={img}
+                  size="110px"
+                  withStatus
+                  statusColor="success"
+                />
                 <Button
                   gradient
+                  corners="rounded"
                   onClick={() => {
                     setOpenModal(true)
                   }}

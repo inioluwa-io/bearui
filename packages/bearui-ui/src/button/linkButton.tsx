@@ -54,7 +54,7 @@ width:auto;
         : "none"
     }
   }};
-  box-shadow: 0 8px 35px -6px ${(props: any) =>
+  box-shadow: 0 9px 35px -7px ${(props: any) =>
     props.glow === "true" ? darken(0.13, props.background) : "transparent"};
   overflow:hidden;
   box-sizing: border-box;
@@ -161,7 +161,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
 }) => {
   const refs: any = useRef()
 
-  const Theme = useTheme()
+  const [theme] = useTheme()
 
   const addPulse = useCallback(
     e => {
@@ -198,8 +198,8 @@ const LinkButton: React.FC<LinkButtonProps> = ({
         return { borderRadius: "50px" }
       case "box":
         return size === "lg"
-          ? { borderRadius: "11px" }
-          : { borderRadius: "5px" }
+          ? { borderRadius: "16px" }
+          : { borderRadius: "10px" }
       default:
         throw new Error("corners only accepts 'box, and rounded' as values")
     }
@@ -210,7 +210,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       case "xs":
         return { padding: "6px 12px", iconPadding: "4px" }
       case "sm":
-        return { padding: "11.5px 24px", iconPadding: "9.8px" }
+        return { padding: "12px 24px", iconPadding: "9.8px" }
       case "md":
         return { padding: "14.5px 28px", iconPadding: "12px" }
       case "lg":
@@ -235,11 +235,11 @@ const LinkButton: React.FC<LinkButtonProps> = ({
       return {
         backgroundGradient:
           gradient &&
-          `linear-gradient(138deg,${Theme.colors[background.trim()]}, ${rgba(
-            Theme.colors[background.trim()],
+          `linear-gradient(138deg,${theme.colors[background.trim()]}, ${rgba(
+            theme.colors[background.trim()],
             0.625
           )})`,
-        background: Theme.colors[background.trim()],
+        background: theme.colors[background.trim()],
       }
     } else {
       return {

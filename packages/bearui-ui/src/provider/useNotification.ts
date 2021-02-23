@@ -37,7 +37,7 @@ export type UseNotificationProps = (
  * }
  */
 
-const useNotification: any = (delay = 2500) => {
+const useNotification: any = (delay = 3500) => {
   const notificationProvider = useCallback<() => NotifyProps[]>(() => {
     return useSelector((state: any) => state.notificationReducer.notification)
   }, [])

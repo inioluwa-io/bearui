@@ -3,6 +3,7 @@ import { Container, Card, DataList, Chip, Button, LinkButton } from "@bearui/ui"
 import { invoiceData } from "./mock"
 import { InvoiceData } from "./types"
 import { AddInvoiceModal, EditInvoiceModal } from "./invoiceModal"
+import { mdiPlus } from "@mdi/js"
 
 const Invoice: React.FC<any> = () => {
   const defaultInvoice: InvoiceData = {
@@ -91,7 +92,7 @@ const Invoice: React.FC<any> = () => {
                   resetNewInvoice()
                   setOpenModal(true)
                 }}
-                icon="mdiPlus"
+                icon={mdiPlus}
               >
                 Add New
               </Button>

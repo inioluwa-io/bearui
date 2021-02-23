@@ -132,7 +132,7 @@ const Loader: React.FC<LoaderComponent> = ({
   ...props
 }) => {
   const [themeMode] = useThemeMode()
-  const theme: RapUITheme = useTheme()
+  const [theme]: RapUI[theme] = useTheme()
 
   let iconColor = themeMode === "lightmode" ? "#444" : "#fff"
   if (!!color.length) {

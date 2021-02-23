@@ -30,7 +30,7 @@ const Shimmer: React.FC<ShimmerProps> = ({
   size,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const cardBackground: string = theme[themeMode].cardbackground
   let background = ""
@@ -53,7 +53,6 @@ const Shimmer: React.FC<ShimmerProps> = ({
       <Card align="left" style={{ overflow: "hidden" }} gap={gap} size={size}>
         <ShimmerContainer background={background} />
         {/* {loading ? <ShimmerContainer background={background} /> : children} */}
-        
       </Card>
     </div>
   )

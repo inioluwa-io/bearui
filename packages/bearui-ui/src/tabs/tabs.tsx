@@ -16,27 +16,33 @@ const TabsElement: any = styled.div`
   position: relative;
   display: flex;
   justify-content: ${(props: any) => `${props.align}`};
-  ${(props: any) => {
-    if (props.position === "left" || props.position === "right") {
-      return "width: fit-content;"
-    } else {
-      return `
-      width: 100%;
-      overflow:hidden;
-      `
-    }
-  }}
 
   .container {
     position: relative;
     display: flex;
-    padding-bottom: 5px;
+    // padding-bottom: 5px;
     ${(props: any) => {
       if (!(props.position === "left" || props.position === "right")) {
         return "overflow-x: auto;"
       }
     }}
-    width: ${(props: any) => `${props.fixed ? "100%" : "100%"}`};
+    // background: ${(props: any) => props.tabColor};
+    // box-shadow: 0 6px 15px -8px ${(props: any) => props.tabColor};
+    border-radius: 14px;
+    padding: 6px;
+    ${(props: any) => {
+      if (props.position === "left" || props.position === "right") {
+        return "width: fit-content;"
+      } else {
+        return `
+        overflow:hidden;
+        `
+      }
+    }}
+  }
+  .inner-container {
+    position: relative;
+    width: fit-content;
   }
   ul {
     display: flex;
@@ -49,6 +55,7 @@ const TabsElement: any = styled.div`
         return "flex-direction: row;"
       }
     }}
+    z-index: 1;
 
     li {
       display: flex;
@@ -59,21 +66,25 @@ const TabsElement: any = styled.div`
         ${(props: any) => {
           if (props.position === "left" || props.position === "right") {
             return `
-            padding: 8px 12px;
+            padding: 9px 15px;
             width:100%`
           } else {
-            return "padding: 8px 12px;"
+            return "padding: 9px 15px;"
           }
         }}
         background: transparent;
         border: none;
         outline: none;
         font-family: inherit;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.25s ease;
         text-align: center;
+        * {
+          fill: inherit;
+          color: inherit;
+        }
 
         > span {
           transition: all 0.25s ease;
@@ -82,20 +93,12 @@ const TabsElement: any = styled.div`
 
         &.active {
           span {
-            color: ${(props: any) => props.color};
-            ${(props: any) => {
-              if (props.position === "left") {
-                return "transform: translateX(3px);"
-              }
-              if (props.position === "right") {
-                return "transform: translateX(-3px);"
-              } else {
-                return "transform: translateY(-3px);"
-              }
-            }}
+            color: #fff;
             * {
-              fill: ${(props: any) => props.color};
-              color: ${(props: any) => props.color};
+              // fill: ${(props: any) => props.tabColor};
+              // color: ${(props: any) => props.tabColor};
+              fill: #fff;
+              color: #fff;
             }
           }
         }
@@ -106,7 +109,7 @@ const TabsElement: any = styled.div`
 
 const TabsIndicator: any = styled.span`
   position: absolute;
-  background: rgba(0, 0, 0, 0.1);
+  // background: rgba(0, 0, 0, 0.1);
   ${(props: any) => {
     if (props.position === "left") {
       return `
@@ -125,8 +128,8 @@ const TabsIndicator: any = styled.span`
     } else {
       return `
       width: 100%;
-      height: 1px;
-      bottom: 1px;
+      height: 100%;
+      bottom: 0;
       `
     }
   }}
@@ -134,10 +137,11 @@ const TabsIndicator: any = styled.span`
   &::after {
     content: "";
     position: absolute;
-    z-index: 1;
     transition: all 0.25s ease;
-    background: ${(props: any) => props.color};
-    box-shadow: 0 8px 35px -6px ${(props: any) => darken(0.18, props.color)};
+    background: ${(props: any) => props.tabColor};
+    border-radius: 50px;
+    // box-shadow: 0 8px 35px -6px ${(props: any) =>
+      darken(0.18, props.tabColor)};
 
     ${(props: any) => {
       if (props.position === "left") {
@@ -157,9 +161,8 @@ const TabsIndicator: any = styled.span`
       } else {
         return `
         left: 0;
-        top: -1px;
         width:${props.width}px;
-        height:2px;
+        height:100%;
         left: ${props.left}px;
         `
       }
@@ -230,7 +233,7 @@ const TabsContainer: any = styled.div`
 
 const Tabs: React.FC<TabsComponent> = ({
   list,
-  align = "left",
+  align = "center",
   position = "top",
   color = "primary",
   onTabClick,
@@ -249,7 +252,7 @@ const Tabs: React.FC<TabsComponent> = ({
     top: 0,
     height: 0,
   })
-  const theme = useTheme()
+  const [theme] = useTheme()
   const refs = useRef<HTMLDivElement>()
   const indicatorColor = getColorFromTheme(
     list[currentIdx].color || color,
@@ -369,35 +372,37 @@ const Tabs: React.FC<TabsComponent> = ({
       className="tab-container"
     >
       <TabsElement
-        color={indicatorColor}
+        tabColor={indicatorColor}
         fixed={align === "fixed"}
         align={getAlign()}
         position={position}
         className="tab-ele"
       >
         <div className="container">
-          <ul>
-            {list.map((item: TabList, idx: number) => (
-              <li className="tab" key={idx}>
-                <button
-                  onClick={e => {
-                    handleTabClick(idx)
-                  }}
-                  className={currentIdx === idx ? "active" : ""}
-                >
-                  <span>{item.title}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <TabsIndicator
-            width={indicatorProp.width}
-            left={indicatorProp.left}
-            height={indicatorProp.height}
-            top={indicatorProp.top}
-            color={indicatorColor}
-            position={position}
-          ></TabsIndicator>
+          <div className="inner-container">
+            <ul>
+              {list.map((item: TabList, idx: number) => (
+                <li className="tab" key={idx}>
+                  <button
+                    onClick={e => {
+                      handleTabClick(idx)
+                    }}
+                    className={currentIdx === idx ? "active" : ""}
+                  >
+                    <span>{item.title}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <TabsIndicator
+              width={indicatorProp.width}
+              left={indicatorProp.left}
+              height={indicatorProp.height}
+              top={indicatorProp.top}
+              tabColor={indicatorColor}
+              position={position}
+            ></TabsIndicator>
+          </div>
         </div>
       </TabsElement>
       <TabsContent position={position}>

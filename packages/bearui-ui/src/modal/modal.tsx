@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
 import { rgba, darken } from "polished"
-import { RapUITheme, ModalProps } from "../types"
+import { ModalProps, RapUITheme } from "../types"
 import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
 import { getColorFromTheme } from "../util"
@@ -172,7 +172,7 @@ const Modal: React.FC<ModalProps> = ({
   submitButton,
   ...props
 }) => {
-  const theme: RapUITheme = useTheme()
+  const [theme]: RapUITheme = useTheme()
   const [themeMode] = useThemeMode()
   const ref: any = useRef()
   let defaultColor =

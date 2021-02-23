@@ -15,7 +15,7 @@ import { mdiArrowDown, mdiArrowUp } from "@mdi/js"
 
 const CardContainer: any = styled(Card)`
   h5 {
-    font-weight: 600;
+    // font-weight: 600;
   }
 
   span {
@@ -46,7 +46,7 @@ const ProgressCard: React.FC<ProgressCardComponent> = ({
   data,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   return (
     <CardContainer

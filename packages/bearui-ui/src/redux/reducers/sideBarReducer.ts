@@ -2,7 +2,7 @@ import { HIDE_SIDEBAR, COLLAPSE_SIDEBAR } from "../types"
 import { Reducer } from "react"
 
 const initialState = {
-  hideSideBar: false,
+  hideSideBar: true,
   collapseSideBar: false,
 }
 

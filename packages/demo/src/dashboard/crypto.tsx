@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   Container,
   Card,
@@ -6,15 +6,39 @@ import {
   Datatable,
   FlexColumn,
   LinkButton,
+  useNotification,
   Avatar,
 } from "@bearui/ui"
 import { SplitCard, ProgressCard, ColumnCard } from "../cards"
 import { CryptoWidget, NewsWidget } from "../widgets"
 import img from "../assets/dp1.jpg"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
-import { mdiBitcoin, mdiLitecoin, mdiEthereum } from "@mdi/js"
+import { mdiBitcoin, mdiLitecoin, mdiAlert, mdiEthereum } from "@mdi/js"
+import { useDataProvider, useTranslate } from "ra-core"
 
 const Crypto: React.FC<any> = () => {
+  const [setPosts] = useState<any>()
+  const dataProvider = useDataProvider()
+
+  const [, addNotification] = useNotification()
+  const translate = useTranslate()
+  useEffect(() => {
+    dataProvider
+      .getOne("posts", { id: "12" })
+      .then(({ data }) => {
+        setPosts(data)
+      })
+      .catch(e => {
+        addNotification({
+          title: "Network error",
+          text: translate("ra.notification.data_provider_error"),
+          icon: mdiAlert,
+          iconColor: "danger",
+        })
+        console.warn(e)
+      })
+  }, [addNotification, dataProvider, translate, setPosts])
+
   return (
     <Container>
       <Card withBackground={false} xsCol="12">
@@ -56,6 +80,8 @@ const Crypto: React.FC<any> = () => {
           },
         ]}
       />
+      <CryptoWidget />
+      <NewsWidget />
       <ColumnCard
         title="Market Value"
         apexChartSeries={[
@@ -77,10 +103,8 @@ const Crypto: React.FC<any> = () => {
           { title: "LTC", percent: 17, diff: -10 },
         ]}
       />
-      <CryptoWidget />
-      <NewsWidget />
 
-      <Card xsCol="12">
+      <Card xsCol="12" style={{ overflow: "hidden" }}>
         <h5>Active Orders</h5>
         <Datatable
           showControls={false}

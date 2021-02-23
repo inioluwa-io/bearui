@@ -13,7 +13,7 @@ import styled from "styled-components"
 
 const DocumentationContainer: any = styled(Container)`
   .title {
-    font-weight: 600;
+    // font-weight: 600;
   }
   h1 {
     font-size: 0.83em;
@@ -87,7 +87,7 @@ const srcData = [
 ]
 
 const DocStructure: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   return (
     <DocumentationContainer>
       <Card withBackground={false} xsCol="12">

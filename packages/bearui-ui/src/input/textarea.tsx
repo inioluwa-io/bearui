@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { InputProps } from "../types"
 import styled from "styled-components"
-import { isSupported } from "../util"
-import * as mdi from "@mdi/js"
+import { getColorFromTheme, isSupported } from "../util"
 import { Icon } from "@mdi/react"
 import { useTheme, useThemeMode } from "../theme"
+import { darken } from "polished"
+import { mdiClose } from "@mdi/js"
 
 const InputElement: any = styled.div`
   position: relative;
@@ -13,8 +14,7 @@ const InputElement: any = styled.div`
   text-align: left;
   top: 0px;
   height: fit-content;
-  width: 230px;
-  padding-bottom: ${(props: any) => props.padBottom && "19px"};
+  width: 250px;
 
   label {
     transition: color 0.35s ease;
@@ -46,7 +46,7 @@ const InputHtmlElement: any = styled.textarea`
   width: 100%;
   outline: none;
   padding: ${(props: any) => props.size};
-  border-radius: 5px;
+  border-radius: ${(props: any) => props.corners};
   border: 1px solid ${(props: any) => {
     let color: string = "transparent"
 
@@ -60,14 +60,14 @@ const InputHtmlElement: any = styled.textarea`
     }
     return color
   }};
-  background: ${(props: any) => props.background.background || "transparent"};
-  // background:rgba(0,0,0,.075);
-  padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
+  background: ${(props: any) => props.background || "transparent"};
+  padding-left:${(props: any) =>
+    props.padLeft && !props.iconRight && (props.iconBorder ? "45px" : "33px")};
   padding-right:${(props: any) => {
     if (props.padLeft && props.iconRight) {
-      return "40px"
+      return "45px"
     } else if (props.padLeft && props.clearButton) {
-      return "33px"
+      return "38px"
     }
   }};
   color: ${(props: any) => props.textColor} !important;
@@ -124,7 +124,7 @@ const InputIcon: any = styled.div`
       ? `border-left: 1px solid #666;
        padding: 0 8px 0 7px`
       : `border-right: 1px solid #666;
-      padding: 0 7px 0 8px;`}
+      padding: 0 9px 0 10px;`}
   border:${(props: any) => !props.iconBorder && "none"}
 
   svg path {
@@ -165,7 +165,9 @@ const TextArea: React.FC<InputProps> = ({
   type = "text",
   disabled = false,
   placeholder,
+  background = "",
   size = "sm",
+  corners = "box",
   color = "#596173",
   icon,
   onError,
@@ -186,8 +188,8 @@ const TextArea: React.FC<InputProps> = ({
   const [labelColor, setLabelColor] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
-  const [validateMesssage, setValidateMessage] = useState<string>("")
-  const theme = useTheme()
+  const [validateMessage, setValidateMessage] = useState<string>("")
+  const [theme] = useTheme()
   const colors = theme.colors
   const [themeMode] = useThemeMode()
   const refs: any = useRef()
@@ -203,6 +205,20 @@ const TextArea: React.FC<InputProps> = ({
       }
     }
   }, [defaultValue])
+
+  const getBorderRadius = (): string => {
+    switch (corners) {
+      case "rounded": {
+        return "50px"
+      }
+      case "box": {
+        return "9px"
+      }
+      default: {
+        throw new Error("corners not supported")
+      }
+    }
+  }
 
   const inputHeightSize = (): string => {
     switch (size) {
@@ -313,7 +329,6 @@ const TextArea: React.FC<InputProps> = ({
   return (
     <InputElement
       ref={refs}
-      padBottom={!!validate.length}
       inputType={type}
       color={labelColor}
       labelColor={formatColor()}
@@ -324,8 +339,13 @@ const TextArea: React.FC<InputProps> = ({
         <InputHtmlElement
           padLeft={!!icon}
           error={error}
+          corners={getBorderRadius()}
           success={success}
-          background={theme[themeMode]}
+          background={
+            background
+              ? getColorFromTheme(background, theme)
+              : theme[themeMode].background
+          }
           color={formatColor()}
           colors={colors}
           textColor={themeMode === "lightmode" ? "#111" : "#f4f4f4"}
@@ -339,6 +359,7 @@ const TextArea: React.FC<InputProps> = ({
           clearButton={clearButton}
           iconRight={iconRight && !clearButton}
           onChange={handleChangeEvent}
+          iconBorder={iconBorder}
           onFocus={() => {
             setLabelColor(formatColor())
           }}
@@ -348,12 +369,17 @@ const TextArea: React.FC<InputProps> = ({
             iconRight={iconRight && !clearButton}
             iconBorder={iconBorder}
           >
-            <Icon path={mdi[icon]} size={0.72} color={inputIconColor()} />
+            <Icon path={icon} size={0.72} color={inputIconColor()} />
           </InputIcon>
         )}
         {clearButton && !!inputValue.length && (
           <ClearButton
-            background={theme[themeMode]}
+            background={darken(
+              0.07,
+              background
+                ? getColorFromTheme(background, theme)
+                : theme[themeMode].background
+            )}
             iconRight={iconRight && !clearButton}
             iconBorder={iconBorder}
             onClick={e => {
@@ -362,11 +388,11 @@ const TextArea: React.FC<InputProps> = ({
               refs.current.querySelector("textarea").focus()
             }}
           >
-            <Icon path={mdi.mdiClose} size={0.55} color={"#f4f4f4"} />
+            <Icon path={mdiClose} size={0.55} color={"#f4f4f4"} />
           </ClearButton>
         )}
       </InputContainer>
-      {!!validateMesssage.length && (
+      {!!validateMessage.length && (
         <span
           style={{
             fontSize: "10px",
@@ -376,7 +402,7 @@ const TextArea: React.FC<InputProps> = ({
             margin: "3px 5px",
           }}
         >
-          {validateMesssage}
+          {validateMessage}
         </span>
       )}
     </InputElement>

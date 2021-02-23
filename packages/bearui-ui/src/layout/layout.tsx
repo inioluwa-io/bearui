@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { LayoutComponent, NotifyProps } from "../types"
 import { Notification } from "../notification"
@@ -69,6 +69,7 @@ const LayoutContainer: any = styled.div`
   main {
     display: inline-flex;
     width: 100%;
+    transition: width 0.35s;
   }
 
   ${(props: any) =>

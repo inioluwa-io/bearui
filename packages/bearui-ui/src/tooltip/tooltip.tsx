@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef } from "react"
 import { TooltipComponent } from "../types"
 import styled from "styled-components"
 import { getColorFromTheme } from "../util"
@@ -57,7 +57,7 @@ const Tooltip: React.FC<TooltipComponent> = ({
   children,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const refs = useRef<HTMLDivElement>()
   const indicatorColor = getColorFromTheme(textColor, theme)
   const indicatorBackground = getColorFromTheme(background, theme)

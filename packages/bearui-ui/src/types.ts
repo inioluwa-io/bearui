@@ -89,7 +89,7 @@ export type AvatarProps = {
   src?: string
   text?: string
   alt?: string
-}
+}& HTMLAttributes<HTMLDivElement>
 
 export type NotifyProps = {
   text: string
@@ -143,9 +143,11 @@ export type InputProps = {
   label?: string
   placeholder?: string
   defaultValue?: string
+  corners?: "rounded" | "box"
   disabled?: boolean
   icon?: string
   clearButton?: boolean
+  background?: string
   iconRight?: boolean
   iconBorder?: boolean
   color?: string
@@ -166,6 +168,7 @@ export type SelectComponent = {
   disabled?: boolean
   options?: string[]
   color?: string
+  corners?: "box" | "rounded"
   validate?: "alpha" | "email" | "number"
   size?: "sm" | "md" | "lg"
   onSelect?: (value: string) => any
@@ -214,6 +217,14 @@ export type ModalProps = {
 } & HTMLAttributes<HTMLDivElement>
 // end
 
+// popup props
+export type PopUpProps = {
+  active: boolean
+  color?: string
+  onClose: () => any
+} & HTMLAttributes<HTMLDivElement>
+// end
+
 // card props
 export type CardProps = {
   size?: "md" | "sm" | "lg" | "xs"
@@ -222,8 +233,11 @@ export type CardProps = {
   lgCol?: string
   mdCol?: string
   smCol?: string
+  textColor?: string
   xsCol?: string
   withBackground?: boolean
+  backgroundImg?: String
+  background?: string
 } & HTMLAttributes<HTMLDivElement>
 // end
 
@@ -456,6 +470,7 @@ export type NavbarPosition = "static" | "sticky" | "hidden" | "floating"
 export type NavbarComponent = {
   links: (ReactElement | string)[]
   pinToMobile?: number[]
+  searchable?: boolean
   position?: NavbarPosition
 } & HTMLAttributes<HTMLDivElement>
 // end

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { InputProps } from "../types"
 import styled from "styled-components"
-import { isSupported } from "../util"
+import { getColorFromTheme, isSupported } from "../util"
 import { Icon } from "@mdi/react"
 import { useTheme, useThemeMode } from "../theme"
 import { mdiClose } from "@mdi/js"
+import { darken } from "polished"
 
 const InputElement: any = styled.div`
   position: relative;
@@ -13,7 +14,7 @@ const InputElement: any = styled.div`
   text-align: left;
   top: 0px;
   height: fit-content;
-  width: 230px;
+  width: 250px;
 
   label {
     transition: color 0.35s ease;
@@ -43,7 +44,7 @@ const InputHtmlElement: any = styled.input`
   width: 100%;
   outline: none;
   padding: ${(props: any) => props.size};
-  border-radius: 5px;
+  border-radius: ${(props: any) => props.corners};
   border: 1px solid ${(props: any) => {
     let color: string = "transparent"
 
@@ -57,14 +58,14 @@ const InputHtmlElement: any = styled.input`
     }
     return color
   }};
-  background: ${(props: any) => props.background.background || "transparent"};
-  // background:rgba(0,0,0,.075);
-  padding-left:${(props: any) => props.padLeft && !props.iconRight && "40px"};
+  background: ${(props: any) => props.background || "transparent"};
+  padding-left:${(props: any) =>
+    props.padLeft && !props.iconRight && (props.iconBorder ? "45px" : "33px")};
   padding-right:${(props: any) => {
     if (props.padLeft && props.iconRight) {
-      return "40px"
+      return "45px"
     } else if (props.padLeft && props.clearButton) {
-      return "33px"
+      return "38px"
     }
   }};
   color: ${(props: any) => props.textColor} !important;
@@ -121,7 +122,7 @@ const InputIcon: any = styled.div`
       ? `border-left: 1px solid #666;
        padding: 0 8px 0 7px`
       : `border-right: 1px solid #666;
-      padding: 0 7px 0 8px;`}
+      padding: 0 9px 0 10px;`}
   border:${(props: any) => !props.iconBorder && "none"}
 
   svg path {
@@ -144,7 +145,7 @@ const ClearButton: any = styled.button`
   cursor: pointer;
   border-radius: 50%;
   border: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props: any) => props.background};
 
   svg path {
     transition: all 0.35s;
@@ -160,8 +161,10 @@ const Input: React.FC<InputProps> = ({
   id = "",
   label = "",
   type = "text",
+  background = "",
   disabled = false,
   placeholder,
+  corners = "box",
   defaultValue = "",
   size = "sm",
   color = "#596173",
@@ -183,12 +186,11 @@ const Input: React.FC<InputProps> = ({
   const [labelColor, setLabelColor] = useState<string>("")
   const [error, setError] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
-  const [validateMesssage, setValidateMessage] = useState<string>("")
-  const theme = useTheme()
+  const [validateMessage, setValidateMessage] = useState<string>("")
+  const [theme] = useTheme()
   const colors = theme.colors
   const [themeMode] = useThemeMode()
   const refs: any = useRef()
-
   // Reduce margin if parent is a form control element
   useEffect(() => {
     setInputValue(defaultValue)
@@ -202,6 +204,20 @@ const Input: React.FC<InputProps> = ({
     // onInputChange(defaultValue)
   }, [defaultValue])
 
+  const getBorderRadius = (): string => {
+    switch (corners) {
+      case "rounded": {
+        return "50px"
+      }
+      case "box": {
+        return "9px"
+      }
+      default: {
+        throw new Error("corners not supported")
+      }
+    }
+  }
+  
   const inputHeightSize = (): string => {
     switch (size) {
       case "xs": {
@@ -227,7 +243,7 @@ const Input: React.FC<InputProps> = ({
         return "8px"
       }
       case "sm": {
-        return "10px"
+        return "11.5px"
       }
       case "md": {
         return "12px"
@@ -327,8 +343,13 @@ const Input: React.FC<InputProps> = ({
         <InputHtmlElement
           padLeft={!!icon}
           error={error}
+          corners={getBorderRadius()}
           success={success}
-          background={theme[themeMode]}
+          background={
+            background
+              ? getColorFromTheme(background, theme)
+              : theme[themeMode].background
+          }
           color={formatColor()}
           colors={colors}
           textColor={themeMode === "lightmode" ? "#111" : "#f4f4f4"}
@@ -342,6 +363,7 @@ const Input: React.FC<InputProps> = ({
           clearButton={clearButton}
           iconRight={iconRight && !clearButton}
           onChange={handleChangeEvent}
+          iconBorder={iconBorder}
           onFocus={() => {
             setLabelColor(formatColor())
           }}
@@ -356,7 +378,12 @@ const Input: React.FC<InputProps> = ({
         )}
         {clearButton && !!inputValue.length && (
           <ClearButton
-            background={theme[themeMode]}
+            background={darken(
+              0.07,
+              background
+                ? getColorFromTheme(background, theme)
+                : theme[themeMode].background
+            )}
             iconRight={iconRight && !clearButton}
             iconBorder={iconBorder}
             onClick={e => {
@@ -369,7 +396,7 @@ const Input: React.FC<InputProps> = ({
           </ClearButton>
         )}
       </InputContainer>
-      {!!validateMesssage.length && (
+      {!!validateMessage.length && (
         <span
           style={{
             fontSize: "10px",
@@ -379,7 +406,7 @@ const Input: React.FC<InputProps> = ({
             // marginBottom: "-19px",
           }}
         >
-          {validateMesssage}
+          {validateMessage}
         </span>
       )}
     </InputElement>

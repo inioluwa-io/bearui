@@ -54,6 +54,7 @@ const LoginPage: React.FC<any> = () => {
             </FlexRow>
           </FlexColumn>
           <Button
+            corners="rounded"
             gradient
             background="primary"
             loading={login}

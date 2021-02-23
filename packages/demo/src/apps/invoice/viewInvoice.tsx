@@ -15,7 +15,7 @@ import { withRouter } from "react-router-dom"
 import { getOneInvoice } from "./util"
 import { InvoiceData } from "./types"
 import Icon from "@mdi/react"
-import { mdiEmailOutline, mdiPhone } from "@mdi/js"
+import { mdiChevronLeft, mdiEmailOutline, mdiPhone } from "@mdi/js"
 import "./style.css"
 import styled from "styled-components"
 
@@ -79,7 +79,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
   }, [invoice_no])
 
   const [themeMode] = useThemeMode()
-  const theme = useTheme()
+  const [theme] = useTheme()
 
   if (!invoiceDetails) return <Loader />
 
@@ -111,7 +111,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
           background={theme[themeMode].cardbackground}
           iconOnly="true"
           iconColor={themeMode === "lightmode" ? "#444444" : "#f4f4f4"}
-          icon="mdiChevronLeft"
+          icon={mdiChevronLeft}
         ></LinkButton>
       </Card>
       <Card xsCol="12" size="sm" withBackground={true} gap="80px">
@@ -131,7 +131,7 @@ const ViewInvoice: React.FC<any> = ({ match }) => {
           <div>
             <FlexRow align="right">
               <Button
-                icon="mdiFileOutline"
+                icon={mdiEmailOutline}
                 onClick={() => {
                   window.print()
                 }}

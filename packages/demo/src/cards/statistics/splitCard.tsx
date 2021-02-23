@@ -10,7 +10,7 @@ import React, { useRef, useEffect, useCallback, useState } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
 import styled from "styled-components"
-import { rgba } from "polished"
+import { rgba, darken } from "polished"
 import Chart from "react-apexcharts"
 
 const CardContainer: any = styled(Card)`
@@ -25,12 +25,15 @@ const CardContainer: any = styled(Card)`
   }
 
   .icon {
-    padding: 8px;
-    border-radius: 5px;
-    background: ${(props: any) => rgba(props.color, 0.175)};
+    padding: 9px;
+    border-radius: 11px;
+    background: linear-gradient(
+      135deg,
+      ${(props: any) => props.color + ", " + darken(0.075, props.color)}
+    );
   }
   .apexcharts-tooltip {
-    background: ${(props: any) => props.background} !important;
+    background: ${(props: any) => props.tooltipBackground} !important;
     color: ${(props: any) => props.textColor};
     border: none !important;
     padding: 3px;
@@ -62,7 +65,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
   icon,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   color = getColorFromTheme(color, theme)
   const refs = useRef<HTMLDivElement | any>()
@@ -133,7 +136,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
           gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
           inverseColors: true,
           opacityFrom: 0.5,
-          opacityTo: 0.2,
+          opacityTo: 0.3,
           stops: [0, 70, 100],
           colorStops: [],
         },
@@ -163,7 +166,6 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         {...props}
         gap="15px"
         color={color}
-        background={theme[themeMode].background}
         textColor={theme[themeMode].textColor}
         lgCol="3"
         smCol="6"
@@ -175,12 +177,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
             <h5>{title}</h5>
             <p>{value}</p>
           </FlexColumn>
-          <Icon
-            className="icon"
-            path={icon}
-            color={color}
-            size={1.1}
-          />
+          <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
         </FlexRow>
       </CardContainer>
     )
@@ -190,7 +187,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         lgCol="4"
         color={color}
         textColor={theme[themeMode].textColor}
-        background={theme[themeMode].background}
+        tooltipBackground={theme[themeMode].background}
         xsCol="12"
         style={{ paddingBottom: "0px", overflow: "hidden" }}
       >
@@ -201,12 +198,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
                 <h5>{title}</h5>
                 <p>{value}</p>
               </FlexColumn>
-              <Icon
-                className="icon"
-                path={icon}
-                color={color}
-                size={1.1}
-              />
+              <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
             </FlexRow>
             <Chart
               className="rap-chart"

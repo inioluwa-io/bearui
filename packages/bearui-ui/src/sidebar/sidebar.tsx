@@ -1,21 +1,26 @@
 import React, { useCallback, useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { FlexRow, FlexColumn } from "../layout"
-import { lighten, rgba } from "polished"
-import { useTheme, useThemeMode, useCollapseSideBar } from "../theme"
-import { mdiClose } from "@mdi/js"
-import Icon from "@mdi/react"
+import { darken, rgba } from "polished"
+import {
+  useTheme,
+  useThemeMode,
+  useCollapseSideBar,
+  useHideSideBar,
+} from "../theme"
+import UserProfile from "./components/userProfile"
 
 const SidebarContainer: any = styled.div`
   width: 16.5rem;
   background: ${(props: any) => props.background};
   position: sticky;
-  border-right: 1px solid ${(props: any) => lighten(0.2, props.boxShadow)};
+  border-right: 1px solid ${(props: any) => props.boxShadow};
   top: 0;
   height: 100vh;
   z-index: 9999;
   display: grid;
-  grid-template-rows: 65px 1fr;
+  grid-template-rows: 65px auto 1fr;
+  overflow: hidden;
 
   .logo {
     display: flex;
@@ -71,7 +76,7 @@ const SidebarContainer: any = styled.div`
 
         &.active {
           border-radius: 7px;
-          background: rgba(0, 0, 0, 0.1);
+          background: rgba(125, 125, 125, 0.125);
 
           + .sc-cnt {
             margin-top: 5px;
@@ -120,89 +125,195 @@ const SidebarContainer: any = styled.div`
   }
   .header {
     background: ${(props: any) => props.background};
-    button {
-      background: none;
-      outline: none;
-      cursor: pointer;
+    button.sidebar-toggle-btn {
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: transparent;
       border: none;
+      cursor: pointer;
+      outline: none;
+
+      span {
+        position: relative;
+        width: 12px;
+        height: 2px;
+        border-radius: 2px;
+        background: ${(props: any) => props.primaryColor};
+
+        &:nth-child(2) {
+          width: 24px;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+  transition: width 0.35s;
+  ${(props: any) =>
+    props.hideSideBar
+      ? `
+    @media (max-width: 1200px) {
+      position: fixed;
+      transform: translateX(-100%);
+      transition: transform 0.35s;
+  
+      + .underlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 9991;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        visibility: hidden;
+      }
+  
+      &.sidebar-collapse {
+        transform: translateX(-0%);
+  
+        + .underlay {
+          visibility: visible;
+        }
+      }
+      .header {
+        button {
+          display: block;
+        }
+      }
+    }
+    `
+      : `
+      @media (max-width: 1200px) {
+        position: fixed;
+        transform: translateX(0%);
+        transition: transform 0.35s;
+    
+        + .underlay {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 9991;
+          height: 100vh;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          visibility: visible;
+        }
+    
+        &.sidebar-collapse {
+          transform: translateX(100%);
+    
+          + .underlay {
+            visibility: visible;
+          }
+        }
+        .header {
+          button {
+            // display: none;
+          }
+        }
+      }`}
+
+  ${(props: any) =>
+    props.collapseSideBar &&
+    `
+    @media (min-width: 1200px) {
+  width: 5rem;
+
+  .mobile-usr-profile{
+    display:flex;
+  }
+  .usr-profile,
+  .logo {
+    display: none;
+  }
+  #side-bar {
+    h6 {
       display: none;
-      padding: 3px;
     }
-  }
-
-  // @media (max-width: 1200px) {
-  //   width: 65px;
-  // }
-
-  &.collapsed {
-    position: fixed;
-    transform: translateX(-100%);
-    transition: transform 0.35s;
-
-    + .underlay {
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 9991;
-      height: 100vh;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.25);
-      visibility: hidden;
-    }
-
-    &.sidebar-collapse {
-      transform: translateX(-0%);
-
-      + .underlay {
-        visibility: visible;
+    a {
+      div {
+        justify-content: center;
       }
-    }
-    .header {
-      button {
-        display: block;
+      p {
+        position: absolute;
+        z-index: 1;
+        background: ${(props: any) => darken(0.15, props.background)};
+        right: 0;
+        padding: 3px 5px;
+        border-radius: 3px;
+        opacity: 0;
+        font-size: 14px;
+        transition: 0.25s ease;
+        transform: translateX(70%);
+        font-weight: 400;
+      }
+      &:hover {
+        p {
+          opacity: 1;
+        }
       }
     }
   }
-  @media (max-width: 1200px) {
-    position: fixed;
-    transform: translateX(-100%);
-    transition: transform 0.35s;
-
-    + .underlay {
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 9991;
-      height: 100vh;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      visibility: hidden;
+  .group-link header {
+    p,
+    .sc-ic {
+      display: none;
     }
-
-    &.sidebar-collapse {
-      transform: translateX(-0%);
-
-      + .underlay {
-        visibility: visible;
-      }
-    }
-    .header {
-      button {
-        display: block;
+    .p {
+      > div {
+        justify-content: center;
       }
     }
   }
+  .group-link header {
+    padding: 14px;
+    width: calc(100% - 28px);
+    height: unset;
+  }
+  .header {
+    justify-content: center;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0;
+
+    > * {
+      flex: unset;
+      margin: 0;
+    }
+  }}
+  `}
 `
 
 type SidebarProps = {
   logo: any
+  avatarImg?: string
+  avatarText?: string
+  fullName?: string
+  role?: string
+  onEditProfile?: () => void
+  onSignOut?: () => void
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ logo, children, ...props }) => {
-  const theme = useTheme()
+const Sidebar: React.FC<SidebarProps> = ({
+  avatarImg,
+  avatarText,
+  fullName,
+  role,
+  onEditProfile,
+  onSignOut,
+  logo,
+  children,
+}) => {
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const refs = useRef<HTMLDivElement>()
-  const [collapseSideBar] = useCollapseSideBar()
+  const [collapseSideBar, setCollapseSideBar] = useCollapseSideBar()
+  const [hideSideBar, setHideSideBar] = useHideSideBar()
 
   const [pageWidth, setPageWidth] = useState<number | undefined>()
 
@@ -211,25 +322,26 @@ const Sidebar: React.FC<SidebarProps> = ({ logo, children, ...props }) => {
     setPageWidth(innerWidth)
   }, [])
 
-  const hideSideBar = useCallback(
+  const handleHideSideBar = useCallback(
     e => {
-      const DOMNode = refs.current
-      const toggleBtn: HTMLButtonElement = document.querySelector(
-        "#sidebar-toggle-btn"
-      )
+      const underlay: HTMLButtonElement = document.querySelector(".underlay")
 
-      if (!DOMNode?.contains(e.target) && !toggleBtn.contains(e.target)) {
-        if (
-          DOMNode?.classList?.value.includes("sidebar-collapse") &&
-          collapseSideBar
-        ) {
-          DOMNode?.classList?.remove("sidebar-collapse")
-        }
+      if (underlay?.contains(e.target)) {
+        setHideSideBar(true)
       }
     },
-    [refs, pageWidth]
+    [pageWidth, setHideSideBar]
   )
 
+  const toggleSideBar = () => {
+    if (pageWidth <= 1200) {
+      setHideSideBar(!hideSideBar)
+    } else {
+      setCollapseSideBar(!collapseSideBar)
+    }
+  }
+
+  // set device width
   useEffect(() => {
     updatePageWidth()
     window.addEventListener("resize", updatePageWidth)
@@ -239,11 +351,11 @@ const Sidebar: React.FC<SidebarProps> = ({ logo, children, ...props }) => {
   }, [updatePageWidth])
 
   useEffect(() => {
-    window.addEventListener("click", hideSideBar)
+    window.addEventListener("click", handleHideSideBar)
     return () => {
-      window.removeEventListener("click", hideSideBar)
+      window.removeEventListener("click", handleHideSideBar)
     }
-  }, [hideSideBar])
+  }, [handleHideSideBar])
 
   useEffect(() => {
     const sideBar: HTMLDivElement = document.querySelector("#rap-sidebar")
@@ -256,10 +368,12 @@ const Sidebar: React.FC<SidebarProps> = ({ logo, children, ...props }) => {
     <>
       <SidebarContainer
         ref={refs}
-        background={theme[themeMode].cardbackground}
-        boxShadow={theme[themeMode].background}
+        background={theme[themeMode].background}
+        boxShadow={theme[themeMode].cardbackground}
         primaryColor={theme.colors.primary}
         id="rap-sidebar"
+        collapseSideBar={collapseSideBar}
+        hideSideBar={hideSideBar}
       >
         <FlexRow
           align="stretch"
@@ -274,18 +388,23 @@ const Sidebar: React.FC<SidebarProps> = ({ logo, children, ...props }) => {
           {logo && <div className="logo">{logo}</div>}
           <div>
             <FlexRow align="right">
-              <button
-                onClick={() => {
-                  document
-                    .querySelector("#rap-sidebar")
-                    ?.classList?.toggle("sidebar-collapse")
-                }}
-              >
-                <Icon path={mdiClose} size={1} color={theme.colors.primary} />
+              <button className="sidebar-toggle-btn" onClick={toggleSideBar}>
+                <span></span>
+                <span></span>
+                <span></span>
               </button>
             </FlexRow>
           </div>
         </FlexRow>
+        <UserProfile
+          pageWidth={pageWidth}
+          avatarImg={avatarImg}
+          avatarText={avatarText}
+          onSignOut={onSignOut}
+          fullName={fullName}
+          role={role}
+          onEditProfile={onEditProfile}
+        />
         <div className="scrollbar">
           <FlexColumn id="side-bar" gap="5px" align="left">
             {children}

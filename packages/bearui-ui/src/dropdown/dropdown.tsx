@@ -17,7 +17,7 @@ const DropdownElement: any = styled.span`
   background: ${(props: any) => props.background};
   color: ${(props: any) => props.color};
   padding: 5px 6px;
-  border-radius: 3px;
+  border-radius: 10px;
   opacity: 0;
   transition: 0.25s all ${(props: any) => props.delay};
   font-size: 14px;
@@ -78,7 +78,7 @@ const Dropdown: React.FC<DropdownComponent> = ({
   list = [],
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
 
   const refs = useRef<HTMLDivElement>()

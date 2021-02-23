@@ -19,7 +19,7 @@ type BlogPostProps = {
 
 const CardContainer: any = styled(Card)`
   h5 {
-    font-weight: 600;
+    // font-weight: 600;
   }
   .blog {
     position: relative;
@@ -27,7 +27,7 @@ const CardContainer: any = styled(Card)`
     .details {
       h2 {
         font-size: 1.2rem;
-        font-weight: 600;
+        // font-weight: 600;
       }
       span {
         font-size: 13px;
@@ -39,10 +39,12 @@ const CardContainer: any = styled(Card)`
       width: 100%;
       overflow: hidden;
       height: 120px;
+      border-radius: 20px;
 
       img {
         position: absolute;
         top: 50%;
+        
         left: 50%;
         transform: translate(-50%, -50%);
         min-width: 100%;

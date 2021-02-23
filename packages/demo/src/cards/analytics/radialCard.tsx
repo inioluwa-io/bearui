@@ -7,7 +7,7 @@ import Chart from "react-apexcharts"
 
 const CardContainer: any = styled(Card)`
   h5 {
-    font-weight: 600;
+    // font-weight: 600;
   }
 
   .apexcharts-tooltip {
@@ -53,7 +53,7 @@ const RadialCard: React.FC<RadialCardComponent> = ({
   title,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const refs = useRef<HTMLDivElement | any>()
   const [width, setWidth] = useState<number>()
@@ -161,7 +161,6 @@ const RadialCard: React.FC<RadialCardComponent> = ({
       mdCol="4"
       xsCol="12"
       textColor={theme[themeMode].textColor}
-      background={theme[themeMode].background}
       style={{ overflow: "hidden" }}
       {...props}
     >

@@ -1,12 +1,6 @@
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
-import {
-  Container,
-  Card,
-  FlexRow,
-  Breadcrumb,
-  useTheme,
-} from "@bearui/ui"
+import { Container, Card, FlexRow, Breadcrumb, useTheme } from "@bearui/ui"
 import React from "react"
 import styled from "styled-components"
 
@@ -22,7 +16,7 @@ const ColorsPageContainer: any = styled(Container)`
 `
 
 const ColorsPage: React.FC = () => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   return (
     <ColorsPageContainer>
       <Card withBackground={false}>

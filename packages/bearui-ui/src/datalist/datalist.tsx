@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react"
 import styled, { StyledComponent } from "styled-components"
 import { DatatableColumns, DatatableRule, DataListComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
-import { mdiArrowUp, mdiDotsHorizontal } from "@mdi/js"
+import { mdiArrowUp, mdiDotsHorizontal, mdiMagnify } from "@mdi/js"
 import Icon from "@mdi/react"
 import { rgba, darken } from "polished"
 import { FlexColumn, FlexRow } from "../layout"
@@ -157,7 +157,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
     cursor: pointer;
     transition: all 0.35s ease;
     position: relative;
-    border-radius: 0.3rem;
+    border-radius: 0.7rem;
     background: ${(props: any) => props.cardBackground};
     box-shadow: 0 0 25px -20px #242424;
 
@@ -204,14 +204,14 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
       border: 0;
 
       &:first-child {
-        border-top-left-radius: 0.3rem;
-        border-bottom-left-radius: 0.3rem;
+        border-top-left-radius: 0.7rem;
+        border-bottom-left-radius: 0.7rem;
         border-left: 1px solid transparent;
       }
 
       &:last-child {
-        border-top-right-radius: 0.3rem;
-        border-bottom-right-radius: 0.3rem;
+        border-top-right-radius: 0.7rem;
+        border-bottom-right-radius: 0.7rem;
         border-right: 1px solid transparent;
       }
     }
@@ -229,7 +229,7 @@ const DataList: React.FC<DataListComponent> = ({
   menu,
   ...props
 }) => {
-  const theme = useTheme()
+  const [theme] = useTheme()
   const [themeMode] = useThemeMode()
   const background: string = theme[themeMode].cardbackground
   const [selected, setSelected] = useState<Map<number | string, boolean>>(
@@ -516,7 +516,7 @@ const DataList: React.FC<DataListComponent> = ({
               </p>
             </Dropdown>
             <Input
-              icon="mdiMagnify"
+              icon={mdiMagnify}
               type="text"
               clearButton
               id="datalist-search"
