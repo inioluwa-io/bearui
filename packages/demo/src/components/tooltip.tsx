@@ -23,7 +23,7 @@ const TooltipPage: React.FC<any> = () => {
               Tooltip
             </h3>
             <Breadcrumb
-              seperator="mdiChevronDoubleRight"
+              separator="mdiChevronDoubleRight"
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
                 { name: "Components", to: "/" },
@@ -46,18 +46,18 @@ const TooltipPage: React.FC<any> = () => {
             </Tooltip>
             <Tooltip text="Tooltip Default">
               {/* <FormControl> */}
-                <Input
-                  id="password"
-                  type="password"
-                  color="primary"
-                  icon={mdiLock}
-                  validate="number"
-                  onInputChange={(value: string) => {
-                    console.log(value)
-                  }}
-                  onError={() => {}}
-                  placeholder="Enter your password"
-                />
+              <Input
+                id="password"
+                type="password"
+                color="primary"
+                icon={mdiLock}
+                validate="number"
+                onInputChange={(value: string) => {
+                  console.log(value)
+                }}
+                onError={() => {}}
+                placeholder="Enter your password"
+              />
               {/* </FormControl> */}
             </Tooltip>
           </FlexRow>

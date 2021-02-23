@@ -48,14 +48,12 @@ const DataListPage: React.FC<any> = () => {
             uniqueIdentifier="_id"
             actionList={[
               {
-                color: "primary",
                 text: "Edit",
                 onClick: value => {
                   console.log(value)
                 },
               },
               {
-                color: "danger",
                 text: "Delete",
                 onClick: value => {
                   console.log(value)

@@ -26,7 +26,7 @@ const Table: React.FC<any> = ({ ...props }) => {
               Datatable
             </h3>
             <Breadcrumb
-              seperator="mdiChevronDoubleRight"
+              separator="mdiChevronDoubleRight"
               item={[
                 { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
                 { name: "Components", to: "/" },

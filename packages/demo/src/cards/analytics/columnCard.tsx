@@ -17,7 +17,7 @@ const CardContainer: any = styled(Card)`
     padding: 3px;
     font-family: inherit;
   }
-  .rap-chart {
+  .rap-chart > div {
     margin: 0px;
     // width: calc(100% + 0px);
 
@@ -224,9 +224,8 @@ const ColumnCard: React.FC<ColumnCardComponent> = ({
       {...props}
     >
       <h5>{title}</h5>
-      <div ref={refs} style={{ width: "100%" }}>
+      <div ref={refs} style={{ width: "100%" }} className="rap-chart">
         <Chart
-          className="rap-chart"
           options={state.options}
           series={apexChartSeries}
           type="bar"

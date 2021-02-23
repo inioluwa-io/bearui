@@ -102,7 +102,6 @@ const Invoice: React.FC<any> = () => {
           uniqueIdentifier="_id"
           actionList={[
             {
-              color: "primary",
               text: "Edit",
               onClick: (value: InvoiceData) => {
                 setOpenEditModal(true)
@@ -110,7 +109,6 @@ const Invoice: React.FC<any> = () => {
               },
             },
             {
-              color: "danger",
               text: "Delete",
               onClick: (value: any) => {
                 const tmp = invoiceList.filter(invoice => invoice !== value)

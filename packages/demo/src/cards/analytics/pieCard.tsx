@@ -19,7 +19,7 @@ const CardContainer: any = styled(Card)`
     padding: 3px;
     font-family: inherit;
   }
-  .rap-chart {
+  .rap-chart > div {
     margin: 0px;
 
     .apexcharts-tooltip-series-group {
@@ -240,9 +240,8 @@ const PieCard: React.FC<PieCardComponent> = ({
       {...props}
     >
       <h5>{title}</h5>
-      <div ref={refs} style={{ width: "100%" }}>
+      <div ref={refs} style={{ width: "100%" }} className="rap-chart">
         <Chart
-          className="rap-chart"
           options={state.options}
           series={apexChartSeries}
           type="pie"

@@ -25,6 +25,7 @@ export type YearlyChartCardComponent = {
   apexChartSeries?: any
   apexChartOptions?: any
 }
+export type DonutCardComponent = YearlyChartCardComponent
 export type RadialCardComponent = YearlyChartCardComponent
 export type ColumnCardComponent = YearlyChartCardComponent
 export type PieCardComponent = { labels?: string[] } & YearlyChartCardComponent

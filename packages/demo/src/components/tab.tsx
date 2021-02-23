@@ -12,7 +12,7 @@ const TabPage: React.FC<any> = () => {
             Tabs
           </h3>
           <Breadcrumb
-            seperator="mdiChevronDoubleRight"
+            separator="mdiChevronDoubleRight"
             item={[
               { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
               { name: "Components", to: "/" },

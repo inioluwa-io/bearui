@@ -256,7 +256,7 @@ const DocComponents: React.FC = () => {
                 </td>
               </tr>
               <tr>
-                <td>seperator</td>
+                <td>separator</td>
                 <td>string</td>
                 <td>no</td>
                 <td>"/"</td>

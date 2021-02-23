@@ -74,7 +74,7 @@ const UserViewPage = () => {
             View
           </h3>
           <Breadcrumb
-            seperator="/"
+            separator="/"
             item={[
               { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
               { name: "User", to: "/user" },

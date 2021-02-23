@@ -6,7 +6,7 @@ import {
   Breadcrumb,
   FlexRow,
   Grid,
-} from "@rap/ui"
+} from "@bearui/ui"
 import { mdiHomeOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 

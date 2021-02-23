@@ -74,8 +74,10 @@ const CryptoWidget: React.FC = ({ ...props }) => {
       {...props}
     >
       <Tabs
-        onTabClick={(key: number) => {
-          setTabIndex(key)
+        onTabClick={(key?: number) => {
+          if (key !== undefined) {
+            setTabIndex(key)
+          }
         }}
         list={[
           { title: "Buy", content: "" },
@@ -122,7 +124,7 @@ const CryptoWidget: React.FC = ({ ...props }) => {
         </FlexRow>
       </FlexColumn>
       <FlexRow align="stretch">
-        <Button corners = "box" size="md" icon={mdiMagnify}>
+        <Button corners="box" size="md" icon={mdiMagnify}>
           Find Offers
         </Button>
       </FlexRow>

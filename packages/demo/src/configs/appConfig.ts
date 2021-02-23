@@ -1,4 +1,4 @@
-import { NavbarPosition, RapUIThemeMode, RapUITheme } from "@rap/ui"
+import { NavbarPosition, RapUIThemeMode, RapUITheme } from "@bearui/ui"
 
 type ThemeConfigProps = {
   navbarPosition: NavbarPosition

@@ -29,7 +29,7 @@ const CardContainer: any = styled(Card)`
       font-size: 1.1em;
     }
   }
-  .rap-chart {
+  .rap-chart > div {
     margin: 0px;
 
     .apexcharts-xaxistooltip {
@@ -171,9 +171,9 @@ const RadialCard: React.FC<RadialCardComponent> = ({
           width: "100%",
           borderBottom: "1px solid " + rgba(theme[themeMode].textColor, 0.15),
         }}
+        className="rap-chart"
       >
         <Chart
-          className="rap-chart"
           options={state.options}
           series={apexChartSeries}
           type="radialBar"

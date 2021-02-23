@@ -534,16 +534,16 @@ const Todos: React.FC<any> = () => {
                   id={`ad-tsk${idx}`}
                   color={label.color}
                   active={newTodo.labels?.includes(idx)}
-                  onCheck={(value: boolean) => {
+                  onCheck={(value?: boolean) => {
                     const tmp = newTodo
-                    const setLabels = new Set(tmp.labels)
+                    let setLabels = new Set(tmp.labels)
 
                     if (value) {
                       setLabels.add(idx)
                     } else {
                       setLabels.delete(idx)
                     }
-                    setNewTodo({ ...newTodo, labels: [...setLabels] })
+                    setNewTodo({ ...newTodo, labels: [...Array.from(setLabels)] })
                   }}
                 >
                   <p style={{ fontWeight: 500 }}>{label.name}</p>
@@ -645,7 +645,7 @@ const Todos: React.FC<any> = () => {
                     id={`ad-tsk${idx}`}
                     color={label.color}
                     active={newTodo?.labels?.includes(idx)}
-                    onCheck={(value: boolean) => {
+                    onCheck={(value?: boolean) => {
                       const tmp = newTodo
                       const setLabels = new Set(tmp?.labels)
 
@@ -654,7 +654,7 @@ const Todos: React.FC<any> = () => {
                       } else {
                         setLabels.delete(idx)
                       }
-                      setNewTodo({ ...newTodo, labels: [...setLabels] })
+                      setNewTodo({ ...newTodo, labels: [...Array.from(setLabels)] })
                     }}
                   >
                     <p style={{ fontWeight: 500 }}>{label.name}</p>

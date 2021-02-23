@@ -39,7 +39,7 @@ const CardContainer: any = styled(Card)`
     padding: 3px;
     font-family: inherit;
   }
-  .rap-chart {
+  .rap-chart > div:nth-child(2) {
     margin: -30px -34px;
     width: calc(100% + 68px);
 
@@ -192,7 +192,7 @@ const SplitCard: React.FC<StatisticsComponent> = ({
         style={{ paddingBottom: "0px", overflow: "hidden" }}
       >
         <div ref={refs} style={{ width: "100%" }}>
-          <FlexColumn gap="10px">
+          <FlexColumn gap="10px" className="rap-chart">
             <FlexRow align="space">
               <FlexColumn gap="3px" align="left">
                 <h5>{title}</h5>
@@ -201,7 +201,6 @@ const SplitCard: React.FC<StatisticsComponent> = ({
               <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
             </FlexRow>
             <Chart
-              className="rap-chart"
               options={state.options}
               series={apexChartSeries}
               type="area"

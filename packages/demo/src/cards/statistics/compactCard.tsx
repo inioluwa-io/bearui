@@ -5,7 +5,13 @@ import {
   useTheme,
   useThemeMode,
 } from "@bearui/ui"
-import React, { useRef, useEffect, useCallback, useState } from "react"
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useState,
+  HTMLAttributes,
+} from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"
 import styled from "styled-components"
@@ -38,7 +44,7 @@ const CardContainer: any = styled(Card)`
     padding: 3px;
     font-family: inherit;
   }
-  .rap-chart {
+  .rap-chart > div:nth-child(2) {
     margin: -30px -34px;
     width: calc(100% + 68px);
 
@@ -189,16 +195,15 @@ const CompactCard: React.FC<StatisticsComponent> = ({
         xsCol="12"
         style={{ paddingBottom: "0px", overflow: "hidden" }}
       >
-        <div ref={refs} style={{ width: "100%" }}>
+        <div ref={refs} style={{ width: "100%" }} className="rap-chart">
           <FlexColumn align="center" gap="20px" style={{ width: "100%" }}>
-          <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
+            <Icon className="icon" path={icon} color="#ffffff" size={0.9} />
             <FlexColumn gap="5px" align="center" style={{ width: "100%" }}>
               <h5>{title}</h5>
               <p>{value}</p>
             </FlexColumn>
           </FlexColumn>
           <Chart
-            className="rap-chart"
             options={state.options}
             series={apexChartSeries}
             type="area"
