@@ -77,7 +77,6 @@ const Avatar: React.FC<AvatarProps> = ({
   text,
   src,
   textColor,
-  icon,
   withBadge,
   withStatus = false,
   statusColor = "success",

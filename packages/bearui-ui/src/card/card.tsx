@@ -49,7 +49,6 @@ const CardContainer: any = styled.div`
       // box-shadow: 0 0 12px rgba(0,0,0,.05);`
     }
   }}
-  overflow:hidden;
   margin:25px;
   position: relative;
   height: fit-content;
@@ -162,6 +161,7 @@ const CardContainer: any = styled.div`
   }
 
   @media (max-width: 441px) {
+    overflow:hidden;
     padding: ${(props: any) => props.mobilePadding};
     width: calc(
       100% - (${(props: any) =>
@@ -172,7 +172,7 @@ const CardContainer: any = styled.div`
     // border-radius: 0;
 
     ${(props: CardContainerProps) => {
-      if (!props.withBackground) {
+      if (props.withBackground) {
         return `width: calc(100% - ( ${props.yPadding} +  ${props.yPadding}));
         padding-left: ${props.yPadding};
         padding-right: ${props.yPadding} ;

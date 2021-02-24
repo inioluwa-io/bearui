@@ -13,7 +13,7 @@ import {
 } from "@bearui/ui"
 import img from "../assets/dp1.jpg"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
-import { mdiHomeOutline } from "@mdi/js"
+import { mdiHomeOutline, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 const DataListPage: React.FC<any> = () => {
@@ -41,7 +41,7 @@ const DataListPage: React.FC<any> = () => {
             }}
             menu={
               <>
-                <Button icon="mdiPlus">Add New</Button>
+                <Button icon={mdiPlus}>Add New</Button>
               </>
             }
             defaultSortIndex={1}

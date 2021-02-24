@@ -13,7 +13,16 @@ import {
   GoogleButton,
 } from "@bearui/ui"
 import Icon from "@mdi/react"
-import { mdiDelete, mdiDotsHexagon, mdiDownload, mdiEmailOutline, mdiHeart, mdiHome, mdiHomeOutline, mdiStar } from "@mdi/js"
+import {
+  mdiDelete,
+  mdiDotsHexagon,
+  mdiDownload,
+  mdiEmailOutline,
+  mdiHeart,
+  mdiHome,
+  mdiHomeOutline,
+  mdiStar,
+} from "@mdi/js"
 
 const ButtonPage: React.FC<{}> = () => {
   const [active, setActive] = useState([
@@ -65,7 +74,7 @@ const ButtonPage: React.FC<{}> = () => {
       <Card xsCol="12">
         <h5>Size</h5>
         <p>
-          To change size of a Button set the <code>size</code> prop. Avatar
+          To change size of a Button set the <code>size</code> prop. Button
           supports <code>xs</code>, <code>sm</code>, <code>md</code>,{" "}
           <code>lg</code>. Default is <code>sm</code>
         </p>
@@ -76,6 +85,28 @@ const ButtonPage: React.FC<{}> = () => {
             Medium Button
           </GithubButton>
           <TwitterButton size="lg" onClick={() => {}}>
+            Large Button
+          </TwitterButton>
+        </FlexRow>
+      </Card>
+      <Card xsCol="12">
+        <h5>Corners</h5>
+        <p>
+          To change corner style of a Button set the <code>corners</code> prop.
+          Button supports <code>rounded</code>, <code>box</code>. Default is{" "}
+          <code>box</code>
+        </p>
+        <FlexRow>
+          <Button size="xs" corners="rounded">
+            Extra Small Button
+          </Button>
+          <LinkButton corners="rounded" to="#">
+            Small Button
+          </LinkButton>
+          <GithubButton corners="rounded" size="md" onClick={() => {}}>
+            Medium Button
+          </GithubButton>
+          <TwitterButton corners="rounded" size="lg" onClick={() => {}}>
             Large Button
           </TwitterButton>
         </FlexRow>

@@ -21,7 +21,7 @@ type TableBodyStyle = {
 
 const Table: StyledComponent<"table", any, any> = styled.table`
   font-size: 14px;
-  border-spacing: 0 1.3rem;
+  border-spacing: 0 1rem;
   border-collapse: separate;
   width: calc(100% - 4px);
   padding: 2px;
@@ -66,13 +66,13 @@ const DataListOption: StyledComponent<"label", any> = styled.label`
 const DataListFilter: StyledComponent<"div", any, any> = styled.div`
   #datalist-search {
     background: ${(props: any) => props.background};
-    box-shadow: 0 0 25px -17px #242424;
+    // box-shadow: 0 0 25px -17px #242424;
   }
 
   #datalist-view {
     font-size: 14px;
     background: ${(props: any) => props.background};
-    box-shadow: 0 0 25px -17px #242424;
+    // box-shadow: 0 0 25px -17px #242424;
     border: 1px solid transparent;
 
     .dp-trgt {
@@ -104,7 +104,7 @@ const TableHead: StyledComponent<"thead", any> = styled.thead`
     }
   }
   th {
-    padding: 15px 20px;
+    padding: 8px 20px;
     padding-right: 15px;
     text-align: left;
     font-size: 12px;
@@ -159,7 +159,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
     position: relative;
     border-radius: 0.7rem;
     background: ${(props: any) => props.cardBackground};
-    box-shadow: 0 0 25px -20px #242424;
+    // box-shadow: 0 0 25px -20px #242424;
 
     &:hover {
       box-shadow: 0 0 1px 1px ${(props: any) => props.primaryColor};
@@ -197,7 +197,7 @@ const TableBody: StyledComponent<"tbody", any, TableBodyStyle> = styled.tbody`
 
     td {
       text-align: left;
-      padding: 18px 20px;
+      padding: 12px 20px;
       padding-right: 15px;
       position: relative;
       vertical-align: middle;
@@ -221,6 +221,7 @@ const DataList: React.FC<DataListComponent> = ({
   document,
   columns,
   actionList,
+  showFilters = true,
   menuActionList,
   uniqueIdentifier = "id",
   renderRule = [],
@@ -246,8 +247,11 @@ const DataList: React.FC<DataListComponent> = ({
       let leftIndex = 0
       let rightIndex = 0
       while (leftIndex < left.length && rightIndex < right.length) {
-        const leftSelector = renderColumnData(selector, left[leftIndex])
-        const rightSelector = renderColumnData(selector, right[rightIndex])
+        // const leftSelector = renderColumnData(selector, left[leftIndex])
+        // const rightSelector = renderColumnData(selector, right[rightIndex])
+
+        const leftSelector = left[leftIndex][selector]
+        const rightSelector = right[rightIndex][selector]
 
         if (leftSelector < rightSelector) {
           resultArray.push(left[leftIndex])
@@ -319,7 +323,7 @@ const DataList: React.FC<DataListComponent> = ({
       }
     }
     setSelected(prevState)
-    onRowSelect(getSelectorRowData(prevState))
+    onRowSelect && onRowSelect(getSelectorRowData(prevState))
     return prevState
   }
 
@@ -332,14 +336,14 @@ const DataList: React.FC<DataListComponent> = ({
         prevState.set(itemData[uniqueIdentifier], true)
       })
       setSelected(prevState)
-      onRowSelect(getSelectorRowData(prevState))
+      onRowSelect && onRowSelect(getSelectorRowData(prevState))
       setSelectAll(true)
     }
     // deselect all
     else {
       prevState.clear()
       setSelected(prevState)
-      onRowSelect(getSelectorRowData(prevState))
+      onRowSelect && onRowSelect(getSelectorRowData(prevState))
       setSelectAll(false)
     }
   }, [selected, paginationIndexes])
@@ -469,52 +473,54 @@ const DataList: React.FC<DataListComponent> = ({
   }, [handleFilterData])
 
   return (
-    <FlexColumn style={{ width: "100%" }} {...props}>
+    <FlexColumn style={{ width: "100%" }} {...props} gap="10px">
       <FlexColumn>
         <DataListFilter
           background={theme[themeMode].cardbackground}
           primaryColor={primaryColor}
         >
           <FlexRow align="right" position="center">
-            <Dropdown
-              id="datalist-view"
-              listener="click"
-              list={[
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(10)
-                  }}
-                >
-                  10
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(20)
-                  }}
-                >
-                  20
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(25)
-                  }}
-                >
-                  25
-                </DataListOption>,
-                <DataListOption
-                  onClick={() => {
-                    setViewLength(30)
-                  }}
-                >
-                  30
-                </DataListOption>,
-              ]}
-            >
-              <p>
-                {" "}
-                1- {viewLength} of {document.length}
-              </p>
-            </Dropdown>
+            {showFilters && (
+              <Dropdown
+                id="datalist-view"
+                listener="click"
+                list={[
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(10)
+                    }}
+                  >
+                    10
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(20)
+                    }}
+                  >
+                    20
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(25)
+                    }}
+                  >
+                    25
+                  </DataListOption>,
+                  <DataListOption
+                    onClick={() => {
+                      setViewLength(30)
+                    }}
+                  >
+                    30
+                  </DataListOption>,
+                ]}
+              >
+                <p>
+                  {" "}
+                  1- {viewLength} of {document.length}
+                </p>
+              </Dropdown>
+            )}
             <Input
               icon={mdiMagnify}
               type="text"
@@ -609,7 +615,7 @@ const DataList: React.FC<DataListComponent> = ({
             </tr>
           </TableHead>
           <TableBody
-            background={darken(0.075, background)}
+            background={darken(0, background)}
             cardBackground={background}
             primaryColor={primaryColor}
           >

@@ -7,6 +7,7 @@ import {
   mdiCheckCircleOutline,
   mdiClipboardTextOutline,
   mdiCubeOutline,
+  mdiFile,
   mdiGridLarge,
   mdiHomeOutline,
   mdiKey,
@@ -48,7 +49,14 @@ const navigationConfig: NavigationConfigProps[] = [
     ],
   },
   {
-    headMenu: "Apps",
+    key: "filesManager",
+    path: "/apps/files",
+    title: "Files",
+    icon: mdiFile,
+    breadcrumb: false,
+    subMenu: [],
+  },
+  {
     key: "invoice",
     path: "/apps/invoice",
     title: "Invoice",

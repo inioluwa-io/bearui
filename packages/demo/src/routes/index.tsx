@@ -16,6 +16,7 @@ import {
 } from "../documentation"
 import StatisticsCards from "../cards/statistics"
 import { Loader } from "@bearui/ui"
+import { Files } from "../apps"
 
 // Code splitting
 const Default = lazy(() =>
@@ -233,6 +234,7 @@ const Routes: React.FC = () => {
               width="100%"
               height="100%"
               type="spinner"
+              withBackground={false}
               iconSize={1.5}
               style={{ position: "fixed" }}
             />
@@ -331,6 +333,11 @@ const Routes: React.FC = () => {
                   exact
                   path="/apps/chat"
                   component={(props: any) => <Chat {...props} />}
+                />
+                <Route
+                  exact
+                  path="/apps/files"
+                  component={(props: any) => <Files {...props} />}
                 />
                 <Route
                   path="/apps/ecommerce"

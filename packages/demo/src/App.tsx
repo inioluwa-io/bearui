@@ -20,7 +20,6 @@ const Routes = lazy(() =>
 )
 
 const App: React.FC = () => {
-
   return (
     <CoreAdminContext
       dataProvider={dataProvider}
@@ -37,6 +36,7 @@ const App: React.FC = () => {
                 width="100%"
                 height="100%"
                 type="spinner"
+                withBackground={false}
                 iconSize={1.5}
                 style={{ position: "fixed" }}
               />

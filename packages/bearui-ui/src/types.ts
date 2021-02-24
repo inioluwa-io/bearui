@@ -85,7 +85,6 @@ export type AvatarProps = {
   badgeColor?: string
   withStatus?: boolean
   statusColor?: string
-  icon?: string
   src?: string
   text?: string
   alt?: string
@@ -319,6 +318,7 @@ type menuActionItem = {
 
 export type DataListComponent = {
   document: any[]
+  showFilters?: boolean
   columns: DatatableColumns[]
   renderRule?: DatatableRule[]
   defaultSortIndex?: number
@@ -361,7 +361,7 @@ export type BreadcrumbComponent = {
 
 export type TabList = {
   title: ReactElement | string
-  content: ReactElement | string
+  content?: ReactElement | string
   color?: string
 }
 

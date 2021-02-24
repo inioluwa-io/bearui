@@ -29,7 +29,7 @@ const TabsElement: any = styled.div`
     // background: ${(props: any) => props.tabColor};
     // box-shadow: 0 6px 15px -8px ${(props: any) => props.tabColor};
     border-radius: 14px;
-    padding: 6px;
+    // padding: 6px;
     ${(props: any) => {
       if (props.position === "left" || props.position === "right") {
         return "width: fit-content;"
@@ -79,7 +79,7 @@ const TabsElement: any = styled.div`
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;
-        transition: all 0.25s ease;
+        // transition: all 0.25s ease;
         text-align: center;
         * {
           fill: inherit;

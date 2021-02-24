@@ -45,7 +45,7 @@ const DropdownElement: any = styled.span`
 const DropdownContainer: any = styled.div`
   position: relative;
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: 9px;
   transition: all 0.35s ease;
 `
 

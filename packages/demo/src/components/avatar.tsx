@@ -12,17 +12,11 @@ import img from "../assets/brooks-leibee-562087-unsplash.jpg"
 import { mdiHomeOutline } from "@mdi/js"
 
 const AvatarPage: React.FC<{}> = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   return (
     <Container>
       <Card withBackground={false}>
         <FlexRow gap="10px" position="center" align="left">
-          <h3 style={{ borderRight: "1px solid #999", paddingRight: "12px" }}>
-            Avatar
-          </h3>
+          <h3 style={{ paddingRight: "12px" }}>Avatar</h3>
           <Breadcrumb
             item={[
               { name: <Icon path={mdiHomeOutline} size={0.85} />, to: "/" },
@@ -83,7 +77,7 @@ const AvatarPage: React.FC<{}> = () => {
       <Card xsCol="12">
         <h5>Badge</h5>
         <p>
-          To add a badge set the <code>badge</code> prop to true and set the{" "}
+          To add a badge set the <code>withBadge</code> prop to true and set the{" "}
           <code>badgeText</code>. You can also change the{" "}
           <code>badgeColor</code>, it accepts theme colors and HEX/RGB colors
         </p>
@@ -102,6 +96,58 @@ const AvatarPage: React.FC<{}> = () => {
             alt="avatar"
             text="BL"
             size="md"
+            withBadge
+            badgeColor="cadetblue"
+            badgeText="12"
+          />
+        </FlexRow>
+      </Card>
+      <Card xsCol="12">
+        <h5>Text</h5>
+        <p>
+          To add a text set the <code>text</code> prop to a string.
+        </p>
+        <FlexRow>
+          <Avatar alt="avatar" text="LD" withBadge badgeText="12" />
+          <Avatar
+            alt="avatar"
+            text="LD"
+            size="xs"
+            withBadge
+            badgeColor="warning"
+            badgeText="12"
+          />
+          <Avatar
+            alt="avatar"
+            text="BL"
+            size="md"
+            withBadge
+            badgeColor="cadetblue"
+            badgeText="12"
+          />
+        </FlexRow>
+      </Card>
+      <Card xsCol="12">
+        <h5>Image</h5>
+        <p>
+          To add an image set the <code>src</code> prop to a image path.
+        </p>
+        <FlexRow>
+          <Avatar alt="avatar" text="LD" withBadge badgeText="12" />
+          <Avatar
+            alt="avatar"
+            text="LD"
+            size="xs"
+            src={img}
+            withBadge
+            badgeColor="warning"
+            badgeText="12"
+          />
+          <Avatar
+            alt="avatar"
+            text="BL"
+            size="md"
+            src={img}
             withBadge
             badgeColor="cadetblue"
             badgeText="12"

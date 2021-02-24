@@ -1,11 +1,6 @@
 import * as React from "react"
-import { FunctionComponent, ComponentType } from "react"
-
+import { FunctionComponent } from "react"
 import { CoreAdminContext, AdminProps } from "ra-core"
-import { ThemeProvider } from "@bearui/ui"
-import { themeConfig } from "./configs"
-
-export type ChildrenFunction = () => ComponentType[]
 
 /**
  * Main admin component, entry point to the application.
@@ -106,7 +101,7 @@ const CoreAdmin: FunctionComponent<AdminProps> = ({
       customSagas={customSagas}
       initialState={initialState}
     >
-      <ThemeProvider value ={themeConfig.colorPalette} >{children}</ThemeProvider>
+      {children}
     </CoreAdminContext>
   )
 }
