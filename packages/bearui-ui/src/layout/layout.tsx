@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
-import { LayoutComponent, NotifyProps } from "../types"
+import {
+  LayoutComponent,
+  NotificationPanelMessage,
+} from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
 import { useCollapseSideBar } from "../theme"
@@ -15,18 +18,17 @@ const NotificationComponent: React.FC<any> = ({ notification }) => {
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
-        height: notification().length * 100 + "px",
+        height: notification.length * 100 + "px",
         flexDirection: "column-reverse",
         transition: "all .45s",
       }}
     >
-      {notification().map((item: NotifyProps, idx: number) => (
+      {notification.map((item: NotificationPanelMessage, idx: number) => (
         <Notification
           key={idx}
-          title={item.title}
-          text={item.text}
-          icon={item.icon}
-          iconColor={item.iconColor}
+          avatarProps={item.avatarProps}
+          content={item.content}
+          time={item.time}
         />
       ))}
     </div>

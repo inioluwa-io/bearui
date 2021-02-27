@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { isObject } from "../util"
 import { useTheme } from "../theme"
 import { saturate, rgba } from "polished"
+import Icon from "@mdi/react"
 
 const AvatarComponent: any = styled.div`
   width: ${(props: any) => props.size} !important;
@@ -85,9 +86,10 @@ const Avatar: React.FC<AvatarProps> = ({
   size = "sm",
   color = "#9f9f9f",
   alt,
+  icon,
   ...props
 }) => {
-  if (!text && !src) {
+  if (!text && !icon && !src) {
     throw new SyntaxError("Either text or src must be present")
   }
   if (color === "white" && !textColor) {
@@ -171,9 +173,13 @@ const Avatar: React.FC<AvatarProps> = ({
         />
       )}
       {!src ? (
-        <span style={{ color: textColor || "#ffffff" }}>
-          {formatText(text)}
-        </span>
+        icon ? (
+          <Icon path={icon} color={textColor} size={0.8} />
+        ) : (
+          <span style={{ color: textColor || "#ffffff" }}>
+            {formatText(text)}
+          </span>
+        )
       ) : (
         <AvatarImgContainer size={getAvatarSize()}>
           <AvatarImgComponent src={src} alt={alt || ""} />

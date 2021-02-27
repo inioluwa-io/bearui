@@ -79,6 +79,7 @@ export interface LinkButtonProps extends ButtonStyle, LinkHTMLAttributes<any> {
 export type AvatarProps = {
   size?: string
   color?: string
+  icon?: string
   textColor?: string
   withBadge?: boolean
   badgeText?: string
@@ -88,7 +89,7 @@ export type AvatarProps = {
   src?: string
   text?: string
   alt?: string
-}& HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 
 export type NotifyProps = {
   text: string
@@ -105,6 +106,13 @@ export type NotifyWrapper = {
 export type NotificationProps = {
   data: NotifyProps[]
   time?: number
+}
+
+export type NotificationPanelMessage = {
+  avatarProps: AvatarProps
+  content: any
+  time: string
+  id?: string
 }
 
 export type SwitchProps = {
@@ -467,10 +475,21 @@ export type PagnitionComponent = {
 // Navbar
 export type NavbarPosition = "static" | "sticky" | "hidden" | "floating"
 
+export type NavigationConfigProps = {
+  headMenu?: string
+  key: string
+  path: string
+  pathProps?: any
+  title: string
+  icon?: string
+  breadcrumb?: false
+  subMenu: NavigationConfigProps[]
+}
+
 export type NavbarComponent = {
   links: (ReactElement | string)[]
-  pinToMobile?: number[]
-  searchable?: boolean
+  searchData?: any
+  searchable?: NavigationConfigProps[]
   position?: NavbarPosition
 } & HTMLAttributes<HTMLDivElement>
 // end

@@ -543,7 +543,10 @@ const Todos: React.FC<any> = () => {
                     } else {
                       setLabels.delete(idx)
                     }
-                    setNewTodo({ ...newTodo, labels: [...Array.from(setLabels)] })
+                    setNewTodo({
+                      ...newTodo,
+                      labels: [...Array.from(setLabels)],
+                    })
                   }}
                 >
                   <p style={{ fontWeight: 500 }}>{label.name}</p>
@@ -654,7 +657,10 @@ const Todos: React.FC<any> = () => {
                       } else {
                         setLabels.delete(idx)
                       }
-                      setNewTodo({ ...newTodo, labels: [...Array.from(setLabels)] })
+                      setNewTodo({
+                        ...newTodo,
+                        labels: [...Array.from(setLabels)],
+                      })
                     }}
                   >
                     <p style={{ fontWeight: 500 }}>{label.name}</p>

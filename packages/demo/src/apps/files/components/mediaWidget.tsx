@@ -9,7 +9,6 @@ import {
 import Icon from "@mdi/react"
 import { themeConfig } from "../../../configs/"
 import styled from "styled-components"
-import { darken } from "polished"
 
 type MediaWidgetProps = {
   title: string
@@ -53,7 +52,7 @@ const MediaWidget: React.FC<MediaWidgetProps> = ({
       xsCol="6"
       background={color}
       themeColor={themeColor}
-      textColor ={"white    "}
+      textColor ={"white"}
       gap="10px"
     >
       <FlexRow align="left" position="top" gap="10px">

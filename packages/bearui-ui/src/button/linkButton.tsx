@@ -58,6 +58,7 @@ width:auto;
     props.glow === "true" ? darken(0.13, props.background) : "transparent"};
   overflow:hidden;
   box-sizing: border-box;
+  font-weight:500;
 
   &:disabled {
     background: ${(props: any) =>

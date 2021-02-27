@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { lighten, rgba, darken } from "polished"
 import Icon from "@mdi/react"
 import { useTheme } from "../theme"
+import { mdiLoading } from "@mdi/js"
 
 /**
  * How it works!!
@@ -70,6 +71,7 @@ font-family: inherit;
   
   .text {
     transition: color 0.25s ease !important;
+    font-weight:500;
   }
 
   .rap-ico, .rap-loa{
@@ -206,7 +208,7 @@ const Button: React.FC<ButtonProps> = ({
   iconRight = false,
   gradient = false,
   size = "sm",
-  loadingIcon = "mdiLoading",
+  loadingIcon = mdiLoading,
   loading = false,
   transparent = false,
   className,
@@ -348,7 +350,7 @@ const Button: React.FC<ButtonProps> = ({
               : iconColor
           }
           size={size === "lg" ? 1 : 0.725}
-          style={getIconStyle()}
+          style={loading ? { margin: "0px" } : getIconStyle()}
         />
       )}
       {icon && (

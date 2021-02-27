@@ -4,6 +4,7 @@ import {
   mdiBriefcaseOutline,
   mdiCardTextOutline,
   mdiCartOutline,
+  mdiCash,
   mdiCheckCircleOutline,
   mdiClipboardTextOutline,
   mdiCubeOutline,
@@ -11,6 +12,7 @@ import {
   mdiGridLarge,
   mdiHomeOutline,
   mdiKey,
+  mdiMessageOutline,
 } from "@mdi/js"
 
 export type NavigationConfigProps = {
@@ -19,6 +21,7 @@ export type NavigationConfigProps = {
   path: string
   pathProps?: any
   title: string
+  color?: string
   icon?: string
   breadcrumb?: false
   subMenu: NavigationConfigProps[]
@@ -31,6 +34,7 @@ const navigationConfig: NavigationConfigProps[] = [
     title: "Dashboard",
     icon: mdiHomeOutline,
     breadcrumb: false,
+    color: "success",
     subMenu: [
       {
         key: "default",
@@ -52,6 +56,7 @@ const navigationConfig: NavigationConfigProps[] = [
     key: "filesManager",
     path: "/apps/files",
     title: "Files",
+    color: "danger",
     icon: mdiFile,
     breadcrumb: false,
     subMenu: [],
@@ -60,6 +65,7 @@ const navigationConfig: NavigationConfigProps[] = [
     key: "invoice",
     path: "/apps/invoice",
     title: "Invoice",
+    color: "danger",
     icon: mdiClipboardTextOutline,
     breadcrumb: false,
     subMenu: [],
@@ -68,7 +74,8 @@ const navigationConfig: NavigationConfigProps[] = [
     key: "chat",
     path: "/apps/chat",
     title: "Chat",
-    icon: mdiCartOutline,
+    color: "danger",
+    icon: mdiMessageOutline,
     breadcrumb: false,
     subMenu: [],
   },
@@ -76,6 +83,7 @@ const navigationConfig: NavigationConfigProps[] = [
     key: "todos",
     path: "/apps/todos",
     title: "Todos",
+    color: "danger",
     icon: mdiCheckCircleOutline,
     breadcrumb: false,
     subMenu: [],
@@ -85,6 +93,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "e-Commerce",
     icon: mdiCartOutline,
+    color: "danger",
     breadcrumb: false,
     subMenu: [
       {
@@ -102,6 +111,7 @@ const navigationConfig: NavigationConfigProps[] = [
     headMenu: "UI",
     title: "Layouts",
     icon: mdiGridLarge,
+    color: "info",
     breadcrumb: false,
     subMenu: [
       {
@@ -132,6 +142,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "Card",
     icon: mdiCardTextOutline,
+    color: "info",
     breadcrumb: false,
     subMenu: [
       {
@@ -148,6 +159,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "/colors",
     title: "Colors",
     icon: mdiCartOutline,
+    color: "info",
     breadcrumb: false,
     subMenu: [],
   },
@@ -156,6 +168,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "Components",
     icon: mdiBriefcaseOutline,
+    color: "info",
     breadcrumb: false,
     subMenu: [
       {
@@ -256,6 +269,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "Form Elements",
     icon: mdiCubeOutline,
+    color: "info",
     breadcrumb: false,
     subMenu: [
       {
@@ -301,6 +315,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "User",
     icon: mdiAccountOutline,
+    color: "warning",
     breadcrumb: false,
     subMenu: [
       {
@@ -331,6 +346,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "Authentication",
     icon: mdiKey,
+    color: "warning",
     breadcrumb: false,
     subMenu: [
       {
@@ -364,6 +380,7 @@ const navigationConfig: NavigationConfigProps[] = [
     path: "",
     title: "Error",
     icon: mdiAlertDecagramOutline,
+    color: "warning",
     breadcrumb: false,
     subMenu: [
       {
@@ -385,11 +402,21 @@ const navigationConfig: NavigationConfigProps[] = [
     ],
   },
   {
+    key: "pricing",
+    path: "/page/pricing",
+    title: "Pricing",
+    icon: mdiCash,
+    color: "warning",
+    breadcrumb: false,
+    subMenu: [],
+  },
+  {
     headMenu: "Others",
     key: "documentation",
     path: "/documentation",
     title: "Documentation",
     icon: mdiAlertDecagramOutline,
+    color: "warning",
     breadcrumb: false,
     subMenu: [],
   },

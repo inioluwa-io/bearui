@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
-import { REMOVE_NOTIFICATION, ADD_NOTIFICATION } from "../redux/types"
+import {
+  ADD_NOTIFICATION,
+  REMOVE_TMP_NOTIFICATION,
+} from "../redux/types"
 import { useCallback } from "react"
 
 type NotificationProviderProps = (props: NotifyProps) => void
@@ -47,7 +50,7 @@ const useNotification: any = (delay = 3500) => {
     props => {
       dispatch({ type: ADD_NOTIFICATION, payload: props })
       setTimeout(() => {
-        dispatch({ type: REMOVE_NOTIFICATION })
+        dispatch({ type: REMOVE_TMP_NOTIFICATION })
       }, delay)
     },
     [dispatch]

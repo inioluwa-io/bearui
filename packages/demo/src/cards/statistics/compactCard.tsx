@@ -10,7 +10,6 @@ import React, {
   useEffect,
   useCallback,
   useState,
-  HTMLAttributes,
 } from "react"
 import { StatisticsComponent } from "../types"
 import Icon from "@mdi/react"

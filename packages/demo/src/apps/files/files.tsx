@@ -120,7 +120,7 @@ const Files: React.FC = () => {
         usedSpace={80}
         icon={mdiDropbox}
         title="Dropbox"
-        color="primary"
+        color="info"
       ></MediaWidgetProps>
       <MediaWidgetProps
         totalSpace={100}

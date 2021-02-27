@@ -1,35 +1,17 @@
-import React, { useEffect, Fragment } from "react"
-import { NavLink, withRouter } from "react-router-dom"
 import {
-  useThemeMode,
   useTheme,
-  FlexRow,
-  Navbar,
-  LinkButton,
-  Layout,
-  Collapse,
+  useThemeMode,
   FlexColumn,
-  Sidebar,
-  Tooltip,
-  Radio,
-  NavbarPosition,
+  FlexRow,
   RadioGroup,
-  Dropdown,
-  Row,
+  Radio,
+  LinkButton,
 } from "@bearui/ui"
-import { useNotification } from "@bearui/core"
-import img from "./assets/pht4.png"
+import { mdiClose, mdiCogOutline } from "@mdi/js"
 import Icon from "@mdi/react"
-import {
-  mdiCircleOutline,
-  mdiCogOutline,
-  mdiClose,
-  mdiBellOutline,
-} from "@mdi/js"
-import styled from "styled-components"
 import { rgba } from "polished"
-import { useState } from "react"
-import { navigationConfig, NavigationConfigProps, themeConfig } from "./configs"
+import React, { useState } from "react"
+import styled from "styled-components"
 
 const ControlPanelContainer: any = styled.div`
   position: fixed;
@@ -164,7 +146,7 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
           <div className="container">
             <FlexColumn>
               <FlexRow align="space" gap="0px">
-                <header>Theme Customizer</header>
+                <header>Theme Configuration</header>
                 <button
                   id="close-pnl"
                   onClick={() => {
@@ -230,146 +212,4 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
     </ControlPanelContainer>
   )
 }
-
-const LayoutComponent: React.FC<any> = ({
-  children,
-  withBar = true,
-  navConfig = navigationConfig,
-  ...props
-}) => {
-  const [notification] = useNotification(8000)
-  const locationPath = props.location.pathname
-
-  const [theme, setTheme] = useTheme()
-  const [navPosition, setNavPosition] = useState<NavbarPosition>(
-    themeConfig.navbarPosition
-  )
-  const [themeMode, setThemeMode] = useThemeMode()
-  const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
-
-  useEffect(() => {
-    setTheme(themeConfig.colorPalette)
-    setThemeMode(themeConfig.currentTheme)
-  }, [setThemeMode, setTheme])
-
-  useEffect(() => {
-    document.body.style.background = theme[themeMode].background
-  }, [themeMode, theme])
-
-  const renderNav = (nav: NavigationConfigProps[]) => {
-    return nav.map(link => {
-      const { title, path, icon, subMenu, key, headMenu, pathProps } = link
-
-      if (subMenu.length && icon) {
-        const titleString = title.toLowerCase().split(" ").join("")
-        const reg = new RegExp(`/${titleString}`, "g")
-
-        return (
-          <Fragment key={key}>
-            {headMenu && <h6>{headMenu}</h6>}
-            <Collapse
-              className="group-link"
-              icon="mdiChevronRight"
-              items={[
-                {
-                  label: (
-                    <FlexRow gap="13px">
-                      <Icon path={icon} color={color} size={0.75} />
-                      <p>{title}</p>
-                    </FlexRow>
-                  ),
-                  active: reg.test(locationPath),
-                  content: subMenu.length ? (
-                    renderNav(subMenu)
-                  ) : (
-                    <FlexColumn gap="5px">
-                      {subMenu.map((menu, idx) => (
-                        <NavLink
-                          {...pathProps}
-                          key={idx}
-                          to="/dashboard/default"
-                          activeClassName="active"
-                        >
-                          <FlexRow gap="13px">
-                            <Icon
-                              path={mdiCircleOutline}
-                              color={color}
-                              size={0.45}
-                            />
-                            <p>{menu.title}</p>
-                          </FlexRow>
-                        </NavLink>
-                      ))}
-                    </FlexColumn>
-                  ),
-                },
-              ]}
-            />
-          </Fragment>
-        )
-      } else {
-        return (
-          <NavLink {...pathProps} to={path} activeClassName="active" key={key}>
-            <FlexRow gap="13px">
-              <Icon
-                path={icon || mdiCircleOutline}
-                color={color}
-                size={icon ? 0.75 : 0.45}
-              />
-              <p>{title}</p>
-            </FlexRow>
-          </NavLink>
-        )
-      }
-    })
-  }
-
-  if (!withBar) {
-    return (
-      <Layout notification={notification}>
-        {children}
-        <ControlPanel />
-      </Layout>
-    )
-  }
-
-  return (
-    <Layout
-      notification={notification}
-      sideBar={
-        <Sidebar
-          avatarText="DP"
-          fullName="Tony Stark"
-          role="Admin"
-          avatarImg={img}
-          logo={
-            <>
-              <img src={require("./assets/logo-min.png")} alt="logo" />
-              <h4 style={{ color }}>BearUI</h4>
-            </>
-          }
-        >
-          {renderNav(navConfig)}
-        </Sidebar>
-      }
-      navbar={
-        <Navbar
-          position={navPosition}
-          id="nav-bar"
-          links={[
-            <Tooltip text="Notification" position="left">
-              <Dropdown listener="click" list={[<Row></Row>]} showIcon={false}>
-                <Icon path={mdiBellOutline} color={color} size={1} />
-              </Dropdown>
-            </Tooltip>,
-          ]}
-        />
-      }
-    >
-      {children}
-      <ControlPanel setNavPosition={setNavPosition} navPosition={navPosition} />
-    </Layout>
-  )
-}
-
-export default withRouter(LayoutComponent)
+export default ControlPanel

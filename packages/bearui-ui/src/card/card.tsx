@@ -52,7 +52,7 @@ const CardContainer: any = styled.div`
   margin:25px;
   position: relative;
   height: fit-content;
-  > *, p{
+  > *, > p, p, > p sub, > p sup, > p strong, > p small{
     color:${(props: any) => props.cardTextColor};
   }
   ${(props: any) =>

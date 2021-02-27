@@ -159,7 +159,7 @@ const Select: React.FC<SelectComponent> = ({
   label = "",
   disabled = false,
   placeholder,
-  corners = "rounded",
+  corners = "box",
   defaultSelected = "",
   size = "sm",
   options = [],

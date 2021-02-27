@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 import "../App.css"
-import LayoutComponent from "../layout"
+import LayoutComponent from "../appLayout"
 import FormsLayoutPage from "../forms"
 import { GridPage, FlexRowPage, FlexColumnPage } from "../layouts"
 import ColorsPage from "../components/colors"
@@ -16,7 +16,6 @@ import {
 } from "../documentation"
 import StatisticsCards from "../cards/statistics"
 import { Loader } from "@bearui/ui"
-import { Files } from "../apps"
 
 // Code splitting
 const Default = lazy(() =>
@@ -64,6 +63,12 @@ const ViewInvoice = lazy(() =>
 const Ecommerce = lazy(() =>
   import("../apps").then(module => ({
     default: module.Ecommerce,
+  }))
+)
+
+const Files = lazy(() =>
+  import("../apps").then(module => ({
+    default: module.Files,
   }))
 )
 
@@ -221,6 +226,12 @@ const NotFoundPage = lazy(() =>
 const ComingSoonPage = lazy(() =>
   import("../pages").then(module => ({
     default: module.ComingSoonPage,
+  }))
+)
+
+const Pricing = lazy(() =>
+  import("../pages").then(module => ({
+    default: module.Pricing,
   }))
 )
 
@@ -463,6 +474,10 @@ const Routes: React.FC = () => {
                 <Route
                   path="/formelement/input"
                   component={(props: any) => <InputPage {...props} />}
+                />
+                <Route
+                  path="/page/pricing"
+                  component={(props: any) => <Pricing {...props} />}
                 />
                 <Route
                   exact

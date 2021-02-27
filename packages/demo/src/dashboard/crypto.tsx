@@ -30,10 +30,9 @@ const Crypto: React.FC<any> = () => {
       })
       .catch(e => {
         addNotification({
-          title: "Network error",
-          text: translate("ra.notification.data_provider_error"),
-          icon: mdiAlert,
-          iconColor: "danger",
+          avatarProps: { icon: mdiAlert, color: "danger" },
+          content: <p>{translate("ra.notification.data_provider_error")}</p>,
+          time: "11:38pm",
         })
         console.warn(e)
       })

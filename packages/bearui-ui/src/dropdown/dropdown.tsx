@@ -2,11 +2,10 @@ import React, { useRef, useEffect, useState, useCallback } from "react"
 import { DropdownComponent } from "../types"
 import styled from "styled-components"
 import { useTheme, useThemeMode } from "../theme"
-import { darken, lighten } from "polished"
+import { lighten } from "polished"
 import { FlexRow } from "../layout"
 import Icon from "@mdi/react"
 import { mdiChevronDown } from "@mdi/js"
-import { Link } from "react-router-dom"
 
 const DropdownElement: any = styled.span`
   position: absolute;
@@ -23,7 +22,7 @@ const DropdownElement: any = styled.span`
   font-size: 14px;
   visibility: hidden;
   ${(props: any) => props.position}
-  box-shadow: 0px 2px 5px ${(props: any) => darken(0.05, props.boxShadow)};
+  box-shadow: 0px 2px 10px rgba(0,0,0,.25)};
 
   &.active {
     opacity: 1;
@@ -92,7 +91,8 @@ const Dropdown: React.FC<DropdownComponent> = ({
     indicatorColor = "#f4f4f4"
   }
 
-  const setELementPosition = useCallback((): void => {
+  // This adjust the position of dropdown to up or down depending on element view on the page. If the location of element on the Y axis is more than 50% the dropdown switches position
+  const setElementPosition = useCallback((): void => {
     const DOMNode = refs.current
     if (DOMNode) {
       const elementTop: number = DOMNode.querySelector(
@@ -126,10 +126,11 @@ const Dropdown: React.FC<DropdownComponent> = ({
     [refs]
   )
 
+  
   useEffect(() => {
-    setELementPosition()
+    setElementPosition()
     window.addEventListener("scroll", () => {
-      setELementPosition()
+      setElementPosition()
     })
 
     window.addEventListener("click", e => {
@@ -138,13 +139,13 @@ const Dropdown: React.FC<DropdownComponent> = ({
 
     return (): void => {
       window.removeEventListener("scroll", () => {
-        setELementPosition()
+        setElementPosition()
       })
       window.removeEventListener("click", e => {
         blur(e)
       })
     }
-  }, [refs, setELementPosition, blur])
+  }, [refs, setElementPosition, blur])
 
   const getPosition = () => {
     switch (position) {
@@ -246,10 +247,10 @@ const Dropdown: React.FC<DropdownComponent> = ({
       <DropdownList>
         {list.map((item, idx: number) => (
           <li
-            key={idx}
+            key={idx+"drop"}
             onClick={() => {
-              handleBlur()
-              setActive(false)
+              // handleBlur()
+              // setActive(false)
             }}
           >
             {item}

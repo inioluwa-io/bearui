@@ -1,16 +1,18 @@
 import React from "react"
-import { NotifyProps } from "../types"
+import { NotificationPanelMessage, NotifyProps } from "../types"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 import { darken, rgba } from "polished"
 import { useTheme, useThemeMode } from "../theme"
+import { Avatar } from "../avatar"
+import { FlexRow, Grid, Row } from "../layout"
 
 const NotificationDiv: any = styled.div`
   position: relative;
   background: ${(props: any) => props.background};
   animation: fadeDown 0.75s;
   border-radius: 5px;
-  height: 90px;
+  height: 80px;
   width: 330px;
   margin-top: 10px;
   text-align: left;
@@ -55,6 +57,9 @@ const NotificationDiv: any = styled.div`
       transform: translateY(0%);
     }
   }
+  span {
+    font-size: 13px;
+  }
 `
 
 const HeaderIcon: any = styled.div`
@@ -78,11 +83,11 @@ const Overflow: any = styled.div`
   height: 100%;
 `
 
-const Notification: React.FC<NotifyProps> = ({
-  title,
-  icon,
-  iconColor,
-  text,
+const Notification: React.FC<NotificationPanelMessage> = ({
+  avatarProps,
+  content,
+  time,
+  id,
 }) => {
   const [theme] = useTheme()
   const [themeMode] = useThemeMode()
@@ -105,34 +110,19 @@ const Notification: React.FC<NotifyProps> = ({
             position: "relative",
           }}
         >
-          <div style={{ display: "flex" }}>
-            <HeaderIcon>
-              <Icon
-                path={icon}
-                color={colors[iconColor] || iconColor || colors.warning}
-                size={0.8}
-              />
-            </HeaderIcon>
-            <h2
-              style={{
-                fontSize: "15px",
-                margin: 0,
-                fontWeight: "bold",
-                color: themeMode === "darkmode" ? "#ffffff" : "#555",
-              }}
-            >
-              {title}
-            </h2>
-          </div>
-          <p
-            style={{
-              fontSize: "14px",
-              color: themeMode === "darkmode" ? "#ffffff" : "#555",
-              margin: "4px 0",
-            }}
-          >
-            {text}
-          </p>
+          <Row>
+            <Grid xsCol="2">
+              <HeaderIcon>
+                <Avatar {...avatarProps} />
+              </HeaderIcon>
+            </Grid>
+            <Grid xsCol="8">{content}</Grid>
+            <Grid xsCol="2">
+              <FlexRow align="right">
+                <span>{time}</span>
+              </FlexRow>
+            </Grid>
+          </Row>
         </div>
       </Overflow>
     </NotificationDiv>
