@@ -1192,7 +1192,7 @@ const DocComponents: React.FC = () => {
               </tr>
               <tr>
                 <td>percent</td>
-                <td>string</td>
+                <td>number</td>
                 <td>yes</td>
                 <td>-</td>
                 <td>Progress bar percentage. </td>

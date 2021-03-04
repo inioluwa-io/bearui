@@ -8,6 +8,9 @@ const customEnglishMessages: TranslationMessages = {
       could_not_fetch: "Could not fetch ",
     },
   },
+  greetings: {
+    hello: "Hello",
+  },
 }
 
 export default customEnglishMessages

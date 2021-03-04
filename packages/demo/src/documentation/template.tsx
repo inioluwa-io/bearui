@@ -50,11 +50,18 @@ type ThemeConfigProps = {
   navbarPosition: NavbarPosition
   currentTheme: RapUIThemeMode
   colorPalette: RapUITheme
+  restEndPoint: string
+  availableLanguages: any
 }
 
 const themeConfig: ThemeConfigProps = {
   navbarPosition: "sticky",
   currentTheme: "lightmode",
+  restEndPoint: "http://localhost:5000",
+  availableLanguages: {
+    en: "English",
+    fr: "Français",
+  },
   colorPalette: {
     colors: {
       primary: "rgb(115,103,240)",

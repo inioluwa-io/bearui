@@ -9,7 +9,6 @@ import {
   Collapse,
   FlexColumn,
   Sidebar,
-  Tooltip,
   NavbarPosition,
   Dropdown,
   Row,
@@ -25,6 +24,8 @@ import {
   themeConfig,
 } from "../configs"
 import { useSelector } from "react-redux"
+import { keys } from "lodash"
+import { useLocale, useSetLocale } from "ra-core"
 import ControlPanel from "./components/controlPanel"
 import NotificationPanel from "./components/notificationPanel"
 import styled from "styled-components"
@@ -69,6 +70,9 @@ const LayoutComponent: React.FC<any> = ({
   )
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = themeMode === "darkmode" ? "#f4f4f4" : "#444444"
+
+  const locale = useLocale()
+  const setLocale = useSetLocale()
 
   useEffect(() => {
     setTheme(themeConfig.colorPalette)
@@ -147,6 +151,10 @@ const LayoutComponent: React.FC<any> = ({
     })
   }
 
+  const changeLocale = (key: string) => {
+    setLocale(key)
+  }
+
   if (!withBar) {
     return (
       <Layout notification={notificationTmp}>
@@ -181,6 +189,28 @@ const LayoutComponent: React.FC<any> = ({
           searchData={navigationConfig}
           id="nav-bar"
           links={[
+            <Dropdown
+              listener="click"
+              list={keys(themeConfig.availableLanguages).map(key => (
+                <button
+                  key={key}
+                  style={{
+                    background: "none",
+                    outline: "none",
+                    cursor: "pointer",
+                    border: "none",
+                  }}
+                  onClick={() => {
+                    changeLocale(key)
+                  }}
+                >
+                  {themeConfig.availableLanguages[key]}
+                </button>
+              ))}
+              showIcon={false}
+            >
+              {themeConfig.availableLanguages[locale]}
+            </Dropdown>,
             <Dropdown
               listener="click"
               list={[

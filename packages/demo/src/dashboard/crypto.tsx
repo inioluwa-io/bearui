@@ -41,7 +41,7 @@ const Crypto: React.FC<any> = () => {
   return (
     <Container>
       <Card withBackground={false} xsCol="12">
-        <h3>Hello Mr Stark!</h3>
+        <h3>{translate("greetings.hello")} Mr Stark!</h3>
       </Card>
       <SplitCard
         icon={mdiBitcoin}

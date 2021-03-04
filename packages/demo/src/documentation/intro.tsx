@@ -46,6 +46,8 @@ const Documentation: React.FC = () => {
             <li>Typescript</li>
             <li>React</li>
             <li>Redux</li>
+            <li>ra-core</li>
+            <li>ra-data-simple-rest</li>
             <li>Redux Thunk</li>
             <li>Styled Components</li>
             <li>React Apexcharts</li>

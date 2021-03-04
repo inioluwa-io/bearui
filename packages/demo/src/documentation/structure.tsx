@@ -39,6 +39,10 @@ const DocumentationContainer: any = styled(Container)`
 `
 const srcData = [
   {
+    title: "appLayout",
+    description: "contains application layout",
+  },
+  {
     title: "apps",
     description: "contains all application components",
   },
@@ -71,6 +75,11 @@ const srcData = [
     description: "contains pre-built forms layout.",
   },
   {
+    title: "i18n",
+    description:
+      "contains all i18n custom messages.",
+  },
+  {
     title: "layouts",
     description:
       "contains descriptive pages for layout components, such as flexRow, flexColumn, and grid.",
@@ -79,6 +88,16 @@ const srcData = [
     title: "pages",
     description:
       "contains already made pages, such as login, register, 404, 500, user profile and more.",
+  },
+  {
+    title: "routes",
+    description:
+      "contains app custom routes.",
+  },
+  {
+    title: "utils",
+    description:
+      "contains app providers such as authProvider, dataProvider and i18nProvider.",
   },
   {
     title: "widgets",

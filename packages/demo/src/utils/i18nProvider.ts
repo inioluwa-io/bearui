@@ -8,10 +8,6 @@ const messages: any = {
 }
 
 const i18nProvider = polyglotI8nProvider((locale: any) => {
-  // if (locale === "fr") {
-  //   return frenchMessages
-  // return import("../i18n/fr").then((messages: any) => messages.default)
-  // }
   return messages[locale]
 }, "en")
 

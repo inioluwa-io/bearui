@@ -155,15 +155,6 @@ const navigationConfig: NavigationConfigProps[] = [
     ],
   },
   {
-    key: "Colors",
-    path: "/colors",
-    title: "Colors",
-    icon: mdiCartOutline,
-    color: "info",
-    breadcrumb: false,
-    subMenu: [],
-  },
-  {
     key: "Components",
     path: "",
     title: "Components",

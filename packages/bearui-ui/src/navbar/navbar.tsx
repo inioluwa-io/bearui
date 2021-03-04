@@ -110,7 +110,7 @@ const NavbarContainer: any = styled.div`
 
       &:not(:focus) {
         background: none;
-        width: 5px;
+        width: 0px;
         border: none;
         flex: unset;
         z-index: 1;

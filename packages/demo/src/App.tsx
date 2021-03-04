@@ -43,7 +43,6 @@ const App: React.FC = () => {
             </div>
           }
         >
-          {/* <p>Hi</p> */}
           <Routes />
         </Suspense>
       </div>

@@ -6,12 +6,17 @@ import {
   RadioGroup,
   Radio,
   LinkButton,
+  Dropdown,
+  Switch,
 } from "@bearui/ui"
 import { mdiClose, mdiCogOutline } from "@mdi/js"
 import Icon from "@mdi/react"
 import { rgba } from "polished"
 import React, { useState } from "react"
 import styled from "styled-components"
+import { useLocale, useSetLocale } from "ra-core"
+import { themeConfig } from "../../configs"
+import { keys } from "lodash"
 
 const ControlPanelContainer: any = styled.div`
   position: fixed;
@@ -132,6 +137,12 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
   const [themeMode, setThemeMode] = useThemeMode()
   const color: string = theme.colors.primary
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const locale = useLocale()
+  const setLocale = useSetLocale()
+
+  const changeLocale = (key: string) => {
+    setLocale(key)
+  }
 
   return (
     <ControlPanelContainer
@@ -160,20 +171,18 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
               <FlexColumn gap="0px">
                 <FlexColumn gap="10px" className="row">
                   <h5>Theme Mode</h5>
-                  <RadioGroup
-                    onChecked={(value: any) => {
-                      setThemeMode(value)
-                    }}
-                    defaultSelected={themeMode}
-                  >
-                    <Radio value="lightmode" id="light-mode-selector">
-                      <p>Lightmode</p>
-                    </Radio>
-                    <Radio value="darkmode" id="dark-mode-selector">
-                      <p>Darkmode</p>
-                    </Radio>
-                  </RadioGroup>
+                  <FlexRow align="space">
+                    <p>Dark Theme: </p>
+                    <Switch
+                      active={themeMode === "darkmode"}
+                      onCheck={(value: any) => {
+                        const mode = value ? "darkmode" : "lightmode"
+                        setThemeMode(mode)
+                      }}
+                    />
+                  </FlexRow>
                 </FlexColumn>
+
                 <FlexColumn gap="10px" className="row">
                   <h5>Navbar Position</h5>
                   <RadioGroup
@@ -192,6 +201,35 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                       <p>Floating</p>
                     </Radio>
                   </RadioGroup>
+                </FlexColumn>
+
+                <FlexColumn gap="10px" className="row">
+                  <h5>Locale</h5>
+                  <FlexRow align="space">
+                    <p>Language:</p>
+                    <Dropdown
+                      listener="click"
+                      list={keys(themeConfig.availableLanguages).map(key => (
+                        <button
+                          key={key}
+                          style={{
+                            background: "none",
+                            outline: "none",
+                            cursor: "pointer",
+                            border: "none",
+                          }}
+                          onClick={() => {
+                            changeLocale(key)
+                          }}
+                        >
+                          {themeConfig.availableLanguages[key]}
+                        </button>
+                      ))}
+                      showIcon={false}
+                    >
+                      {themeConfig.availableLanguages[locale]}
+                    </Dropdown>
+                  </FlexRow>
                 </FlexColumn>
               </FlexColumn>
             </FlexColumn>
