@@ -180,7 +180,7 @@ const LayoutComponent: React.FC<any> = ({
           avatarImg={img}
           onEditProfile={() => {}}
           onSignOut={() => {
-            logout({},"/pages/login",true)
+            logout({}, "/pages/login", true)
           }}
           logo={
             <>
@@ -200,7 +200,7 @@ const LayoutComponent: React.FC<any> = ({
           links={[
             <Dropdown
               listener="click"
-              list={keys(themeConfig.availableLanguages).map(key => (
+              list={keys(themeConfig.availableLanguages).map((key: any) => (
                 <button
                   key={key}
                   style={{
