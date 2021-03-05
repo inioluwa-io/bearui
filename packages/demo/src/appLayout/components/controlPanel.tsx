@@ -210,32 +210,35 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                     <p>Language:</p>
                     <Dropdown
                       listener="click"
-                      list={keys(themeConfig.availableLanguages).map(key => (
-                        <button
-                          key={key}
-                          style={{
-                            background: "none",
-                            outline: "none",
-                            cursor: "pointer",
-                            border: "none",
-                          }}
-                          onClick={() => {
-                            changeLocale(key)
-                          }}
-                        >
-                          <FlexRow position="center" gap="7px">
-                            <ReactCountryFlag
-                              svg
-                              countryCode={
-                                themeConfig.availableLanguages[key].countryCode
-                              }
-                            />
-                            <span>
-                              {themeConfig.availableLanguages[key].name}
-                            </span>
-                          </FlexRow>
-                        </button>
-                      ))}
+                      list={keys(themeConfig.availableLanguages).map(
+                        (key: any) => (
+                          <button
+                            key={key}
+                            style={{
+                              background: "none",
+                              outline: "none",
+                              cursor: "pointer",
+                              border: "none",
+                            }}
+                            onClick={() => {
+                              changeLocale(key)
+                            }}
+                          >
+                            <FlexRow position="center" gap="7px">
+                              <ReactCountryFlag
+                                svg
+                                countryCode={
+                                  themeConfig.availableLanguages[key]
+                                    .countryCode
+                                }
+                              />
+                              <span>
+                                {themeConfig.availableLanguages[key].name}
+                              </span>
+                            </FlexRow>
+                          </button>
+                        )
+                      )}
                       showIcon={false}
                     >
                       <FlexRow position="center" gap="7px">
