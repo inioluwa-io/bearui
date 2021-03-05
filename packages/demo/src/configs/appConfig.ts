@@ -11,10 +11,10 @@ type ThemeConfigProps = {
 const themeConfig: ThemeConfigProps = {
   navbarPosition: "sticky",
   currentTheme: "darkmode",
-  restEndPoint: "http://localhost:5000",
+  restEndPoint: "https://sima-server.herokuapp.com/api/v1/admin",
   availableLanguages: {
-    en: "English",
-    fr: "Français",
+    en: { name: "English", countryCode: "GB" },
+    fr: { name: "Français", countryCode: "FR" },
   },
   colorPalette: {
     colors: {

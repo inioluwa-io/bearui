@@ -15,6 +15,7 @@ import {
   Button,
   Tooltip,
 } from "@bearui/ui"
+import { Scrollbars } from "react-custom-scrollbars"
 import styled from "styled-components"
 import { TodoList, TodoLists } from "./mock"
 import { truncate } from "lodash"
@@ -52,6 +53,11 @@ const TodosContainer: any = styled.div`
   }
 
   .todo {
+    margin: 15px;
+
+    &:first-child {
+      margin-top: 10px;
+    }
     // animation: fadeInUp 0.25s ease;
   }
 
@@ -86,7 +92,7 @@ const TodosContainer: any = styled.div`
     z-index: 99;
 
     .dsk-filter {
-      padding: 10px 0;
+      padding: 0px 0;
 
       h5 {
         font-weight: 500;
@@ -358,7 +364,11 @@ const Todos: React.FC<any> = () => {
         </Grid>
         <Grid mdCol="8" lgCol="9" xsCol="12">
           <TodosList panelTop={getPanelTop()}>
-            <Container>
+            <Scrollbars
+              autoHideDuration={200}
+              autoHide
+              style={{ width: "100%", height: "100%" }}
+            >
               {filterData.map((todo, idx) => (
                 <Card
                   xsCol="12"
@@ -466,7 +476,7 @@ const Todos: React.FC<any> = () => {
                   </FlexColumn>
                 </Card>
               ))}
-            </Container>
+            </Scrollbars>
           </TodosList>
         </Grid>
       </Container>

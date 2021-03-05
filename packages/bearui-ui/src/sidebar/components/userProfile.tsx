@@ -104,7 +104,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                       `onEditProfile requires a function but ${typeof onEditProfile} given`
                     )
                   }
-                  onEditProfile
+                  onEditProfile()
                 }
               }}
               size="xs"
@@ -120,7 +120,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                       `onSignOut requires a function but ${typeof onSignOut} given`
                     )
                   }
-                  onSignOut
+                  onSignOut()
                 }
               }}
               size="xs"

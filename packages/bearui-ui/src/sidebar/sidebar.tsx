@@ -9,6 +9,7 @@ import {
   useHideSideBar,
 } from "../theme"
 import UserProfile from "./components/userProfile"
+import { Scrollbars } from "react-custom-scrollbars"
 
 const SidebarContainer: any = styled.div`
   width: 16.5rem;
@@ -35,8 +36,7 @@ const SidebarContainer: any = styled.div`
   }
 
   .scrollbar {
-    overflow: hidden auto;
-    padding: 20px 13px;
+    padding: 20px 0px 20px 13px;
     background: ${(props: any) => props.background};
   }
 
@@ -50,6 +50,7 @@ const SidebarContainer: any = styled.div`
 
   #side-bar {
     white-space: nowrap;
+    margin-right: 17px;
 
     h6 {
       font-weight: 500;
@@ -405,10 +406,17 @@ const Sidebar: React.FC<SidebarProps> = ({
           role={role}
           onEditProfile={onEditProfile}
         />
+
         <div className="scrollbar">
-          <FlexColumn id="side-bar" gap="5px" align="left">
-            {children}
-          </FlexColumn>
+          <Scrollbars
+            autoHideDuration={200}
+            autoHide
+            style={{ width: "100%", height: "100%" }}
+          >
+            <FlexColumn id="side-bar" gap="5px" align="left">
+              {children}
+            </FlexColumn>
+          </Scrollbars>
         </div>
       </SidebarContainer>
       <div className="underlay"></div>

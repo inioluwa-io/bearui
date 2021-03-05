@@ -1,9 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { NotifyProps } from "../types"
-import {
-  ADD_NOTIFICATION,
-  REMOVE_TMP_NOTIFICATION,
-} from "../redux/types"
+import { ADD_NOTIFICATION, REMOVE_TMP_NOTIFICATION } from "../redux/types"
 import { useCallback } from "react"
 
 type NotificationProviderProps = (props: NotifyProps) => void
@@ -21,19 +18,25 @@ export type UseNotificationProps = (
  *
  * The second element in return array accepts an object as an argument.
  *  - {
- *      title:string,
- *      text:string,
- *      icon?:string,
+ *      avatarProps:string,
+ *      content:string,
+ *      time?:string,
  *    }
  *
  * @example
  * import { useNotification } from "react-admin-panel"
+ * import {  mdiAlert } from "@mdi/js"
  *
  * const LoginButton = () => {
- *    const [notification, addNotification] = useNotification()
+ *    const [notification, setNotification] = useNotification()
  *
  *    const handleLogin = () => {
- *        addNotification({title:"Title", "text":"some text"})
+ *        
+      setNotification({
+        avatarProps: { icon: mdiAlert, color: "danger" },
+        content: <p>{e.message}</p>,
+        time: "11:38pm",
+      })
  *    }
  *
  *    return <Button onClick = {handleLogin}></Button>

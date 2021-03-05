@@ -17,6 +17,7 @@ import styled from "styled-components"
 import { useLocale, useSetLocale } from "ra-core"
 import { themeConfig } from "../../configs"
 import { keys } from "lodash"
+import ReactCountryFlag from "react-country-flag"
 
 const ControlPanelContainer: any = styled.div`
   position: fixed;
@@ -222,12 +223,32 @@ const ControlPanel: React.FC<any> = ({ setNavPosition, navPosition }) => {
                             changeLocale(key)
                           }}
                         >
-                          {themeConfig.availableLanguages[key]}
+                          <FlexRow position="center" gap="7px">
+                            <ReactCountryFlag
+                              svg
+                              countryCode={
+                                themeConfig.availableLanguages[key].countryCode
+                              }
+                            />
+                            <span>
+                              {themeConfig.availableLanguages[key].name}
+                            </span>
+                          </FlexRow>
                         </button>
                       ))}
                       showIcon={false}
                     >
-                      {themeConfig.availableLanguages[locale]}
+                      <FlexRow position="center" gap="7px">
+                        <ReactCountryFlag
+                          svg
+                          countryCode={
+                            themeConfig.availableLanguages[locale].countryCode
+                          }
+                        />
+                        <span>
+                          {themeConfig.availableLanguages[locale].name}
+                        </span>
+                      </FlexRow>
                     </Dropdown>
                   </FlexRow>
                 </FlexColumn>

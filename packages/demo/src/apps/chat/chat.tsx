@@ -13,6 +13,7 @@ import {
   Dropdown,
   Tooltip,
 } from "@bearui/ui"
+import { Scrollbars } from "react-custom-scrollbars"
 import styled from "styled-components"
 import img from "../../assets/img4.jpg"
 import { Icon } from "@mdi/react"
@@ -129,15 +130,13 @@ const ConversationContainer: any = styled(Grid)`
     border-bottom: 1px solid #aaaaaa44;
   }
   .chatbubble-container {
-    padding: 0px 25px;
-    width: calc(100% - 45px);
+    padding: 0px 15px;
+    width: calc(100% - 30px);
     height: inherit;
     justify-content: flex-end;
     overflow: hidden;
 
     .chatbubble-inner-container {
-      overflow-y: auto;
-      padding-right: 10px;
       flex-direction: column-reverse;
     }
   }
@@ -467,44 +466,51 @@ const Chat: React.FC = () => {
                 </FlexRow>
               </div>
               <FlexColumn gap="0px" className="chatbubble-container">
-                <FlexColumn gap="5px" className="chatbubble-inner-container">
-                  {getChat().messages?.map((message: any, idx: number) => {
-                    const align = message.user_id === user_id ? "right" : "left"
-                    const showAvatar =
-                      (getChat().messages[idx + 1]?.user_id === user_id &&
-                        align === "left") ||
-                      (getChat().messages.length - 1 === idx &&
-                        align === "left")
-                    const spaceUp =
-                      getChat().messages[idx + 1]?.user_id !== message.user_id
-                    return (
-                      <div key={idx}>
-                        <FlexRow
-                          align={align}
-                          position="top"
-                          gap="10px"
-                          style={{ marginTop: spaceUp ? "30px" : "0px" }}
-                        >
-                          {showAvatar ? (
-                            <Avatar src={getChat().img} size="sm" />
-                          ) : (
-                            <div style={{ width: "38px" }}></div>
-                          )}
-                          <ChatBubble
+                <Scrollbars
+                  autoHideDuration={200}
+                  autoHide
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  <FlexColumn gap="5px" className="chatbubble-inner-container">
+                    {getChat().messages?.map((message: any, idx: number) => {
+                      const align =
+                        message.user_id === user_id ? "right" : "left"
+                      const showAvatar =
+                        (getChat().messages[idx + 1]?.user_id === user_id &&
+                          align === "left") ||
+                        (getChat().messages.length - 1 === idx &&
+                          align === "left")
+                      const spaceUp =
+                        getChat().messages[idx + 1]?.user_id !== message.user_id
+                      return (
+                        <div key={idx}>
+                          <FlexRow
                             align={align}
-                            background={
-                              align === "left"
-                                ? theme.colors.primary
-                                : cardBackground
-                            }
+                            position="top"
+                            gap="10px"
+                            style={{ marginTop: spaceUp ? "30px" : "0px" }}
                           >
-                            {message.content}
-                          </ChatBubble>
-                        </FlexRow>
-                      </div>
-                    )
-                  })}
-                </FlexColumn>
+                            {showAvatar ? (
+                              <Avatar src={getChat().img} size="sm" />
+                            ) : (
+                              <div style={{ width: "38px" }}></div>
+                            )}
+                            <ChatBubble
+                              align={align}
+                              background={
+                                align === "left"
+                                  ? theme.colors.primary
+                                  : cardBackground
+                              }
+                            >
+                              {message.content}
+                            </ChatBubble>
+                          </FlexRow>
+                        </div>
+                      )
+                    })}
+                  </FlexColumn>
+                </Scrollbars>
               </FlexColumn>
               <form
                 onSubmit={e => {

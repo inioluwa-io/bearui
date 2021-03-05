@@ -16,6 +16,7 @@ import {
 } from "../documentation"
 import StatisticsCards from "../cards/statistics"
 import { Loader } from "@bearui/ui"
+import AuthRoute from "./authRoute"
 
 // Code splitting
 const Default = lazy(() =>
@@ -320,162 +321,162 @@ const Routes: React.FC = () => {
           <Route>
             <LayoutComponent>
               <Switch>
-                <Route
+                <AuthRoute
                   exact
                   path="/"
-                  render={(props: any) => <Redirect to="/dashboard/default" />}
+                  component={(props: any) => <Redirect to="/dashboard/default" />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/dashboard/default"
                   component={(props: any) => <Default {...props} />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/dashboard/crypto"
                   component={(props: any) => <Crypto {...props} />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/apps/invoice"
                   component={(props: any) => <Invoice {...props} />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/apps/chat"
                   component={(props: any) => <Chat {...props} />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/apps/files"
                   component={(props: any) => <Files {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/apps/ecommerce"
                   component={(props: any) => <Ecommerce {...props} />}
                 />
-                <Route
+                <AuthRoute
                   exact
                   path="/apps/invoice/:id"
-                  render={(props: any) => <ViewInvoice {...props} />}
+                  component={(props: any) => <ViewInvoice {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/apps/todos"
                   component={(props: any) => <Todos {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/colors"
                   component={(props: any) => <ColorsPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/avatar"
                   component={(props: any) => <AvatarPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/card/statistics"
                   component={(props: any) => <StatisticsCards {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/button"
                   component={(props: any) => <ButtonPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/breadcrumb"
                   component={(props: any) => <BreadcrumbPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/chip"
                   component={(props: any) => <ChipPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/collapse"
                   component={(props: any) => <CollapsePage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/datalist"
                   component={(props: any) => <DataListPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/datatable"
                   component={(props: any) => <Table {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/dropdown"
                   component={(props: any) => <DropdownPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/loader"
                   component={(props: any) => <LoaderPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/modal"
                   component={(props: any) => <ModalPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/pagination"
                   component={(props: any) => <PaginationPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/progress"
                   component={(props: any) => <ProgressPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/tab"
                   component={(props: any) => <TabPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/components/tooltip"
                   component={(props: any) => <TooltipPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/layouts/grid"
                   component={(props: any) => <GridPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/layouts/flexrow"
                   component={(props: any) => <FlexRowPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/layouts/flexcolumn"
                   component={(props: any) => <FlexColumnPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/user/view"
                   component={(props: any) => <UserViewPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/user/Profile"
                   component={(props: any) => <UserProfilePage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/user/edit"
                   component={(props: any) => <UserEditPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/form-layouts"
                   component={(props: any) => <FormsLayoutPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/formelement/checkbox"
                   component={(props: any) => <CheckboxPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/formelement/select"
                   component={(props: any) => <SelectPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/formelement/switch"
                   component={(props: any) => <SwitchPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/formelement/textarea"
                   component={(props: any) => <TextAreaPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/formelement/input"
                   component={(props: any) => <InputPage {...props} />}
                 />
-                <Route
+                <AuthRoute
                   path="/page/pricing"
                   component={(props: any) => <Pricing {...props} />}
                 />

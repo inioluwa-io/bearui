@@ -24,15 +24,17 @@ import img from "../assets/dp1.jpg"
 import cardImg from "../assets/car1.png"
 import img1 from "../assets/brooks-leibee-562087-unsplash.jpg"
 import { mdiAccountGroupOutline, mdiCurrencyUsd, mdiCartOutline } from "@mdi/js"
-import { useTranslate } from "ra-core"
+import { useTranslate, useGetIdentity } from "ra-core"
 
 const Default: React.FC<any> = () => {
   const translate = useTranslate()
 
+  const { identity, loading: identityLoading } = useGetIdentity()
+  
   return (
     <Container>
       <Card withBackground={false} xsCol="12">
-        <h3>{translate("greetings.hello")} Mr Stark!</h3>
+        <h3>{translate("greetings.hello")} Mr {identity?.fullName}!</h3>
       </Card>
       <Card
         mdCol="6"

@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
-import {
-  LayoutComponent,
-  NotificationPanelMessage,
-} from "../types"
+import { LayoutComponent, NotificationPanelMessage } from "../types"
 import { Notification } from "../notification"
 import FlexColumn from "./flexColumn"
-import { useCollapseSideBar } from "../theme"
+import { useCollapseSideBar } from "../theme" 
 
 const NotificationComponent: React.FC<any> = ({ notification }) => {
   return (
@@ -43,30 +40,6 @@ const LayoutContainer: any = styled.div`
   font-size: calc(10px + 2vh);
   color: white;
   background: ${(props: any) => props.background};
-
-  &.isnotmobile {
-    * {
-      ::-webkit-scrollbar {
-        height: 8px;
-        width: 8px;
-        background: rgba(0, 0, 0, 0);
-        transition: all 0.25s ease;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb {
-        height: 8px;
-        width: 8px;
-        background: #aaaaaa55;
-        border-radius: 4px;
-        transition: all 0.25s ease;
-      }
-    }
-    *:hover {
-      ::-webkit-scrollbar-thumb {
-        background: #aaaaaa88;
-      }
-    }
-  }
 
   main {
     display: inline-flex;
@@ -144,7 +117,7 @@ const Layout: React.FC<LayoutComponent> = ({
         container.style.width = "calc(100% - 16.5rem)"
       }
     }
-  }, [collapseSideBar, refs])
+  }, [collapseSideBar, refs, sideBar])
 
   return (
     <LayoutContainer ref={refs} {...props} sideBar={!!sideBar} id="rap-layout">

@@ -25,10 +25,11 @@ import {
 } from "../configs"
 import { useSelector } from "react-redux"
 import { keys } from "lodash"
-import { useLocale, useSetLocale } from "ra-core"
+import { useLocale, useSetLocale, useGetIdentity, useLogout } from "ra-core"
 import ControlPanel from "./components/controlPanel"
 import NotificationPanel from "./components/notificationPanel"
 import styled from "styled-components"
+import ReactCountryFlag from "react-country-flag"
 
 const NotificationBell: any = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ const LayoutComponent: React.FC<any> = ({
   )
   const [notification] = useNotification()
   const locationPath = props.location.pathname
+  const allNotification = notification()
 
   const [theme, setTheme] = useTheme()
   const [navPosition, setNavPosition] = useState<NavbarPosition>(
@@ -73,6 +75,9 @@ const LayoutComponent: React.FC<any> = ({
 
   const locale = useLocale()
   const setLocale = useSetLocale()
+
+  const { identity, loading: identityLoading } = useGetIdentity()
+  const logout = useLogout()
 
   useEffect(() => {
     setTheme(themeConfig.colorPalette)
@@ -170,9 +175,13 @@ const LayoutComponent: React.FC<any> = ({
       sideBar={
         <Sidebar
           avatarText="DP"
-          fullName="Tony Stark"
-          role="Admin"
+          fullName={identity?.fullName}
+          role={"Admin"}
           avatarImg={img}
+          onEditProfile={() => {}}
+          onSignOut={() => {
+            logout({},"/pages/login",true)
+          }}
           logo={
             <>
               <img src={require("../assets/logo-min.png")} alt="logo" />
@@ -204,23 +213,34 @@ const LayoutComponent: React.FC<any> = ({
                     changeLocale(key)
                   }}
                 >
-                  {themeConfig.availableLanguages[key]}
+                  <FlexRow position="center" gap="7px">
+                    <ReactCountryFlag
+                      svg
+                      countryCode={
+                        themeConfig.availableLanguages[key].countryCode
+                      }
+                    />
+                    <span>{themeConfig.availableLanguages[key].name}</span>
+                  </FlexRow>
                 </button>
               ))}
               showIcon={false}
             >
-              {themeConfig.availableLanguages[locale]}
+              <ReactCountryFlag
+                svg
+                countryCode={themeConfig.availableLanguages[locale].countryCode}
+              />
             </Dropdown>,
             <Dropdown
               listener="click"
               list={[
                 <Row>
-                  <NotificationPanel messages={notification()} theme={theme} />
+                  <NotificationPanel messages={allNotification} theme={theme} />
                 </Row>,
               ]}
               showIcon={false}
             >
-              <NotificationBell showStatus={notification().length}>
+              <NotificationBell showStatus={allNotification.length}>
                 <Icon path={mdiBellOutline} color={color} size={1} />
               </NotificationBell>
             </Dropdown>,

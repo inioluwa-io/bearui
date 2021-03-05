@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { rgba } from "polished"
+import { Scrollbars } from "react-custom-scrollbars"
 import {
   Card,
   useTheme,
@@ -21,7 +22,7 @@ export type TimelineWidgetComponent = {
 }
 
 const CardContainer: any = styled(Card)`
-  overflow: hidden;
+  // overflow: hidden;
   .timeline-outer {
     position: relative;
 
@@ -52,12 +53,12 @@ const CardContainer: any = styled(Card)`
     border: none;
     background: transparent;
     width: calc(100% + 15px);
-    overflow: hidden;
+    // overflow: hidden;
     height: 65vh;
-    overflow-y: auto;
+    // overflow-y: auto;
     margin-left: -6px;
 
-    > div {
+    .timeline-outer {
       margin: 0;
       width: calc(100% - 22px);
       margin-left: 10px;
@@ -109,22 +110,28 @@ const TimelineWidget: React.FC<TimelineWidgetComponent> = ({
     >
       <h5>Timeline</h5>
       <div className="container">
-        <FlexColumn className="timeline-outer">
-          {data.map((item, idx: number) => (
-            <FlexRow
-              align="left"
-              key={idx}
-              position="top"
-              className="timeline-inner"
-            >
-              <TimelineIcon color={getColorFromTheme(item.color, theme)} />
-              <FlexColumn gap="5px" style={{ width: "auto", flex: "1" }}>
-                <span>{item.title}</span>
-                <p>{item.content}</p>
-              </FlexColumn>
-            </FlexRow>
-          ))}
-        </FlexColumn>
+        <Scrollbars
+          autoHideDuration={200}
+          autoHide
+          style={{ width: "100%", height: "100%" }}
+        >
+          <FlexColumn className="timeline-outer">
+            {data.map((item, idx: number) => (
+              <FlexRow
+                align="left"
+                key={idx}
+                position="top"
+                className="timeline-inner"
+              >
+                <TimelineIcon color={getColorFromTheme(item.color, theme)} />
+                <FlexColumn gap="5px" style={{ width: "auto", flex: "1" }}>
+                  <span>{item.title}</span>
+                  <p>{item.content}</p>
+                </FlexColumn>
+              </FlexRow>
+            ))}
+          </FlexColumn>
+        </Scrollbars>
       </div>
     </CardContainer>
   )

@@ -1,11 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  ReactComponentElement,
-  ReactElement,
-} from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
+import { Scrollbars } from "react-custom-scrollbars"
 import styled, { StyledComponent } from "styled-components"
 import { DatatableColumns, DatatableRule, DatatableComponent } from "../types"
 import { useTheme, useThemeMode } from "../theme"
@@ -19,6 +13,7 @@ import { Dropdown } from "../dropdown"
 import { Pagination } from "../pagination"
 import { PaginationIndexes } from "../types"
 import { Checkbox } from "../checkbox"
+
 type TableBodyStyle = {
   background: string
   cardBackground: string
@@ -551,185 +546,193 @@ const Datatable: React.FC<DatatableComponent> = ({
           </DataListFilter>
         </FlexColumn>
       )}
-      <div
-        style={{
-          overflow: "hidden",
-          width: "100%",
-          overflowX: "auto",
-        }}
-        {...props}
+      <Scrollbars
+        autoHideDuration={200}
+        autoHide
+        autoHeight
+        autoHeightMax={700}
+        style={{ width: "100%", height: "100%" }}
       >
-        <Table paddingTop={actionList.length} ref={refs}>
-          <TableHead id="rap-t-hd">
-            <tr
-              className={
-                check ? (selected.size ? "select selected" : "select") : ""
-              }
-            >
-              {showControls && (
-                <th className="select-box">
-                  {check && (
-                    <Checkbox
-                      active={selectAll}
-                      onCheck={() => {
-                        toggleSelectAll()
-                      }}
-                    >
-                      <p>ID</p>
-                    </Checkbox>
-                  )}
-                </th>
-              )}
-
-              {columns.map((item: DatatableColumns, idx: number) => (
-                <th
-                  key={idx}
-                  className={idx === +toggleSortIndex ? "rap-asc" : ""}
-                >
-                  {item.name && item.selector ? (
-                    <>
-                      <button
-                        onClick={e => {
-                          toggleSort(e, item.selector, idx)
+        <div
+          style={{
+            width: "100%",
+          }}
+          {...props}
+        >
+          <Table paddingTop={actionList.length} ref={refs}>
+            <TableHead id="rap-t-hd">
+              <tr
+                className={
+                  check ? (selected.size ? "select selected" : "select") : ""
+                }
+              >
+                {showControls && (
+                  <th className="select-box">
+                    {check && (
+                      <Checkbox
+                        active={selectAll}
+                        onCheck={() => {
+                          toggleSelectAll()
                         }}
                       >
-                        {item.name}
-                      </button>
-                      <Icon
-                        path={mdiArrowUp}
-                        color={themeMode === "lightmode" ? "#222" : "#ffffff"}
-                        size={0.55}
-                      />
-                    </>
-                  ) : (
-                    throwErr(
-                      `Columns must have properties 'name' and 'selector' in array of objects`
-                    )
-                  )}
-                </th>
-              ))}
-              {!!actionList.length && <th>ACTION</th>}
-            </tr>
-          </TableHead>
-          <TableBody
-            background={darken(0.075, background)}
-            cardBackground={background}
-            primaryColor={primaryColor}
-            textColor={textColor}
-          >
-            {filteredData
-              .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
-              .map((dataItem: any, idx: number) => {
-                return (
-                  <tr
-                    key={data.length - idx}
-                    className={
-                      check
-                        ? selected.get(dataItem[uniqueIdentifier])
-                          ? "select selected"
-                          : "select"
-                        : ""
-                    }
-                  >
-                    {showControls && (
-                      <td
-                        tabIndex={0}
-                        unselectable="on"
-                        style={{ fontSize: "12px" }}
-                        onFocus={e => {
-                          e.target.classList.add("focus")
-                        }}
-                        onBlur={e => {
-                          e.target.classList.remove("focus")
-                        }}
-                        onClick={(e: any) => {
-                          if (
-                            e.target.parentElement[uniqueIdentifier] !==
-                            "rap-cb-" + idx
-                          ) {
-                            toggleCheck(dataItem[uniqueIdentifier])
-                          }
-                        }}
-                      >
-                        {check && (
-                          <Checkbox
-                            id={"rap-cb-" + idx}
-                            active={!!selected.get(dataItem[uniqueIdentifier])}
-                            onCheck={() => {
-                              toggleCheck(dataItem[uniqueIdentifier])
-                            }}
-                          >
-                            <p>{idx + 1}</p>
-                          </Checkbox>
-                        )}
-                      </td>
+                        <p>ID</p>
+                      </Checkbox>
                     )}
-                    {columns.map((column: any, rowidx: number) => (
-                      <td
-                        key={rowidx}
-                        tabIndex={0}
-                        unselectable="on"
-                        onFocus={e => {
-                          e.target.classList.add("focus")
-                        }}
-                        onBlur={e => {
-                          e.target.classList.remove("focus")
-                        }}
-                        onClickCapture={(e: any) => {
-                          if (
-                            e.target.parentElement[uniqueIdentifier] !==
-                            "rap-cb-" + rowidx
-                          ) {
-                            const tmpSet = new Map()
-                            tmpSet.set(dataItem[uniqueIdentifier], true)
-                            setSelectAll(false)
-                            setSelected(tmpSet)
-                          }
+                  </th>
+                )}
 
-                          typeof onCellSelect === "function" &&
-                            onCellSelect(
-                              renderColumnData(column.selector, dataItem)
-                            )
-                          typeof onRowSelect === "function" &&
-                            onRowSelect([dataItem])
-                        }}
-                      >
-                        {renderColumnData(column.selector, dataItem)}
-                      </td>
-                    ))}
-                    {!!actionList.length && (
-                      <td className="dl-act">
-                        <Dropdown
-                          className="dl-opt"
-                          listener="click"
-                          showIcon={false}
-                          list={actionList.map((actionItem, idx: number) => (
-                            <Button
-                              size="sm"
-                              key={idx}
-                              background={actionItem.color}
-                              onClick={() => {
-                                actionItem.onClick(dataItem)
+                {columns.map((item: DatatableColumns, idx: number) => (
+                  <th
+                    key={idx}
+                    className={idx === +toggleSortIndex ? "rap-asc" : ""}
+                  >
+                    {item.name && item.selector ? (
+                      <>
+                        <button
+                          onClick={e => {
+                            toggleSort(e, item.selector, idx)
+                          }}
+                        >
+                          {item.name}
+                        </button>
+                        <Icon
+                          path={mdiArrowUp}
+                          color={themeMode === "lightmode" ? "#222" : "#ffffff"}
+                          size={0.55}
+                        />
+                      </>
+                    ) : (
+                      throwErr(
+                        `Columns must have properties 'name' and 'selector' in array of objects`
+                      )
+                    )}
+                  </th>
+                ))}
+                {!!actionList.length && <th>ACTION</th>}
+              </tr>
+            </TableHead>
+            <TableBody
+              background={darken(0.075, background)}
+              cardBackground={background}
+              primaryColor={primaryColor}
+              textColor={textColor}
+            >
+              {filteredData
+                .slice(paginationIndexes.startIndex, paginationIndexes.endIndex)
+                .map((dataItem: any, idx: number) => {
+                  return (
+                    <tr
+                      key={data.length - idx}
+                      className={
+                        check
+                          ? selected.get(dataItem[uniqueIdentifier])
+                            ? "select selected"
+                            : "select"
+                          : ""
+                      }
+                    >
+                      {showControls && (
+                        <td
+                          tabIndex={0}
+                          unselectable="on"
+                          style={{ fontSize: "12px" }}
+                          onFocus={e => {
+                            e.target.classList.add("focus")
+                          }}
+                          onBlur={e => {
+                            e.target.classList.remove("focus")
+                          }}
+                          onClick={(e: any) => {
+                            if (
+                              e.target.parentElement[uniqueIdentifier] !==
+                              "rap-cb-" + idx
+                            ) {
+                              toggleCheck(dataItem[uniqueIdentifier])
+                            }
+                          }}
+                        >
+                          {check && (
+                            <Checkbox
+                              id={"rap-cb-" + idx}
+                              active={
+                                !!selected.get(dataItem[uniqueIdentifier])
+                              }
+                              onCheck={() => {
+                                toggleCheck(dataItem[uniqueIdentifier])
                               }}
                             >
-                              {actionItem.text}
-                            </Button>
-                          ))}
+                              <p>{idx + 1}</p>
+                            </Checkbox>
+                          )}
+                        </td>
+                      )}
+                      {columns.map((column: any, rowidx: number) => (
+                        <td
+                          key={rowidx}
+                          tabIndex={0}
+                          unselectable="on"
+                          onFocus={e => {
+                            e.target.classList.add("focus")
+                          }}
+                          onBlur={e => {
+                            e.target.classList.remove("focus")
+                          }}
+                          onClickCapture={(e: any) => {
+                            if (
+                              e.target.parentElement[uniqueIdentifier] !==
+                              "rap-cb-" + rowidx
+                            ) {
+                              const tmpSet = new Map()
+                              tmpSet.set(dataItem[uniqueIdentifier], true)
+                              setSelectAll(false)
+                              setSelected(tmpSet)
+                            }
+
+                            typeof onCellSelect === "function" &&
+                              onCellSelect(
+                                renderColumnData(column.selector, dataItem)
+                              )
+                            typeof onRowSelect === "function" &&
+                              onRowSelect([dataItem])
+                          }}
                         >
-                          <Icon
-                            path={mdiDotsHorizontal}
-                            size={0.85}
-                            color={textColor}
-                          />
-                        </Dropdown>
-                      </td>
-                    )}
-                  </tr>
-                )
-              })}
-          </TableBody>
-        </Table>
-      </div>
+                          {renderColumnData(column.selector, dataItem)}
+                        </td>
+                      ))}
+                      {!!actionList.length && (
+                        <td className="dl-act">
+                          <Dropdown
+                            className="dl-opt"
+                            listener="click"
+                            showIcon={false}
+                            list={actionList.map((actionItem, idx: number) => (
+                              <Button
+                                size="sm"
+                                key={idx}
+                                background={actionItem.color}
+                                onClick={() => {
+                                  actionItem.onClick(dataItem)
+                                }}
+                              >
+                                {actionItem.text}
+                              </Button>
+                            ))}
+                          >
+                            <Icon
+                              path={mdiDotsHorizontal}
+                              size={0.85}
+                              color={textColor}
+                            />
+                          </Dropdown>
+                        </td>
+                      )}
+                    </tr>
+                  )
+                })}
+            </TableBody>
+          </Table>
+        </div>
+      </Scrollbars>
       {showControls && (
         <FlexRow align="right">
           <Pagination

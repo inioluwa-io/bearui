@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import {
   Card,
-  Container,
   FlexColumn,
   Checkbox,
   LinkButton,
@@ -12,9 +11,10 @@ import { TodoList, TodoLists } from "./mock"
 import { truncate } from "lodash"
 import { themeConfig } from "../../configs"
 import { rgba } from "polished"
+import { Scrollbars } from "react-custom-scrollbars"
 
 const TodosContainer: any = styled(Card)`
-  overflow: hidden;
+  // overflow: hidden;
   .add-tsk {
     position: fixed;
     bottom: 3rem;
@@ -101,9 +101,9 @@ const TodosList: any = styled.div`
   border: none;
   background: transparent;
   width: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   height: 56vh;
-  overflow-y: auto;
+  // overflow-y: auto;
   * {
     ::-webkit-scrollbar-thumb {
       background: #aaaaaa55;
@@ -182,7 +182,11 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
     <TodosContainer mdCol="4" smCol="12" size="xs" {...props}>
       <h5>Todos</h5>
       <TodosList panelTop={getPanelTop()}>
-        <Container>
+        <Scrollbars
+          autoHideDuration={200}
+          autoHide
+          style={{ width: "100%", height: "100%" }}
+        >
           {filterData
             .filter(todo => !todo.trashed)
             .map((todo, idx) => (
@@ -214,7 +218,7 @@ const TodosWidget: React.FC<{ appRoute: string }> = ({
                 </p>
               </Card>
             ))}
-        </Container>
+        </Scrollbars>
       </TodosList>
       <FlexColumn align="stretch">
         <LinkButton to={appRoute} transparent="true">
