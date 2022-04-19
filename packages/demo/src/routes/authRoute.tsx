@@ -13,6 +13,16 @@ const AuthRoute: React.FC<{ component: React.FC<any> } & RouteProps> = ({
       .then(() => setAuthenticated(true))
       .catch(() => setAuthenticated(false))
   }, [])
+
+return (
+    <Route
+      {...props}
+      render={props => (
+          <Component {...props} />)
+      }
+    ></Route>
+  )
+
   return (
     <Route
       {...props}
